@@ -28,7 +28,7 @@ export default function Login() {
           </div>
           <form className="loginBox">
             {/* onSubmit={handleClick} */}
-            <p class="texto">Usuario:</p>
+            <p class="texto">Usuario</p>
             <input
               placeholder="Nombre de usuario"
               type="nombre"
@@ -36,7 +36,7 @@ export default function Login() {
               ref={nombre}
               required
             />
-            <p class="texto">Contraseña:</p>
+            <p class="texto">Contraseña</p>
             <input
               placeholder="Contraseña"
               type="password"
