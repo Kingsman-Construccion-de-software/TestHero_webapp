@@ -21,12 +21,15 @@ export default function Login() {
     setPassword(password);
   };
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+
+    e.preventDefault()
+
     const data = {
       Correo: email,
       Password: password,
     };
-    const url = "https://localhost:44423/api/login/";
+    const url = "Api/Login";
     axios
       .post(url, data)
       .then((result) => {
