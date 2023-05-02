@@ -1,30 +1,44 @@
-import React, { useRef } from "react";
+import React from "react";
 import "./login.css";
 import logo from "../../assets/logo.png";
-// import { loginCall } from "../../apiCalls";
-// import { AuthContext } from "../../context/AuthContext";
-// import CircularProgress from "@mui/material/CircularProgress";
-
+import { useState } from "react";
+import axios from "axios";
 /**
  * @author: Bernardo de la Sierra
  * @license: GP
- * @version: 1.0.0
+ * @version: 2.0.0
  * Esta clase esta dedica al login
  */
 export default function Login() {
-  const nombre = useRef();
-  const password = useRef();
-  //   const { usuario, isFetching, error, dispatch } = useContext(AuthContext);
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
-  //   const handleClick = (e) => {
-  //     e.preventDefault();
-  //     loginCall(
-  //       { nombre: nombre.current.value, password: password.current.value },
-  //       dispatch
-  //     );
-  //   };
+  const handleEmailChange = (value) => {
+    setEmail(email);
+  };
 
-  // console.log(usuario);
+  const handlePasswordChange = (value) => {
+    setPassword(password);
+  };
+
+  const handleLogin = (e) => {
+
+    e.preventDefault()
+
+    const data = {
+      Correo: email,
+      Password: password,
+    };
+    const url = "Api/Login";
+    axios
+      .post(url, data)
+      .then((result) => {
+        alert(result.data);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
 
   return (
     <div className="login">
@@ -37,10 +51,10 @@ export default function Login() {
             {/* onSubmit={handleClick} */}
             <p class="texto">Usuario</p>
             <input
-              placeholder="Nombre de usuario"
-              type="nombre"
+              placeholder="Correo"
+              type="email"
               className="loginInput"
-              ref={nombre}
+              onChange={(e) => handleEmailChange(e.target.value)}
               required
             />
             <p class="texto">Contraseña</p>
@@ -48,13 +62,11 @@ export default function Login() {
               placeholder="Contraseña"
               type="password"
               className="loginInput"
-              ref={password}
+              onChange={(e) => handlePasswordChange(e.target.value)}
               required
-              minLength="6"
+              minLength="8"
             />
-            <button className="loginButton" type="submit">
-              {/* disabled={isFetching} */}
-              {/* <CircularProgress color="secondary" size="20px" /> */}
+            <button className="loginButton" onClick={() => handleLogin()}>
               Ingresar
             </button>
           </form>
