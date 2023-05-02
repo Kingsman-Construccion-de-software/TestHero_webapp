@@ -26,7 +26,7 @@ export default function Login() {
       Correo: email,
       Password: password,
     };
-    const url = "";
+    const url = "https://localhost:44423/api/login/";
     axios
       .post(url, data)
       .then((result) => {
