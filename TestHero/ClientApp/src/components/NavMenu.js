@@ -41,6 +41,7 @@ export class NavMenu extends Component {
             </ul>
           </Collapse>
         </Navbar>
+        <link rel='stylesheet' src="bootstrap.min.css"></link>
       </header>
     );
   }
