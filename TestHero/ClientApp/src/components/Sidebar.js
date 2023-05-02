@@ -16,9 +16,10 @@ export default function Sidebar() {
   return (
     <div>
       <div class="sidenav">
-        <div class="logo">
-        <img src={SidebarLogo}/>
+        <div class="logoPrincipal">
+          <img src={SidebarLogo} />
         </div>
+        <div class="logo"></div>
         <br></br>
         <br></br>
         <a>
