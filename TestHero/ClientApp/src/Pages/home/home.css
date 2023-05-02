@@ -1,0 +1,25 @@
+.home_background {
+    background-color: #1d1d1d;
+
+    text-align: center;
+    height: 100vw;
+}
+
+.titulo {
+    color: #EBEBEB;
+    font-style: bold;
+    font-size: 64px;
+    /* font-family: raleway; */
+
+}
+
+.icono {
+    width: 15%;
+    text-align: center;
+    align-content: center;
+}
+
+h4 {
+    color: #EBEBEB;
+
+}
