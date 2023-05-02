@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import SidebarLogo from "../assets/SidebarLogo.png";
-import Home from "../assets/Home.png";
-import Questions from "../assets/Questions.png";
-import Analytics from "../assets/Analytics.png";
+import React from "react";
+import SidebarLogo from "../../assets/SidebarLogo.png";
+import Home from "../../assets/Home.png";
+import Questions from "../../assets/Questions.png";
+import Analytics from "../../assets/Analytics.png";
 
 import "./Sidebar.css";
 /**

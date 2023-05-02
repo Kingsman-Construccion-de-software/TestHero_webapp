@@ -3,7 +3,7 @@ import React from "react";
 import "./home.css";
 // import logo from "../../assets/logo.png";
 import UserIcon from "../../assets/UserIcon.png";
-import Sidebar from "../../components/Sidebar.js";
+import Sidebar from "../../components/sidebar/Sidebar.js";
 import Grupo from "../../components/grupo/Grupo";
 
 /**
