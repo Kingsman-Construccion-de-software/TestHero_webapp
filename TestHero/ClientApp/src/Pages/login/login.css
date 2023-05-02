@@ -1,12 +1,12 @@
 .login {
   width: 120vw;
-  height: 120vh;
+  height: 140vh;
   background-color: #f0f2f5;
   display: flex;
   align-items: center;
   justify-content: center;
   background-image: url("../..//assets/fondo.jpg");
-  background-size: 120vw 120vh;
+  background-size: 120vw 140vh;
 }
 
 .loginWrapper {

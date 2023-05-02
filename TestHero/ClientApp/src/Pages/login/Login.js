@@ -5,6 +5,12 @@ import logo from "../../assets/logo.png";
 // import { AuthContext } from "../../context/AuthContext";
 // import CircularProgress from "@mui/material/CircularProgress";
 
+/**
+ * @author: Bernardo de la Sierra
+ * @license: GP
+ * @version: 1.0.0
+ * Esta clase esta dedica al login
+ */
 export default function Login() {
   const nombre = useRef();
   const password = useRef();
@@ -19,6 +25,7 @@ export default function Login() {
   //   };
 
   // console.log(usuario);
+
   return (
     <div className="login">
       <div className="loginWrapper">
