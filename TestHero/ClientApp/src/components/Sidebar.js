@@ -17,21 +17,21 @@ export default function Sidebar() {
     <div>
       <div class="sidenav">
         <div class="logoPrincipal">
-          <img src={SidebarLogo} />
+          <img src={SidebarLogo} alt="logo" />
         </div>
         <div class="logo"></div>
         <br></br>
         <br></br>
         <a>
-          <img src={Home} />
+          <img src={Home} alt="Home" />
         </a>
         <br></br>
         <a>
-          <img src={Questions} />
+          <img src={Questions} alt="Preguntas" />
         </a>
         <br></br>
         <a>
-          <img src={Analytics} />
+          <img src={Analytics} alt="Analiticas" />
         </a>
         <br></br>
       </div>

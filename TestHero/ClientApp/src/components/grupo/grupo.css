@@ -1,0 +1,29 @@
+.fondo {
+  margin-top: 200px;
+  width: 80%;
+  border: 2px solid #0596ff;
+  background-color: #1d1d1d;
+  margin-left: 15vw;
+  color: #ebebeb;
+  border-radius: 5px;
+}
+
+.imagen {
+  width: 400px;
+  height: 400px;
+  float: left;
+}
+
+.titulo {
+  font-size: 45px;
+}
+
+.subtitulo {
+  font-size: 40px;
+}
+
+.fecha {
+  font-size: 25px;
+  text-align: right;
+  margin-top: 20px;
+}

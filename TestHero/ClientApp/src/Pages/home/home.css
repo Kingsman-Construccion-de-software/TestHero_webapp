@@ -1,7 +1,6 @@
 .home_background {
   background-color: #1d1d1d;
 
-  text-align: center;
   height: 100vw;
 }
 
@@ -9,15 +8,28 @@
   color: #ebebeb;
   font-style: bold;
   font-size: 64px;
+  margin-left: 15vw;
+  text-align: left;
   /* font-family: raleway; */
 }
 
 .icono {
-  width: 15%;
-  text-align: center;
-  align-content: center;
+  width: 14%;
+  text-align: left;
+  margin-left: 15vw;
+  margin-right: 4vw;
+  float: left;
 }
 
-h4 {
+span {
+  color: #ebebeb;
+  font-size: 54px;
+}
+.fondo {
+  margin-top: 200px;
+  width: 84%;
+  border: 2px solid blue;
+  background-color: #1d1d1d;
+  margin-left: 15vw;
   color: #ebebeb;
 }
