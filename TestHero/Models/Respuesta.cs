@@ -5,8 +5,8 @@
 /// </summary>
 public class Respuesta
 {
-    public int IdRespuesta { get; set; };
-    public string respuesta { get; set; };
-    public bool escorrecta { get; set; };
-    public int IdPreguntas { get; set; };
+    public int IdRespuesta { get; set; }
+    public string respuesta { get; set; }
+    public bool escorrecta { get; set; }
+    public int IdPreguntas { get; set; }
 }

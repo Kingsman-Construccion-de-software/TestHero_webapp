@@ -20,7 +20,7 @@ export default class App extends Component {
 
       // </Layout>
       <div>
-        <HomePrincipal />
+        <Login />
       </div>
     );
   }
