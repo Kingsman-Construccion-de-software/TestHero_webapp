@@ -23,32 +23,42 @@ namespace TestHero.Controllers
             try
             {
                 DataTable dt = new DataTable();
-                using(MySqlConnection conn = new MySqlConnection(constring))
-                {
-                    using(MySqlCommand cmd = new MySqlCommand("get_profesor"))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
-                        cmd.Parameters.AddWithValue("@corr", profesor.Correo);
-                        cmd.Parameters.AddWithValue("@pass", profesor.Password);
-                        using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd))
-                        {
-                            sda.Fill(dt);
+                MySqlConnection conn = new MySqlConnection(constring);
+                MySqlCommand cmd = new MySqlCommand("get_profesor_by_correo");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@corr", profesor.Correo);
+                MySqlDataAdapter sda = new MySqlDataAdapter(cmd);
+                sda.Fill(dt);
 
-                            if (dt.Rows.Count > 0)
-                            {
-                                msg = "User is valid";
-                            }
-                            else
-                            {
-                                msg = "User is invalid";
-                            }
-                        }
+                if (dt.Rows.Count > 0)
+                {
+                    cmd = new MySqlCommand("get_profesor");
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = conn;
+                    cmd.Parameters.AddWithValue("@corr", profesor.Correo);
+                    cmd.Parameters.AddWithValue("@pass", profesor.Password);
+                    sda = new MySqlDataAdapter(cmd);
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    if(dt.Rows.Count > 0)
+                    {
+                        msg = "Login exitoso.";
+                    }
+                    else
+                    {
+                        msg = "El usuario y contraseña no coinciden. Inténtalo de nuevo.";
                     }
                 }
+                else
+                {
+                    msg = "El correo no se encuentra registrado, crea una nueva cuenta.";
+                }
+
+               
             } catch(Exception ex)
             {
-                msg = ex.Message;
+                msg = "Ocurrió un error interno, vuelve a intentarlo.";
             }
             return msg;
         }
