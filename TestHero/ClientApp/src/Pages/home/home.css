@@ -1,7 +1,7 @@
 .home_background {
   background-color: #1d1d1d;
-  height: 100vh;
   width: 100vw;
+  min-height: 100vh;
 }
 
 .tituloPagina {
@@ -17,6 +17,15 @@
 .datos {
   display: flex;
   align-items: center;
+}
+
+.examActuales {
+  display: flex;
+  margin-left: 10vw;
+  width: 85vw;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
 }
 
 .icono {
