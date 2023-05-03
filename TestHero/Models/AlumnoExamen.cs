@@ -5,10 +5,10 @@
 /// </summary>
 public class AlumnoExamen
 {
-    public int IdAlumno { get; set; };
-    public int IdExamen { get; set; };
-    public int calificacion { get; set; };
-    public int puntos { get; set; };
-    public string fechaRealizacion { get; set; };
+    public int IdAlumno { get; set; }
+    public int IdExamen { get; set; }
+    public int calificacion { get; set; }
+    public int puntos { get; set; }
+    public string fechaRealizacion { get; set; }
 
 }
