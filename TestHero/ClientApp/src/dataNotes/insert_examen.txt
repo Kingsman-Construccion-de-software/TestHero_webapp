@@ -1,0 +1,12 @@
+DELIMITER //
+DROP PROCEDURE IF EXISTS insert_examen;
+CREATE PROCEDURE insert_examen(IN cod VARCHAR(8),IN fInicio datetime ,IN fFin datetime, IN nom varchar(45), 
+IN mat varchar(45),IN idG int )
+BEGIN
+	INSERT INTO examen(codigo,fechaInicio,fechaFin,nombre,materia,idGrupo) values(cod,fInicio,fFin,nom,mat,idG);
+END //
+DELIMITER ;
+
+call insert_examen("mate1235","2012-12-30 14:10 ","2012-12-31 14:15","Examen de trigonometria","Matematicas",1);
+
+select * from examen;

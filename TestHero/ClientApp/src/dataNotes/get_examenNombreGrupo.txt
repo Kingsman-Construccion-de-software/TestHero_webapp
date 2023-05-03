@@ -1,0 +1,14 @@
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_examenNombreGrupo;
+CREATE PROCEDURE get_examenNombreGrupo(IN idG int)
+BEGIN
+	SELECT examen.nombre, grupo.nombre, examen.fechaFin 
+    from examen inner join grupo on 
+    examen.idGrupo = grupo.idGrupo 
+    and grupo.idGrupo = idG and
+    examen.fechaFin>CURDATE();
+END 
+// DELIMITER ;
+
+
+call  get_examenNombreGrupo(1)

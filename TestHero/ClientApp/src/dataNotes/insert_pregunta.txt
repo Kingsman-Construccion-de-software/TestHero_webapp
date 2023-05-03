@@ -1,0 +1,11 @@
+DELIMITER //
+DROP PROCEDURE IF EXISTS insert_pregunta;
+CREATE PROCEDURE insert_pregunta(IN preg text ,IN idE int )
+BEGIN
+	INSERT INTO pregunta(pregunta,idExamen) values(preg,idE);
+END //
+DELIMITER ;
+
+call insert_pregunta("¿Seno de 90?",1);
+
+select * from pregunta;

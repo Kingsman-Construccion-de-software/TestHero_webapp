@@ -1,0 +1,10 @@
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_examen;
+CREATE PROCEDURE get_examen(IN idG int)
+BEGIN
+	SELECT nombre,codigo,idExamen from examen where idGrupo = idG;
+END 
+// DELIMITER ;
+
+
+call get_examen(1)
