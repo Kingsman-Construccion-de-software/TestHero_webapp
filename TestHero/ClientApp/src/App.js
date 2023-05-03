@@ -5,6 +5,9 @@ import { Layout } from "./components/Layout";
 import "./custom.css";
 import Login from "./Pages/login/Login";
 import HomePrincipal from "./Pages/home/HomePrincipal";
+import Group from "Pages/group/Group"
+import Results from "Pages/results";
+
 export default class App extends Component {
   static displayName = App.name;
 
@@ -20,7 +23,9 @@ export default class App extends Component {
 
       // </Layout>
       <div>
-        <HomePrincipal />
+        {/* <HomePrincipal /> */}
+        {/* <Group /> */}
+        <Results />
       </div>
     );
   }
