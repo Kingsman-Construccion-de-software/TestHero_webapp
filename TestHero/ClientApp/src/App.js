@@ -5,6 +5,7 @@ import { Layout } from "./components/Layout";
 import "./custom.css";
 import Login from "./Pages/login/Login";
 import HomePrincipal from "./Pages/home/HomePrincipal";
+import CrearExamen from "./Pages/crearExamen/crearExamen";
 export default class App extends Component {
   static displayName = App.name;
 
@@ -20,7 +21,7 @@ export default class App extends Component {
 
       // </Layout>
       <div>
-        <HomePrincipal />
+        <CrearExamen />
       </div>
     );
   }

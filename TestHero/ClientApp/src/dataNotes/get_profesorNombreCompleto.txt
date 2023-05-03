@@ -1,0 +1,14 @@
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_profesorNombreCompleto;
+CREATE PROCEDURE  get_profesorNombreCompleto(IN corr VARCHAR(100))
+BEGIN
+	SELECT nombres,apellidos from profesor
+    WHERE correo = corr;
+   
+END // 
+DELIMITER ;
+
+
+call  get_profesorNombreCompleto("julia@gmail.com");
+
+select * from profesor;
