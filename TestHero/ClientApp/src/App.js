@@ -5,7 +5,7 @@ import "./custom.css";
 import Login from "./Pages/login/Login";
 import HomePrincipal from "./Pages/home/HomePrincipal";
 import Group from "Pages/group/Group"
-import Results from "Pages/results";
+import Results from "Pages/results/Results";
 
 export default class App extends Component {
   static displayName = App.name;
