@@ -1,10 +1,8 @@
-import styles from "Pages/results/results.module.css"
-
-// Components
-import Sidebar from "components/sidebar/Sidebar"
+import styles from "./results.module.css"
+import Sidebar from "../../components/sidebar/Sidebar"
 
 // Icons
-import userIcon from "assets/UserIcon.png"
+import userIcon from "../../assets/UserIcon.png"
 
 export default function Results() {
     return (

@@ -11,6 +11,7 @@
     margin-bottom: 40px;
   }
 
+<<<<<<< Updated upstream
 .titulo {
     font-size: 35px;
     font-weight: 500;
@@ -30,3 +31,20 @@
 
 .respuesta {
 }
+=======
+  .titulo {
+    font-size: 35px;
+    font-weight: 500;
+    margin-left: 20px;
+  }
+
+  .pregIcon{
+    float: right;
+    margin-right: 20px;
+  }
+  
+  .extension{
+    display: flex;
+    flex-wrap: wrap;
+  }
+>>>>>>> Stashed changes
