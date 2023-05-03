@@ -1,9 +1,14 @@
 using Microsoft.AspNetCore.Cors;
+using MySqlConnector;
 using System.Web.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddTransient(_ =>
+    new MySqlConnection(builder.Configuration.GetConnectionString("Server=127.0.0.1;Port=3306;Database=testhero;Uid=root;password=123;")));
+
 
 builder.Services.AddCors(options =>
 {

@@ -3,74 +3,86 @@ import "./login.css";
 import logo from "../../assets/logo.png";
 import { useState } from "react";
 import axios from "axios";
-/**
- * @author: Bernardo de la Sierra
- * @license: GP
- * @version: 2.0.0
- * Esta clase esta dedica al login
- */
+import { useEffect } from "react";
+import {useNavigate} from "react-router-dom";
+
 export default function Login() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [status, setStatus] = useState("");
+  const navigate = useNavigate();
 
   const handleEmailChange = (value) => {
-    setEmail(email);
+
+      setEmail(value);
+
   };
 
   const handlePasswordChange = (value) => {
-    setPassword(password);
+    setPassword(value);
   };
 
   const handleLogin = (e) => {
-
-    e.preventDefault()
+    e.preventDefault();
 
     const data = {
-      Correo: email,
-      Password: password,
+      "Correo": email,
+      "Password": password,
     };
-    const url = "Api/Login";
+
+    const url = "login";
+
     axios
       .post(url, data)
       .then((result) => {
-        alert(result.data);
+          setStatus(result.data);
       })
       .catch((error) => {
         alert(error);
       });
   };
 
+
+  useEffect(() => {
+    if(status === "Login exitoso."){
+      navigate("/home");
+    }
+  }, [status]);
+
+
   return (
     <div className="login">
       <div className="loginWrapper">
-        <div className="loginRight">
-          <div class="imagen">
-            <img src={logo} alt="Logo testHero" />
-          </div>
-          <form className="loginBox">
-            {/* onSubmit={handleClick} */}
-            <p class="texto">Usuario</p>
+        <div>
+          <img src={logo} alt="Logo testHero" />
+        </div>
+        <form className="loginBox" onSubmit={handleLogin}>
+          <p class="texto">Correo</p>
             <input
-              placeholder="Correo"
-              type="email"
-              className="loginInput"
-              onChange={(e) => handleEmailChange(e.target.value)}
-              required
+                placeholder="Correo"
+                type="email"
+                className="loginInput"
+                onChange={(e) => handleEmailChange(e.target.value)}
+                value={email}
+                required
             />
-            <p class="texto">Contraseña</p>
+            <p className="texto">Contraseña</p>
             <input
-              placeholder="Contraseña"
-              type="password"
-              className="loginInput"
-              onChange={(e) => handlePasswordChange(e.target.value)}
-              required
-              minLength="8"
+                placeholder="Contraseña"
+                type="password"
+                className="loginInput"
+                onChange={(e) => handlePasswordChange(e.target.value)}
+                value={password}
+                required
+                minLength="8"
             />
-            <button className="loginButton" onClick={() => handleLogin()}>
-              Ingresar
+            {status !== "Login exitoso." &&
+            <p className="textoError">{status}</p>
+            }
+            <button className="loginButton">
+                Ingresar
             </button>
           </form>
-        </div>
       </div>
     </div>
   );

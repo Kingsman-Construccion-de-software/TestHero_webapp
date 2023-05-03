@@ -1,36 +1,42 @@
 .login {
-  width: 98.8vw;
-  height: 110vh;
-  background-color: #f0f2f5;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url("../..//assets/fondo.jpg");
-  background-size: 98.8vw 110vh;
+  background-color: black;
+}
+
+.login::before {
+    content: "";
+    background-image: url("../..//assets/fondo.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.4;
+    z-index: 1;
 }
 
 .loginWrapper {
-  width: 35%;
-  height: 70%;
-  display: flex;
+    z-index: 2;
+    width: 60%;
+    max-width: 650px;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
 }
 
-.loginLeft,
-.loginRight {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 
 .loginDesc {
   font-size: 24px;
 }
 
 .loginBox {
-  height: 300px;
-  padding: 20px;
-  background-repeat: 10px;
+  padding: 25px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -50,17 +56,19 @@
 }
 
 .loginButton {
-  margin-top: 40px;
-  height: 50px;
-  background-repeat: 10px;
+  margin-top: 20px;
+  height: 60px;
   border: none;
   background-color: #0596ff;
   color: white;
   font-size: 20px;
   font-weight: 500;
-  cursor: pointer;
   border-radius: 10px;
   padding: 10px;
+}
+
+.loginButton:hover {
+    cursor: pointer;
 }
 
 .loginButton:focus {
@@ -81,6 +89,11 @@
   color: #f0f2f5;
 }
 
-.imagen {
-  text-align: center;
+.textoError {
+    font-size: 20px;
+    font-weight: bold;
+    color: #FD4D4D;
+    margin-top: 20px;
 }
+
+
