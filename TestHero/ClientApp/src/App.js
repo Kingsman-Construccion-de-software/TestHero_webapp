@@ -4,7 +4,7 @@ import AppRoutes from "./AppRoutes";
 import { Layout } from "./components/Layout";
 import "./custom.css";
 import Login from "./Pages/login/Login";
-
+import HomePrincipal from "./Pages/home/HomePrincipal";
 export default class App extends Component {
   static displayName = App.name;
 
@@ -20,7 +20,7 @@ export default class App extends Component {
 
       // </Layout>
       <div>
-        <Login />
+        <HomePrincipal />
       </div>
     );
   }
