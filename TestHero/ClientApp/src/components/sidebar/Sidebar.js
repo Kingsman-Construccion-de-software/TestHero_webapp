@@ -14,27 +14,17 @@ import "./Sidebar.css";
 
 export default function Sidebar() {
   return (
-    <div>
-      <div class="sidenav">
-        <div class="logoPrincipal">
-          <img src={SidebarLogo} alt="logo" />
-        </div>
-        <div class="logo"></div>
-        <br></br>
-        <br></br>
-        <a>
-          <img src={Home} alt="Home" />
-        </a>
-        <br></br>
-        <a>
-          <img src={Questions} alt="Preguntas" />
-        </a>
-        <br></br>
-        <a>
-          <img src={Analytics} alt="Analiticas" />
-        </a>
-        <br></br>
-      </div>
+    <div className="sidenav">
+      <img className="logoPrincipal" src={SidebarLogo} alt="logo" />
+      <a>
+        <img className="iconSidebar" src={Home} alt="Home" />
+      </a>
+      <a>
+        <img className="iconSidebar" src={Questions} alt="Preguntas" />
+      </a>
+      <a>
+        <img className="iconSidebar" src={Analytics} alt="Analiticas" />
+      </a>
     </div>
   );
 }

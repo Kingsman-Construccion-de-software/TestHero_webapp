@@ -19,13 +19,17 @@ export default function HomePrincipal() {
       <div>
         <Sidebar />
       </div>
-      <div class="home_background">
-        <div class="titulo">¡Bienvenido!</div> {/* inserte nombre*/}
-        <div>
-          <img class="icono" src={UserIcon} alt="icono de usuario" />
-          <span>Gerardo Ramírez</span>
+      <div className="home_background">
+        <h1 className="tituloPagina">¡Bienvenido!</h1> 
+        <div className="datos">
+          <img className="icono" src={UserIcon} alt="icono de usuario" />
+          <span className="nombreUsuario">Gerardo Ramírez</span>
         </div>
-        <Grupo />
+        <div className="examActuales">
+          <Grupo />
+          <Grupo />
+          <Grupo />
+        </div>
       </div>
     </div>
   );
