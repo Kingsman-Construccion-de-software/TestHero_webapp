@@ -3,12 +3,14 @@ import "./login.css";
 import logo from "../../assets/logo.png";
 import { useState } from "react";
 import axios from "axios";
-
+import { useEffect } from "react";
+import {useNavigate} from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState("");
+  const navigate = useNavigate();
 
   const handleEmailChange = (value) => {
 
@@ -40,14 +42,22 @@ export default function Login() {
       });
   };
 
+
+  useEffect(() => {
+    if(status === "Login exitoso."){
+      navigate("/home");
+    }
+  }, [status]);
+
+
   return (
     <div className="login">
       <div className="loginWrapper">
-          <div>
-            <img src={logo} alt="Logo testHero" />
-          </div>
+        <div>
+          <img src={logo} alt="Logo testHero" />
+        </div>
         <form className="loginBox" onSubmit={handleLogin}>
-            <p class="texto">Correo</p>
+          <p class="texto">Correo</p>
             <input
                 placeholder="Correo"
                 type="email"
@@ -66,7 +76,9 @@ export default function Login() {
                 required
                 minLength="8"
             />
+            {status !== "Login exitoso." &&
             <p className="textoError">{status}</p>
+            }
             <button className="loginButton">
                 Ingresar
             </button>
