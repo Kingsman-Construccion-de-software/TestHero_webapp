@@ -1,12 +1,11 @@
 .fondo {
-  margin-top: 100px;
   width: 50%;
   border: 2px solid #0596ff;
   background-color: #1d1d1d;
-  margin-left: 15vw;
   color: #ebebeb;
   border-radius: 5px;
   display: flex;
+  margin-bottom: 40px;
 }
 
 .imagenGrupo {

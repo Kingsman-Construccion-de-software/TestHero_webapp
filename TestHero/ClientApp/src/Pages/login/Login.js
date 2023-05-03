@@ -53,9 +53,7 @@ export default function Login() {
   return (
     <div className="login">
       <div className="loginWrapper">
-        <div>
-          <img src={logo} alt="Logo testHero" />
-        </div>
+        <img src={logo} alt="Logo testHero" />
         <form className="loginBox" onSubmit={handleLogin}>
           <p class="texto">Correo</p>
             <input
