@@ -10,26 +10,29 @@ import axios from "axios";
  * Esta clase esta dedica al login
  */
 export default function Login() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleEmailChange = (value) => {
-    console.log(value);
-    setEmail(value);
+
+      setEmail(value);
+
   };
 
   const handlePasswordChange = (value) => {
-    setPassword(password);
+    setPassword(value);
   };
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     const data = {
-      Correo: email,
-      Password: password,
+      "Correo": email,
+      "Password": password,
     };
-    const url = "Api/Login";
+
+    const url = "login";
+
     axios
       .post(url, data)
       .then((result) => {
@@ -46,15 +49,16 @@ export default function Login() {
         <div className="loginRight">
           <div class="imagen">
             <img src={logo} alt="Logo testHero" />
-          </div>
-          <form className="loginBox">
+                  </div>
+                  <form className="loginBox" onSubmit={handleLogin}>
             {/* onSubmit={handleClick} */}
-            <p class="texto">Usuario</p>
+            <p class="texto">Correo</p>
             <input
               placeholder="Correo"
               type="email"
               className="loginInput"
               onChange={(e) => handleEmailChange(e.target.value)}
+              value={email}
               required
             />
             <p class="texto">Contraseña</p>
@@ -63,10 +67,11 @@ export default function Login() {
               type="password"
               className="loginInput"
               onChange={(e) => handlePasswordChange(e.target.value)}
+              value={password}
               required
               minLength="8"
             />
-            <button className="loginButton" onClick={() => handleLogin()}>
+            <button className="loginButton">
               Ingresar
             </button>
           </form>
