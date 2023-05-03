@@ -1,20 +1,25 @@
-import { Counter } from "./components/Counter";
-import { FetchData } from "./components/FetchData";
-import { Home } from "./components/Home";
+import  Home  from "./Pages/home/HomePrincipal";
+import Login from "./Pages/login/Login";
+import Group from "Pages/group";
+import Results from "Pages/results";
 
 const AppRoutes = [
   {
     index: true,
+    element: <Login />,
+  },
+  {
+    path: "/home",
     element: <Home />,
   },
   {
-    path: "/counter",
-    element: <Counter />,
+    path: "/group",
+    element: <Group />,
   },
   {
-    path: "/fetch-data",
-    element: <FetchData />,
-  },
+    path: "/results",
+    element: <Results />,
+  }
 ];
 
 export default AppRoutes;

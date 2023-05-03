@@ -1,35 +1,45 @@
 .home_background {
   background-color: #1d1d1d;
-
-  height: 100vw;
+  width: 100vw;
+  min-height: 100vh;
 }
 
-.titulo {
+.tituloPagina {
   color: #ebebeb;
   font-style: bold;
-  font-size: 64px;
+  font-size: 40px;
+  margin-bottom: 40px;
+  padding-top: 15px;
   margin-left: 15vw;
   text-align: left;
-  /* font-family: raleway; */
+}
+
+.datos {
+  display: flex;
+  align-items: center;
+}
+
+.examActuales {
+  display: flex;
+  margin-left: 10vw;
+  width: 85vw;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
 }
 
 .icono {
-  width: 14%;
+  width: 10%;
+  min-width: 100px;
   text-align: left;
   margin-left: 15vw;
   margin-right: 4vw;
   float: left;
 }
 
-span {
+.nombreUsuario {
   color: #ebebeb;
-  font-size: 54px;
+  font-size: 35px;
+  font-weight: 500;
 }
-.fondo {
-  margin-top: 200px;
-  width: 84%;
-  border: 2px solid blue;
-  background-color: #1d1d1d;
-  margin-left: 15vw;
-  color: #ebebeb;
-}
+

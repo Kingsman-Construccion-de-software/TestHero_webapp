@@ -1,29 +1,37 @@
 .fondo {
-  margin-top: 200px;
-  width: 80%;
+  width: 50%;
   border: 2px solid #0596ff;
   background-color: #1d1d1d;
-  margin-left: 15vw;
   color: #ebebeb;
   border-radius: 5px;
+  display: flex;
+  margin-bottom: 40px;
 }
 
-.imagen {
-  width: 400px;
-  height: 400px;
-  float: left;
+.imagenGrupo {
+  margin-right: 10%;
+  width: 50%;
+  max-width: 300px;
+  background-image: url("../../assets/trigo.png");
+  background-size: cover;
+}
+
+.infoGrupo{
+  padding-top: 10px;
+  padding-bottom: 15px;
 }
 
 .titulo {
-  font-size: 45px;
+  font-size: 35px;
+  font-weight: 500;
 }
 
 .subtitulo {
-  font-size: 40px;
+  margin-top: 10px;
+  font-size: 30px;
 }
 
 .fecha {
-  font-size: 25px;
-  text-align: right;
-  margin-top: 20px;
+  font-size: 20px;
+  margin-top: 25px;
 }

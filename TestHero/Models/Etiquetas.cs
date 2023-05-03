@@ -5,6 +5,6 @@
 /// </summary>
 public class Etiquetas
 {
-	public int IdEtiquetas { get; set; };
+	public int IdEtiquetas { get; set; }
 	public string Nombre { get; set; }
 }
