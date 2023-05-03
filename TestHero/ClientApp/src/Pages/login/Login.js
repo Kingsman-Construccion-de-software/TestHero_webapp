@@ -14,7 +14,8 @@ export default function Login() {
   const [password, setPassword] = useState();
 
   const handleEmailChange = (value) => {
-    setEmail(email);
+    console.log(value);
+    setEmail(value);
   };
 
   const handlePasswordChange = (value) => {
@@ -22,8 +23,7 @@ export default function Login() {
   };
 
   const handleLogin = (e) => {
-
-    e.preventDefault()
+    e.preventDefault();
 
     const data = {
       Correo: email,
