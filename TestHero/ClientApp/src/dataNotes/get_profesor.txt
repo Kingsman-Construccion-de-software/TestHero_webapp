@@ -1,0 +1,11 @@
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_profesor;
+CREATE PROCEDURE get_profesor(IN corr VARCHAR(100), IN pass VARCHAR(45))
+BEGIN
+	SELECT correo, password from profesor
+    WHERE correo = correo
+    AND password = pass;
+END // 
+DELIMITER ;
+
+call get_profesor(correo, password)
