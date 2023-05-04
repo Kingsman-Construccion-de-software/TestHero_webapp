@@ -1,5 +1,5 @@
 .fondo {
-  width: 50%;
+  width: 80%;
   border: 2px solid #0596ff;
   background-color: #1d1d1d;
   color: #ebebeb;
@@ -10,7 +10,7 @@
 
 .imagenGrupo {
   margin-right: 10%;
-  width: 50%;
+  width: 60%;
   max-width: 300px;
   background-image: url("../../assets/trigo.png");
   background-size: cover;
@@ -21,7 +21,7 @@
   padding-bottom: 15px;
 }
 
-.titulo {
+.tituloCard {
   font-size: 35px;
   font-weight: 500;
 }

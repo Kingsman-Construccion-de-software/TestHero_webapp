@@ -15,7 +15,7 @@ namespace TestHero.Controllers
             Db = db;
         }
 
-        // GET api/<Pregunta>/id
+        // GET api/pregunta/examen/id
         [Route("api/pregunta/examen/{id:int}")]
         [HttpGet]
         public async Task<IActionResult> GetExamenPreguntas(int id)
