@@ -34,14 +34,6 @@
     align-items: center;
 }
 
-.examActuales {
-    display: flex;
-    margin-left: 10vw;
-    width: 85vw;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
-}
 
 .icono {
     width: 10%;
@@ -58,3 +50,8 @@
     font-weight: 500;
 }
 
+.preguntas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

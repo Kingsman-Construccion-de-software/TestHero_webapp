@@ -1,34 +1,67 @@
 import React from "react";
 import "./Pregunta.css";
-import {FaArrowDown} from "react-icons/fa"
+import {FaArrowDown, FaEdit} from "react-icons/fa"
+import {MdCancel} from "react-icons/md"
+import { useState } from "react";
+
 
 export default function Pregunta() {
+
+  const [open, setOpen] = useState(false);
+  const [showing, setSbowing] = useState(false);
+
+
+  const toggleOpen = () => {
+    setOpen(!open);
+  }
+
+  const timeOutOpen = () => {
+    setSbowing(!showing);
+    if(open){
+        setTimeout(toggleOpen, 1000);
+    } else {
+        toggleOpen();
+    }
+  }
+  
   return (
-    <div>
+    <div className="pregunta">
         <div className="dropdown">
             <p className="titulo">Coseno de 180°</p>
-            <div class="pregIcon">
+            <div class="pregIcon" onClick={timeOutOpen}>
                 <FaArrowDown size={40}/>
             </div>
         </div>  
-        <div className="extension">
-            <div className="respuesta">
-                <input type="radio"/>
-                <p>Opción 1</p>
+        {open &&
+            <div className={showing ? "extension showing" : "extension hiding"}>
+                <form className="respuestas">
+                    <div className="respuesta">
+                        <input type="radio" name="opciónPregunta1" value="opción1"/>
+                        <p>Opción 1</p>
+                    </div>
+                    <div className="respuesta" value="opción2">
+                        <input type="radio" name="opciónPregunta1"/>
+                        <p>Opción 2</p>
+                    </div>
+                    <div className="respuesta" value="opción3">
+                        <input type="radio" name="opciónPregunta1" />
+                        <p>Opción 3</p>
+                    </div>
+                    <div className="respuesta" value="opción4">
+                        <input type="radio" name="opciónPregunta1"/>
+                        <p>Opción 4</p>
+                    </div>
+                </form>
+                <div className="iconsRespuesta">
+                    <div className="crudIcon">
+                        <FaEdit size={35}/>
+                    </div>
+                    <div className="crudIcon">
+                        <MdCancel size={35}/>
+                    </div>
+                </div>
             </div>
-            <div className="respuesta">
-                <input type="radio"/>
-                <p>Opción 2</p>
-            </div>
-            <div className="respuesta">
-                <input type="radio"/>
-                <p>Opción 3</p>
-            </div>
-            <div className="respuesta">
-                <input type="radio"/>
-                <p>Opción 4</p>
-            </div>
-        </div>
+        }
     </div>      
   );
 }

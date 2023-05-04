@@ -14,8 +14,12 @@ export default function Questions() {
                 <div className="subtitles">
                     <h2>Preguntas</h2>
                     <h2>Código: 13467942</h2>
-                </div>          
-            <Pregunta/>  
+                </div> 
+                <div className="preguntas">
+                    <Pregunta/>  
+                    <Pregunta/>  
+                    <Pregunta/>  
+                </div>         
             </div>
         </div>
     </div>
