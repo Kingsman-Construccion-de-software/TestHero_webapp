@@ -30,7 +30,7 @@ export default function Login() {
       "Password": password,
     };
 
-    const url = "login";
+    const url = "api/login";
 
     axios
       .post(url, data)

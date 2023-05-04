@@ -1,13 +1,16 @@
 using Microsoft.AspNetCore.Cors;
 using MySqlConnector;
 using System.Web.Http;
+using TestHero;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
+
+
 builder.Services.AddTransient(_ =>
-    new MySqlConnection(builder.Configuration.GetConnectionString("Server=127.0.0.1;Port=3306;Database=testhero;Uid=root;password=123;")));
+    new AppDb(builder.Configuration["ConnectionStrings:Default"]));
 
 
 builder.Services.AddCors(options =>
@@ -18,7 +21,6 @@ builder.Services.AddCors(options =>
                           policy.WithOrigins("https://localhost:44423").AllowAnyHeader().AllowAnyMethod();
                       });
 });
-
 
 // Add services to the container.
 
@@ -39,10 +41,10 @@ app.UseRouting();
 
 app.UseCors(MyAllowSpecificOrigins);
 
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
+
 
 app.MapFallbackToFile("index.html"); ;
 

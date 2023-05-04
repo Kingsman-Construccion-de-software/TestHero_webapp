@@ -10,16 +10,16 @@ using MySqlConnector;
 namespace TestHero.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
         string constring = "Server=127.0.0.1;Port=3306;Database=testhero;Uid=root;password=123;";
-        MySqlCommand cmd = null;
 
+        //POST api/login
         [HttpPost]
         public string Login(Profesor profesor)
         {
-            string msg = string.Empty;
+            string msg;
             try
             {
                 DataTable dt = new DataTable();

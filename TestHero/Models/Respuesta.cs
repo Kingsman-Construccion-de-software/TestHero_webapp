@@ -6,7 +6,7 @@
 public class Respuesta
 {
     public int IdRespuesta { get; set; }
-    public string respuesta { get; set; }
-    public bool escorrecta { get; set; }
+    public string TextoRespuesta { get; set; }
+    public bool Escorrecta { get; set; }
     public int IdPreguntas { get; set; }
 }
