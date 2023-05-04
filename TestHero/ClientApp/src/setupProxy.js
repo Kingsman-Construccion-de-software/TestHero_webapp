@@ -9,6 +9,11 @@ const context =  [
     "/api/pregunta",
     "/api/examen",
     "/api/respuesta",
+    "/api/profesor",
+    "/api/grupo",
+    "/api/etiqueta",
+    "/api/etiqueta/examen",
+    "/api/grupo/profesor",
     "/api/pregunta/examen",
     "/api/examen/grupo",
     "/api/respuesta/pregunta"

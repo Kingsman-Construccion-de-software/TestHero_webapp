@@ -26,6 +26,7 @@ namespace TestHero.Controllers
             return new OkObjectResult(result);
         }
 
+
         // GET: api/<Examen>/id
         [Route("api/examen/{id:int}")]
         [HttpGet]

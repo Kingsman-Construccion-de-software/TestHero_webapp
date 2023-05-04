@@ -3,6 +3,7 @@ import SidebarLogo from "../../assets/SidebarLogo.png";
 import Home from "../../assets/Home.png";
 import Questions from "../../assets/Questions.png";
 import Analytics from "../../assets/Analytics.png";
+import { Link } from "react-router-dom";
 
 import "./Sidebar.css";
 /**
@@ -13,18 +14,19 @@ import "./Sidebar.css";
  */
 
 export default function Sidebar() {
+
   return (
     <div className="sidenav">
-      <img className="logoPrincipal" src={SidebarLogo} alt="logo" />
-      <a>
+      <img className="logoPrincipal" src={SidebarLogo} alt="logo"/>
+      <Link to={"/home"}>
         <img className="iconSidebar" src={Home} alt="Home" />
-      </a>
-      <a>
+      </Link>
+      <Link to={"/group"}>
         <img className="iconSidebar" src={Questions} alt="Preguntas" />
-      </a>
-      <a>
+      </Link>
+      <Link to={"/results"}>
         <img className="iconSidebar" src={Analytics} alt="Analiticas" />
-      </a>
+      </Link>
     </div>
   );
 }
