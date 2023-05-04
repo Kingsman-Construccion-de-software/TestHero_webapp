@@ -70,6 +70,7 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@id", id);
             cmd.Parameters.AddWithValue("@preg", TextoPregunta);
             await cmd.ExecuteNonQueryAsync();
+            IdPregunta = id;
         }
 
         public async Task DeletePregunta(int id)
@@ -92,6 +93,7 @@ namespace TestHero
                     {
                         IdPregunta = reader.GetInt32(0),
                         TextoPregunta = reader.GetString(1),
+                        IdExamen = reader.GetInt32(2)
                     };
                     preguntas.Add(pregunta);
                 }
