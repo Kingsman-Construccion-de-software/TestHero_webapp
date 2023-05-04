@@ -3,8 +3,8 @@
 /// <summary>
 /// Summary description for Class1
 /// </summary>
-public class Etiquetas
+public class Etiqueta
 {
-	public int IdEtiquetas { get; set; }
+	public int IdEtiqueta { get; set; }
 	public string Nombre { get; set; }
 }
