@@ -35,7 +35,8 @@ export default function Login() {
     axios
       .post(url, data)
       .then((result) => {
-          setStatus(result.data);
+          console.log(result.data);
+          setStatus(result.data.message);
       })
       .catch((error) => {
         alert(error);
@@ -44,7 +45,7 @@ export default function Login() {
 
 
   useEffect(() => {
-    if(status === "Login exitoso."){
+    if(status === "Login exitoso"){
       navigate("/home");
     }
   }, [status]);
