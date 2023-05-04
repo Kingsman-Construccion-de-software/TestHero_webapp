@@ -1,7 +1,8 @@
 import  Home  from "./Pages/home/HomePrincipal";
 import Login from "./Pages/login/Login";
-import Group from "Pages/group";
-import Results from "Pages/results";
+import Group from "./Pages/group/Group";
+import Results from "./Pages/results/Results";
+import Questions from "./Pages/questions/questions";
 
 const AppRoutes = [
   {
@@ -19,6 +20,10 @@ const AppRoutes = [
   {
     path: "/results",
     element: <Results />,
+  },
+  {
+    path: "/questions",
+    element: <Questions/>
   }
 ];
 

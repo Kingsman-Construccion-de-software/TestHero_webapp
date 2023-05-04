@@ -1,7 +1,5 @@
-import styles from "Pages/group/group.module.css"
-
-// Components
-import Sidebar from "components/sidebar/Sidebar"
+import styles from "./group.module.css"
+import Sidebar from "../../components/sidebar/Sidebar"
 
 export default function Group() {
     return (
