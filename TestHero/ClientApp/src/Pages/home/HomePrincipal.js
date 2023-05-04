@@ -5,6 +5,9 @@ import "./home.css";
 import UserIcon from "../../assets/UserIcon.png";
 import Sidebar from "../../components/sidebar/Sidebar.js";
 import Grupo from "../../components/grupo/Grupo";
+import { useContext } from "react";
+import ProfesorContext from "context/contextoProfesor";
+
 
 /**
  * @author: Leonardo García y Bernardo de la Sierra
@@ -14,6 +17,8 @@ import Grupo from "../../components/grupo/Grupo";
  */
 
 export default function HomePrincipal() {
+  const {state, setState } = useContext(ProfesorContext);
+
   return (
     <div>
       <div>
@@ -23,7 +28,7 @@ export default function HomePrincipal() {
         <h1 className="tituloPagina">¡Bienvenido!</h1> 
         <div className="datos">
           <img className="icono" src={UserIcon} alt="icono de usuario" />
-          <span className="nombreUsuario">Gerardo Ramírez</span>
+          <span className="nombreUsuario">{state.nombre}</span>
         </div>
         <div className="examActuales">
           <Grupo />
