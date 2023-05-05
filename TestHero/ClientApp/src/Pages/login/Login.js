@@ -15,16 +15,14 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleEmailChange = (value) => {
-
       setEmail(value);
-
   };
 
   const handlePasswordChange = (value) => {
     setPassword(value);
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     const data = {
@@ -34,37 +32,33 @@ export default function Login() {
 
     const url = "api/login";
 
-    axios
-      .post(url, data)
-      .then((result) => {
-          console.log(result.data);
-          setStatus(result.data.message);
+    try {
+      const result = await axios.post(url, data);
+      setStatus(result.data.message);
           if(result.data.message === "Login exitoso"){
             getProfesor(result.data.id);
-          }
-      })
-      .catch((error) => {
-        alert(error);
-      });
+      }
+    } catch(error){
+      alert(error);
+    }
+      
   };
 
-  const getProfesor = (id) => {
+  const getProfesor = async (id) => {
     const url = `api/profesor/${id}`;
 
-    axios
-      .get(url)
-      .then((result) => {
-          let res = result.data[0];
-          let profesor = {
-            id: res.idProfesor,
-            nombre: res.nombre + " " + res.apellido,
-            correo: res.correo
-          }
-          setState(profesor);
-      })
-      .catch((error) => {
+    try{
+      const result = await axios.get(url);
+      let res = result.data[0];
+      let profesor = {
+        id: res.idProfesor,
+        nombre: res.nombre + " " + res.apellido,
+        correo: res.correo
+      }
+      setState(profesor);
+    } catch(error){
         alert(error);
-      });
+      };
   }
 
 
@@ -80,7 +74,7 @@ export default function Login() {
       <div className="loginWrapper">
         <img src={logo} alt="Logo testHero" />
         <form className="loginBox" onSubmit={handleLogin}>
-          <p class="texto">Correo</p>
+          <p className="texto">Correo</p>
             <input
                 placeholder="Correo"
                 type="email"

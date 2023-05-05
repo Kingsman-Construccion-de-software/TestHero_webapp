@@ -84,13 +84,27 @@ END //
 DELIMITER ;
 
 DELIMITER //
+DROP PROCEDURE IF EXISTS get_profesor_examenes_activos;
+CREATE PROCEDURE get_profesor_examenes_activos(IN idP int)
+BEGIN
+	SELECT e.idExamen, e.nombre, e.fechaFin, g.nombre as grupo
+    FROM examen as e
+    JOIN grupo as g
+    ON g.idGrupo =  e.idGrupo
+    WHERE g.idProfesor = idP
+    AND e.fechaFin > NOW();
+END 
+// DELIMITER ;
+
+CALL get_profesor_examenes_activos(1);
+
+DELIMITER //
 DROP PROCEDURE IF EXISTS get_grupo_examenes;
 CREATE PROCEDURE get_grupo_examenes(IN idG int)
 BEGIN
 	SELECT idExamen, codigo, nombre, materia, fechaInicio, fechaFin, idGrupo 
     FROM examen
-    WHERE idGrupo = idG 
-    AND examen.fechaFin > NOW();
+    WHERE idGrupo = idG;
 END 
 // DELIMITER ;
 
@@ -226,3 +240,4 @@ DELIMITER ;
 
 CALL insert_etiquetas_examen(1, 1);
 CALL get_etiquetas_examen(1);
+SELECT * FROM profesor;

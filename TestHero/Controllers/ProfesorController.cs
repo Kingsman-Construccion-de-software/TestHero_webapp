@@ -27,7 +27,5 @@ namespace TestHero.Controllers
             result[0].IdProfesor = id;
             return new OkObjectResult(result);
         }
-
-       
     }
 }
