@@ -6,11 +6,17 @@ import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
 import "./Pregunta.css";
 
-
-export default function Pregunta({ pregunta, filterPreguntas }) {
+export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
   const [open, setOpen] = useState(false);
   const [showing, setSbowing] = useState(false);
   const [show, setShow] = useState(false);
+  const [fpregunta, setFpregunta] = useState(pregunta.textoPregunta);
+  const [opcion1, setOpcion1] = useState("");
+  const [opcion2, setOpcion2] = useState("");
+  const [opcion3, setOpcion3] = useState("");
+  const [opcion4, setOpcion4] = useState("");
+  const opciones = [opcion1, opcion2, opcion3, opcion4];
+  const setOpciones = [setOpcion1, setOpcion2, setOpcion3, setOpcion4];
 
   const toggleOpen = () => {
     setOpen(!open);
@@ -30,32 +36,75 @@ export default function Pregunta({ pregunta, filterPreguntas }) {
 
   const [respuestas, setRespuestas] = useState([]);
 
-  const URIrespuestas = "api/respuesta/pregunta/";
-
   const getRespuestas = async () => {
+    const URIrespuestas = "api/respuesta/pregunta/";
     const res = await axios.get(`${URIrespuestas}${pregunta.idPregunta}`);
     setRespuestas(res.data);
   };
 
-  const URIdelete = "api/pregunta/";
+  const [selected, setSelected] = useState(false);
+
+  const handleSelected = () => {
+    setSelected(!selected);
+  };
 
   const deletePregunta = async () => {
+    const URIdelete = "api/pregunta/";
     await axios.delete(`${URIdelete}${pregunta.idPregunta}`);
     filterPreguntas(pregunta.idPregunta);
     getRespuestas();
     handleClose();
   };
 
+  const updatePregunta = async () => {
+    const URIupdate = "api/pregunta/";
+    await axios.put(`${URIupdate}${pregunta.idPregunta}`, {
+      textoPregunta: fpregunta,
+    });
+
+    await opciones.forEach((opcion) => updateRespuesta(opcion));
+    getPreguntas();
+    getRespuestas();
+
+    handleSelected();
+  };
+
+  const updateRespuesta = async (opcion) => {
+    const URIupdateP = "api/respuesta/";
+    console.log(opcion);
+    await axios.put(`${URIupdateP}${opcion.idRespuesta}`, {
+      textoRespuesta: opcion.textoRespuesta,
+    });
+  };
+
+  const initializeOpciones = () => {
+    respuestas.forEach((respuesta, index) => {
+      setOpciones[index](respuesta.textoRespuesta);
+    });
+  };
+
   useEffect(() => {
     getRespuestas();
   }, []);
 
-  console.log(respuestas);
+  useEffect(() => {
+    if (selected) {
+      initializeOpciones();
+    }
+  }, [selected]);
 
   return (
     <div className="pregunta">
       <div className="dropdown">
-        <p className="titulo">{pregunta.textoPregunta}</p>
+        {!selected && <p className="titulo">{pregunta.textoPregunta}</p>}
+        {selected && (
+          <input
+            className="titulopregunta"
+            value={fpregunta}
+            onChange={(e) => setFpregunta(e.target.value)}
+            type="text"
+          />
+        )}
         <div class="pregIcon" onClick={timeOutOpen}>
           <FaArrowDown size={40} />
         </div>
@@ -81,13 +130,27 @@ export default function Pregunta({ pregunta, filterPreguntas }) {
                       value={`opcion${index}`}
                     />
                   )}
-
-                  <p>{respuesta.textoRespuesta}</p>
+                  {!selected && <p>{respuesta.textoRespuesta}</p>}
+                  {selected && (
+                    <input
+                      className="opciones"
+                      placeholder={`Opcion ${index + 1}`}
+                      value={opciones[index]}
+                      onChange={(e) => setOpciones[index](e.target.value)}
+                      type="text"
+                    />
+                  )}
                 </div>
               ))}
           </form>
+
           <div className="iconsRespuesta">
-            <div className="crudIcon">
+            <div
+              className="crudIcon"
+              onClick={() => {
+                handleSelected();
+              }}
+            >
               <FaEdit size={35} />
             </div>
             <div className="crudIcon">
@@ -122,6 +185,18 @@ export default function Pregunta({ pregunta, filterPreguntas }) {
           </Button>
         </Modal.Footer>
       </Modal>
+      {selected && (
+        <p className="aviso">
+          Asegúrate de llenar todos los campos y marcar una respuesta como
+          correcta
+          <input
+            type="submit"
+            value="Editar Preguntas"
+            className="botonPreguntas"
+            onClick={updatePregunta}
+          />
+        </p>
+      )}
     </div>
   );
 }

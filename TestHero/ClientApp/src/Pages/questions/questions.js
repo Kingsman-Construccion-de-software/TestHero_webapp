@@ -7,13 +7,11 @@ import { BsFillPlusCircleFill } from "react-icons/bs";
 import FormularioPregunta from "../../components/formularioPregunta/FormularioPregunta";
 import { useSearchParams } from "react-router-dom";
 
-
 export default function Questions() {
   const [examen, setExamen] = useState();
   const [preguntas, setPreguntas] = useState([]);
   const [selected, setSelected] = useState(false);
   const [searchParams] = useSearchParams();
-
 
   const handleSelected = () => {
     setSelected(!selected);
@@ -21,13 +19,13 @@ export default function Questions() {
 
   const getExamen = async () => {
     try {
-        const url = "api/examen/" +  searchParams.get("examen");
-        const res = await axios.get(url)
-        setExamen(res.data[0]);
-    } catch(e){
-        alert(e);
+      const url = "api/examen/" + searchParams.get("examen");
+      const res = await axios.get(url);
+      setExamen(res.data[0]);
+    } catch (e) {
+      alert(e);
     }
-  }
+  };
 
   const getPreguntas = async () => {
     const URIpreguntas = "api/pregunta/examen/" + examen.idExamen;
@@ -54,10 +52,10 @@ export default function Questions() {
       </div>
       <div className="page">
         <div className="content">
-          {examen &&  <h1 className="tituloExamen">{examen.nombre}</h1>}
+          {examen && <h1 className="tituloExamen">{examen.nombre}</h1>}
           <div className="subtitles">
             <h2>Preguntas</h2>
-            {examen &&  <h2>Código: {examen.codigo}</h2>}
+            {examen && <h2>Código: {examen.codigo}</h2>}
           </div>
           <div className="preguntas">
             {preguntas.map((pregunta, index) => (
@@ -65,6 +63,7 @@ export default function Questions() {
                 key={index}
                 pregunta={pregunta}
                 filterPreguntas={filterPreguntas}
+                getPreguntas={getPreguntas}
               />
             ))}
             {selected && (
