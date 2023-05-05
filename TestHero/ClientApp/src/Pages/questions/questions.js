@@ -17,6 +17,10 @@ export default function Questions() {
     getPreguntas();
   }, []);
 
+  const filterPreguntas = (id) => {
+    setPreguntas(preguntas.filter((pregunta) => pregunta.idPregunta !== id));
+  };
+
   return (
     <div>
       <div>
@@ -31,7 +35,11 @@ export default function Questions() {
           </div>
           <div className="preguntas">
             {preguntas.map((preguntas, index) => (
-              <Pregunta key={index} preguntas={preguntas} />
+              <Pregunta
+                key={index}
+                preguntas={preguntas}
+                filterPreguntas={filterPreguntas}
+              />
             ))}
           </div>
         </div>

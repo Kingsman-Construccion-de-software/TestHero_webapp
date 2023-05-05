@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
 
-export default function Pregunta({ preguntas }) {
+export default function Pregunta({ preguntas, filterPreguntas }) {
   const [open, setOpen] = useState(false);
   const [showing, setSbowing] = useState(false);
   const [show, setShow] = useState(false);
@@ -34,6 +34,16 @@ export default function Pregunta({ preguntas }) {
   const getRespuestas = async () => {
     const res = await axios.get(`${URIrespuestas}${preguntas.idPregunta}`);
     setRespuestas(res.data);
+  };
+
+  const URIdelete = "api/pregunta/";
+
+  const deletePregunta = async () => {
+    console.log(preguntas.idPregunta);
+    await axios.delete(`${URIdelete}${preguntas.idPregunta}`);
+    filterPreguntas(preguntas.idPregunta);
+    getRespuestas();
+    handleClose();
   };
 
   useEffect(() => {
@@ -94,7 +104,7 @@ export default function Pregunta({ preguntas }) {
           </Button>
           <Button
             variant="secondary"
-            onClick={handleClose}
+            onClick={() => deletePregunta()}
             className="botonEliminar"
           >
             Eliminar
