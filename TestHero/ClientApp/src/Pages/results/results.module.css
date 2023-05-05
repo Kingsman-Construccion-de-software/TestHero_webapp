@@ -1,10 +1,13 @@
 /* CONTAINER */
 .container {
     min-height: 100dvh;
-    padding: 40px;
-    margin-left: 10vw;
     background-color: #1d1d1d;
     color: #ebebeb;
+}
+
+.mainContent {
+    padding: 40px;
+    margin-left: 10vw;
 }
 
 
@@ -25,13 +28,17 @@
     border-radius: 6px;
 }
 
-
 /* TABLE */
 .table {
     border: 1px solid #0596FF;
     border-radius: 8px;
     padding: 0;
     margin: 0;
+}
+
+.table-title {
+    font-weight: bold;
+    font-size: 22px;
 }
 
 .row {
@@ -53,7 +60,7 @@
 }
 
 .row span {
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .row img {

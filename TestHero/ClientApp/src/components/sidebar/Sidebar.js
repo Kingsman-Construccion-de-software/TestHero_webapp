@@ -21,10 +21,10 @@ export default function Sidebar() {
       <Link to={"/home"}>
         <img className="iconSidebar" src={Home} alt="Home" />
       </Link>
-      <Link to={"/group"}>
+      <Link to={"/group/exams"}>
         <img className="iconSidebar" src={Questions} alt="Preguntas" />
       </Link>
-      <Link to={"/results"}>
+      <Link to={"/group/results"}>
         <img className="iconSidebar" src={Analytics} alt="Analiticas" />
       </Link>
     </div>

@@ -1,12 +1,15 @@
 /* CONTAINER */
 .container {
-    height: 100dvh;
-    padding: 40px;
-    margin-left: 10vw;
+    min-height: 100dvh;
+    width: 100vw;
     background-color: #1d1d1d;
     color: #ebebeb;
 }
 
+.mainContent {
+    padding: 40px;
+    margin-left: 10vw;
+}
 
 /* SEARCH BAR */
 .search-bar {
@@ -35,6 +38,11 @@
 
 .exam-list-item {
     list-style: none;
+    width: 75%;
+    max-width: 800px;
+    padding: 15px;
+    margin-bottom: 10px;
+    font-size: 20px;
     border: 2px solid #fff;
     border-radius: 4px;
     font-weight: bold;

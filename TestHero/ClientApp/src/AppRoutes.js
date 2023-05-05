@@ -14,7 +14,11 @@ const AppRoutes = [
     element: <Home />,
   },
   {
-    path: "/group",
+    path: "/group/exams",
+    element: <Group />,
+  },
+  {
+    path: "/group/results",
     element: <Group />,
   },
   {
