@@ -15,6 +15,17 @@ namespace TestHero.Controllers
             Db = db;
         }
 
+        // GET: api/examen/profesor/id
+        [Route("api/examen/profesor/{id:int}")]
+        [HttpGet]
+        public async Task<IActionResult> GetProfesorExamenes(int id)
+        {
+            await Db.Connection.OpenAsync();
+            ExamenGrupo examen = new ExamenGrupo(Db);
+            var result = await examen.GetProfesorExamenesActivos(id);
+            return new OkObjectResult(result);
+        }
+
         // GET: api/examen/grupo/id
         [Route("api/examen/grupo/{id:int}")]
         [HttpGet]
