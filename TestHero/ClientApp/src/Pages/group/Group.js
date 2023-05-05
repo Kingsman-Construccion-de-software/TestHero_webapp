@@ -5,6 +5,17 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
+const examsDummyData = [
+    'Física',
+    'Química',
+    'Matematicas',
+    'Computacion',
+    'Biologia',
+    'Gramatica',
+    'Ingles',
+    'Historia',
+]
+
 export default function Group({edit}) {
     const {state, setState } = useContext(ProfesorContext);
     const [examenes, setExamenes] = useState([]);
@@ -63,13 +74,20 @@ export default function Group({edit}) {
                     />
                 </div>
                 <ul className={styles['exams-list']}>
-                    {examenes && examenes.map((examen) => {
+                    {examenes && examenes.map((examen, idx) => {
                         return (
-                            <li key={examen.idExamen} className={styles['exam-list-item']}>
+                            <li key={examen.idExamen} className={styles['exam-list-item'] + ` ${styles[`border-color-${idx % 3}`]}`}>
                                 <Link to={`${prefix}?examen=${examen.idExamen}`}>{examen.nombre}</Link>
                             </li>
                         )
                     })}
+                    {/* {examsDummyData.map((exam, idx) => {
+                        return (
+                            <li key={idx} className={styles['exam-list-item'] + ` ${styles[`border-color-${idx%3}`]}`}>
+                                <Link to='#'>{ exam }</Link>
+                            </li>
+                        )
+                    })} */}
                 </ul>
                 {edit && 
                     <div>
