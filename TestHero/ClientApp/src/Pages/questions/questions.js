@@ -3,9 +3,15 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Pregunta from "../../components/pregunta/Pregunta";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { BsFillPlusCircleFill } from "react-icons/bs";
+import FormularioPregunta from "components/formularioPregunta/FormularioPregunta";
+
 export default function Questions() {
   const [preguntas, setPreguntas] = useState([]);
-
+  const [selected, setSelected] = useState(false);
+  const handleSelected = () => {
+    setSelected(!selected);
+  };
   const URIpreguntas = "api/pregunta/examen/1";
 
   const getPreguntas = async () => {
@@ -41,7 +47,22 @@ export default function Questions() {
                 filterPreguntas={filterPreguntas}
               />
             ))}
+            {selected && (
+              <FormularioPregunta
+                handleSelected={handleSelected}
+                getPreguntas={getPreguntas}
+                preguntas={preguntas}
+              />
+            )}
           </div>
+        </div>
+
+        <div
+          onClick={() => {
+            handleSelected();
+          }}
+        >
+          {!selected && <BsFillPlusCircleFill className="circulo" />}
         </div>
       </div>
     </div>

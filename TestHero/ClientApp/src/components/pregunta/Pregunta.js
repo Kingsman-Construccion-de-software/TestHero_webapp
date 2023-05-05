@@ -64,14 +64,25 @@ export default function Pregunta({ preguntas, filterPreguntas }) {
         <div className={showing ? "extension showing" : "extension hiding"}>
           <form className="respuestas">
             {respuestas &&
-              respuestas.map((respuestas, index) => (
+              respuestas.map((respuesta, index) => (
                 <div className="respuesta" key={index}>
-                  <input
-                    type="radio"
-                    name={`opcion${index}`}
-                    value={`opcion${index}`}
-                  />
-                  <p>{respuestas.textoRespuesta}</p>
+                  {respuesta.esCorrecta === 1 ? (
+                    <input
+                      type="radio"
+                      checked
+                      name={`opcion`}
+                      value={`opcion${index}`}
+                    />
+                  ) : (
+                    <input
+                      disabled
+                      type="radio"
+                      name={`opcion`}
+                      value={`opcion${index}`}
+                    />
+                  )}
+
+                  <p>{respuesta.textoRespuesta}</p>
                 </div>
               ))}
           </form>

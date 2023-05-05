@@ -1,57 +1,72 @@
 .page {
-    background-color: #1d1d1d;
-    width: 100vw;
-    min-height: 100vh;
-  }
+  background-color: #1d1d1d;
+  width: 100vw;
+}
 
-  .content {
-    margin-left: 15vw;
-  }
-  
+body {
+  background-color: #1d1d1d;
+}
+
+.content {
+  margin-left: 15vw;
+}
+
 .tituloExamen {
-    color: #ebebeb;
-    font-style: bold;
-    font-size: 40px;
-    margin-bottom: 40px;
-    padding-top: 15px;
+  color: #ebebeb;
+  font-style: bold;
+  font-size: 40px;
+  margin-bottom: 40px;
+  padding-top: 15px;
 }
 
 .subtitles {
-    color: #ebebeb;
-    font-size: 30px;
-    font-weight: 500;
-    width: 85vw;
-    display: flex;
-    justify-content: space-between;
+  color: #ebebeb;
+  font-size: 30px;
+  font-weight: 500;
+  width: 85vw;
+  display: flex;
+  justify-content: space-between;
 }
 
 .subtitles h2 {
-    margin-right: 150px;
+  margin-right: 150px;
 }
 
 .datos {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
-
 .icono {
-    width: 10%;
-    min-width: 100px;
-    text-align: left;
-    margin-left: 15vw;
-    margin-right: 4vw;
-    float: left;
+  width: 10%;
+  min-width: 100px;
+  text-align: left;
+  margin-left: 15vw;
+  margin-right: 4vw;
+  float: left;
 }
 
 .nombreUsuario {
-    color: #ebebeb;
-    font-size: 35px;
-    font-weight: 500;
+  color: #ebebeb;
+  font-size: 35px;
+  font-weight: 500;
 }
 
 .preguntas {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.circulo {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  color: #0596ff;
+  width: 4%;
+  height: 60px;
+  border-radius: 8px;
+  float: right;
+  margin-top: 30px;
+  margin-right: 8vw;
 }
