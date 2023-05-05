@@ -20,8 +20,6 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL get_profesor_full(5);
-
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_profesor_by_correo;
 CREATE PROCEDURE get_profesor_by_correo(IN corr VARCHAR(45))
@@ -52,7 +50,6 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL get_pregunta(1);
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS insert_pregunta;
@@ -71,8 +68,6 @@ BEGIN
     WHERE idPregunta = id;
 END //
 DELIMITER ;
-
-SELECT * FROM pregunta;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS delete_pregunta;
@@ -96,7 +91,6 @@ BEGIN
 END 
 // DELIMITER ;
 
-CALL get_profesor_examenes_activos(1);
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_grupo_examenes;
@@ -107,8 +101,6 @@ BEGIN
     WHERE idGrupo = idG;
 END 
 // DELIMITER ;
-
-CALL get_grupo_examenes(5);
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_examen;
@@ -153,8 +145,6 @@ BEGIN
 END 
 // DELIMITER ;
 
-CALL get_respuestas_pregunta(2);
-
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_respuesta;
 CREATE PROCEDURE get_respuesta(IN id int)
@@ -165,7 +155,6 @@ BEGIN
 END 
 // DELIMITER ;
 
-CALL get_respuesta(1);
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS insert_respuesta;
@@ -219,6 +208,15 @@ END
 // DELIMITER ;
 
 DELIMITER //
+DROP PROCEDURE IF EXISTS get_etiquetas;
+CREATE PROCEDURE get_etiquetas()
+BEGIN
+	SELECT idEtiqueta, nombre
+    FROM etiqueta;
+END //
+DELIMITER ;
+
+DELIMITER //
 DROP PROCEDURE IF EXISTS get_etiqueta;
 CREATE PROCEDURE get_etiqueta(IN id INT)
 BEGIN
@@ -229,6 +227,18 @@ END //
 DELIMITER ;
 
 DELIMITER //
+DROP PROCEDURE IF EXISTS insert_etiqueta;
+CREATE PROCEDURE insert_etiqueta(IN nom VARCHAR(45))
+BEGIN
+	INSERT INTO etiqueta(nombre)
+    VALUES(nom);
+END //
+DELIMITER ;
+
+SELECT *
+FROM respuesta;
+
+DELIMITER //
 DROP PROCEDURE IF EXISTS insert_etiquetas_examen;
 CREATE PROCEDURE insert_etiquetas_examen(IN idEx INT, IN idEt INT)
 BEGIN
@@ -237,7 +247,12 @@ BEGIN
 END //
 DELIMITER ;
 
+SELECT *
+FROM respuesta;
 
-CALL insert_etiquetas_examen(1, 1);
-CALL get_etiquetas_examen(1);
-SELECT * FROM alumnoexamen;
+
+SELECT ExamenEtiqueta.idExamen, Etiqueta.nombre
+FROM examenetiqueta
+JOIN etiqueta
+ON examenetiqueta.idEtiqueta = etiqueta.idEtiqueta
+WHERE idExamen =  15;

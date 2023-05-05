@@ -37,6 +37,14 @@ namespace TestHero
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
 
+        public async Task<List<Etiqueta>> GetEtiquetas(int id)
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"get_etiquetas";
+            cmd.CommandType = CommandType.StoredProcedure;
+            return await ReadAllAsync(await cmd.ExecuteReaderAsync());
+        }
+
         public async Task<List<Etiqueta>> GetEtiqueta(int id)
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -44,6 +52,19 @@ namespace TestHero
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
+        }
+
+
+        public async Task InsertEtiqueta()
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"insert_etiqueta";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@nom", Nombre);
+            await cmd.ExecuteNonQueryAsync();
+            using MySqlCommand cmdInt = Db.Connection.CreateCommand();
+            cmdInt.CommandText = @"SELECT MAX(idEtiqueta) FROM etiqueta;";
+            IdEtiqueta = Convert.ToInt32(cmdInt.ExecuteScalar());
         }
 
         public async Task InsertEtiquetaExamen(int idEt, int idEx)

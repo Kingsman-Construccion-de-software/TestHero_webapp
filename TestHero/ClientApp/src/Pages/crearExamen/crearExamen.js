@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./crearExamen.css";
 import "../home/home.css";
 import Sidebar from "../../components/sidebar/Sidebar.js";
+import axios from "axios";
+import { useSearchParams } from "react-router-dom";
+
 
 /**
  * @author: Cesar Ivan Hernandez Melendez
@@ -13,24 +16,83 @@ import Sidebar from "../../components/sidebar/Sidebar.js";
 function CrearExamen() {
   const [titulo, setTitulo] = useState("");
   const [materia, setMateria] = useState("");
-  const [grupo, setGrupo] = useState("");
   const [fecha1, setFecha1] = useState("");
   const [fecha2, setFecha2] = useState("");
   const [hora1, setHora1] = useState("");
   const [hora2, setHora2] = useState("");
   const [tags, setTags] = useState([]);
   const [currentTag, setCurrentTag] = useState("");
+  const [searchParams] = useSearchParams();
+  const [etiquetas, setEtiquetas] = useState([]);
+  const [showingEtiquetas, setShowingEtiquetas] = useState([]);
 
-  const handleSubmit = (event) => {
+  const getTags = async() => {
+    const url = "api/etiqueta";
+    const result = await axios.get(url);
+    setEtiquetas([...result.data]);
+  }
+
+  const filterTags = input => {
+    input = input.trim().toLowerCase();
+    const etiquetasFiltered = etiquetas.filter(etiqueta => etiqueta.nombre.toLowerCase().includes(input));
+    setShowingEtiquetas(etiquetasFiltered.slice(0, Math.min(etiquetasFiltered.length, 10)));
+  }
+
+  const makeId = length =>  {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+  }
+
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(`Título: ${titulo}`);
-    console.log(`Materia: ${materia}`);
-    console.log(`Grupo: ${grupo}`);
-    console.log(`Fecha1: ${fecha1}`);
-    console.log(`HoraDeInicio: ${hora1}`);
-    console.log(`Fecha2: ${fecha2}`);
-    console.log(`HoraDeCierre: ${hora2}`);
+
+    const url = "api/examen";
+
+    const data = {
+      Codigo: makeId(8),
+      Nombre: titulo,
+      Materia: materia,
+      FechaInicio: fecha1 + "T" + hora1,
+      FechaFin: fecha2 + "T" + hora2,
+      idGrupo: searchParams.get("grupo")
+    };
+
+    const result = await axios.post(url, data);
+    console.log(result.data);
+    tags.forEach(tag => postTag(tag, result.data.idExamen));
   };
+
+  const postTag = async (tag, idExamen) => {
+    const filtrado = etiquetas.filter(etiqueta => etiqueta.nombre === tag);
+    console.log(tag);
+    console.log(filtrado);
+
+    let id = 0;
+
+    if(filtrado.length === 0){
+      const url = "api/etiqueta";
+      const data = {
+        "Nombre": tag
+      }
+      const result = await axios.post(url, data);
+      console.log(result.data);
+      id = result.data.idEtiqueta;
+    } else {
+      id = filtrado[0].idEtiqueta;
+    };
+    console.log(id);
+    const url = `api/etiqueta/${id}/examen/${idExamen}` 
+    const result = await axios.post(url);
+    console.log(result.data);
+  } 
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -46,6 +108,14 @@ function CrearExamen() {
     setTags(tags.filter((tag) => tag !== tagToDelete));
   };
 
+  useEffect(() => {
+    getTags();
+  }, []);
+
+  useEffect(() => {
+    filterTags(currentTag);
+  }, [currentTag]);
+
   return (
     <div>
       <div>
@@ -56,12 +126,13 @@ function CrearExamen() {
           <h2>Crear un examen</h2>
           <form className="custom-form" onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="titulo">Nombre</label>
+              <label htmlFor="titulo">Nombre del examen</label>
               <input
                 type="text"
                 className="form-control"
                 id="titulo"
                 value={titulo}
+                required
                 onChange={(event) => setTitulo(event.target.value)}
               />
             </div>
@@ -73,6 +144,7 @@ function CrearExamen() {
                 className="form-control"
                 id="materia"
                 value={materia}
+                required
                 onChange={(event) => setMateria(event.target.value)}
               />
             </div>
@@ -87,6 +159,7 @@ function CrearExamen() {
                   className="form-control"
                   id="fecha1"
                   value={fecha1}
+                  required
                   onChange={(event) => setFecha1(event.target.value)}
                 />
               </div>
@@ -99,6 +172,7 @@ function CrearExamen() {
                   className="form-control"
                   id="hora1"
                   value={hora1}
+                  required
                   onChange={(event) => setHora1(event.target.value)}
                 />
               </div>
@@ -114,6 +188,7 @@ function CrearExamen() {
                   className="form-control"
                   id="fecha2"
                   value={fecha2}
+                  required
                   onChange={(event) => setFecha2(event.target.value)}
                 />
               </div>
@@ -126,6 +201,7 @@ function CrearExamen() {
                   className="form-control"
                   id="hora2"
                   value={hora2}
+                  required
                   onChange={(event) => setHora2(event.target.value)}
                 />
               </div>
@@ -138,20 +214,30 @@ function CrearExamen() {
                   <button onClick={() => handleTagDelete(tag)}>×</button>
                 </div>
               ))}
+
             </div>
             <div className="form-group">
-              <label htmlFor="tag-input">Enter a tag:</label>
-              <input
+              <label htmlFor="tag-input">Etiquetas: (se mostrarán antes de iniciar el juego)</label>
+              <input list="tags"
                 id="tag-input"
                 type="text"
+                className="tagInput"
                 value={currentTag}
+                placeholder="Pulsa Enter para ingresar la etiqueta"
                 onKeyDown={handleKeyDown}
                 onChange={(event) => setCurrentTag(event.target.value)}
               />
+              {showingEtiquetas &&
+                <datalist id="tags" className="tagDatalist">
+                  {showingEtiquetas && showingEtiquetas.map(etiqueta => 
+                    <option key={etiqueta.idEtiqueta} value={etiqueta.nombre}>{etiqueta.nombre}</option>
+                  )}
+                </datalist>
+              }
             </div>
 
-            <button type="submit" className="btn btn-primary" align="right">
-              Crear
+            <button type="submit" className="boton" align="right">
+              Crear examen
             </button>
           </form>
         </div>
