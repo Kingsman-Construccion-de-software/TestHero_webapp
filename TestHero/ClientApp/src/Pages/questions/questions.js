@@ -4,24 +4,44 @@ import Pregunta from "../../components/pregunta/Pregunta";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { BsFillPlusCircleFill } from "react-icons/bs";
-import FormularioPregunta from "components/formularioPregunta/FormularioPregunta";
+import FormularioPregunta from "../../components/formularioPregunta/FormularioPregunta";
+import { useSearchParams } from "react-router-dom";
+
 
 export default function Questions() {
+  const [examen, setExamen] = useState();
   const [preguntas, setPreguntas] = useState([]);
   const [selected, setSelected] = useState(false);
+  const [searchParams] = useSearchParams();
+
+
   const handleSelected = () => {
     setSelected(!selected);
   };
-  const URIpreguntas = "api/pregunta/examen/1";
+
+  const getExamen = async () => {
+    try {
+        const url = "api/examen/" +  searchParams.get("examen");
+        const res = await axios.get(url)
+        setExamen(res.data[0]);
+    } catch(e){
+        alert(e);
+    }
+  }
 
   const getPreguntas = async () => {
+    const URIpreguntas = "api/pregunta/examen/" + examen.idExamen;
     const res = await axios.get(URIpreguntas);
     setPreguntas(res.data);
   };
 
   useEffect(() => {
-    getPreguntas();
+    getExamen();
   }, []);
+
+  useEffect(() => {
+    getPreguntas();
+  }, [examen]);
 
   const filterPreguntas = (id) => {
     setPreguntas(preguntas.filter((pregunta) => pregunta.idPregunta !== id));
@@ -34,16 +54,16 @@ export default function Questions() {
       </div>
       <div className="page">
         <div className="content">
-          <h1 className="tituloExamen">Examen de trigonometría</h1>
+          {examen &&  <h1 className="tituloExamen">{examen.nombre}</h1>}
           <div className="subtitles">
             <h2>Preguntas</h2>
-            <h2>Código: 13467942</h2>
+            {examen &&  <h2>Código: {examen.codigo}</h2>}
           </div>
           <div className="preguntas">
-            {preguntas.map((preguntas, index) => (
+            {preguntas.map((pregunta, index) => (
               <Pregunta
                 key={index}
-                preguntas={preguntas}
+                pregunta={pregunta}
                 filterPreguntas={filterPreguntas}
               />
             ))}
@@ -51,6 +71,7 @@ export default function Questions() {
               <FormularioPregunta
                 handleSelected={handleSelected}
                 getPreguntas={getPreguntas}
+                idExamen={examen.idExamen}
               />
             )}
           </div>

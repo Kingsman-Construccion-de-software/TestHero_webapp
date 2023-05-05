@@ -40,12 +40,15 @@ textarea {
   color: green;
 }
 
-.boton {
+.botonPreguntas {
   background-color: #0596FF;
   border-radius: 5px;
-  padding: 10px 40px;
+  padding: 15px 40px;
   border: none;
   color: #ebebeb;
+  margin-top: 50px;
+  font-size: 20px;
+  margin-bottom: 30px;
 }
 
 .custom-form {

@@ -1,12 +1,13 @@
 import React from "react";
-import "./Pregunta.css";
 import { FaArrowDown, FaEdit } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
+import "./Pregunta.css";
 
-export default function Pregunta({ preguntas, filterPreguntas }) {
+
+export default function Pregunta({ pregunta, filterPreguntas }) {
   const [open, setOpen] = useState(false);
   const [showing, setSbowing] = useState(false);
   const [show, setShow] = useState(false);
@@ -32,16 +33,15 @@ export default function Pregunta({ preguntas, filterPreguntas }) {
   const URIrespuestas = "api/respuesta/pregunta/";
 
   const getRespuestas = async () => {
-    const res = await axios.get(`${URIrespuestas}${preguntas.idPregunta}`);
+    const res = await axios.get(`${URIrespuestas}${pregunta.idPregunta}`);
     setRespuestas(res.data);
   };
 
   const URIdelete = "api/pregunta/";
 
   const deletePregunta = async () => {
-    console.log(preguntas.idPregunta);
-    await axios.delete(`${URIdelete}${preguntas.idPregunta}`);
-    filterPreguntas(preguntas.idPregunta);
+    await axios.delete(`${URIdelete}${pregunta.idPregunta}`);
+    filterPreguntas(pregunta.idPregunta);
     getRespuestas();
     handleClose();
   };
@@ -55,7 +55,7 @@ export default function Pregunta({ preguntas, filterPreguntas }) {
   return (
     <div className="pregunta">
       <div className="dropdown">
-        <p className="titulo">{preguntas.textoPregunta}</p>
+        <p className="titulo">{pregunta.textoPregunta}</p>
         <div class="pregIcon" onClick={timeOutOpen}>
           <FaArrowDown size={40} />
         </div>

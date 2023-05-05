@@ -1,9 +1,8 @@
 import { useState } from "react";
 import "./formularioPregunta.css";
-import { Button } from "react-bootstrap";
 import axios from "axios";
 
-export default function FormularioPregunta({ handleSelected, getPreguntas }) {
+export default function FormularioPregunta({ handleSelected, getPreguntas, idExamen }) {
   const [fpregunta, setFpregunta] = useState("");
   const [opcion, setOpcion] = useState("");
   const [opcion2, setOpcion2] = useState("");
@@ -18,9 +17,16 @@ export default function FormularioPregunta({ handleSelected, getPreguntas }) {
 
   const URIpregunta = "api/pregunta";
   const URIrespuesta = "api/respuesta";
-  const creaPregunta = async () => {
+
+  const creaPregunta = async (e) => {
+    e.preventDefault();
+
+    if(!selectedValue){
+      return;
+    }
+
     const result = await axios.post(URIpregunta, {
-      idExamen: 1,
+      idExamen: idExamen,
       textoPregunta: fpregunta,
     });
 
@@ -67,87 +73,97 @@ export default function FormularioPregunta({ handleSelected, getPreguntas }) {
 
   return (
     <div className="pregunta">
-      <div className="dropdown">
-        <input
-          className="titulopregunta"
-          placeholder="Escribe la pregunta"
-          value={fpregunta}
-          onChange={(e) => setFpregunta(e.target.value)}
-          type="text"
-        />
-      </div>
+      <form onSubmit={creaPregunta}>
 
-      <div className="extension">
-        <form className="respuestas">
-          <div className="respuesta">
-            <input
-              type="radio"
-              value="option0"
-              checked={selectedValue === "option0"}
-              onChange={handleOptionChange}
-            />
-            <input
-              className="opciones"
-              placeholder="Opcion 1"
-              value={opcion}
-              onChange={(e) => setOpcion(e.target.value)}
-              type="text"
-            />
+        <div className="dropdown">
+          <input
+            className="titulopregunta"
+            placeholder="Escribe la pregunta"
+            value={fpregunta}
+            required
+            onChange={(e) => setFpregunta(e.target.value)}
+            type="text"
+          />
+        </div>
+
+        <div className="extension">
+          <div className="respuestas">
+            <div className="respuesta">
+              <input
+                type="radio"
+                value="option0"
+                required
+                checked={selectedValue === "option0"}
+                onChange={handleOptionChange}
+              />
+              <input
+                className="opciones"
+                placeholder="Opcion 1"
+                value={opcion}
+                required
+                onChange={(e) => setOpcion(e.target.value)}
+                type="text"
+              />
+            </div>
+            <div className="respuesta" value="opción2">
+              <input
+                type="radio"
+                value="option1"
+                required
+                checked={selectedValue === "option1"}
+                onChange={handleOptionChange}
+              />
+              <input
+                className="opciones"
+                placeholder="Opcion 2"
+                value={opcion2}
+                required
+                onChange={(e) => setOpcion2(e.target.value)}
+                type="text"
+              />
+            </div>
+            <div className="respuesta" value="opción3">
+              <input
+                type="radio"
+                value="option2"
+                required
+                checked={selectedValue === "option2"}
+                onChange={handleOptionChange}
+              />
+              <input
+                className="opciones"
+                placeholder="Opcion 3"
+                value={opcion3}
+                required
+                onChange={(e) => setOpcion3(e.target.value)}
+                type="text"
+              />
+            </div>
+            <div className="respuesta" value="opción4">
+              <input
+                type="radio"
+                value="option3"
+                required
+                checked={selectedValue === "option3"}
+                onChange={handleOptionChange}
+              />
+              <input
+                className="opciones"
+                placeholder="Opcion 4"
+                value={opcion4}
+                required
+                onChange={(e) => setOpcion4(e.target.value)}
+                type="text"
+              />
+            </div>
           </div>
-          <div className="respuesta" value="opción2">
-            <input
-              type="radio"
-              value="option1"
-              checked={selectedValue === "option1"}
-              onChange={handleOptionChange}
-            />
-            <input
-              className="opciones"
-              placeholder="Opcion 2"
-              value={opcion2}
-              onChange={(e) => setOpcion2(e.target.value)}
-              type="text"
-            />
-          </div>
-          <div className="respuesta" value="opción3">
-            <input
-              type="radio"
-              value="option2"
-              checked={selectedValue === "option2"}
-              onChange={handleOptionChange}
-            />
-            <input
-              className="opciones"
-              placeholder="Opcion 3"
-              value={opcion3}
-              onChange={(e) => setOpcion3(e.target.value)}
-              type="text"
-            />
-          </div>
-          <div className="respuesta" value="opción4">
-            <input
-              type="radio"
-              value="option3"
-              checked={selectedValue === "option3"}
-              onChange={handleOptionChange}
-            />
-            <input
-              className="opciones"
-              placeholder="Opcion 4"
-              value={opcion4}
-              onChange={(e) => setOpcion4(e.target.value)}
-              type="text"
-            />
-          </div>
-        </form>
-      </div>
-      <Button
-        variant="secondary"
-        className="botonCancelar"
-        onClick={() => creaPregunta()}
-      >
-        Crear pregunta
-      </Button>
+        </div>
+        {!selectedValue && <p className="aviso">Asegúrate de llenar todos los campos y marcar una respuesta como correcta</p>}
+        <input
+        type="submit"
+        value="Crear pregunta"
+        className="botonPreguntas"/>
+      </form>
     </div>
   );
 }
