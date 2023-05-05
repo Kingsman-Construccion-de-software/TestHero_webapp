@@ -51,7 +51,6 @@ export default function Questions() {
               <FormularioPregunta
                 handleSelected={handleSelected}
                 getPreguntas={getPreguntas}
-                preguntas={preguntas}
               />
             )}
           </div>
