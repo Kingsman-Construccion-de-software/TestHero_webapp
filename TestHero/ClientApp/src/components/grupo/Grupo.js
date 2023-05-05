@@ -1,8 +1,15 @@
 import React from "react";
 import "./grupo.css";
-export default function Grupo({nombre, fechaFin, grupo}) {
+import { useNavigate } from "react-router-dom";
+export default function Grupo({nombre, fechaFin, grupo, link}) {
+  const navigate = useNavigate();
+
+  const goToExamen = () => {
+    navigate(link);
+  }
+
   return (
-    <div className="fondo">
+    <div className="fondo" onClick={goToExamen}>
       <div className="imagenGrupo"></div>
       <div className="infoGrupo">
         <div className="tituloCard">{nombre}</div>

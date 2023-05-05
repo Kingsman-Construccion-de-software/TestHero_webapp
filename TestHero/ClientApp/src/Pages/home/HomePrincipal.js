@@ -26,8 +26,6 @@ export default function HomePrincipal() {
 
     try {
       const result = await axios.get(url);
-      console.log(url);
-      console.log(result.data);
       setExamenes([...result.data]);
     } catch(error){
       alert(error);
@@ -57,8 +55,9 @@ export default function HomePrincipal() {
                 key={examen.idExamen} 
                 nombre={examen.nombre} 
                 fechaFin={examen.fechaFin}
-                grupo={examen.grupo} 
-              />
+                grupo={examen.grupo}
+                link={`/results?examen=${examen.idExamen}`}
+                />
             )
           }
         </div>

@@ -53,7 +53,7 @@ namespace TestHero
                         IdAlumno = reader.GetInt32(0),
                         Nombres = reader.GetString(1),
                         Apellidos = reader.GetString(2),
-                        Calificacion = reader.GetInt32(3)
+                        Calificacion = reader.GetInt32(3)        
                     };
                     alumnos.Add(alumno);
                 }

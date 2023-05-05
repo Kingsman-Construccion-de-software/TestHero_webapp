@@ -8,6 +8,10 @@
   margin-bottom: 40px;
 }
 
+.fondo:hover {
+  cursor: pointer;
+}
+
 .imagenGrupo {
   margin-right: 10%;
   width: 60%;
