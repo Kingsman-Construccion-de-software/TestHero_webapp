@@ -122,15 +122,15 @@ END
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_alumnos_examen;
-CREATE PROCEDURE  get_alumnos_examen(IN idG int)
+CREATE PROCEDURE  get_alumnos_examen(IN idE int)
 BEGIN
-	SELECT alumno.nombres, alumno.apellidos, grupo.nombre as Grupo, alumnoexamen.calificacion 
+	SELECT alumno.idAlumno, alumno.nombres, alumno.apellidos, alumnoexamen.calificacion 
     from alumno 
     inner join grupo on 
     alumno.idGrupo = grupo.idGrupo 
     inner join alumnoexamen on
 	alumno.idAlumno  = alumnoexamen.idAlumno 
-    WHERE alumnoexamen.idExamen = idG;
+    WHERE alumnoexamen.idExamen = idE;
 END 
 // DELIMITER ;
 
@@ -240,4 +240,4 @@ DELIMITER ;
 
 CALL insert_etiquetas_examen(1, 1);
 CALL get_etiquetas_examen(1);
-SELECT * FROM profesor;
+SELECT * FROM alumnoexamen;
