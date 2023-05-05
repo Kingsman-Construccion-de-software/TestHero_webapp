@@ -26,6 +26,18 @@ namespace TestHero.Controllers
             return new OkObjectResult(result);
         }
 
+        // GET api/etiqueta
+        [Route("api/etiqueta")]
+        [HttpGet]
+        public async Task<IActionResult> GetEtiquetas(int id)
+        {
+            await Db.Connection.OpenAsync();
+            Etiqueta etiqueta = new Etiqueta(Db);
+            var result = await etiqueta.GetEtiquetas(id);
+            return new OkObjectResult(result);
+        }
+
+
         // GET: api/etiqueta/id
         [Route("api/etiqueta/{id:int}")]
         [HttpGet]
@@ -38,15 +50,27 @@ namespace TestHero.Controllers
             return new OkObjectResult(result);
         }
 
+
         // POST api/etiqueta/idEtiqueta/examen/idExamen
         [Route("api/etiqueta/{idEt:int}/examen/{idEx:int}")]
         [HttpPost]
-        public async Task<IActionResult> Post(int idEt, int idEx)
+        public async Task<IActionResult> InsertEtiquetaExamen(int idEt, int idEx)
         {
             await Db.Connection.OpenAsync();
             Etiqueta etiqueta = new Etiqueta(Db);
-            etiqueta.InsertEtiquetaExamen(idEt, idEx);
+            await etiqueta.InsertEtiquetaExamen(idEt, idEx);
             return new OkResult();
+        }
+
+        // POST api/etiqueta/idEtiqueta/examen/idExamen
+        [Route("api/etiqueta/")]
+        [HttpPost]
+        public async Task<IActionResult> InsertEtiqueta([FromBody] Etiqueta etiqueta)
+        {
+            await Db.Connection.OpenAsync();
+            etiqueta.Db = Db;
+            await etiqueta.InsertEtiqueta();
+            return new OkObjectResult(etiqueta);
         }
 
 

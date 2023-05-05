@@ -158,8 +158,8 @@ CREATE TABLE IF NOT EXISTS AlumnoPregunta (
   FOREIGN KEY(`idAlumno`) REFERENCES `Alumno`(`idAlumno`)
 	ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  FOREIGN KEY(`idAlumno`) REFERENCES `Alumno`(`idPregunta`)
-	ON DELETE NO ACTION
+  FOREIGN KEY(`idPregunta`) REFERENCES `Pregunta`(`idPregunta`)
+	ON DELETE CASCADE
     ON UPDATE NO ACTION
 );
 
