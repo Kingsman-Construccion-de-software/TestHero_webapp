@@ -28,9 +28,13 @@ export default function Questions() {
   };
 
   const getPreguntas = async () => {
-    const URIpreguntas = "api/pregunta/examen/" + examen.idExamen;
-    const res = await axios.get(URIpreguntas);
-    setPreguntas(res.data);
+    try{
+      const URIpreguntas = "api/pregunta/examen/" + examen.idExamen;
+      const res = await axios.get(URIpreguntas);
+      setPreguntas(res.data);
+    } catch(e){
+      console.log(e);
+    }
   };
 
   useEffect(() => {

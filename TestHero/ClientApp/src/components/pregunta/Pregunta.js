@@ -17,6 +17,9 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
   const [opcion4, setOpcion4] = useState("");
   const opciones = [opcion1, opcion2, opcion3, opcion4];
   const setOpciones = [setOpcion1, setOpcion2, setOpcion3, setOpcion4];
+  const [respuestas, setRespuestas] = useState([]);
+  const [selected, setSelected] = useState(false);
+
 
   const toggleOpen = () => {
     setOpen(!open);
@@ -34,15 +37,11 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [respuestas, setRespuestas] = useState([]);
-
   const getRespuestas = async () => {
     const URIrespuestas = "api/respuesta/pregunta/";
     const res = await axios.get(`${URIrespuestas}${pregunta.idPregunta}`);
     setRespuestas(res.data);
   };
-
-  const [selected, setSelected] = useState(false);
 
   const handleSelected = () => {
     setSelected(!selected);
@@ -62,18 +61,17 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
       textoPregunta: fpregunta,
     });
 
-    await opciones.forEach((opcion) => updateRespuesta(opcion));
+    await opciones.forEach((opcion, idx) => updateRespuesta(opcion, idx));
     getPreguntas();
     getRespuestas();
 
     handleSelected();
   };
 
-  const updateRespuesta = async (opcion) => {
+  const updateRespuesta = async (respuesta, idx) => {
     const URIupdateP = "api/respuesta/";
-    console.log(opcion);
-    await axios.put(`${URIupdateP}${opcion.idRespuesta}`, {
-      textoRespuesta: opcion.textoRespuesta,
+    await axios.put(`${URIupdateP}${respuestas[idx].idRespuesta}`, {
+      textoRespuesta: respuesta,
     });
   };
 
