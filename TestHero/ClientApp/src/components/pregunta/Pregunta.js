@@ -19,8 +19,11 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
   const setOpciones = [setOpcion1, setOpcion2, setOpcion3, setOpcion4];
   const [respuestas, setRespuestas] = useState([]);
   const [selected, setSelected] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("");
 
-
+  const handleOptionChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
   const toggleOpen = () => {
     setOpen(!open);
   };
@@ -64,7 +67,6 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
     await opciones.forEach((opcion, idx) => updateRespuesta(opcion, idx));
     getPreguntas();
     getRespuestas();
-
     handleSelected();
   };
 
@@ -76,6 +78,17 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
   };
 
   const initializeOpciones = () => {
+    console.log(selectedValue);
+    if (selectedValue === "opcion0") {
+      respuestas[0].esCorrecta = 1;
+    } else if (selectedValue === "opcion1") {
+      respuestas[1].esCorrecta = 1;
+    } else if (selectedValue === "opcion2") {
+      respuestas[2].sCorrecta = 1;
+    } else if (selectedValue === "opcion3") {
+      respuestas[3].EsCorrecta = 1;
+    }
+    console.log(respuestas);
     respuestas.forEach((respuesta, index) => {
       setOpciones[index](respuesta.textoRespuesta);
     });
@@ -113,30 +126,43 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
             {respuestas &&
               respuestas.map((respuesta, index) => (
                 <div className="respuesta" key={index}>
-                  {respuesta.esCorrecta === 1 ? (
-                    <input
-                      type="radio"
-                      checked
-                      name={`opcion`}
-                      value={`opcion${index}`}
-                    />
-                  ) : (
-                    <input
-                      disabled
-                      type="radio"
-                      name={`opcion`}
-                      value={`opcion${index}`}
-                    />
+                  {!selected && (
+                    <>
+                      {respuesta.esCorrecta === 1 ? (
+                        <input
+                          type="radio"
+                          checked
+                          name={`opcion`}
+                          value={`opcion${index}`}
+                        />
+                      ) : (
+                        <input
+                          disabled
+                          type="radio"
+                          name={`opcion`}
+                          value={`opcion${index}`}
+                        />
+                      )}
+                      <p>{respuesta.textoRespuesta} </p>
+                    </>
                   )}
-                  {!selected && <p>{respuesta.textoRespuesta}</p>}
                   {selected && (
-                    <input
-                      className="opciones"
-                      placeholder={`Opcion ${index + 1}`}
-                      value={opciones[index]}
-                      onChange={(e) => setOpciones[index](e.target.value)}
-                      type="text"
-                    />
+                    <>
+                      <input
+                        type="radio"
+                        value={`opcion${index}`}
+                        required
+                        checked={selectedValue === `opcion${index}`}
+                        onChange={handleOptionChange}
+                      />
+                      <input
+                        className="opciones"
+                        placeholder={`Opcion ${index + 1}`}
+                        value={opciones[index]}
+                        onChange={(e) => setOpciones[index](e.target.value)}
+                        type="text"
+                      />
+                    </>
                   )}
                 </div>
               ))}
