@@ -118,7 +118,7 @@
   color: #ebebeb;
 }
 
-.modal-footer{
+.modal-footer {
   align-items: center;
   justify-content: space-around;
 }
@@ -150,4 +150,14 @@
   color: #fd4d4d;
   border-color: #ebebeb;
   font-size: 24px;
+}
+
+.titulopregunta {
+  font-size: 35px;
+  font-weight: 500;
+  margin-left: 20px;
+  background-color: #0596ff;
+  color: #ebebeb;
+  border: none;
+  width: 85%;
 }

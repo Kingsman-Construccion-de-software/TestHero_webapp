@@ -249,10 +249,3 @@ DELIMITER ;
 
 SELECT *
 FROM respuesta;
-
-
-SELECT ExamenEtiqueta.idExamen, Etiqueta.nombre
-FROM examenetiqueta
-JOIN etiqueta
-ON examenetiqueta.idEtiqueta = etiqueta.idEtiqueta
-WHERE idExamen =  15;

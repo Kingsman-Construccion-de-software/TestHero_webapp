@@ -2,7 +2,11 @@ import { useState } from "react";
 import "./formularioPregunta.css";
 import axios from "axios";
 
-export default function FormularioPregunta({ handleSelected, getPreguntas, idExamen }) {
+export default function FormularioPregunta({
+  handleSelected,
+  getPreguntas,
+  idExamen,
+}) {
   const [fpregunta, setFpregunta] = useState("");
   const [opcion, setOpcion] = useState("");
   const [opcion2, setOpcion2] = useState("");
@@ -21,7 +25,7 @@ export default function FormularioPregunta({ handleSelected, getPreguntas, idExa
   const creaPregunta = async (e) => {
     e.preventDefault();
 
-    if(!selectedValue){
+    if (!selectedValue) {
       return;
     }
 
@@ -74,7 +78,6 @@ export default function FormularioPregunta({ handleSelected, getPreguntas, idExa
   return (
     <div className="pregunta">
       <form onSubmit={creaPregunta}>
-
         <div className="dropdown">
           <input
             className="titulopregunta"
@@ -158,11 +161,17 @@ export default function FormularioPregunta({ handleSelected, getPreguntas, idExa
             </div>
           </div>
         </div>
-        {!selectedValue && <p className="aviso">Asegúrate de llenar todos los campos y marcar una respuesta como correcta</p>}
+        {!selectedValue && (
+          <p className="aviso">
+            Asegúrate de llenar todos los campos y marcar una respuesta como
+            correcta
+          </p>
+        )}
         <input
-        type="submit"
-        value="Crear pregunta"
-        className="botonPreguntas"/>
+          type="submit"
+          value="Crear pregunta"
+          className="botonPreguntas"
+        />
       </form>
     </div>
   );
