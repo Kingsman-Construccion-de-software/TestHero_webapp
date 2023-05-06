@@ -4,6 +4,7 @@ import "../home/home.css";
 import Sidebar from "../../components/sidebar/Sidebar.js";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 /**
@@ -25,6 +26,7 @@ function CrearExamen() {
   const [searchParams] = useSearchParams();
   const [etiquetas, setEtiquetas] = useState([]);
   const [showingEtiquetas, setShowingEtiquetas] = useState([]);
+  const navigate = useNavigate();
 
   const getTags = async() => {
     const url = "api/etiqueta";
@@ -50,6 +52,10 @@ function CrearExamen() {
     return result;
   }
 
+  const goToExamenes = () => {
+    navigate("/group/exams")
+  }
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -67,7 +73,8 @@ function CrearExamen() {
 
     const result = await axios.post(url, data);
     console.log(result.data);
-    tags.forEach(tag => postTag(tag, result.data.idExamen));
+    await tags.forEach(tag => postTag(tag, result.data.idExamen));
+    goToExamenes();
   };
 
   const postTag = async (tag, idExamen) => {
