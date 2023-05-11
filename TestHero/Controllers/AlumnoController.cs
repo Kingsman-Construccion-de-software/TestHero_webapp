@@ -18,6 +18,9 @@ namespace TestHero.Controllers
         // GET api/alumno/examen/id
         [Route("api/alumno/examen/{id:int}")]
         [HttpGet]
+        /// <summary>
+        /// Rutamiento de getalumnoexamen
+        /// </summary>
         public async Task<IActionResult> GetAlumnosExamen(int id)
         {
             await Db.Connection.OpenAsync();

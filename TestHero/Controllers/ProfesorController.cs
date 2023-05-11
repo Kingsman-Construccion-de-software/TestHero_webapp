@@ -18,6 +18,9 @@ namespace TestHero.Controllers
         // GET: api/profesor/id
         [Route("api/profesor/{id:int}")]
         [HttpGet]
+        /// <summary>
+        /// Rutamiento de get profesor por idProfesor
+        /// </summary>
         public async Task<IActionResult> Get(int id)
 
         {

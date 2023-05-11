@@ -18,6 +18,9 @@ namespace TestHero.Controllers
         // GET api/pregunta/examen/id
         [Route("api/pregunta/examen/{id:int}")]
         [HttpGet]
+        /// <summary>
+        /// Rutamiento de getalumnopreguntas por idExamen
+        /// </summary>
         public async Task<IActionResult> GetExamenPreguntas(int id)
         {
             await Db.Connection.OpenAsync();
@@ -29,6 +32,9 @@ namespace TestHero.Controllers
         // GET: api/<Pregunta>/id
         [Route("api/pregunta/{id:int}")]
         [HttpGet]
+        /// <summary>
+        /// Rutamiento de get idpregunta
+        /// </summary>
         public async Task<IActionResult> Get(int id)
 
         {
@@ -67,6 +73,9 @@ namespace TestHero.Controllers
         // DELETE api/<Pregunta>/id
         [Route("api/pregunta/{id:int}")]
         [HttpDelete]
+        /// <summary>
+        /// Rutamiento de delete por idPregunta
+        /// </summary>
         public async Task<IActionResult> Delete(int id)
         {
             await Db.Connection.OpenAsync();

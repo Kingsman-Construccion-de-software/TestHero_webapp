@@ -22,6 +22,9 @@ namespace TestHero.Controllers
         //POST api/login
         [Route("api/login")]
         [HttpPost]
+        /// <summary>
+        /// Rutamiento de login
+        /// </summary>
         public async Task<IActionResult> Login([FromBody] User user)
         {
             string msg = "";

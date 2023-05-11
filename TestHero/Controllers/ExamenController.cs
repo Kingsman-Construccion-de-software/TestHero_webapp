@@ -18,6 +18,9 @@ namespace TestHero.Controllers
         // GET: api/examen/profesor/id
         [Route("api/examen/profesor/{id:int}")]
         [HttpGet]
+        /// <summary>
+        /// Rutamiento de getprofesorexamenes dada una idexamen
+        /// </summary>
         public async Task<IActionResult> GetProfesorExamenes(int id)
         {
             await Db.Connection.OpenAsync();
@@ -29,6 +32,9 @@ namespace TestHero.Controllers
         // GET: api/examen/grupo/id
         [Route("api/examen/grupo/{id:int}")]
         [HttpGet]
+        /// <summary>
+        /// Rutamiento de getgrupoexamens es dado por idexamen
+        /// </summary>
         public async Task<IActionResult> GetGrupoExamenes(int id)
         {
             await Db.Connection.OpenAsync();
@@ -41,6 +47,9 @@ namespace TestHero.Controllers
         // GET: api/<Examen>/id
         [Route("api/examen/{id:int}")]
         [HttpGet]
+        /// <summary>
+        /// Rutamiento de get examen por su id
+        /// </summary>
         public async Task<IActionResult> Get(int id)
         {
             await Db.Connection.OpenAsync();
@@ -53,6 +62,9 @@ namespace TestHero.Controllers
         // POST api/<Examen>
         [Route("api/examen")]
         [HttpPost]
+        /// <summary>
+        /// Rutamiento de creaexamen
+        /// </summary>
         public async Task<IActionResult> Post([FromBody] Examen body)
         {
             await Db.Connection.OpenAsync();

@@ -18,6 +18,9 @@ namespace TestHero.Controllers
         // GET api/respuesta/pregunta/id
         [Route("api/respuesta/pregunta/{id:int}")]
         [HttpGet]
+        /// <summary>
+        /// Rutamiento de gerpreguntarespuesta por idrespuesta
+        /// </summary>
         public async Task<IActionResult> GetPreguntaRespuestas(int id)
         {
             await Db.Connection.OpenAsync();
@@ -29,6 +32,9 @@ namespace TestHero.Controllers
         // GET: api/respuesta/id
         [Route("api/respuesta/{id:int}")]
         [HttpGet]
+        /// <summary>
+        /// Rutamiento de get por idrespuesta
+        /// </summary>
         public async Task<IActionResult> Get(int id)
 
         {
@@ -42,6 +48,9 @@ namespace TestHero.Controllers
         // POST api/respuesta
         [Route("api/respuesta")]
         [HttpPost]
+        /// <summary>
+        /// Rutamiento de crea respuesta
+        /// </summary>
         public async Task<IActionResult> Post([FromBody] Respuesta body)
         {
             await Db.Connection.OpenAsync();
@@ -53,6 +62,9 @@ namespace TestHero.Controllers
         // PUT api/respuesta/id
         [Route("api/respuesta/{id:int}")]
         [HttpPut]
+        /// <summary>
+        /// Rutamiento actualiza respuesta dado un idespuesta
+        /// </summary>
         public async Task<IActionResult> Put(int id, [FromBody] Respuesta body)
         {
             await Db.Connection.OpenAsync();
