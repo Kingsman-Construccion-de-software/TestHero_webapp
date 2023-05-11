@@ -9,7 +9,11 @@ namespace TestHero
 {
 
     /// <summary>
-    /// Summary description for Class1
+    /// Modelo que une la tabla de examengrupo
+    /// Aqui se definen todas las atributos de examengrupo
+    /// como lo son idexamen, nombre, fechafin,grupo
+    /// Tiene un constructor que define los datos
+    /// 2 metodos que son: readallasync y GetProfesorExamenesActivos
     /// </summary>
     public class ExamenGrupo
     {
@@ -33,7 +37,9 @@ namespace TestHero
 
         internal ExamenGrupo(AppDb db) { Db = db; }
 
-
+        /// <summary>
+        /// Nos dice que examenes tiene activos, es decir si es mayor a x fecha son activos y pasamos el idProfesor para checarlos
+        /// </summary>
         public async Task<List<ExamenGrupo>> GetProfesorExamenesActivos(int id)
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -42,7 +48,9 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@idP", id);
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
-
+     /// <summary>
+        /// Lectura de todos los atributos de examengrupo
+        /// </summary>
         private async Task<List<ExamenGrupo>> ReadAllAsync(MySqlDataReader reader)
         {
             var examenes = new List<ExamenGrupo>();

@@ -1,27 +1,41 @@
 import { useState } from "react";
 import "./formularioPregunta.css";
 import axios from "axios";
-
+/**
+ * @author Bernardo de la Sierra y Julio Meza
+ * @version 2.1.1
+ * @license Gp
+ * @params Recibe handleSelected, getPreguntas y idExamen
+ * @description Esta clase crea el formulario de preguntas
+ */
 export default function FormularioPregunta({
   handleSelected,
   getPreguntas,
   idExamen,
 }) {
+  // Estados para actualzar
   const [fpregunta, setFpregunta] = useState("");
   const [opcion, setOpcion] = useState("");
   const [opcion2, setOpcion2] = useState("");
   const [opcion3, setOpcion3] = useState("");
   const [opcion4, setOpcion4] = useState("");
-
   const [selectedValue, setSelectedValue] = useState("");
 
+  /**
+   * Activa y desactiva el modal de eliminar
+   */
   const handleOptionChange = (event) => {
     setSelectedValue(event.target.value);
   };
 
+  // Rutas prestablecidas
   const URIpregunta = "api/pregunta";
   const URIrespuesta = "api/respuesta";
 
+  /***
+   * Formulario para crear preguntas
+   * No recibe ningun parametro
+   */
   const creaPregunta = async (e) => {
     e.preventDefault();
 

@@ -7,6 +7,14 @@ using MySqlConnector;
 
 namespace TestHero
 {
+    /// <summary>
+    /// Modelo que une la tabla de profesor
+    /// Aqui se definen todas las atributos de profesor
+    /// como lo son idprofesor,nombre,apellido,correo y password
+    /// Tiene un constructor que define los datos
+    /// 2 metodos que son: GetProfesor y ReadAllAsync
+    /// </summary>
+
     public class Profesor
     {
         public int IdProfesor { get; set; }
@@ -28,7 +36,9 @@ namespace TestHero
         internal AppDb Db { get; set; }
 
         internal Profesor(AppDb db) { Db = db; }
-
+        /// <summary>
+        /// Nos dice todos los profesores
+        /// </summary>
         public async Task<List<Profesor>> GetProfesor(int id)
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -37,7 +47,9 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@id", id);
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
-
+        /// <summary>
+        /// Lectura de todos los atributos de profesor
+        /// </summary>
         private async Task<List<Profesor>> ReadAllAsync(MySqlDataReader reader)
         {
             var profesores = new List<Profesor>();

@@ -6,17 +6,24 @@ import axios from "axios";
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import FormularioPregunta from "../../components/formularioPregunta/FormularioPregunta";
 import { useSearchParams } from "react-router-dom";
-
+/**
+ * @author Bernardo de la Sierra y Julio MEza
+ * @version 2.1.1
+ * @license Gp
+ * @params Sin parametros
+ * @description Clase principal de crear preguntas
+ */
 export default function Questions() {
+  // Estados iniciales
   const [examen, setExamen] = useState();
   const [preguntas, setPreguntas] = useState([]);
   const [selected, setSelected] = useState(false);
   const [searchParams] = useSearchParams();
-
+  /**Checa que esta seleccionado el boton de crear para desplegar el modal */
   const handleSelected = () => {
     setSelected(!selected);
   };
-
+  /**Checa que daod un idExmaen se pueda obtener todo su informacion */
   const getExamen = async () => {
     try {
       const url = "api/examen/" + searchParams.get("examen");
@@ -26,13 +33,13 @@ export default function Questions() {
       alert(e);
     }
   };
-
+  /** Se obtiene las preguntas de un examen */
   const getPreguntas = async () => {
-    try{
+    try {
       const URIpreguntas = "api/pregunta/examen/" + examen.idExamen;
       const res = await axios.get(URIpreguntas);
       setPreguntas(res.data);
-    } catch(e){
+    } catch (e) {
       console.log(e);
     }
   };
@@ -44,7 +51,7 @@ export default function Questions() {
   useEffect(() => {
     getPreguntas();
   }, [examen]);
-
+  /**Filtramos las preguntas dado un idPregunta para actualizar el flujo de las preguntas */
   const filterPreguntas = (id) => {
     setPreguntas(preguntas.filter((pregunta) => pregunta.idPregunta !== id));
   };

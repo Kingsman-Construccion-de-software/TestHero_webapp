@@ -18,6 +18,9 @@ namespace TestHero.Controllers
         // GET api/grupo/profesor/id
         [Route("api/grupo/profesor/{id:int}")]
         [HttpGet]
+        /// <summary>
+        /// Rutamiento de getgruposprofesor por idgrupo
+        /// </summary>
         public async Task<IActionResult> GetGruposProfesor(int id)
         {
             await Db.Connection.OpenAsync();
@@ -29,6 +32,9 @@ namespace TestHero.Controllers
         // GET: api/grupo/id
         [Route("api/grupo/{id:int}")]
         [HttpGet]
+        /// <summary>
+        /// Rutamiento de getgrupo dado un id
+        /// </summary>
         public async Task<IActionResult> Get(int id)
 
         {

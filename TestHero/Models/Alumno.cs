@@ -1,8 +1,9 @@
 ﻿using System;
-
-/// <summary>
-/// Summary description for Class1
-/// </summary>
+ 	/// <summary>
+    /// Modelo que une la tabla de alumno
+    /// Aqui se definen todas las atributos de alumno
+    /// como lo son  idalumno, nombre, apellido, matricula, correo, password y idGrupo
+    /// </summary>
 public class Alumno
 {
 	public int IdAlumno { get; set; }

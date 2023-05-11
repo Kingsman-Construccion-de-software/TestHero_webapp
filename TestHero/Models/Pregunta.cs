@@ -8,9 +8,13 @@ using MySqlConnector;
 namespace TestHero
 {
 
-	/// <summary>
-	/// Summary description for Class1
-	/// </summary>
+    /// <summary>
+    /// Modelo que une la tabla de pregunta
+    /// Aqui se definen todas las atributos de pregunta
+    /// como lo son idpregunta,idexamen y textopregunta
+    /// Tiene un constructor que define los datos
+    /// 6 metodos que son: GetExamenPregunta, GetPregunta, InsertPregunta, UpdatePregunta,DeletePregunta y ReadAllAsync
+    /// </summary>
 	public class Pregunta
 	{
         public int IdPregunta { get; set; }
@@ -30,7 +34,9 @@ namespace TestHero
 
 		internal Pregunta(AppDb db) { Db = db; }
 
-
+        /// <summary>
+        /// Nos da las preguntas del examen
+        /// </summary>
         public async Task<List<Pregunta>> GetExamenPreguntas(int idExamen)
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -39,7 +45,9 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@idE", idExamen);
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
-
+        /// <summary>
+        /// Nos da todas las preguntas
+        /// </summary>
         public async Task<List<Pregunta>> GetPregunta(int id)
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -48,7 +56,9 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@id", id);
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
-
+        /// <summary>
+        /// Agrega las preguntas
+        /// </summary>
         public async Task InsertPregunta()
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -61,7 +71,9 @@ namespace TestHero
             cmdInt.CommandText = @"SELECT MAX(idPregunta) FROM pregunta;";
             IdPregunta = Convert.ToInt32(cmdInt.ExecuteScalar());
         }
-
+        /// <summary>
+        /// Actualiza cierta pregunta dado su idPregunta
+        /// </summary>
         public async Task UpdatePregunta(int id)
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -72,7 +84,9 @@ namespace TestHero
             await cmd.ExecuteNonQueryAsync();
             IdPregunta = id;
         }
-
+        /// <summary>
+        /// Elimina cierta pregunra dado su idPregunta
+        /// </summary>
         public async Task DeletePregunta(int id)
         {
             using var cmd = Db.Connection.CreateCommand();
@@ -81,7 +95,9 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@id", id);
             await cmd.ExecuteNonQueryAsync();
         }
-
+        /// <summary>
+        /// Lectura de todos los atributos de pregunta
+        /// </summary>
         private async Task<List<Pregunta>> ReadAllAsync(MySqlDataReader reader)
         {
             var preguntas = new List<Pregunta>();

@@ -8,8 +8,13 @@ using MySqlConnector;
 namespace TestHero
 {
 
+      
     /// <summary>
-    /// Summary description for Class1
+    /// Modelo que une la tabla de examen
+    /// Aqui se definen todas las atributos de examen
+    /// como lo son idexamen,codigo,nombre,materia,fechadeinicio,fechafin y idgrupo
+    /// Tiene un constructor que define los datos
+    /// 4 metodos que son: getgruposexamen,readallasync,getexamen y insertexamen
     /// </summary>
     public class Examen
     {
@@ -38,7 +43,9 @@ namespace TestHero
 
         internal Examen(AppDb db) { Db = db; }
 
-
+        /// <summary>
+        /// Nos dice los examenes de acuerdo a un ide de grupo
+        /// </summary>
         public async Task<List<Examen>> GetGrupoExamenes(int id)
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -47,7 +54,9 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@idG", id);
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
-
+        /// <summary>
+        /// Nos dice el examen de acuerdo a un idexamen
+        /// </summary>
         public async Task<List<Examen>> GetExamen(int id)
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -56,7 +65,9 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@id", id);
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
-
+        /// <summary>
+        /// agregamos un examen
+        /// </summary>
         public async Task InsertExamen()
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -74,7 +85,9 @@ namespace TestHero
             IdExamen = Convert.ToInt32(cmdInt.ExecuteScalar());
         }
 
-
+        /// <summary>
+        /// Lectura de todos los atributos de examen
+        /// </summary>
         private async Task<List<Examen>> ReadAllAsync(MySqlDataReader reader)
         {
             var examenes = new List<Examen>();

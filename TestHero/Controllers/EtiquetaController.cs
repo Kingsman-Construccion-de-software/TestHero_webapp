@@ -18,6 +18,9 @@ namespace TestHero.Controllers
         // GET api/etiqueta/examen/id
         [Route("api/etiqueta/examen/{id:int}")]
         [HttpGet]
+        /// <summary>
+        /// Rutamiento de getetiquetasexamen
+        /// </summary>
         public async Task<IActionResult> GetEtiquetasExamen(int id)
         {
             await Db.Connection.OpenAsync();
@@ -29,6 +32,9 @@ namespace TestHero.Controllers
         // GET api/etiqueta
         [Route("api/etiqueta")]
         [HttpGet]
+        /// <summary>
+        /// Rutamiento de getetiqueta
+        /// </summary>
         public async Task<IActionResult> GetEtiquetas(int id)
         {
             await Db.Connection.OpenAsync();
@@ -41,6 +47,9 @@ namespace TestHero.Controllers
         // GET: api/etiqueta/id
         [Route("api/etiqueta/{id:int}")]
         [HttpGet]
+        /// <summary>
+        /// Rutamiento de getetiqueta por id
+        /// </summary>
         public async Task<IActionResult> GetEtiqueta(int id)
 
         {
@@ -54,6 +63,9 @@ namespace TestHero.Controllers
         // POST api/etiqueta/idEtiqueta/examen/idExamen
         [Route("api/etiqueta/{idEt:int}/examen/{idEx:int}")]
         [HttpPost]
+        /// <summary>
+        /// Rutamiento de insertaexamen dado una idetiqueta y un idexamen
+        /// </summary>
         public async Task<IActionResult> InsertEtiquetaExamen(int idEt, int idEx)
         {
             await Db.Connection.OpenAsync();
@@ -65,6 +77,9 @@ namespace TestHero.Controllers
         // POST api/etiqueta/idEtiqueta/examen/idExamen
         [Route("api/etiqueta/")]
         [HttpPost]
+        /// <summary>
+        /// Rutamiento de insertetiqueta
+        /// </summary>
         public async Task<IActionResult> InsertEtiqueta([FromBody] Etiqueta etiqueta)
         {
             await Db.Connection.OpenAsync();

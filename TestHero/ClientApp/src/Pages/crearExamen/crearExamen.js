@@ -6,15 +6,15 @@ import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
 /**
  * @author: Cesar Ivan Hernandez Melendez
  * @license: GP
- * @version: 2.0.0
+ * @version: 2.1.0
  * Esta clase está dedicada a la página de Crear Examenes
  */
 
 function CrearExamen() {
+  // Estados para actualizar y crear la informacion
   const [titulo, setTitulo] = useState("");
   const [materia, setMateria] = useState("");
   const [fecha1, setFecha1] = useState("");
@@ -26,23 +26,38 @@ function CrearExamen() {
   const [searchParams] = useSearchParams();
   const [etiquetas, setEtiquetas] = useState([]);
   const [showingEtiquetas, setShowingEtiquetas] = useState([]);
+
+  /**
+   * Nos da todos las etiquetas
+   */
+
   const navigate = useNavigate();
 
   const getTags = async() => {
+
     const url = "api/etiqueta";
     const result = await axios.get(url);
     setEtiquetas([...result.data]);
-  }
-
-  const filterTags = input => {
+  };
+  /**
+   * Filtra todas las etiquetas
+   */
+  const filterTags = (input) => {
     input = input.trim().toLowerCase();
-    const etiquetasFiltered = etiquetas.filter(etiqueta => etiqueta.nombre.toLowerCase().includes(input));
-    setShowingEtiquetas(etiquetasFiltered.slice(0, Math.min(etiquetasFiltered.length, 10)));
-  }
-
-  const makeId = length =>  {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const etiquetasFiltered = etiquetas.filter((etiqueta) =>
+      etiqueta.nombre.toLowerCase().includes(input)
+    );
+    setShowingEtiquetas(
+      etiquetasFiltered.slice(0, Math.min(etiquetasFiltered.length, 10))
+    );
+  };
+  /**
+   * Crea un codigo
+   */
+  const makeId = (length) => {
+    let result = "";
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const charactersLength = characters.length;
     let counter = 0;
     while (counter < length) {
@@ -50,6 +65,7 @@ function CrearExamen() {
       counter += 1;
     }
     return result;
+
   }
 
   const goToExamenes = () => {
@@ -57,6 +73,8 @@ function CrearExamen() {
   }
 
 
+
+  /**Funcion para actualizar la clase  */
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -68,39 +86,41 @@ function CrearExamen() {
       Materia: materia,
       FechaInicio: fecha1 + "T" + hora1,
       FechaFin: fecha2 + "T" + hora2,
-      idGrupo: searchParams.get("grupo")
+      idGrupo: searchParams.get("grupo"),
     };
 
     const result = await axios.post(url, data);
     console.log(result.data);
+
     await tags.forEach(tag => postTag(tag, result.data.idExamen));
     goToExamenes();
+
   };
 
   const postTag = async (tag, idExamen) => {
-    const filtrado = etiquetas.filter(etiqueta => etiqueta.nombre === tag);
+    const filtrado = etiquetas.filter((etiqueta) => etiqueta.nombre === tag);
     console.log(tag);
     console.log(filtrado);
 
     let id = 0;
 
-    if(filtrado.length === 0){
+    if (filtrado.length === 0) {
       const url = "api/etiqueta";
       const data = {
-        "Nombre": tag
-      }
+        Nombre: tag,
+      };
       const result = await axios.post(url, data);
       console.log(result.data);
       id = result.data.idEtiqueta;
     } else {
       id = filtrado[0].idEtiqueta;
-    };
+    }
     console.log(id);
-    const url = `api/etiqueta/${id}/examen/${idExamen}` 
+    const url = `api/etiqueta/${id}/examen/${idExamen}`;
     const result = await axios.post(url);
     console.log(result.data);
-  } 
-
+  };
+  /**Checa que tecla fue usada */
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -110,7 +130,7 @@ function CrearExamen() {
       }
     }
   };
-
+  /**Checa que etiqeuta fue eliminar y le debes pasar como parametro la etiqueta a eliminar */
   const handleTagDelete = (tagToDelete) => {
     setTags(tags.filter((tag) => tag !== tagToDelete));
   };
@@ -221,11 +241,13 @@ function CrearExamen() {
                   <button onClick={() => handleTagDelete(tag)}>×</button>
                 </div>
               ))}
-
             </div>
             <div className="form-group">
-              <label htmlFor="tag-input">Etiquetas: (se mostrarán antes de iniciar el juego)</label>
-              <input list="tags"
+              <label htmlFor="tag-input">
+                Etiquetas: (se mostrarán antes de iniciar el juego)
+              </label>
+              <input
+                list="tags"
                 id="tag-input"
                 type="text"
                 className="tagInput"
@@ -234,13 +256,16 @@ function CrearExamen() {
                 onKeyDown={handleKeyDown}
                 onChange={(event) => setCurrentTag(event.target.value)}
               />
-              {showingEtiquetas &&
+              {showingEtiquetas && (
                 <datalist id="tags" className="tagDatalist">
-                  {showingEtiquetas && showingEtiquetas.map(etiqueta => 
-                    <option key={etiqueta.idEtiqueta} value={etiqueta.nombre}>{etiqueta.nombre}</option>
-                  )}
+                  {showingEtiquetas &&
+                    showingEtiquetas.map((etiqueta) => (
+                      <option key={etiqueta.idEtiqueta} value={etiqueta.nombre}>
+                        {etiqueta.nombre}
+                      </option>
+                    ))}
                 </datalist>
-              }
+              )}
             </div>
 
             <button type="submit" className="boton" align="right">
