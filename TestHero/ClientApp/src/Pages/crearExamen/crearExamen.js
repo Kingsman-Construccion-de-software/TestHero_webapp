@@ -4,6 +4,7 @@ import "../home/home.css";
 import Sidebar from "../../components/sidebar/Sidebar.js";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 /**
  * @author: Cesar Ivan Hernandez Melendez
@@ -25,10 +26,15 @@ function CrearExamen() {
   const [searchParams] = useSearchParams();
   const [etiquetas, setEtiquetas] = useState([]);
   const [showingEtiquetas, setShowingEtiquetas] = useState([]);
+
   /**
    * Nos da todos las etiquetas
    */
-  const getTags = async () => {
+
+  const navigate = useNavigate();
+
+  const getTags = async() => {
+
     const url = "api/etiqueta";
     const result = await axios.get(url);
     setEtiquetas([...result.data]);
@@ -59,7 +65,14 @@ function CrearExamen() {
       counter += 1;
     }
     return result;
-  };
+
+  }
+
+  const goToExamenes = () => {
+    navigate("/group/exams")
+  }
+
+
 
   /**Funcion para actualizar la clase  */
   const handleSubmit = async (event) => {
@@ -78,7 +91,10 @@ function CrearExamen() {
 
     const result = await axios.post(url, data);
     console.log(result.data);
-    tags.forEach((tag) => postTag(tag, result.data.idExamen));
+
+    await tags.forEach(tag => postTag(tag, result.data.idExamen));
+    goToExamenes();
+
   };
 
   const postTag = async (tag, idExamen) => {

@@ -18,6 +18,7 @@ export default function Group({ edit }) {
   const [grupo, setGrupo] = useState();
   const navigate = useNavigate();
 
+
   const prefix = edit ? "/questions" : "/results";
   /**Te mando a crear un examen */
   const goToCrearExamen = () => {
@@ -26,6 +27,14 @@ export default function Group({ edit }) {
   /** te todos los grupos que tiene asignado un profesor */
   const getGrupo = async () => {
     const url = "api/grupo/profesor/" + state.id;
+
+
+export default function Group({edit}) {
+    const {state, setState } = useContext(ProfesorContext);
+    const [examenes, setExamenes] = useState([]);
+    const [grupo, setGrupo] = useState();
+    const navigate = useNavigate();
+
 
     try {
       const result = await axios.get(url);
@@ -56,18 +65,36 @@ export default function Group({ edit }) {
     getExamenesGrupo();
   }, [grupo]);
 
-  return (
-    <div className={styles.container}>
-      <Sidebar />
-      <div className={styles.mainContent}>
-        {grupo && <h1>{grupo.nombre}</h1>}
-        <div className={styles["exams-list-header-container"]}>
-          <h2>{edit ? "Editar exámenes" : "Resultados de exámenes"}</h2>
-          <input
-            className={styles["search-bar"]}
-            type="search"
-            placeholder="Buscar"
-          />
+
+    return (
+        <div className={styles.container}>
+            <Sidebar/>
+            <div className={styles.mainContent}>
+                {grupo && <h1>{grupo.nombre}</h1>}
+                <div className={styles['exams-list-header-container']}>
+                    <h2>{edit ? "Editar exámenes" : "Resultados de exámenes"}</h2>
+                    <input
+                        className={styles['search-bar']}
+                        type="search"
+                        placeholder="Buscar"
+                    />
+                </div>
+                <ul className={styles['exams-list']}>
+                    {examenes && examenes.map((examen, idx) => {
+                        return (
+                            <li key={examen.idExamen} className={styles['exam-list-item'] + ` ${styles[`border-color-${idx % 3}`]}`}>
+                                <Link to={`${prefix}?examen=${examen.idExamen}`}>{examen.nombre}</Link>
+                            </li>
+                        )
+                    })}
+                </ul>
+                {edit && 
+                    <div>
+                        <button className={styles['action-button']} onClick={goToCrearExamen}>Crear nuevo examen</button>
+                    </div>
+                }
+            </div>
+
         </div>
         <ul className={styles["exams-list"]}>
           {examenes &&

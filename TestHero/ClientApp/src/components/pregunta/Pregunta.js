@@ -29,15 +29,25 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
   const opciones = [opcion1, opcion2, opcion3, opcion4];
   const setOpciones = [setOpcion1, setOpcion2, setOpcion3, setOpcion4];
   const [respuestas, setRespuestas] = useState([]);
+
   /**
    * Funcion para abrir y cerrar las opciones y recibe un valor booleano
    */
+
+  const [selected, setSelected] = useState(false);
+  const [selectedValue, setSelectedValue] = useState(-1);
+
+
   const handleOptionChange = (event) => {
-    setSelectedValue(event.target.value);
+    setSelectedValue(parseInt(event.target.value));
   };
+
   /**
    * Funcion para hacer el drag and drop de la pregunta
    */
+
+
+
   const toggleOpen = () => {
     setOpen(!open);
   };
@@ -88,8 +98,16 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
     await axios.put(`${URIupdate}${pregunta.idPregunta}`, {
       textoPregunta: fpregunta,
     });
+    
 
-    await opciones.forEach((opcion, idx) => updateRespuesta(opcion, idx));
+    await opciones.forEach((opcion, idx) => {
+      let respuesta = {
+        TextoRespuesta: opcion, 
+        EsCorrecta: selectedValue === idx ? 1 : 0,
+        IdPregunta: pregunta.idPregunta
+      }
+      updateRespuesta(respuesta, idx);
+    });
     getPreguntas();
     getRespuestas();
     handleSelected();
@@ -99,15 +117,13 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
    */
   const updateRespuesta = async (respuesta, idx) => {
     const URIupdateP = "api/respuesta/";
-    await axios.put(`${URIupdateP}${respuestas[idx].idRespuesta}`, {
-      textoRespuesta: respuesta,
-    });
+    console.log(respuesta);
+    await axios.put(`${URIupdateP}${respuestas[idx].idRespuesta}`, respuesta);
   };
   /**
    * Funcion para activar el punto al crear una respueta
    */
   const initializeOpciones = () => {
-    console.log(selectedValue);
     if (selectedValue === "opcion0") {
       respuestas[0].esCorrecta = 1;
     } else if (selectedValue === "opcion1") {
@@ -117,7 +133,7 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
     } else if (selectedValue === "opcion3") {
       respuestas[3].EsCorrecta = 1;
     }
-    console.log(respuestas);
+
     respuestas.forEach((respuesta, index) => {
       setOpciones[index](respuesta.textoRespuesta);
     });
@@ -179,9 +195,9 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
                     <>
                       <input
                         type="radio"
-                        value={`opcion${index}`}
+                        value={index}
                         required
-                        checked={selectedValue === `opcion${index}`}
+                        checked={selectedValue === index}
                         onChange={handleOptionChange}
                       />
                       <input
@@ -239,16 +255,18 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
         </Modal.Footer>
       </Modal>
       {selected && (
-        <p className="aviso">
-          Asegúrate de llenar todos los campos y marcar una respuesta como
-          correcta
+        <>
+          <p className="aviso">
+            Asegúrate de llenar todos los campos y marcar una respuesta como
+            correcta
+          </p>
           <input
-            type="submit"
-            value="Editar Preguntas"
-            className="botonPreguntas"
-            onClick={updatePregunta}
-          />
-        </p>
+          type="submit"
+          value="Guardar Pregunta"
+          className="botonPreguntas"
+          onClick={updatePregunta}
+        />
+        </>
       )}
     </div>
   );
