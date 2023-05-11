@@ -9,7 +9,11 @@ namespace TestHero
 {
 
     /// <summary>
-    /// Summary description for Class1
+    /// Modelo que une la tabla de usuario
+    /// Aqui se definen todas las atributos de usuario
+    /// como lo son id, correo y password
+    /// Tiene un constructor que define los datos
+    /// 4 metodos que son: GetUser,  ValidateUse ,  ReadCorreoAsync y   ReadUserAsync
     /// </summary>
     public class User
     {
@@ -31,7 +35,9 @@ namespace TestHero
 
         internal User(AppDb db) { Db = db; }
 
-
+        /// <summary>
+        /// Nos da el usuario
+        /// </summary>
         public async Task<List<User>> GetUser()
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -40,7 +46,9 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@corr", Correo);
             return await ReadCorreoAsync(await cmd.ExecuteReaderAsync());
         }
-
+        /// <summary>
+        /// LVerifica si el usuario es valido o esta en la base de datos
+        /// </summary>
         public async Task<List<User>> ValidateUser()
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -51,7 +59,9 @@ namespace TestHero
             return await ReadUserAsync(await cmd.ExecuteReaderAsync());
         }
 
-
+        /// <summary>
+        /// Lectura de todos los atributos de usuario
+        /// </summary>
         private async Task<List<User>> ReadUserAsync(MySqlDataReader reader)
         {
             var users= new List<User>();
@@ -70,7 +80,9 @@ namespace TestHero
             }
             return users;
         }
-
+        /// <summary>
+        /// Lectura de todos los atributos de correo
+        /// </summary>
         private async Task<List<User>> ReadCorreoAsync(MySqlDataReader reader)
         {
             var users = new List<User>();

@@ -8,9 +8,16 @@ using MySqlConnector;
 namespace TestHero
 {
 
+        
     /// <summary>
-    /// Summary description for Class1
+    /// Modelo que une la tabla de etiqueta
+    /// Aqui se definen todas las atributos de etiqueta
+    /// como lo son idetiqueta y nombre
+    /// Tiene un constructor que define los datos
+    /// contiene varios metodos:
+    /// getetiquetaexamen,fetetiquetas,getetiqueta,, insertetiqueta,insertetiquetaexamen,readallasync
     /// </summary>
+
     public class Etiqueta
     {
         public int IdEtiqueta { get; set; }
@@ -27,7 +34,9 @@ namespace TestHero
 
         internal Etiqueta(AppDb db) { Db = db; }
 
-
+        /// <summary>
+        /// Nos dice las etiquetas de cierto examen dado el id del profesor
+        /// </summary>
         public async Task<List<Etiqueta>> GetEtiquetasExamen(int idProfesor)
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -36,7 +45,9 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@idE", idProfesor);
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
-
+        /// <summary>
+        /// Nos dice las etiquetas todas las etiquetas que tenemos dado un id
+        /// </summary>
         public async Task<List<Etiqueta>> GetEtiquetas(int id)
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -44,7 +55,9 @@ namespace TestHero
             cmd.CommandType = CommandType.StoredProcedure;
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
-
+        /// <summary>
+        /// Nos dice las etiquetas de cierta etiqueta dado un id
+        /// </summary>
         public async Task<List<Etiqueta>> GetEtiqueta(int id)
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -54,7 +67,9 @@ namespace TestHero
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
 
-
+        /// <summary>
+        /// Funcion para agregar etiquetas
+        /// </summary>
         public async Task InsertEtiqueta()
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -66,7 +81,9 @@ namespace TestHero
             cmdInt.CommandText = @"SELECT MAX(idEtiqueta) FROM etiqueta;";
             IdEtiqueta = Convert.ToInt32(cmdInt.ExecuteScalar());
         }
-
+        /// <summary>
+        /// Funcion que inserta etiquetas en un examen
+        /// </summary>
         public async Task InsertEtiquetaExamen(int idEt, int idEx)
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -77,7 +94,9 @@ namespace TestHero
             await cmd.ExecuteNonQueryAsync();
             using MySqlCommand cmdInt = Db.Connection.CreateCommand();
         }
-
+        /// <summary>
+        /// Nos dice las etiquetas de cierto examen dado el id del profesor
+        /// </summary>
         private async Task<List<Etiqueta>> ReadAllAsync(MySqlDataReader reader)
         {
             var etiquetas = new List<Etiqueta>();

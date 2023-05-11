@@ -9,7 +9,11 @@ namespace TestHero
 {
 
     /// <summary>
-    /// Summary description for Class1
+    /// Modelo que une la tabla de grupo
+    /// Aqui se definen todas las atributos de grupo
+    /// como lo son idgrupo, nombre y idprofesor
+    /// Tiene un constructor que define los datos
+    /// 3 metodos que son: readallasync, GetGruposProfesor y GetGrupo
     /// </summary>
     public class Grupo
     {
@@ -29,7 +33,9 @@ namespace TestHero
 
         internal Grupo(AppDb db) { Db = db; }
 
-
+        /// <summary>
+        /// Nos dice los grupos que tiene el profesor
+        /// </summary>
         public async Task<List<Grupo>> GetGruposProfesor(int idProfesor)
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -38,7 +44,9 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@idP", idProfesor);
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
-
+        /// <summary>
+        /// Nos da todos los grupos
+        /// </summary>
         public async Task<List<Grupo>> GetGrupo(int id)
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -47,7 +55,9 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@id", id);
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
-
+        /// <summary>
+        /// Lectura de todos los atributos de grupo
+        /// </summary>
         private async Task<List<Grupo>> ReadAllAsync(MySqlDataReader reader)
         {
             var grupos = new List<Grupo>();

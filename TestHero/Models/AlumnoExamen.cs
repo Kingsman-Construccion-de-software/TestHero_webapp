@@ -8,8 +8,13 @@ using MySqlConnector;
 namespace TestHero
 {
 
+    
     /// <summary>
-    /// Summary description for Class1
+    /// Modelo que une la tabla de alumno y etiquetas
+    /// Aqui se definen todas las atributos de alumnoetiqueta
+    /// como lo son idalumno,nomhre,apellido y calificaccion
+    /// Tiene un constructor que define los datos
+    /// 2 metodos que son: GetAlumnosExamen y  ReadAllAsync
     /// </summary>
     public class AlumnoExamen
     {
@@ -19,7 +24,7 @@ namespace TestHero
         public string Apellidos { get; set; }
         public int Calificacion { get; set; }
 
-
+      
         [JsonConstructor]
         public AlumnoExamen(string Nombres, string Apellidos, int Calificacion)
         {
@@ -31,7 +36,9 @@ namespace TestHero
         internal AppDb Db { get; set; }
 
         internal AlumnoExamen(AppDb db) { Db = db; }
-
+        /// <summary>
+        /// Metodo para obtener los alumnos que tiene un examen y recibe un Id como parametro
+        /// </summary>
         public async Task<List<AlumnoExamen>> GetAlumnosExamen(int id)
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
@@ -40,7 +47,9 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@idE", id);
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
-
+        /// <summary>
+        /// Funcion dedicada a leer todos los elementos de la lista
+        /// </summary>
         private async Task<List<AlumnoExamen>> ReadAllAsync(MySqlDataReader reader)
         {
             var alumnos = new List<AlumnoExamen>();
