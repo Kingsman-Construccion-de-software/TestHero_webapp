@@ -7,17 +7,16 @@ import { Link } from "react-router-dom";
 
 import "./Sidebar.css";
 /**
- * @author: Leonardo García
+ * @author: Leonardo García y Bernardo de  la Sierra
  * @license: GP
  * @version: 1.0.0
- * Esta clase está dedicada a la creación de una sidebar reutilizable en la mayoría de las páginas
+ * @description Esta clase está dedicada a la creación de una sidebar reutilizable en la mayoría de las páginas
  */
 
 export default function Sidebar() {
-
   return (
     <div className="sidenav">
-      <img className="logoPrincipal" src={SidebarLogo} alt="logo"/>
+      <img className="logoPrincipal" src={SidebarLogo} alt="logo" />
       <Link to={"/home"}>
         <img className="iconSidebar" src={Home} alt="Home" />
       </Link>

@@ -5,51 +5,74 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
 import "./Pregunta.css";
-
+/**
+ * @author Bernardo de la Sierra y Julio Meza
+ * @version 3.1.1
+ * @license Gp
+ * @params Recibe pregunta, filtraprefuntas y getpreguntas
+ * @description Este formulario edita y elimina preguntas, es como la parte de adentro
+ */
 export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
+  // Aparicio de datos
   const [open, setOpen] = useState(false);
-  const [showing, setSbowing] = useState(false);
+  const [showing, setShowing] = useState(false);
   const [show, setShow] = useState(false);
+  const [selected, setSelected] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("");
+  // Actualizador de pregunta
   const [fpregunta, setFpregunta] = useState(pregunta.textoPregunta);
   const [opcion1, setOpcion1] = useState("");
   const [opcion2, setOpcion2] = useState("");
   const [opcion3, setOpcion3] = useState("");
   const [opcion4, setOpcion4] = useState("");
+  //Actilizador de respuestas
   const opciones = [opcion1, opcion2, opcion3, opcion4];
   const setOpciones = [setOpcion1, setOpcion2, setOpcion3, setOpcion4];
   const [respuestas, setRespuestas] = useState([]);
-  const [selected, setSelected] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("");
-
+  /**
+   * Funcion para abrir y cerrar las opciones y recibe un valor booleano
+   */
   const handleOptionChange = (event) => {
     setSelectedValue(event.target.value);
   };
+  /**
+   * Funcion para hacer el drag and drop de la pregunta
+   */
   const toggleOpen = () => {
     setOpen(!open);
   };
-
+  /**
+   * Te da cuerto tiempo para ver si la pregunta esta abierta sino se cierra
+   */
   const timeOutOpen = () => {
-    setSbowing(!showing);
+    setShowing(!showing);
     if (open) {
       setTimeout(toggleOpen, 1000);
     } else {
       toggleOpen();
     }
   };
-
+  //Funciones anonimas para abrir o cerrar cierto evento
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  /**
+   *Funcion para obtener todas las respuestas
+   */
   const getRespuestas = async () => {
     const URIrespuestas = "api/respuesta/pregunta/";
     const res = await axios.get(`${URIrespuestas}${pregunta.idPregunta}`);
     setRespuestas(res.data);
   };
 
+  /**
+   * Funcion para abrir o cerrar todas las respuestas
+   */
   const handleSelected = () => {
     setSelected(!selected);
   };
-
+  /**
+   * Funcion para eliminar las preguntas dado un idPregunta
+   */
   const deletePregunta = async () => {
     const URIdelete = "api/pregunta/";
     await axios.delete(`${URIdelete}${pregunta.idPregunta}`);
@@ -57,7 +80,9 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
     getRespuestas();
     handleClose();
   };
-
+  /**
+   * Actualiza una pregunta dado un idPregunta
+   */
   const updatePregunta = async () => {
     const URIupdate = "api/pregunta/";
     await axios.put(`${URIupdate}${pregunta.idPregunta}`, {
@@ -69,14 +94,18 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
     getRespuestas();
     handleSelected();
   };
-
+  /**
+   * Actualiza una respuesta dado un idPregunta
+   */
   const updateRespuesta = async (respuesta, idx) => {
     const URIupdateP = "api/respuesta/";
     await axios.put(`${URIupdateP}${respuestas[idx].idRespuesta}`, {
       textoRespuesta: respuesta,
     });
   };
-
+  /**
+   * Funcion para activar el punto al crear una respueta
+   */
   const initializeOpciones = () => {
     console.log(selectedValue);
     if (selectedValue === "opcion0") {
