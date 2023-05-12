@@ -30,14 +30,6 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
   const setOpciones = [setOpcion1, setOpcion2, setOpcion3, setOpcion4];
   const [respuestas, setRespuestas] = useState([]);
 
-  /**
-   * Funcion para abrir y cerrar las opciones y recibe un valor booleano
-   */
-
-  const [selected, setSelected] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(-1);
-
-
   const handleOptionChange = (event) => {
     setSelectedValue(parseInt(event.target.value));
   };
@@ -45,9 +37,6 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
   /**
    * Funcion para hacer el drag and drop de la pregunta
    */
-
-
-
   const toggleOpen = () => {
     setOpen(!open);
   };
@@ -98,14 +87,13 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
     await axios.put(`${URIupdate}${pregunta.idPregunta}`, {
       textoPregunta: fpregunta,
     });
-    
 
     await opciones.forEach((opcion, idx) => {
       let respuesta = {
-        TextoRespuesta: opcion, 
+        TextoRespuesta: opcion,
         EsCorrecta: selectedValue === idx ? 1 : 0,
-        IdPregunta: pregunta.idPregunta
-      }
+        IdPregunta: pregunta.idPregunta,
+      };
       updateRespuesta(respuesta, idx);
     });
     getPreguntas();
@@ -261,11 +249,11 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
             correcta
           </p>
           <input
-          type="submit"
-          value="Guardar Pregunta"
-          className="botonPreguntas"
-          onClick={updatePregunta}
-        />
+            type="submit"
+            value="Guardar Pregunta"
+            className="botonPreguntas"
+            onClick={updatePregunta}
+          />
         </>
       )}
     </div>

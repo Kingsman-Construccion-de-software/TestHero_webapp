@@ -4,37 +4,30 @@ import ProfesorContext from "context/contextoProfesor";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+
 /**
- * @author Julio Meza
- * @version 2.1.1
- * @license Gp
- * @params edit
- * @description Clase para crear la etiqueta llamada grupo
+ * @author: Bernardo de la Sierra Rpabago
+ * @license: GP
+ * @version: 2.1.0
+ * @description Esta clase esta dedicada al creacion de grupos
  */
 export default function Group({ edit }) {
-  // Checa los estados
+  // Estados
   const { state, setState } = useContext(ProfesorContext);
   const [examenes, setExamenes] = useState([]);
   const [grupo, setGrupo] = useState();
   const navigate = useNavigate();
 
-
   const prefix = edit ? "/questions" : "/results";
-  /**Te mando a crear un examen */
+  /**
+   * Ruta que te manda a grupos
+   */
   const goToCrearExamen = () => {
     navigate("/crear/examen?grupo=" + grupo.idGrupo);
   };
-  /** te todos los grupos que tiene asignado un profesor */
+  /**obtener la informacion del grupo*/
   const getGrupo = async () => {
     const url = "api/grupo/profesor/" + state.id;
-
-
-export default function Group({edit}) {
-    const {state, setState } = useContext(ProfesorContext);
-    const [examenes, setExamenes] = useState([]);
-    const [grupo, setGrupo] = useState();
-    const navigate = useNavigate();
-
 
     try {
       const result = await axios.get(url);
@@ -45,8 +38,7 @@ export default function Group({edit}) {
       alert(error);
     }
   };
-
-  /** nos los examenes en determinado grupo*/
+  /** Obtener examenes por grupo*/
   const getExamenesGrupo = async () => {
     try {
       const url = "api/examen/grupo/" + grupo.idGrupo;
@@ -65,42 +57,30 @@ export default function Group({edit}) {
     getExamenesGrupo();
   }, [grupo]);
 
-
-    return (
-        <div className={styles.container}>
-            <Sidebar/>
-            <div className={styles.mainContent}>
-                {grupo && <h1>{grupo.nombre}</h1>}
-                <div className={styles['exams-list-header-container']}>
-                    <h2>{edit ? "Editar exámenes" : "Resultados de exámenes"}</h2>
-                    <input
-                        className={styles['search-bar']}
-                        type="search"
-                        placeholder="Buscar"
-                    />
-                </div>
-                <ul className={styles['exams-list']}>
-                    {examenes && examenes.map((examen, idx) => {
-                        return (
-                            <li key={examen.idExamen} className={styles['exam-list-item'] + ` ${styles[`border-color-${idx % 3}`]}`}>
-                                <Link to={`${prefix}?examen=${examen.idExamen}`}>{examen.nombre}</Link>
-                            </li>
-                        )
-                    })}
-                </ul>
-                {edit && 
-                    <div>
-                        <button className={styles['action-button']} onClick={goToCrearExamen}>Crear nuevo examen</button>
-                    </div>
-                }
-            </div>
-
+  return (
+    <div className={styles.container}>
+      <Sidebar />
+      <div className={styles.mainContent}>
+        {grupo && <h1>{grupo.nombre}</h1>}
+        <div className={styles["exams-list-header-container"]}>
+          <h2>{edit ? "Editar exámenes" : "Resultados de exámenes"}</h2>
+          <input
+            className={styles["search-bar"]}
+            type="search"
+            placeholder="Buscar"
+          />
         </div>
         <ul className={styles["exams-list"]}>
           {examenes &&
-            examenes.map((examen) => {
+            examenes.map((examen, idx) => {
               return (
-                <li key={examen.idExamen} className={styles["exam-list-item"]}>
+                <li
+                  key={examen.idExamen}
+                  className={
+                    styles["exam-list-item"] +
+                    ` ${styles[`border-color-${idx % 3}`]}`
+                  }
+                >
                   <Link to={`${prefix}?examen=${examen.idExamen}`}>
                     {examen.nombre}
                   </Link>
