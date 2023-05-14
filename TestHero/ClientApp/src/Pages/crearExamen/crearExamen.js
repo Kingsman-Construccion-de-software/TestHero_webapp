@@ -33,8 +33,7 @@ function CrearExamen() {
 
   const navigate = useNavigate();
 
-  const getTags = async() => {
-
+  const getTags = async () => {
     const url = "api/etiqueta";
     const result = await axios.get(url);
     setEtiquetas([...result.data]);
@@ -65,14 +64,11 @@ function CrearExamen() {
       counter += 1;
     }
     return result;
-
-  }
+  };
 
   const goToExamenes = () => {
-    navigate("/group/exams")
-  }
-
-
+    navigate("/group/exams");
+  };
 
   /**Funcion para actualizar la clase  */
   const handleSubmit = async (event) => {
@@ -92,9 +88,8 @@ function CrearExamen() {
     const result = await axios.post(url, data);
     console.log(result.data);
 
-    await tags.forEach(tag => postTag(tag, result.data.idExamen));
+    await tags.forEach((tag) => postTag(tag, result.data.idExamen));
     goToExamenes();
-
   };
 
   const postTag = async (tag, idExamen) => {

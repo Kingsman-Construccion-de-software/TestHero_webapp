@@ -6,7 +6,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 /**
- * @author: Bernardo de la Sierra Rpabago
+ * @author: Julio Meza
  * @license: GP
  * @version: 2.1.0
  * @description Esta clase esta dedicada al creacion de grupos
