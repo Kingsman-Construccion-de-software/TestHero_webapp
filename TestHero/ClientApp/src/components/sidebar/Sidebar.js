@@ -24,7 +24,7 @@ export default function Sidebar() {
       <Link to={"/group/exams"}>
         <img className="iconSidebar" src={Questions} alt="Preguntas" />
       </Link>
-      <Link to={"/group/results"}>
+      <Link to={"/grupos/results"}>
         <img className="iconSidebar" src={Analytics} alt="Analiticas" />
       </Link>
       <Link to={"/"}>
