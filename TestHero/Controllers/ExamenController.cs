@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -33,7 +34,7 @@ namespace TestHero.Controllers
         [Route("api/examen/grupo/{id:int}")]
         [HttpGet]
         /// <summary>
-        /// Rutamiento de getgrupoexamens es dado por idexamen
+        /// Rutamiento de getgrupoexamenes es dado por idexamen
         /// </summary>
         public async Task<IActionResult> GetGrupoExamenes(int id)
         {
@@ -42,6 +43,27 @@ namespace TestHero.Controllers
             var result = await examen.GetGrupoExamenes(id);
             return new OkObjectResult(result);
         }
+
+        // GET: api/<Examen>/id
+        [Route("api/examen/codigo/{id:int}")]
+        [HttpGet]
+        /// <summary>
+        /// Rutamiento de get examen por su codigo
+        /// </summary>
+        public async Task<IActionResult> Get(string codigo)
+        {
+            await Db.Connection.OpenAsync();
+            Examen examen = new Examen(Db);
+            var result = await examen.GetExamenCodigo(codigo);
+            if(result.Count > 0)
+            {
+                return new OkObjectResult(result);
+            } else
+            {
+                return new NotFoundObjectResult(string.Empty);
+            }
+        }
+
 
 
         // GET: api/<Examen>/id
