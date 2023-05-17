@@ -153,6 +153,7 @@ function CrearExamen() {
                 type="text"
                 className="form-control"
                 id="titulo"
+                placeholder="Nombre del examen"
                 value={titulo}
                 required
                 onChange={(event) => setTitulo(event.target.value)}
@@ -165,6 +166,7 @@ function CrearExamen() {
                 type="text"
                 className="form-control"
                 id="materia"
+                placeholder="Nombre de la"
                 value={materia}
                 required
                 onChange={(event) => setMateria(event.target.value)}
@@ -215,7 +217,7 @@ function CrearExamen() {
                 />
               </div>
               <label htmlFor="hora2" className="col-sm-2 col-form-label">
-                Hora de Inicio
+                Hora de Cierre
               </label>
               <div className="col-sm-4">
                 <input
