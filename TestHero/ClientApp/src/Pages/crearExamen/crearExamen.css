@@ -51,6 +51,13 @@ textarea {
   margin-bottom: 30px;
 }
 
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-around;
+}
+
 .custom-form {
   border: none;
   width: 100%;
@@ -58,6 +65,15 @@ textarea {
   box-sizing: border-box;
 }
 
+.tag {
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .tag span {
   font-size: 16px;
+  margin-right: 10px;
 }
+
