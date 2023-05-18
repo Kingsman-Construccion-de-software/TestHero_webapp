@@ -276,3 +276,5 @@ END //
 DELIMITER ;
 
 
+SELECT * FROM examen;
+

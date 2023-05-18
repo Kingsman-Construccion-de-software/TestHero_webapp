@@ -45,7 +45,7 @@ namespace TestHero.Controllers
         }
 
         // GET: api/<Examen>/id
-        [Route("api/examen/codigo/{id:int}")]
+        [Route("api/examen/codigo/{codigo}")]
         [HttpGet]
         /// <summary>
         /// Rutamiento de get examen por su codigo
@@ -57,7 +57,7 @@ namespace TestHero.Controllers
             var result = await examen.GetExamenCodigo(codigo);
             if(result.Count > 0)
             {
-                return new OkObjectResult(result);
+                return new OkObjectResult(result[0]);
             } else
             {
                 return new NotFoundObjectResult(string.Empty);
