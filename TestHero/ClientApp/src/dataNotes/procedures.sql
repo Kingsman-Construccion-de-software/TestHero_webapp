@@ -31,6 +31,27 @@ END //
 DELIMITER ;
 
 DELIMITER //
+DROP PROCEDURE IF EXISTS get_alumno;
+CREATE PROCEDURE get_alumno(IN corr VARCHAR(45), IN pass VARCHAR(45))
+BEGIN
+	SELECT correo, password, idAlumno from alumno
+    WHERE correo = corr
+    AND password = pass;
+END //
+DELIMITER ;
+
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_alumno_by_correo;
+CREATE PROCEDURE get_alumno_by_correo(IN corr VARCHAR(45))
+BEGIN
+	SELECT correo 
+    FROM alumno
+    WHERE correo = corr;
+END //
+DELIMITER ;
+
+DELIMITER //
 DROP PROCEDURE IF EXISTS get_preguntas_examen;
 CREATE PROCEDURE get_preguntas_examen(IN idE int)
 BEGIN
@@ -109,6 +130,16 @@ BEGIN
 	SELECT idExamen, codigo, nombre, materia, fechaInicio, fechaFin, idGrupo 
     FROM examen 
     WHERE idExamen = id;
+END 
+// DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_examen_codigo;
+CREATE PROCEDURE get_examen_codigo(IN cod VARCHAR(8))
+BEGIN
+	SELECT idExamen, codigo, nombre, materia, fechaInicio, fechaFin, idGrupo 
+    FROM examen 
+    WHERE cod = codigo;
 END 
 // DELIMITER ;
 
@@ -235,9 +266,6 @@ BEGIN
 END //
 DELIMITER ;
 
-SELECT *
-FROM respuesta;
-
 DELIMITER //
 DROP PROCEDURE IF EXISTS insert_etiquetas_examen;
 CREATE PROCEDURE insert_etiquetas_examen(IN idEx INT, IN idEt INT)
@@ -247,5 +275,6 @@ BEGIN
 END //
 DELIMITER ;
 
-SELECT *
-FROM respuesta;
+
+SELECT * FROM examen;
+

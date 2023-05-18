@@ -15,7 +15,7 @@ namespace TestHero
     /// Tiene un constructor que define los datos
     /// 4 metodos que son: GetUser,  ValidateUse ,  ReadCorreoAsync y   ReadUserAsync
     /// </summary>
-    public class User
+    public class UserProfesor
     {
         public int Id { get; set; }
 
@@ -24,7 +24,7 @@ namespace TestHero
         public string Password { get; set; }
 
         [JsonConstructor]
-        public User(string Correo, string Password)
+        public UserProfesor(string Correo, string Password)
         {
             this.Correo = Correo;
             this.Password = Password;
@@ -33,12 +33,12 @@ namespace TestHero
 
         internal AppDb Db { get; set; }
 
-        internal User(AppDb db) { Db = db; }
+        internal UserProfesor(AppDb db) { Db = db; }
 
         /// <summary>
         /// Nos da el usuario
         /// </summary>
-        public async Task<List<User>> GetUser()
+        public async Task<List<UserProfesor>> GetUser()
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
             cmd.CommandText = "get_profesor_by_correo";
@@ -49,7 +49,7 @@ namespace TestHero
         /// <summary>
         /// LVerifica si el usuario es valido o esta en la base de datos
         /// </summary>
-        public async Task<List<User>> ValidateUser()
+        public async Task<List<UserProfesor>> ValidateUser()
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
             cmd.CommandText = @"get_profesor";
@@ -62,14 +62,14 @@ namespace TestHero
         /// <summary>
         /// Lectura de todos los atributos de usuario
         /// </summary>
-        private async Task<List<User>> ReadUserAsync(MySqlDataReader reader)
+        private async Task<List<UserProfesor>> ReadUserAsync(MySqlDataReader reader)
         {
-            var users= new List<User>();
+            var users= new List<UserProfesor>();
             using (reader)
             {
                 while (await reader.ReadAsync())
                 {
-                    var user = new User(Db)
+                    var user = new UserProfesor(Db)
                     {
                         Correo = reader.GetString(0),
                         Password = reader.GetString(1),
@@ -83,14 +83,14 @@ namespace TestHero
         /// <summary>
         /// Lectura de todos los atributos de correo
         /// </summary>
-        private async Task<List<User>> ReadCorreoAsync(MySqlDataReader reader)
+        private async Task<List<UserProfesor>> ReadCorreoAsync(MySqlDataReader reader)
         {
-            var users = new List<User>();
+            var users = new List<UserProfesor>();
             using (reader)
             {
                 while (await reader.ReadAsync())
                 {
-                    var user = new User(Db)
+                    var user = new UserProfesor(Db)
                     {
                         Correo = reader.GetString(0),
                     };

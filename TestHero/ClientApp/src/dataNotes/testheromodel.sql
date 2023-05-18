@@ -173,6 +173,7 @@ insert into profesor (nombres, apellidos, correo, password) values ('Dolf', 'Bev
 insert into profesor (nombres, apellidos, correo, password) values ('Cate', 'Ruprechter', 'cruprechter7@youtu.be', 'LqPWii');
 insert into profesor (nombres, apellidos, correo, password) values ('Mina', 'Jaspar', 'mjaspar8@macromedia.com', 'xyDnPiDet0');
 insert into profesor (nombres, apellidos, correo, password) values ('Dirk', 'Pursey', 'dpursey9@google.es', 'OFmz9chLt');
+insert into profesor (nombres, apellidos, correo, password) values ('Esteban', 'Rodríguez', 'esteban@hotmail.com', 'OFmz9chLa');
 
 insert into grupo (nombre, idProfesor) values ('Mate III', 8);
 insert into grupo (nombre, idProfesor) values ('Francés I', 1);
@@ -184,6 +185,7 @@ insert into grupo (nombre, idProfesor) values ('Robótica', 9);
 insert into grupo (nombre, idProfesor) values ('Inglés I', 7);
 insert into grupo (nombre, idProfesor) values ('Química', 5);
 insert into grupo (nombre, idProfesor) values ('Fisica', 3);
+insert into grupo (nombre, idProfesor) values ('Mate I', 11);
 
 insert into alumno (nombres, apellidos, matricula, correo, password, idGrupo) values ('Zsazsa', 'Warret', '01GZG5J7AT3Q8DFS9QMP7XCZWE', 'zwarret0@google.nl', '6YsO8xqf38Z', 7);
 insert into alumno (nombres, apellidos, matricula, correo, password, idGrupo) values ('Brendon', 'Dearness', '01GZG5J7AV28T7QGBC2AE9Z88V', 'bdearness1@digg.com', '4jXbOAu5', 2);
@@ -289,4 +291,7 @@ insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealiza
 insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (9, 2, 5, 152276, '2022-09-23');
 insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (3, 1, 0, 16382, '2023-04-14');
 
-
+insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (1, 19, 8, 16382, '2023-05-20');
+insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (2, 19, 9, 16382, '2023-05-23');
+insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (3, 19, 7, 16382, '2023-05-22');
+insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (4, 19, 10, 16382, '2023-05-20');

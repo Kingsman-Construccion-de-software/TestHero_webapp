@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import ProfesorContext from "context/contextoProfesor";
+
 /**
  * @author Bernardo de la Sierra
  * @version 2.1.1
@@ -13,6 +14,7 @@ import ProfesorContext from "context/contextoProfesor";
  * @params Sin parametros
  * @description Clase para que el usuario inicie sesion
  */
+
 export default function Login() {
   // Parametros a actualizar
   const [email, setEmail] = useState("");
@@ -99,7 +101,7 @@ export default function Login() {
           />
           {status !== "Login exitoso." && (
             <p className="textoError">{status}</p>
-          )}
+          )}Se 
           <button className="loginButton">Ingresar</button>
         </form>
       </div>
