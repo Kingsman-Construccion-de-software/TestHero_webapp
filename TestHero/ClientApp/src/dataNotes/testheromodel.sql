@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS ExamenEtiqueta (
 CREATE TABLE IF NOT EXISTS AlumnoPregunta (
   `idAlumno` INT NOT NULL,
   `idPregunta` INT NOT NULL,
-  `escorrecta` TINYINT NOT NULL,
+  `idRespuesta` INT NOT NULL,
   PRIMARY KEY (`idAlumno`, `idPregunta`),
   FOREIGN KEY(`idAlumno`) REFERENCES `Alumno`(`idAlumno`)
 	ON DELETE NO ACTION
@@ -269,9 +269,10 @@ insert into examenpoder (idExamen, idPoder) values (1, 1);
 insert into examenpoder (idExamen, idPoder) values (7, 4);
 insert into examenpoder (idExamen, idPoder) values (6, 4);
 
-insert into alumnopregunta (idAlumno, idPregunta, esCorrecta) values (7, 3, 1);
-insert into alumnopregunta (idAlumno, idPregunta, esCorrecta) values (2, 1, 0);
-insert into alumnopregunta (idAlumno, idPregunta, esCorrecta) values (6, 9, 0);
+/*
+insert into alumnopregunta (idAlumno, idPregunta, idRespuesta) values (7, 3, 1);
+insert into alumnopregunta (idAlumno, idPregunta, idRespuesta) values (2, 1, 0);
+insert into alumnopregunta (idAlumno, idPregunta, idRespuesta) values (6, 9, 0);
 insert into alumnopregunta (idAlumno, idPregunta, esCorrecta) values (6, 8, 0);
 insert into alumnopregunta (idAlumno, idPregunta, esCorrecta) values (10, 1, 0);
 insert into alumnopregunta (idAlumno, idPregunta, esCorrecta) values (7, 4, 1);
@@ -279,6 +280,7 @@ insert into alumnopregunta (idAlumno, idPregunta, esCorrecta) values (1, 9, 1);
 insert into alumnopregunta (idAlumno, idPregunta, esCorrecta) values (4, 9, 0);
 insert into alumnopregunta (idAlumno, idPregunta, esCorrecta) values (7, 1, 0);
 insert into alumnopregunta (idAlumno, idPregunta, esCorrecta) values (2, 2, 1);
+*/
 
 insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (4, 1, 0, 65052, '2023-04-25');
 insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (8, 8, 8, 15325, '2022-05-16');
@@ -291,7 +293,8 @@ insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealiza
 insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (9, 2, 5, 152276, '2022-09-23');
 insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (3, 1, 0, 16382, '2023-04-14');
 
-insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (1, 19, 8, 16382, '2023-05-20');
-insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (2, 19, 9, 16382, '2023-05-23');
-insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (3, 19, 7, 16382, '2023-05-22');
-insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (4, 19, 10, 16382, '2023-05-20');
+insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (1, 5, 8, 16382, '2023-05-20');
+insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (2, 7, 9, 16382, '2023-05-23');
+insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (3, 9, 7, 16382, '2023-05-22');
+insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (4, 10, 10, 16382, '2023-05-20');
+
