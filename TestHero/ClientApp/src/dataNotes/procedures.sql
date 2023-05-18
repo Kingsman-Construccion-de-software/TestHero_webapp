@@ -147,7 +147,7 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS get_alumnos_examen;
 CREATE PROCEDURE  get_alumnos_examen(IN idE int)
 BEGIN
-	SELECT alumno.idAlumno, alumno.nombres, alumno.apellidos, alumnoexamen.calificacion 
+	SELECT alumno.idAlumno, alumno.nombres, alumno.apellidos, alumnoexamen.calificacion, alumnoexamen.puntos
     from alumno 
     inner join grupo on 
     alumno.idGrupo = grupo.idGrupo 
@@ -157,6 +157,33 @@ BEGIN
 END 
 // DELIMITER ;
 
+DELIMITER //
+DROP PROCEDURE IF EXISTS insert_alumnos_examen;
+CREATE PROCEDURE  insert_alumnos_examen(IN idA int, IN idE int, IN cal int, IN pun int, IN fecha datetime)
+BEGIN
+	INSERT INTO alumnos_examen(idAlumno, idExamen, calificacion, puntos, fechaRealizacion)
+    VALUES(idA, idE, cal, pun, fecha);
+END 
+// DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_alumno_pregunta;
+CREATE PROCEDURE  get_alumno_pregunta(IN idA int, IN idP int)
+BEGIN
+	SELECT idAlumno, idPregunta, idRespuesta
+    FROM alumno_pregunta AS ap
+    WHERE idAlumno = idA AND idP = idP;
+END 
+// DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS insert_alumno_pregunta;
+CREATE PROCEDURE  insert_alumno_pregunta(IN idA int, IN idP int, IN idR int)
+BEGIN
+	INSERT INTO alumno_pregunta(idAlumno, idPregunta, idRespuesta)
+    VALUES(idA, idP, idR);
+END 
+// DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS insert_examen;
@@ -276,5 +303,4 @@ END //
 DELIMITER ;
 
 
-SELECT * FROM examen;
 
