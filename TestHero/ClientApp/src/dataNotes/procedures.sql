@@ -161,7 +161,7 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS insert_alumnos_examen;
 CREATE PROCEDURE  insert_alumnos_examen(IN idA int, IN idE int, IN cal int, IN pun int, IN fecha datetime)
 BEGIN
-	INSERT INTO alumnos_examen(idAlumno, idExamen, calificacion, puntos, fechaRealizacion)
+	INSERT INTO alumnoexamen(idAlumno, idExamen, calificacion, puntos, fechaRealizacion)
     VALUES(idA, idE, cal, pun, fecha);
 END 
 // DELIMITER ;
@@ -171,17 +171,26 @@ DROP PROCEDURE IF EXISTS get_alumno_pregunta;
 CREATE PROCEDURE  get_alumno_pregunta(IN idA int, IN idP int)
 BEGIN
 	SELECT idAlumno, idPregunta, idRespuesta
-    FROM alumno_pregunta AS ap
+    FROM alumnopregunta AS ap
     WHERE idAlumno = idA AND idP = idP;
 END 
 // DELIMITER ;
 
 DELIMITER //
-DROP PROCEDURE IF EXISTS insert_alumno_pregunta;
-CREATE PROCEDURE  insert_alumno_pregunta(IN idA int, IN idP int, IN idR int)
+DROP PROCEDURE IF EXISTS insert_alumno_pregunta_respuesta;
+CREATE PROCEDURE  insert_alumno_pregunta_respuesta(IN idA int, IN idP int, IN idR int)
 BEGIN
-	INSERT INTO alumno_pregunta(idAlumno, idPregunta, idRespuesta)
+	INSERT INTO alumnopregunta(idAlumno, idPregunta, idRespuesta)
     VALUES(idA, idP, idR);
+END 
+// DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS insert_alumno_pregunta;
+CREATE PROCEDURE  insert_alumno_pregunta(IN idA int, IN idP int)
+BEGIN
+	INSERT INTO alumnopregunta(idAlumno, idPregunta)
+    VALUES(idA, idP);
 END 
 // DELIMITER ;
 
@@ -303,4 +312,11 @@ END //
 DELIMITER ;
 
 
+SELECT * FROM alumnoexamen;
+SELECT * FROM alumnopregunta;
 
+DELETE FROM alumnoexamen
+WHERE idAlumno = 1;
+
+DELETE FROM alumnopregunta
+WHERE idAlumno = 1;
