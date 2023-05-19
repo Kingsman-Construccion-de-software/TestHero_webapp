@@ -5,6 +5,7 @@ import Results from "./Pages/results/Results";
 import Questions from "./Pages/questions/questions";
 import CrearExamen from "Pages/crearExamen/crearExamen";
 import Grupos from "./Pages/grupos/Grupos";
+import ResumenExamen from "./Pages/resumenExamen/ResumenExamen";
 const AppRoutes = [
   {
     index: true,
@@ -15,13 +16,10 @@ const AppRoutes = [
     element: <Home />,
   },
   {
-    path: "/group/exams",
-    element: <Group edit={true} />,
+    path: "/group/resumen",
+    element: <Group />,
   },
-  {
-    path: "/group/results",
-    element: <Group edit={false} />,
-  },
+
   {
     path: "/grupos",
     element: <Grupos />,
@@ -37,6 +35,10 @@ const AppRoutes = [
   {
     path: "/questions",
     element: <Questions />,
+  },
+  {
+    path: "/resumenExamen",
+    element: <ResumenExamen />,
   },
 ];
 

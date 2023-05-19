@@ -26,20 +26,18 @@ export default function Grupos() {
   };
   const navigate = useNavigate();
 
-  /**
-   * Ruta que te manda a grupos
-   */
-  // Cambiar
-  // const goToExams = () => {
-  //   navigate("group/exams/results");
-  // };
-  /**obtener la informacion del grupo*/
+  const saveState = (idGrupo) => {
+    const newState = state;
+    newState.idGrupo = idGrupo;
+    setState(newState);
+  };
   const getGrupo = async () => {
     const url = "api/grupo/profesor/" + state.id;
 
     try {
       const result = await axios.get(url);
       if (result.data) {
+        console.log(result.data);
         setGrupos(result.data);
       }
     } catch (error) {
@@ -92,7 +90,12 @@ export default function Grupos() {
                     ` ${styles[`border-color-${idx % 3}`]}`
                   }
                 >
-                  <Link to={"/group/exams"}>{grupo.nombre}</Link>
+                  <Link
+                    to={`/group/resumen?grupo=${grupo.idGrupo}`}
+                    onClick={() => saveState(grupo.idGrupo)}
+                  >
+                    {grupo.nombre}
+                  </Link>
                 </li>
               );
             })}

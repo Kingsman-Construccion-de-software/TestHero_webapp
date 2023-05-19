@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./crearExamen.css";
 import "../home/home.css";
 import Sidebar from "../../components/sidebar/Sidebar.js";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import ProfesorContext from "context/contextoProfesor";
 /**
  * @author: Cesar Ivan Hernandez Melendez
  * @license: GP
@@ -26,7 +26,8 @@ function CrearExamen() {
   const [searchParams] = useSearchParams();
   const [etiquetas, setEtiquetas] = useState([]);
   const [showingEtiquetas, setShowingEtiquetas] = useState([]);
-
+  const { state, setState } = useContext(ProfesorContext);
+  const parametro = searchParams.get("grupo");
   /**
    * Nos da todos las etiquetas
    */
@@ -67,7 +68,7 @@ function CrearExamen() {
   };
 
   const goToExamenes = () => {
-    navigate("/group/exams");
+    navigate(`/group/resumen?grupo=${state.idGrupo}`);
   };
 
   /**Funcion para actualizar la clase  */
@@ -82,11 +83,10 @@ function CrearExamen() {
       Materia: materia,
       FechaInicio: fecha1 + "T" + hora1,
       FechaFin: fecha2 + "T" + hora2,
-      idGrupo: searchParams.get("grupo"),
+      idGrupo: state.idGrupo,
     };
 
     const result = await axios.post(url, data);
-    console.log(result.data);
 
     await tags.forEach((tag) => postTag(tag, result.data.idExamen));
     goToExamenes();
