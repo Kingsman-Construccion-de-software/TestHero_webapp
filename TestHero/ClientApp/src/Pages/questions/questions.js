@@ -7,7 +7,7 @@ import { BsFillPlusCircleFill } from "react-icons/bs";
 import FormularioPregunta from "../../components/formularioPregunta/FormularioPregunta";
 import { useSearchParams } from "react-router-dom";
 /**
- * @author Bernardo de la Sierra y Julio MEza
+ * @author Bernardo de la Sierra y Julio Meza
  * @version 2.1.1
  * @license Gp
  * @params Sin parametros
