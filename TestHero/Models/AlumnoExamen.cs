@@ -26,18 +26,18 @@ namespace TestHero
         public string Apellidos { get; set; }
         public int Calificacion { get; set; }
         public int Puntaje { get; set; }
-
         public DateTime FechaRealizacion { get; set; }
 
       
         [JsonConstructor]
-        public AlumnoExamen(int IdAlumno, int IdExamen, int Calificacion, int Puntaje, DateTime FechaRealizacion)
+        public AlumnoExamen(int IdAlumno, int IdExamen, int Calificacion, int Puntaje)
         {
             this.IdAlumno = IdAlumno;
             this.IdExamen = IdExamen;
+            this.Nombres = "";
+            this.Apellidos = "";
             this.Calificacion = Calificacion;
             this.Puntaje = Puntaje;
-            this.FechaRealizacion = FechaRealizacion;
         }
 
         internal AppDb Db { get; set; }
@@ -67,6 +67,7 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@idE", IdExamen);
             cmd.Parameters.AddWithValue("@cal", Calificacion);
             cmd.Parameters.AddWithValue("@pun", Puntaje);
+            FechaRealizacion = DateTime.Now;
             cmd.Parameters.AddWithValue("@fecha", FechaRealizacion);
 
             await cmd.ExecuteNonQueryAsync();

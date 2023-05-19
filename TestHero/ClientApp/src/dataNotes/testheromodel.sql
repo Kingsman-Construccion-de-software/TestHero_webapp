@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS ExamenEtiqueta (
 CREATE TABLE IF NOT EXISTS AlumnoPregunta (
   `idAlumno` INT NOT NULL,
   `idPregunta` INT NOT NULL,
-  `idRespuesta` INT NOT NULL,
+  `idRespuesta` INT,
   PRIMARY KEY (`idAlumno`, `idPregunta`),
   FOREIGN KEY(`idAlumno`) REFERENCES `Alumno`(`idAlumno`)
 	ON DELETE NO ACTION
@@ -292,9 +292,7 @@ insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealiza
 insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (2, 7, 3, 143449, '2022-07-01');
 insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (9, 2, 5, 152276, '2022-09-23');
 insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (3, 1, 0, 16382, '2023-04-14');
-
 insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (1, 5, 8, 16382, '2023-05-20');
-insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (2, 7, 9, 16382, '2023-05-23');
 insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (3, 9, 7, 16382, '2023-05-22');
 insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (4, 10, 10, 16382, '2023-05-20');
 

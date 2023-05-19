@@ -55,11 +55,21 @@ namespace TestHero
         public async Task InsertAlumnoPregunta()
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
-            cmd.CommandText = @"insert_alumno_pregunta";
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@idA", IdAlumno);
-            cmd.Parameters.AddWithValue("@idP", IdPregunta);
-            cmd.Parameters.AddWithValue("@idR", IdRespuesta);
+            if(IdRespuesta == -1)
+            {
+                cmd.CommandText = @"insert_alumno_pregunta";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@idA", IdAlumno);
+                cmd.Parameters.AddWithValue("@idP", IdPregunta);
+            } else
+            {
+                cmd.CommandText = @"insert_alumno_pregunta_respuesta";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@idA", IdAlumno);
+                cmd.Parameters.AddWithValue("@idP", IdPregunta);
+                cmd.Parameters.AddWithValue("@idR", IdRespuesta);
+            }
+            
 
             await cmd.ExecuteNonQueryAsync();
             using MySqlCommand cmdInt = Db.Connection.CreateCommand();

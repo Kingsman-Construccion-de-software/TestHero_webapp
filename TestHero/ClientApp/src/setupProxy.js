@@ -18,7 +18,8 @@ const context =  [
     "/api/examen/grupo",
     "/api/examen/profesor",
     "/api/respuesta/pregunta",
-    "/api/alumno/examen"
+    "/api/alumno/examen",
+    "/api/alumno/pregunta"
 ];
 
 module.exports = function(app) {

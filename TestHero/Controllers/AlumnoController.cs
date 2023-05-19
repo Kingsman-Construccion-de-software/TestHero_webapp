@@ -45,7 +45,7 @@ namespace TestHero.Controllers
         }
 
         // GET api/alumno/pregunta/idA/idE
-        [Route("api/alumno/{idA:int}/pregunta/{idP:int}")]
+        [Route("api/alumno/pregunta/{idA:int}/{idP:int}")]
         [HttpGet]
         /// <summary>
         /// Rutamiento de getalumnopregunta
