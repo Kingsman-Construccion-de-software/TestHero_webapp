@@ -3,6 +3,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import ProfesorContext from "context/contextoProfesor";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { BsFillPlusCircleFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 
 /**
@@ -90,12 +91,12 @@ export default function Group({ edit }) {
         </ul>
         {edit && (
           <div>
-            <button
-              className={styles["action-button"]}
-              onClick={goToCrearExamen}
-            >
-              Crear nuevo examen
-            </button>
+            <>
+              <BsFillPlusCircleFill
+                className="circulo"
+                onClick={goToCrearExamen}
+              />
+            </>
           </div>
         )}
       </div>

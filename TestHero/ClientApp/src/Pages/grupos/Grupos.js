@@ -5,7 +5,8 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
-
+import { Modal, Button } from "react-bootstrap";
+import swal from "sweetalert";
 /**
  * @author: Bernardo de la Sierra
  * @license: GP
@@ -17,19 +18,20 @@ export default function Grupos() {
   const { state, setState } = useContext(ProfesorContext);
   const [grupos, setGrupos] = useState();
   const [selected, setSelected] = useState(false);
+  const [fgrupo, setFgrupo] = useState("");
 
   /**Checa que esta seleccionado el boton de crear para desplegar el modal */
   const handleSelected = () => {
     setSelected(!selected);
   };
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   /**
    * Ruta que te manda a grupos
    */
   // Cambiar
-  // const goToCrearExamen = () => {
-  //   navigate("/crear/examen?grupo=" + grupo.idGrupo);
+  // const goToExams = () => {
+  //   navigate("group/exams/results");
   // };
   /**obtener la informacion del grupo*/
   const getGrupo = async () => {
@@ -45,7 +47,22 @@ export default function Grupos() {
     }
   };
   /** Obtener examenes por grupo*/
-
+  const URIgrupo = "api/grupo";
+  const creaGrupo = async (e) => {
+    e.preventDefault();
+    const result = await axios.post(URIgrupo, {
+      idProfesor: state.id,
+      Nombre: fgrupo,
+    });
+    swal({
+      title: "Se ha creado un grupo",
+      button: "Aceptar",
+      icon: "success",
+    });
+    getGrupo();
+    setFgrupo("");
+    handleSelected();
+  };
   useEffect(() => {
     getGrupo();
     console.log(grupos);
@@ -57,7 +74,7 @@ export default function Grupos() {
       <div className={styles.mainContent}>
         <h1>Grupos</h1>
         <div className={styles["exams-list-header-container"]}>
-          <h2>Resultados de grupos</h2>
+          <h2>Mis grupos</h2>
           <input
             className={styles["search-bar"]}
             type="search"
@@ -75,13 +92,35 @@ export default function Grupos() {
                     ` ${styles[`border-color-${idx % 3}`]}`
                   }
                 >
-                  {/* <Link to={`$grupo=${grupo.idGrupo}`}> */}
-                  {grupo.nombre}
-                  {/* </Link> */}
+                  <Link to={"/group/exams"}>{grupo.nombre}</Link>
                 </li>
               );
             })}
         </ul>
+        <Modal show={selected} onHide={handleSelected} className="modal">
+          <Modal.Header closeButton className={styles["modaldetalles2"]}>
+            <Modal.Title>Nombre del grupo</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className={styles["modaldetalles2"]}>
+            <input
+              className={styles["titulogrupo"]}
+              placeholder="Escribe la grupo"
+              value={fgrupo}
+              required
+              onChange={(e) => setFgrupo(e.target.value)}
+              type="text"
+            />
+          </Modal.Body>
+          <Modal.Footer className={styles["modaldetalles2"]}>
+            <Button
+              variant="secondary"
+              onClick={creaGrupo}
+              className={styles["botonCrear"]}
+            >
+              Crear
+            </Button>
+          </Modal.Footer>
+        </Modal>
 
         <div
           onClick={() => {
