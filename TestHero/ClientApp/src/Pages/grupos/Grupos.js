@@ -19,7 +19,16 @@ export default function Grupos() {
   const [grupos, setGrupos] = useState();
   const [selected, setSelected] = useState(false);
   const [fgrupo, setFgrupo] = useState("");
-
+  const [search, setSearch] = useState("");
+  //Metodo de filtrado y busqueda
+  const buscador = (e) => {
+    setSearch(e.target.value);
+  };
+  const resultados = !search
+    ? grupos
+    : grupos.filter((grupo) =>
+        grupo.nombre.toLowerCase().includes(search.toLocaleLowerCase())
+      );
   /**Checa que esta seleccionado el boton de crear para desplegar el modal */
   const handleSelected = () => {
     setSelected(!selected);
@@ -72,16 +81,18 @@ export default function Grupos() {
       <div className={styles.mainContent}>
         <h1>Grupos</h1>
         <div className={styles["exams-list-header-container"]}>
-          <h2>Mis grupos</h2>
+          <h2 className={styles["margen"]}>Mis grupos</h2>
           <input
-            className={styles["search-bar"]}
-            type="search"
+            className={styles["search-bar2"]}
+            type="text"
             placeholder="Buscar"
+            value={search}
+            onChange={buscador}
           />
         </div>
         <ul className={styles["exams-list"]}>
-          {grupos &&
-            grupos.map((grupo, idx) => {
+          {resultados &&
+            resultados.map((grupo, idx) => {
               return (
                 <li
                   key={grupo.idGrupo}

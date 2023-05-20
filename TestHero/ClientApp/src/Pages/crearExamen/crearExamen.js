@@ -6,8 +6,9 @@ import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ProfesorContext from "context/contextoProfesor";
+import swal from "sweetalert";
 /**
- * @author: Cesar Ivan Hernandez Melendez
+ * @author: Cesar Ivan Hernandez Melendez y Bernardo de la Sierra Rábago
  * @license: GP
  * @version: 2.1.0
  * Esta clase está dedicada a la página de Crear Examenes
@@ -27,6 +28,7 @@ function CrearExamen() {
   const [etiquetas, setEtiquetas] = useState([]);
   const [showingEtiquetas, setShowingEtiquetas] = useState([]);
   const { state, setState } = useContext(ProfesorContext);
+  const [examenes, setExamenes] = useState([]);
   const parametro = searchParams.get("grupo");
   /**
    * Nos da todos las etiquetas
@@ -76,9 +78,10 @@ function CrearExamen() {
     event.preventDefault();
 
     const url = "api/examen";
-
+    const codigoExamen = makeId(8);
+    console.log(codigoExamen);
     const data = {
-      Codigo: makeId(8),
+      Codigo: codigoExamen,
       Nombre: titulo,
       Materia: materia,
       FechaInicio: fecha1 + "T" + hora1,
@@ -89,6 +92,11 @@ function CrearExamen() {
     const result = await axios.post(url, data);
 
     await tags.forEach((tag) => postTag(tag, result.data.idExamen));
+    swal({
+      title: "Se ha creado un grupo",
+      button: "Aceptar",
+      icon: "success",
+    });
     goToExamenes();
   };
 

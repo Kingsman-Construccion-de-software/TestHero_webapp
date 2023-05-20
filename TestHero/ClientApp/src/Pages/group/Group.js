@@ -19,6 +19,16 @@ export default function Group() {
   const [grupo, setGrupo] = useState();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const [search, setSearch] = useState("");
+  //Metodo de filtrado y busqueda
+  const buscador = (e) => {
+    setSearch(e.target.value);
+  };
+  const resultados = !search
+    ? examenes
+    : examenes.filter((examen) =>
+        examen.nombre.toLowerCase().includes(search.toLocaleLowerCase())
+      );
   /**
    * Ruta que te manda a grupos
    */
@@ -64,16 +74,18 @@ export default function Group() {
       <div className={styles.mainContent}>
         {grupo && <h1>{grupo.nombre}</h1>}
         <div className={styles["exams-list-header-container"]}>
-          <h2>Examenes</h2>
+          <h2 className={styles["margen"]}>Examenes</h2>
           <input
             className={styles["search-bar"]}
-            type="search"
+            type="text"
             placeholder="Buscar"
+            value={search}
+            onChange={buscador}
           />
         </div>
         <ul className={styles["exams-list"]}>
-          {examenes &&
-            examenes.map((examen, idx) => {
+          {resultados &&
+            resultados.map((examen, idx) => {
               return (
                 <li
                   key={examen.idExamen}
