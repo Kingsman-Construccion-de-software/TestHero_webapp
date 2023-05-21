@@ -16,7 +16,7 @@ import swal from "sweetalert";
 export default function Grupos() {
   // Estados Iniciales
   const { state, setState } = useContext(ProfesorContext);
-  const [grupos, setGrupos] = useState();
+  const [grupos, setGrupos] = useState([]);
   const [selected, setSelected] = useState(false);
   const [fgrupo, setFgrupo] = useState("");
   const [search, setSearch] = useState("");
@@ -90,6 +90,9 @@ export default function Grupos() {
             onChange={buscador}
           />
         </div>
+        {grupos.length === 0 && (
+          <div className="lista">Comienza a crear tus grupos</div>
+        )}
         <ul className={styles["exams-list"]}>
           {resultados &&
             resultados.map((grupo, idx) => {
@@ -102,7 +105,7 @@ export default function Grupos() {
                   }
                 >
                   <Link
-                    to={`/group/resumen?grupo=${grupo.idGrupo}`}
+                    to={`/examenAlumno?grupo=${grupo.idGrupo}`}
                     onClick={() => saveState(grupo.idGrupo)}
                   >
                     {grupo.nombre}

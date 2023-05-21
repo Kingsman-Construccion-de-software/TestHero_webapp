@@ -12,27 +12,17 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
  * @version: 2.1.0
  * @description Esta clase esta dedicada al creacion de grupos
  */
-export default function Group() {
+export default function Group({ parametro }) {
   // Estados
   const { state, setState } = useContext(ProfesorContext);
   const [examenes, setExamenes] = useState([]);
   const [grupo, setGrupo] = useState();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const [search, setSearch] = useState("");
-  //Metodo de filtrado y busqueda
-  const buscador = (e) => {
-    setSearch(e.target.value);
-  };
-  const resultados = !search
-    ? examenes
-    : examenes.filter((examen) =>
-        examen.nombre.toLowerCase().includes(search.toLocaleLowerCase())
-      );
+
   /**
    * Ruta que te manda a grupos
    */
-  const parametro = searchParams.get("grupo");
+
   const goToCrearExamen = () => {
     navigate("/crear/examen");
   };
@@ -72,20 +62,12 @@ export default function Group() {
     <div className={styles.container}>
       <Sidebar />
       <div className={styles.mainContent}>
-        {grupo && <h1>{grupo.nombre}</h1>}
-        <div className={styles["exams-list-header-container"]}>
-          <h2 className={styles["margen"]}>Examenes</h2>
-          <input
-            className={styles["search-bar"]}
-            type="text"
-            placeholder="Buscar"
-            value={search}
-            onChange={buscador}
-          />
-        </div>
+        {examenes.length === 0 && (
+          <div className="vacio">Comienza a crear exámenes para tu grupo.</div>
+        )}
         <ul className={styles["exams-list"]}>
-          {resultados &&
-            resultados.map((examen, idx) => {
+          {examenes &&
+            examenes.map((examen, idx) => {
               return (
                 <li
                   key={examen.idExamen}

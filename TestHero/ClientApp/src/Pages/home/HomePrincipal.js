@@ -9,7 +9,6 @@ import { useContext, useEffect } from "react";
 import ProfesorContext from "context/contextoProfesor";
 import axios from "axios";
 
-
 /**
  * @author: Leonardo García y Bernardo de la Sierra
  * @license: GP
@@ -18,24 +17,23 @@ import axios from "axios";
  */
 
 export default function HomePrincipal() {
-  const {state, setState } = useContext(ProfesorContext);
+  const { state, setState } = useContext(ProfesorContext);
   const [examenes, setExamenes] = useState([]);
 
-  const getExamenesActivos = async  () => {
+  const getExamenesActivos = async () => {
     const url = "api/examen/profesor/" + state.id;
 
     try {
       const result = await axios.get(url);
       setExamenes([...result.data]);
-    } catch(error){
+    } catch (error) {
       alert(error);
     }
-  }
+  };
 
   useEffect(() => {
-    getExamenesActivos()
+    getExamenesActivos();
   }, [state.id]);
-
 
   return (
     <div>
@@ -43,23 +41,22 @@ export default function HomePrincipal() {
         <Sidebar />
       </div>
       <div className="home_background">
-        <h1 className="tituloPagina">¡Bienvenido!</h1> 
+        <h1 className="tituloPagina">¡Bienvenido!</h1>
         <div className="datos">
           <img className="icono" src={UserIcon} alt="icono de usuario" />
           <span className="nombreUsuario">{state.nombre}</span>
         </div>
         <div className="examActuales">
-          {examenes && 
-            examenes.map((examen) => 
-              <Grupo 
-                key={examen.idExamen} 
-                nombre={examen.nombre} 
+          {examenes &&
+            examenes.map((examen) => (
+              <Grupo
+                key={examen.idExamen}
+                nombre={examen.nombre}
                 fechaFin={examen.fechaFin}
                 grupo={examen.grupo}
-                link={`/results?examen=${examen.idExamen}`}
-                />
-            )
-          }
+                link={`/resumenExamen?examen=${examen.idExamen}`}
+              />
+            ))}
         </div>
       </div>
     </div>

@@ -44,6 +44,8 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@idP", idProfesor);
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
+
+        
         /// <summary>
         /// Nos da un grupo por id
         /// </summary>
