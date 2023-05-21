@@ -58,7 +58,6 @@ export default function Results() {
     <div className={styles.container}>
       <Sidebar />
       <div className={styles.mainContent}>
-        {examen && <h1>{examen.nombre}</h1>}
         <div className={styles.header}>
           <input
             className={styles["search-bar"]}

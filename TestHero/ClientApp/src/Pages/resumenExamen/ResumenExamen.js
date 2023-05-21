@@ -5,6 +5,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 import { useSearchParams } from "react-router-dom";
+import MultipleViewCard from "components/multiple-view-card/MultipleViewCard";
+import Questions from "Pages/questions/questions";
+import Results from "Pages/results/Results";
 /**
  * @author Bernardo de la Sierra y Julio Meza
  * @version 2.1.1
@@ -45,6 +48,16 @@ export default function ResumenExamen() {
             <h2>Preguntas</h2>
             {examen && <h2>Código: {examen.codigo}</h2>}
           </div>
+        </div>
+      </div>
+      <div>
+        <div className="muevelo">
+          <MultipleViewCard
+            views={[
+              { title: "Preguntas", component: <Questions /> },
+              { title: "Resultados", component: <Results /> },
+            ]}
+          />
         </div>
       </div>
     </div>
