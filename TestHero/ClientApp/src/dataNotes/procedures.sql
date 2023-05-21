@@ -324,7 +324,9 @@ SELECT *
 FROM respuesta;
 
 
-SELECT * FROM alumnoexamen;
+SELECT * FROM examen;
+
+call get_examen_codigo("SpibcBDp");
 SELECT * FROM alumnopregunta;
 
 DELETE FROM alumnoexamen

@@ -28,7 +28,7 @@ function CrearExamen() {
   const [etiquetas, setEtiquetas] = useState([]);
   const [showingEtiquetas, setShowingEtiquetas] = useState([]);
   const { state, setState } = useContext(ProfesorContext);
-  const [examenes, setExamenes] = useState([]);
+  const [codigo, setCodigo] = useState([]);
   const parametro = searchParams.get("grupo");
   /**
    * Nos da todos las etiquetas
@@ -79,7 +79,9 @@ function CrearExamen() {
 
     const url = "api/examen";
     const codigoExamen = makeId(8);
-    console.log(codigoExamen);
+
+    const url2 = "api/examen/codigo/" + codigoExamen;
+
     const data = {
       Codigo: codigoExamen,
       Nombre: titulo,
@@ -90,10 +92,11 @@ function CrearExamen() {
     };
 
     const result = await axios.post(url, data);
+    const resultado = await axios.get(url2);
 
     await tags.forEach((tag) => postTag(tag, result.data.idExamen));
     swal({
-      title: "Se ha creado un grupo",
+      title: "Se ha creado un examen",
       button: "Aceptar",
       icon: "success",
     });
@@ -102,8 +105,6 @@ function CrearExamen() {
 
   const postTag = async (tag, idExamen) => {
     const filtrado = etiquetas.filter((etiqueta) => etiqueta.nombre === tag);
-    console.log(tag);
-    console.log(filtrado);
 
     let id = 0;
 
