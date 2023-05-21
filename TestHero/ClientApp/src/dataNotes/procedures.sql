@@ -312,11 +312,23 @@ END //
 DELIMITER ;
 
 
+DELIMITER //
+DROP PROCEDURE IF EXISTS insert_grupo;
+CREATE PROCEDURE insert_grupo(IN nom text ,IN idP int )
+BEGIN
+	INSERT INTO grupo(nombre,idProfesor) values(nom,idP);
+END //
+DELIMITER ;
+
+SELECT *
+FROM respuesta;
+
+
 SELECT * FROM alumnoexamen;
 SELECT * FROM alumnopregunta;
 
 DELETE FROM alumnoexamen
 WHERE idAlumno = 1;
 
-DELETE FROM alumnopregunta
-WHERE idAlumno = 1;
+
+

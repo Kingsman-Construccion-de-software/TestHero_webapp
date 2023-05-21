@@ -55,6 +55,22 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@id", id);
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
+
+        /// <summary>
+        /// Agrega los grupos
+        /// </summary>
+        public async Task InsertGrupo()
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"insert_grupo";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@nom", Nombre);
+            cmd.Parameters.AddWithValue("@idP", IdProfesor);
+            await cmd.ExecuteNonQueryAsync();
+            using MySqlCommand cmdInt = Db.Connection.CreateCommand();
+            cmdInt.CommandText = @"SELECT MAX(IdGrupo) FROM grupo;";
+            IdGrupo = Convert.ToInt32(cmdInt.ExecuteScalar());
+        }
         /// <summary>
         /// Lectura de todos los atributos de grupo
         /// </summary>
