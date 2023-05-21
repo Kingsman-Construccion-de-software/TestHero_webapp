@@ -65,6 +65,20 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@id", id);
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
+
+        /// <summary>
+        /// Nos dice el examen de acuerdo a su codigo
+        /// </summary>
+        public async Task<List<Examen>> GetExamenCodigo(string codigo)
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"get_examen_codigo";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@cod", codigo);
+            return await ReadAllAsync(await cmd.ExecuteReaderAsync());
+        }
+
+
         /// <summary>
         /// agregamos un examen
         /// </summary>

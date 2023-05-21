@@ -45,7 +45,7 @@ namespace TestHero
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
         /// <summary>
-        /// Nos da todos los grupos
+        /// Nos da un grupo por id
         /// </summary>
         public async Task<List<Grupo>> GetGrupo(int id)
         {

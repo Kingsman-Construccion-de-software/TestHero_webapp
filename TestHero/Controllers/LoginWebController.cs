@@ -10,11 +10,11 @@ using System.Dynamic;
 namespace TestHero.Controllers
 {
     [ApiController]
-    public class LoginController : ControllerBase
+    public class LoginWebController : ControllerBase
     {
         public AppDb Db { get; }
 
-        public LoginController(AppDb db)
+        public LoginWebController(AppDb db)
         {
             Db = db;
         }
@@ -25,7 +25,7 @@ namespace TestHero.Controllers
         /// <summary>
         /// Rutamiento de login
         /// </summary>
-        public async Task<IActionResult> Login([FromBody] User user)
+        public async Task<IActionResult> Login([FromBody] UserProfesor user)
         {
             string msg = "";
             int idUsuario = 0;

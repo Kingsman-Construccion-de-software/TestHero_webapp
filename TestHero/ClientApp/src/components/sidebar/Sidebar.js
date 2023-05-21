@@ -7,6 +7,7 @@ import Out from "../../assets/Out.png";
 import { Link } from "react-router-dom";
 
 import "./Sidebar.css";
+
 /**
  * @author: Leonardo García
  * @license: GP
