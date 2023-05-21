@@ -28,6 +28,8 @@ namespace TestHero.Controllers
             var result = await grupo.GetGruposProfesor(id);
             return new OkObjectResult(result);
         }
+
+        
         // POST api/grupo
         [Route("api/grupo")]
         [HttpPost]

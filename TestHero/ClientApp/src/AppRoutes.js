@@ -6,6 +6,7 @@ import Questions from "./Pages/questions/questions";
 import CrearExamen from "Pages/crearExamen/crearExamen";
 import Grupos from "./Pages/grupos/Grupos";
 import ResumenExamen from "./Pages/resumenExamen/ResumenExamen";
+import ExamenAlumno from "Pages/examenAlumno/ExamenAlumno";
 const AppRoutes = [
   {
     index: true,
@@ -39,6 +40,10 @@ const AppRoutes = [
   {
     path: "/resumenExamen",
     element: <ResumenExamen />,
+  },
+  {
+    path: "/examenAlumno",
+    element: <ExamenAlumno />,
   },
 ];
 

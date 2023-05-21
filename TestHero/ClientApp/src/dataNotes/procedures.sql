@@ -313,24 +313,30 @@ DELIMITER ;
 
 
 DELIMITER //
-DROP PROCEDURE IF EXISTS insert_grupo;
-CREATE PROCEDURE insert_grupo(IN nom text ,IN idP int )
+DROP PROCEDURE IF EXISTS get_alumnos_grupo;
+CREATE PROCEDURE  get_alumnos_grupo(IN idG int)
 BEGIN
-	INSERT INTO grupo(nombre,idProfesor) values(nom,idP);
-END //
-DELIMITER ;
+    
+	SELECT  alumno.idAlumno, alumno.nombres, alumno.apellidos,alumno.matricula,
+    alumno.correo,alumno.password,grupo.idGrupo
+    from grupo
+   join alumno on 
+    alumno.idGrupo = grupo.idGrupo 
+    WHERE grupo.idGrupo = idG;
+END 
+// DELIMITER ;
 
-SELECT *
-FROM respuesta;
-
-
-SELECT * FROM examen;
-
-call get_examen_codigo("SpibcBDp");
+SELECT * FROM alumnoexamen;
 SELECT * FROM alumnopregunta;
 
 DELETE FROM alumnoexamen
 WHERE idAlumno = 1;
 
+DELETE FROM alumnopregunta
+WHERE idAlumno = 1;
 
-
+call get_alumnos_grupo(7);
+call get_alumno_pregunta(13,5);
+SELECT * FROM alumno;
+SELECT * FROM etiqueta;
+select * from pregunta;

@@ -64,6 +64,13 @@ export default function Questions() {
       <div className="page">
         <div className="content">
           <div className="preguntas">
+            {preguntas.length === 0 && (
+              <>
+                <div className="vacio">
+                  Comienza a crear preguntas para este examen.
+                </div>
+              </>
+            )}
             {preguntas.map((pregunta, index) => (
               <Pregunta
                 key={index}

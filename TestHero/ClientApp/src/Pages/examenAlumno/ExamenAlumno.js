@@ -1,12 +1,10 @@
 import Sidebar from "../../components/sidebar/Sidebar";
-import styles from "./resumen.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
 import { useSearchParams } from "react-router-dom";
 import MultipleViewCard from "components/multiple-view-card/MultipleViewCard";
-import Questions from "Pages/questions/questions";
-import Results from "Pages/results/Results";
+import Group from "Pages/group/Group";
+import Alumno from "Pages/alumno/Alumno";
 /**
  * @author Bernardo de la Sierra y Julio Meza
  * @version 2.1.1
@@ -16,23 +14,25 @@ import Results from "Pages/results/Results";
  */
 export default function ResumenExamen() {
   // Estados iniciales
-  const [examen, setExamen] = useState();
+  const [grupo, setGrupo] = useState();
 
   const [searchParams] = useSearchParams();
-
+  const parametro = searchParams.get("grupo");
   /**Checa que daod un idExmaen se pueda obtener todo su informacion */
-  const getExamen = async () => {
+  const getGrupo = async () => {
+    const url = `api/grupo/${parametro}`;
+
     try {
-      const url = "api/examen/" + searchParams.get("examen");
-      const res = await axios.get(url);
-      setExamen(res.data[0]);
-    } catch (e) {
-      alert(e);
+      const result = await axios.get(url);
+      if (result.data) {
+        setGrupo(result.data[0]);
+      }
+    } catch (error) {
+      alert(error);
     }
   };
-
   useEffect(() => {
-    getExamen();
+    getGrupo();
   }, []);
 
   return (
@@ -42,22 +42,20 @@ export default function ResumenExamen() {
       </div>
       <div className="page">
         <div className="content">
-          {examen && <h1 className="tituloExamen">{examen.nombre}</h1>}
-          <div className="subtitles">
-            {examen && (
-              <h2 className={styles["mover"]}>Código: {examen.codigo}</h2>
-            )}
-          </div>
+          {grupo && <h1 className="tituloExamen">{grupo.nombre}</h1>}
         </div>
       </div>
       <div>
-        <div className={styles["muevelo"]}>
+        <div className="muevelo">
           <MultipleViewCard
             views={[
-              { title: "Preguntas", component: <Questions /> },
               {
-                title: "Resultados",
-                component: <Results codigos={examen} />,
+                title: "Examenes",
+                component: <Group parametro={parametro} />,
+              },
+              {
+                title: "Alumnos",
+                component: <Alumno />,
               },
             ]}
           />

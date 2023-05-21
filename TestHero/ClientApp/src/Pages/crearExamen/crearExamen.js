@@ -70,7 +70,7 @@ function CrearExamen() {
   };
 
   const goToExamenes = () => {
-    navigate(`/group/resumen?grupo=${state.idGrupo}`);
+    navigate(`/examenAlumno?grupo=${state.idGrupo}`);
   };
 
   /**Funcion para actualizar la clase  */
