@@ -30,6 +30,26 @@ namespace TestHero.Controllers
         }
 
 
+        // GET api/alumno/examen/id
+        [Route("api/alumno/examen/{idA:int}/{idE:int}")]
+        [HttpGet]
+        /// <summary>
+        /// Rutamiento de getalumnoexamen
+        /// </summary>
+        public async Task<IActionResult> GetAlumnosExamen(int idA, int idE)
+        {
+            await Db.Connection.OpenAsync();
+            AlumnoExamen alumno = new AlumnoExamen(Db);
+            var result = await alumno.GetAlumnoExamen(idA, idE);
+            if(result.Count > 0)
+            {
+                return new OkObjectResult(result[0]);
+            } else
+            {
+                return new NotFoundObjectResult(null);
+            }            
+        }
+
         // POST api/alumno/examen
         [Route("api/alumno/examen")]
         [HttpPost]
