@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
 import "./Pregunta.css";
+import swal from "sweetalert";
 /**
  * @author Bernardo de la Sierra y Julio Meza
  * @version 3.1.1
@@ -76,6 +77,11 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
     const URIdelete = "api/pregunta/";
     await axios.delete(`${URIdelete}${pregunta.idPregunta}`);
     filterPreguntas(pregunta.idPregunta);
+    swal({
+      title: "Se ha eliminado una pregunta",
+      button: "Aceptar",
+      icon: "error",
+    });
     getRespuestas();
     handleClose();
   };
@@ -95,6 +101,11 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
         IdPregunta: pregunta.idPregunta,
       };
       updateRespuesta(respuesta, idx);
+    });
+    swal({
+      title: "Se ha actualizado una pregunta",
+      button: "Aceptar",
+      icon: "success",
     });
     getPreguntas();
     getRespuestas();

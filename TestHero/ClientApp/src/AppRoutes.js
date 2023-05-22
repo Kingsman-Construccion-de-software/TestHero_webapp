@@ -1,10 +1,12 @@
-import  Home  from "./Pages/home/HomePrincipal";
+import Home from "./Pages/home/HomePrincipal";
 import Login from "./Pages/login/Login";
 import Group from "./Pages/group/Group";
 import Results from "./Pages/results/Results";
 import Questions from "./Pages/questions/questions";
 import CrearExamen from "Pages/crearExamen/crearExamen";
-
+import Grupos from "./Pages/grupos/Grupos";
+import ResumenExamen from "./Pages/resumenExamen/ResumenExamen";
+import ExamenAlumno from "Pages/examenAlumno/ExamenAlumno";
 const AppRoutes = [
   {
     index: true,
@@ -15,12 +17,13 @@ const AppRoutes = [
     element: <Home />,
   },
   {
-    path: "/group/exams",
-    element: <Group edit={true}/>,
+    path: "/group/resumen",
+    element: <Group />,
   },
+
   {
-    path: "/group/results",
-    element: <Group edit={false}/>,
+    path: "/grupos",
+    element: <Grupos />,
   },
   {
     path: "/results",
@@ -28,12 +31,20 @@ const AppRoutes = [
   },
   {
     path: "/crear/examen",
-    element: <CrearExamen/>
+    element: <CrearExamen />,
   },
   {
     path: "/questions",
-    element: <Questions/>
-  }
+    element: <Questions />,
+  },
+  {
+    path: "/resumenExamen",
+    element: <ResumenExamen />,
+  },
+  {
+    path: "/examenAlumno",
+    element: <ExamenAlumno />,
+  },
 ];
 
 export default AppRoutes;

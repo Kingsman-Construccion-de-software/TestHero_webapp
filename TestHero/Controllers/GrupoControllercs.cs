@@ -29,6 +29,20 @@ namespace TestHero.Controllers
             return new OkObjectResult(result);
         }
 
+        
+        // POST api/grupo
+        [Route("api/grupo")]
+        [HttpPost]
+        /// <summary>
+        /// Rutamiento de crea respuesta
+        /// </summary>
+        public async Task<IActionResult> Post([FromBody] Grupo body)
+        {
+            await Db.Connection.OpenAsync();
+            body.Db = Db;
+            await body.InsertGrupo();
+            return new OkObjectResult(body);
+        }
         // GET: api/grupo/id
         [Route("api/grupo/{id:int}")]
         [HttpGet]

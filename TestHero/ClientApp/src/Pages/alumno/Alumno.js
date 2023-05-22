@@ -1,11 +1,8 @@
-import styles from "./results.module.css";
+import styles from "./alumno.module.css";
 import Sidebar from "../../components/sidebar/Sidebar";
-
-// Icons
 import userIcon from "../../assets/UserIcon.png";
 import ProfesorContext from "context/contextoProfesor";
 import { useContext, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 /**
  * @author  Julio Meza y Bernardo de la Sierra(Modifico)
@@ -14,64 +11,40 @@ import axios from "axios";
  * @params Sin parametros
  * @description Clase que muestra los resultados de los alumnos
  */
-export default function Results({ codigos }) {
+export default function Results() {
   // Inicializacion de estados
-  const [searchParams] = useSearchParams();
-  const [examen, setExamen] = useState();
-  const [calificaciones, setCalificaciones] = useState([]);
-  /**Obtencion de la informacion del examen */
-  const getExamen = async () => {
-    const url = "api/examen/" + searchParams.get("examen");
+  const { state, setState } = useContext(ProfesorContext);
+  const [alumno, setAlumno] = useState([]);
+
+  /**Obtencion de la informacion del alumno */
+  const getAlumno = async () => {
+    const url = "api/grupo/alumno/" + state.idGrupo;
 
     try {
       const result = await axios.get(url);
       if (result.data) {
-        setExamen(result.data[0]);
-        console.log(result.data[0]);
+        setAlumno(result.data);
+        console.log(result.data);
       }
     } catch (error) {
       alert(error);
     }
   };
-  /**Obtener las claificaciones */
-  const getCalificaciones = async () => {
-    try {
-      const url = "api/alumno/examen/" + examen.idExamen;
-      const result = await axios.get(url);
-      setCalificaciones([...result.data]);
-      console.log(result.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
-    getExamen();
+    getAlumno();
   }, []);
-
-  useEffect(() => {
-    getCalificaciones();
-  }, [examen]);
 
   return (
     <div className={styles.container}>
       <Sidebar />
       <div className={styles.mainContent}>
-        <div className={styles.header}>
-          <input
-            className={styles["search-bar"]}
-            type="search"
-            placeholder="Buscar"
-          />
-        </div>
-
-        {calificaciones.length === 0 ? (
+        {alumno.length === 0 ? (
           <>
             <div className="vacio">
-              Comparte el código del examen con tus alumnos para que puedan
-              responderlo.
+              Comparte este enlace con tus alumnos para que puedan unirse al
+              grupo.
             </div>
-            <h2 className="vacio">Código: {codigos.codigo}</h2>
           </>
         ) : (
           <>
@@ -80,10 +53,9 @@ export default function Results({ codigos }) {
                 <span></span>
                 <span className={styles["table-title"]}>Nombre(s)</span>
                 <span className={styles["table-title"]}>Apellido(s)</span>
-                <span className={styles["table-title"]}>Calificación</span>
               </li>
-              {calificaciones &&
-                calificaciones.map((el, idx) => (
+              {alumno &&
+                alumno.map((el, idx) => (
                   <li
                     className={
                       styles.row +
@@ -93,7 +65,6 @@ export default function Results({ codigos }) {
                     <img src={userIcon} alt="foto" />
                     <span>{el.nombres}</span>
                     <span>{el.apellidos}</span>
-                    <span>{el.calificacion}</span>
                   </li>
                 ))}
             </ul>
