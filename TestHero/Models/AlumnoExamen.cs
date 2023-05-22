@@ -55,22 +55,11 @@ namespace TestHero
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
 
-        public async Task<List<AlumnoExamen>> GetAlumnoExamen(int idA, int idE)
-        {
-            using MySqlCommand cmd = Db.Connection.CreateCommand();
-            cmd.CommandText = @"get_alumno_examen";
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@idA", idA);
-            cmd.Parameters.AddWithValue("@idE", idE);
-            return await ReadAllAsync(await cmd.ExecuteReaderAsync());
-        }
-
         /// <summary>
         /// Funcion que inserta alumnos en un examen
         /// </summary>
         public async Task InsertAlumnoExamen()
         {
-            FechaRealizacion = DateTime.Now;
             using MySqlCommand cmd = Db.Connection.CreateCommand();
             cmd.CommandText = @"insert_alumnos_examen";
             cmd.CommandType = CommandType.StoredProcedure;
@@ -78,6 +67,7 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@idE", IdExamen);
             cmd.Parameters.AddWithValue("@cal", Calificacion);
             cmd.Parameters.AddWithValue("@pun", Puntaje);
+            FechaRealizacion = DateTime.Now;
             cmd.Parameters.AddWithValue("@fecha", FechaRealizacion);
 
             await cmd.ExecuteNonQueryAsync();
@@ -100,8 +90,7 @@ namespace TestHero
                         Nombres = reader.GetString(1),
                         Apellidos = reader.GetString(2),
                         Calificacion = reader.GetInt32(3),     
-                        Puntaje = reader.GetInt32(4),
-                        FechaRealizacion = reader.GetDateTime(5)
+                        Puntaje = reader.GetInt32(4)
                     };
                     alumnos.Add(alumno);
                 }
