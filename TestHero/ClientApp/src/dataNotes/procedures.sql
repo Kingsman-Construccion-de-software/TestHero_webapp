@@ -326,16 +326,13 @@ BEGIN
 END 
 // DELIMITER ;
 
-
-
-SELECT * FROM alumnoexamen;
-SELECT * FROM alumnopregunta;
-
-DELETE FROM alumnoexamen
-WHERE idAlumno = 1;
-
-DELETE FROM alumnopregunta
-WHERE idAlumno = 1;
+DELIMITER //
+DROP PROCEDURE IF EXISTS insert_grupo;
+CREATE PROCEDURE insert_grupo(IN nom text ,IN idP int )
+BEGIN
+	INSERT INTO grupo(nombre,idProfesor) values(nom,idP);
+END //
+DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_alumno_full;
@@ -347,11 +344,23 @@ BEGIN
 END //
 DELIMITER ;
 
+SELECT * FROM alumnoexamen;
+SELECT * FROM alumnopregunta;
+
+DELETE FROM alumnoexamen
+WHERE idAlumno = 1;
+
+DELETE FROM alumnopregunta
+WHERE idAlumno = 1;
+
+
+
 call get_alumnos_grupo(7);
 call get_alumno_pregunta(2,9);
 call  get_alumnos_examen(8);
 call get_profesor_full(1);
 call get_alumno_full(1);
+call insert_grupo("prueba",1);
 SELECT * FROM alumno;
 SELECT * FROM etiqueta;
 select * from pregunta;

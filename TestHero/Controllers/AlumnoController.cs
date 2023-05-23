@@ -72,21 +72,8 @@ namespace TestHero.Controllers
             await body.InsertAlumnoPregunta();
             return new OkObjectResult(body);
         }
-        // Get
-        [Route("api/alumno/login/{id:int}")]
-        [HttpGet]
-        ///// <summary>
-        ///// Rutamiento de get profesor por idAlumno
-        ///// </summary>
-        public async Task<IActionResult> GetAlumno(int id)
-        {
-            await Db.Connection.OpenAsync();
-            Alumno alumno = new Alumno(Db);
-            var result = await alumno.GetAlumno(id);
-            return new OkObjectResult(result);
-        }
 
-        [Route("api/alumno/{id:int}")]
+        [Route("api/grupo/alumno/{id:int}")]
         [HttpGet]
         /// <summary>
         /// Rutamiento de GetGruposAlumno por idgrupo
@@ -97,11 +84,22 @@ namespace TestHero.Controllers
             await Db.Connection.OpenAsync();
             Alumno alumno = new Alumno(Db);
             var result = await alumno.GetGrupoAlumno(id);
-            result[0].IdAlumno = id;
-            return new OkObjectResult(result);       
-      
+            return new OkObjectResult(result);
         }
 
-       
+        [Route("api/alumno/{id:int}")]
+        [HttpGet]
+        /// <summary>
+        /// Rutamiento de get profesor por idAlumno
+        /// </summary>
+        public async Task<IActionResult> GetAlumno(int id)
+
+        {
+            await Db.Connection.OpenAsync();
+            Alumno alumno = new Alumno(Db);
+            var result = await alumno.GetAlumno(id);
+            result[0].IdAlumno = id;
+            return new OkObjectResult(result);
+        }
     }
 }

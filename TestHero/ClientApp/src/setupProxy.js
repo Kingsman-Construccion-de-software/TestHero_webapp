@@ -25,6 +25,7 @@ const context = [
   "/api/alumno/examen",
   "/api/alumno/pregunta",
   "/api/alumno",
+  "/api/login/alumno",
 ];
 
 module.exports = function (app) {

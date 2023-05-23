@@ -60,6 +60,7 @@ export default function Grupos() {
       idProfesor: state.id,
       Nombre: fgrupo,
     });
+    console.log(result);
     swal({
       title: "Se ha creado un grupo",
       button: "Aceptar",

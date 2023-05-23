@@ -23,9 +23,11 @@ export default function PreLogin() {
           </Link>
 
           <br></br>
-          <div className="estiloCentro">
-            <button className="ButtonDouble">Soy Alumno</button>
-          </div>
+          <Link to={`/loginalumno`}>
+            <div className="estiloCentro">
+              <button className="ButtonDouble">Soy Alumno</button>
+            </div>
+          </Link>
         </div>
       </div>
     </div>
