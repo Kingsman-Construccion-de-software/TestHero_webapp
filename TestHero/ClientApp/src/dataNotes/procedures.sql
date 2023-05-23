@@ -317,14 +317,32 @@ DROP PROCEDURE IF EXISTS get_alumnos_grupo;
 CREATE PROCEDURE  get_alumnos_grupo(IN idG int)
 BEGIN
     
-	SELECT  alumno.idAlumno, alumno.nombres, alumno.apellidos,alumno.matricula,
-    alumno.correo,alumno.password,grupo.idGrupo
+	SELECT   alumno.nombres, alumno.apellidos,
+    alumno.correo,grupo.idGrupo
     from grupo
    join alumno on 
     alumno.idGrupo = grupo.idGrupo 
     WHERE grupo.idGrupo = idG;
 END 
 // DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS insert_grupo;
+CREATE PROCEDURE insert_grupo(IN nom text ,IN idP int )
+BEGIN
+	INSERT INTO grupo(nombre,idProfesor) values(nom,idP);
+END //
+DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_alumno_full;
+CREATE PROCEDURE get_alumno_full(IN id INT)
+BEGIN
+	SELECT nombres, apellidos, correo  
+    FROM alumno
+    WHERE idAlumno = id;
+END //
+DELIMITER ;
 
 SELECT * FROM alumnoexamen;
 SELECT * FROM alumnopregunta;
@@ -335,8 +353,18 @@ WHERE idAlumno = 1;
 DELETE FROM alumnopregunta
 WHERE idAlumno = 1;
 
+
+
 call get_alumnos_grupo(7);
-call get_alumno_pregunta(13,5);
+call get_alumno_pregunta(2,9);
+call  get_alumnos_examen(8);
+call get_profesor_full(1);
+call get_alumno_full(1);
+call insert_grupo("prueba",1);
 SELECT * FROM alumno;
 SELECT * FROM etiqueta;
 select * from pregunta;
+
+select * from profesor;
+
+

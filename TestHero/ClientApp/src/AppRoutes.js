@@ -7,14 +7,30 @@ import CrearExamen from "Pages/crearExamen/crearExamen";
 import Grupos from "./Pages/grupos/Grupos";
 import ResumenExamen from "./Pages/resumenExamen/ResumenExamen";
 import ExamenAlumno from "Pages/examenAlumno/ExamenAlumno";
+import PreLogin from "Pages/prelogin/PreLogin";
+import LoginAlumno from "Pages/loginalumno/LoginAlumno";
+import HomeAlumno from "Pages/homeAlumno/HomeAlumno";
 const AppRoutes = [
   {
     index: true,
-        element: <Login  />,
+
+    element: <PreLogin />,
+  },
+  {
+    path: "/loginprofesor",
+    element: <Login />,
+  },
+  {
+    path: "/loginalumno",
+    element: <LoginAlumno />,
   },
   {
     path: "/home",
       element: <Home  />,
+  },
+  {
+    path: "/homealumno",
+    element: <HomeAlumno />,
   },
   {
     path: "/group/resumen",
