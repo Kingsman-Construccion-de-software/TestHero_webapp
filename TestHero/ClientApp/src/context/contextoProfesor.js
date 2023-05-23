@@ -6,6 +6,7 @@ const DEFAULT_VALUE = {
     nombre: "",
     correo: "",
     idGrupo: -1,
+    idExamen: -1,
   },
   setState: () => {},
 };
