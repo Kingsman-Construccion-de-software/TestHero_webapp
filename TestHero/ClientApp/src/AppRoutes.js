@@ -13,6 +13,7 @@ import HomeAlumno from "Pages/homeAlumno/HomeAlumno";
 const AppRoutes = [
   {
     index: true,
+
     element: <PreLogin />,
   },
   {
@@ -25,7 +26,7 @@ const AppRoutes = [
   },
   {
     path: "/home",
-    element: <Home />,
+      element: <Home  />,
   },
   {
     path: "/homealumno",
@@ -33,32 +34,32 @@ const AppRoutes = [
   },
   {
     path: "/group/resumen",
-    element: <Group />,
+      element: <Group />,
   },
 
   {
     path: "/grupos",
-    element: <Grupos />,
+      element: <Grupos />,
   },
   {
     path: "/results",
-    element: <Results />,
+      element: <Results />,
   },
   {
     path: "/crear/examen",
-    element: <CrearExamen />,
+      element: <CrearExamen />,
   },
   {
     path: "/questions",
-    element: <Questions />,
+      element: <Questions />,
   },
   {
     path: "/resumenExamen",
-    element: <ResumenExamen />,
+      element: <ResumenExamen />,
   },
   {
     path: "/examenAlumno",
-    element: <ExamenAlumno />,
+      element: <ExamenAlumno />,
   },
 ];
 
