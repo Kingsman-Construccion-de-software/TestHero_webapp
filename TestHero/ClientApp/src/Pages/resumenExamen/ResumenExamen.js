@@ -16,9 +16,20 @@ import Results from "Pages/results/Results";
  */
 export default function ResumenExamen() {
   // Estados iniciales
-  const [examen, setExamen] = useState();
+    const [examen, setExamen] = useState();
 
-  const [searchParams] = useSearchParams();
+    const [text, setText] = useState('');
+
+    const handleInputChange = (event) => {
+        setText(event.target.value);
+    };
+
+    const [searchParams] = useSearchParams();
+
+    const handleCopyButtonClick = () => {
+        navigator.clipboard.writeText(text);
+        alert('Text copied to clipboard!');
+    };
 
   /**Checa que daod un idExmaen se pueda obtener todo su informacion */
   const getExamen = async () => {
@@ -51,7 +62,7 @@ export default function ResumenExamen() {
         </div>
       </div>
       <div>
-        <div className={styles["muevelo"]}>
+      
           <MultipleViewCard
             views={[
               { title: "Preguntas", component: <Questions /> },
@@ -61,7 +72,7 @@ export default function ResumenExamen() {
               },
             ]}
           />
-        </div>
+        
       </div>
     </div>
   );

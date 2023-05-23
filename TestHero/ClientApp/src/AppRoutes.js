@@ -10,40 +10,40 @@ import ExamenAlumno from "Pages/examenAlumno/ExamenAlumno";
 const AppRoutes = [
   {
     index: true,
-    element: <Login />,
+        element: <Login  />,
   },
   {
     path: "/home",
-    element: <Home />,
+      element: <Home  />,
   },
   {
     path: "/group/resumen",
-    element: <Group />,
+      element: <Group />,
   },
 
   {
     path: "/grupos",
-    element: <Grupos />,
+      element: <Grupos />,
   },
   {
     path: "/results",
-    element: <Results />,
+      element: <Results />,
   },
   {
     path: "/crear/examen",
-    element: <CrearExamen />,
+      element: <CrearExamen />,
   },
   {
     path: "/questions",
-    element: <Questions />,
+      element: <Questions />,
   },
   {
     path: "/resumenExamen",
-    element: <ResumenExamen />,
+      element: <ResumenExamen />,
   },
   {
     path: "/examenAlumno",
-    element: <ExamenAlumno />,
+      element: <ExamenAlumno />,
   },
 ];
 
