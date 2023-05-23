@@ -34,7 +34,8 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS get_alumno;
 CREATE PROCEDURE get_alumno(IN corr VARCHAR(45), IN pass VARCHAR(45))
 BEGIN
-	SELECT correo, password, idAlumno from alumno
+	SELECT correo, 
+password, idAlumno from alumno
     WHERE correo = corr
     AND password = pass;
 END //
@@ -347,24 +348,32 @@ DELIMITER ;
 SELECT * FROM alumnoexamen;
 SELECT * FROM alumnopregunta;
 
-DELETE FROM alumnoexamen
-WHERE idAlumno = 1;
-
-DELETE FROM alumnopregunta
-WHERE idAlumno = 1;
-
-
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_alumnos_examenes;
+CREATE PROCEDURE  get_alumnos_examenes(IN id int)
+BEGIN
+	SELECT examen.idExamen,examen.codigo,examen.nombre, examen.materia,
+    examen.fechaInicio, examen.fechaFin, examen.idGrupo
+    from examen
+    inner join alumnoexamen on 
+    examen.idExamen = alumnoexamen.idExamen
+    inner join alumno on
+	alumno.idAlumno  = alumnoexamen.idAlumno 
+    WHERE alumnoexamen.idAlumno  = id;
+END 
+// DELIMITER ;
 
 call get_alumnos_grupo(7);
 call get_alumno_pregunta(2,9);
 call  get_alumnos_examen(8);
 call get_profesor_full(1);
-call get_alumno_full(1);
+call get_alumno_full(3);
 call insert_grupo("prueba",1);
+call get_alumnos_examenes(3);
 SELECT * FROM alumno;
 SELECT * FROM etiqueta;
 select * from pregunta;
-
+select * from grupo;
 select * from profesor;
-
+select * from examen;
 
