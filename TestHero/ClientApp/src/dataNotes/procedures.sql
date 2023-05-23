@@ -340,3 +340,4 @@ call get_alumno_pregunta(13,5);
 SELECT * FROM alumno;
 SELECT * FROM etiqueta;
 select * from pregunta;
+select * from profesores;
