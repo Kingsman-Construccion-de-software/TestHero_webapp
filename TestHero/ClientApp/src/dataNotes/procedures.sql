@@ -355,5 +355,7 @@ call get_alumno_full(1);
 SELECT * FROM alumno;
 SELECT * FROM etiqueta;
 select * from pregunta;
+
 select * from profesor;
+
 
