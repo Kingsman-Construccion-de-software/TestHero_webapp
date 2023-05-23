@@ -71,7 +71,7 @@ export default function Login() {
 
   useEffect(() => {
     if (status === "Login exitoso") {
-      navigate("/home");
+      navigate("/homealumno");
     }
   }, [status]);
 
