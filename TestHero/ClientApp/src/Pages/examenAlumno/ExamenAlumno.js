@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import Sidebar from "../../components/sidebar/Sidebar";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import MultipleViewCard from "components/multiple-view-card/MultipleViewCard";
@@ -12,78 +12,55 @@ import Alumno from "Pages/alumno/Alumno";
  * @params Sin parametros
  * @description Clase que renderea los componentes
  */
-export default function ResumenExamen() {
+export default function ExamenAlumno() {
   // Estados iniciales
   const [grupo, setGrupo] = useState();
 
-function ResumenExamen() {
-    const [grupo, setGrupo] = useState();
-    const [searchParams] = useSearchParams();
-    const parametro = searchParams.get("grupo");
-    const [text, setText] = useState('');
+  const [searchParams] = useSearchParams();
+  const parametro = searchParams.get("grupo");
+  /**Checa que daod un idExmaen se pueda obtener todo su informacion */
+  const getGrupo = async () => {
+    const url = `api/grupo/${parametro}`;
 
-    const handleInputChange = (event) => {
-        setText(event.target.value);
-    };
+    try {
+      const result = await axios.get(url);
+      if (result.data) {
+        setGrupo(result.data[0]);
+      }
+    } catch (error) {
+      alert(error);
+    }
+  };
+  useEffect(() => {
+    getGrupo();
+  }, []);
 
-    const handleCopyButtonClick = () => {
-        navigator.clipboard.writeText(text);
-        alert('Text copied to clipboard!');
-    };
-
-    const getGrupo = async () => {
-        const url = `api/grupo/${parametro}`;
-
-        try {
-            const result = await axios.get(url);
-            if (result.data) {
-                setGrupo(result.data[0]);
-            }
-        } catch (error) {
-            alert(error);
-        }
-    };
-
-    useEffect(() => {
-        getGrupo();
-    }, []);
-
-    return (
-        <div>
-            <div>
-                <Sidebar />
-            </div>
-            <div className="page">
-                <div className="content">
-                    <div className="titleRow">
-                        <h1 className="tituloExamen">{grupo && grupo.nombre}</h1>
-                        <div className="textBox">
-                            <input
-                                type="text"
-                                value={text}
-                                onChange={handleInputChange}
-                                placeholder="Enter text"
-                            />
-                            <button onClick={handleCopyButtonClick}>Copiar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <MultipleViewCard
-                    views={[
-                        {
-                            title: "Examenes",
-                            component: <Group parametro={parametro} />,
-                        },
-                        {
-                            title: "Alumnos",
-                            component: <Alumno />,
-                        },
-                    ]}
-                />
-            </div>
+  return (
+    <div>
+      <div>
+        <Sidebar />
+      </div>
+      <div className="page">
+        <div className="content">
+          {grupo && <h1 className="tituloExamen">{grupo.nombre}</h1>}
         </div>
-    );
+      </div>
+      <div>
+        <div className="muevelo">
+          <MultipleViewCard
+            views={[
+              {
+                title: "Examenes",
+                component: <Group parametro={parametro} />,
+              },
+              {
+                title: "Alumnos",
+                component: <Alumno />,
+              },
+            ]}
+          />
+        </div>
+      </div>
+    </div>
+  );
 }
-
