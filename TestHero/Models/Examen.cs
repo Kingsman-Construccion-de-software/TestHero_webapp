@@ -100,6 +100,18 @@ namespace TestHero
         }
 
         /// <summary>
+        /// Metodo que nos ayuda a obtener los examenes del alumno 
+        /// </summary>
+        public async Task<List<Examen>> GetAlumnosExamenes(int id)
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"get_alumnos_examenes";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id", id);
+            return await ReadAllAsync(await cmd.ExecuteReaderAsync());
+        }
+
+        /// <summary>
         /// Lectura de todos los atributos de examen
         /// </summary>
         private async Task<List<Examen>> ReadAllAsync(MySqlDataReader reader)

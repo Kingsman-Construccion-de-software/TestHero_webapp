@@ -10,6 +10,8 @@ import ExamenAlumno from "Pages/examenAlumno/ExamenAlumno";
 import PreLogin from "Pages/prelogin/PreLogin";
 import LoginAlumno from "Pages/loginalumno/LoginAlumno";
 import HomeAlumno from "Pages/homeAlumno/HomeAlumno";
+import Examenes from "Pages/examenes/Examenes";
+
 const AppRoutes = [
   {
     index: true,
@@ -36,7 +38,10 @@ const AppRoutes = [
     path: "/group/resumen",
       element: <Group />,
   },
-
+  {
+    path: "/examenes",
+    element: <Examenes />,
+  },
   {
     path: "/grupos",
       element: <Grupos />,

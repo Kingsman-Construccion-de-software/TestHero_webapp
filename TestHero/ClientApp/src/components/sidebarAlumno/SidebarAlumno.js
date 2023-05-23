@@ -1,7 +1,6 @@
 import React from "react";
 import SidebarLogo from "../../assets/SidebarLogo.png";
 import Home from "../../assets/Home.png";
-import Questions from "../../assets/Questions.png";
 import Analytics from "../../assets/Analytics.png";
 import Out from "../../assets/Out.png";
 import { Link } from "react-router-dom";
@@ -23,9 +22,9 @@ export default function Sidebar() {
         <img className="iconSidebar" src={Home} alt="Home" />
       </Link>
 
-      {/* <Link to={"/grupos"}>
+      <Link to={"/examenes"}>
         <img className="iconSidebar" src={Analytics} alt="Analiticas" />
-      </Link> */}
+      </Link>
       <Link to={"/"}>
         <img className="iconSidebar" src={Out} alt="Log out" />
       </Link>
