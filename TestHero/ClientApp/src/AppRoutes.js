@@ -11,6 +11,7 @@ import PreLogin from "Pages/prelogin/PreLogin";
 import LoginAlumno from "Pages/loginalumno/LoginAlumno";
 import HomeAlumno from "Pages/homeAlumno/HomeAlumno";
 import Examenes from "Pages/examenes/Examenes";
+import ResumenAlumno from "resumenAlumno/ResumenAlumno";
 
 const AppRoutes = [
   {
@@ -61,6 +62,10 @@ const AppRoutes = [
   {
     path: "/resumenExamen",
       element: <ResumenExamen />,
+  },
+  {
+    path: "/resumenAlumno",
+    element: <ResumenAlumno />,
   },
   {
     path: "/examenAlumno",

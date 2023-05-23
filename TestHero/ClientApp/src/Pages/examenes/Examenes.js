@@ -80,12 +80,12 @@ export default function Examenes() {
                     ` ${styles[`border-color-${idx % 3}`]}`
                   }
                 >
-                  {/* <Link
-                    to={`/examenAlumno?examen=${examen.idExamen}`}
+                  <Link
+                    to={`/resumenAlumno?examen=${examen.idExamen}`}
                     onClick={() => saveState(examen.idExamen)}
-                  > */}
-                  {examen.nombre}
-                  {/* </Link> */}
+                  >
+                    {examen.nombre}
+                  </Link>
                 </li>
               );
             })}

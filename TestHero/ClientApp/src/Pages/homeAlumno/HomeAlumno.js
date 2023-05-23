@@ -4,7 +4,7 @@ import "./homealumno.css";
 // import logo from "../../assets/logo.png";
 import UserIcon from "../../assets/UserIcon.png";
 import SidebarAlumno from "../../components/sidebarAlumno/SidebarAlumno";
-import Grupo from "../../components/grupo/Grupo";
+import GrupoAlumno from "components/grupoAlumno/GrupoAlumno";
 import { useContext, useEffect } from "react";
 import ProfesorContext from "context/contextoProfesor";
 import axios from "axios";
@@ -21,7 +21,7 @@ export default function HomeAlumno() {
   const [examenes, setExamenes] = useState([]);
 
   const getExamenesActivos = async () => {
-    const url = "api/examen/profesor/" + state.id;
+    const url = "api/alumno/examenes/" + state.id;
 
     try {
       const result = await axios.get(url);
@@ -46,18 +46,17 @@ export default function HomeAlumno() {
           <img className="icono" src={UserIcon} alt="icono de usuario" />
           <span className="nombreUsuario">{state.nombre}</span>
         </div>
-        {/* <div className="examActuales">
+        <div className="examActuales">
           {examenes &&
             examenes.map((examen) => (
-              <Grupo
+              <GrupoAlumno
                 key={examen.idExamen}
                 nombre={examen.nombre}
                 fechaFin={examen.fechaFin}
-                grupo={examen.grupo}
-                link={`/resumenExamen?examen=${examen.idExamen}`}
+                link={`/resumenAlumno?examen=${examen.idExamen}`}
               />
             ))}
-        </div> */}
+        </div>
       </div>
     </div>
   );
