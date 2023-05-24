@@ -11,25 +11,24 @@ import { Link } from "react-router-dom";
  */
 
 export default function PreLogin() {
-  return (
-    <div>
-      <div className="login">
-        <div className="loginWrapper">
-          <img src={logo} alt="Logo testHero" />
-          <Link to={`/loginprofesor`}>
-            <div className="estiloCentro">
-              <button className="ButtonDouble">Soy Profesor</button>
+    return (
+        <div>
+            <div className="login">
+                <div className="loginWrapper">
+                    <img src={logo} alt="Logo testHero" />
+                    <Link to={`/loginprofesor`}>
+                        <div className="estiloCentro">
+                            <button className="ButtonDouble">Soy Profesor</button>
+                        </div>
+                    </Link>
+                    <br></br>
+                    <Link to={`/loginalumno`}>
+                        <div className="estiloCentro">
+                            <button className="ButtonDouble">Soy Alumno</button>
+                        </div>
+                    </Link>
+                </div>
             </div>
-          </Link>
-
-          <br></br>
-          <Link to={`/loginalumno`}>
-            <div className="estiloCentro">
-              <button className="ButtonDouble">Soy Alumno</button>
-            </div>
-          </Link>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
