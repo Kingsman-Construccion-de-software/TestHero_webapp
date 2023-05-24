@@ -45,6 +45,20 @@ namespace TestHero.Controllers
         }
 
         // GET api/alumno/pregunta/idA/idE
+        [Route("api/alumno/examen/{idE:int}/{idA:int}")]
+        [HttpGet]
+        /// <summary>
+        /// Rutamiento de getalumnopregunta
+        /// </summary>
+        public async Task<IActionResult> GetAlumnosCalificacion(int idE, int idA)
+        {
+            await Db.Connection.OpenAsync();
+            AlumnoExamen alumno = new AlumnoExamen(Db);
+            var result = await alumno.GetAlumnosCalificacion(idE, idA);
+            return new OkObjectResult(result);
+        }
+
+        // GET api/alumno/pregunta/idA/idE
         [Route("api/alumno/pregunta/{idA:int}/{idP:int}")]
         [HttpGet]
         /// <summary>

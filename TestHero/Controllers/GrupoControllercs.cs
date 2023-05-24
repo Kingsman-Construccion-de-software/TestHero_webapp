@@ -58,6 +58,21 @@ namespace TestHero.Controllers
             return new OkObjectResult(result);
         }
 
+        [Route("api/grupo/alumnos/{id:int}")]
+        [HttpGet]
+        /// <summary>
+        /// Rutamiento de getgrupo dado un id
+        /// </summary>
+        public async Task<IActionResult> GetGrupoAlumnos(int id)
+
+        {
+            await Db.Connection.OpenAsync();
+            Grupo grupo = new Grupo(Db);
+            var result = await grupo.GetGrupoAlumnos(id);
+            return new OkObjectResult(result);
+        }
+
+
 
     }
 }

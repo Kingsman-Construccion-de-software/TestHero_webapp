@@ -19,13 +19,25 @@ import axios from "axios";
 export default function HomeAlumno() {
   const { state, setState } = useContext(ProfesorContext);
   const [examenes, setExamenes] = useState([]);
+  const [grupo, setGrupo] = useState();
 
   const getExamenesActivos = async () => {
     const url = "api/alumno/examenes/" + state.id;
 
     try {
       const result = await axios.get(url);
-      setExamenes([...result.data]);
+      setExamenes(result.data);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  const getGrupos = async () => {
+    const url = "api/grupo/alumnos/" + state.id;
+
+    try {
+      const result = await axios.get(url);
+      setGrupo(result.data[0]);
     } catch (error) {
       alert(error);
     }
@@ -33,7 +45,8 @@ export default function HomeAlumno() {
 
   useEffect(() => {
     getExamenesActivos();
-  }, [state.id]);
+    getGrupos();
+  }, [state]);
 
   return (
     <div>
@@ -44,10 +57,17 @@ export default function HomeAlumno() {
         <h1 className="tituloPagina">¡Bienvenido!</h1>
         <div className="datos">
           <img className="icono" src={UserIcon} alt="icono de usuario" />
-          <span className="nombreUsuario">{state.nombre}</span>
+          <div className="datosAlumno">
+            <span className="nombreUsuario">{state.nombre}</span>
+            {grupo && (
+              <span className="nombreUsuario">
+                Calificación: {grupo.nombre}
+              </span>
+            )}
+          </div>
         </div>
         <div className="examActuales">
-          {examenes &&
+          {examenes.length > 0 &&
             examenes.map((examen) => (
               <GrupoAlumno
                 key={examen.idExamen}
