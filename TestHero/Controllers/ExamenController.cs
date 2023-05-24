@@ -94,7 +94,18 @@ namespace TestHero.Controllers
             await body.InsertExamen();
             return new OkObjectResult(body);
         }
-
+        [Route("api/alumno/examenes/{id:int}")]
+        [HttpGet]
+        /// <summary>
+        /// Rutamiento de getalumnoexamen
+        /// </summary>
+        public async Task<IActionResult> GetAlumnosExamenes(int id)
+        {
+            await Db.Connection.OpenAsync();
+            Examen examen = new Examen(Db);
+            var result = await examen.GetAlumnosExamenes(id);
+            return new OkObjectResult(result);
+        }
 
     }
 }

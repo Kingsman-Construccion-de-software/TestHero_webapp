@@ -2,9 +2,11 @@ import React, { createContext, useState } from "react";
 
 const DEFAULT_VALUE = {
   state: {
-    id: 0,
+    id: -1,
     nombre: "",
-    correo: ""
+    correo: "",
+    idGrupo: -1,
+    idExamen: -1,
   },
   setState: () => {},
 };
@@ -12,13 +14,13 @@ const DEFAULT_VALUE = {
 const ProfesorContext = createContext(DEFAULT_VALUE);
 
 function ProfesorContextProvider({ children }) {
-    const [state, setState] = useState(DEFAULT_VALUE.state);
-    return (
-      <ProfesorContext.Provider value={{ state, setState }}>
-        {children}
-      </ProfesorContext.Provider>
-    );
-  }
-  
-  export { ProfesorContextProvider };
-  export default ProfesorContext;
+  const [state, setState] = useState(DEFAULT_VALUE.state);
+  return (
+    <ProfesorContext.Provider value={{ state, setState }}>
+      {children}
+    </ProfesorContext.Provider>
+  );
+}
+
+export { ProfesorContextProvider };
+export default ProfesorContext;

@@ -1,39 +1,76 @@
-import  Home  from "./Pages/home/HomePrincipal";
+import Home from "./Pages/home/HomePrincipal";
 import Login from "./Pages/login/Login";
 import Group from "./Pages/group/Group";
 import Results from "./Pages/results/Results";
 import Questions from "./Pages/questions/questions";
 import CrearExamen from "Pages/crearExamen/crearExamen";
+import Grupos from "./Pages/grupos/Grupos";
+import ResumenExamen from "./Pages/resumenExamen/ResumenExamen";
+import ExamenAlumno from "Pages/examenAlumno/ExamenAlumno";
+import PreLogin from "Pages/prelogin/PreLogin";
+import LoginAlumno from "Pages/loginalumno/LoginAlumno";
+import HomeAlumno from "Pages/homeAlumno/HomeAlumno";
+import Examenes from "Pages/examenes/Examenes";
+import ResumenAlumno from "resumenAlumno/ResumenAlumno";
 
 const AppRoutes = [
   {
     index: true,
+
+    element: <PreLogin />,
+  },
+  {
+    path: "/loginprofesor",
     element: <Login />,
   },
   {
+    path: "/loginalumno",
+    element: <LoginAlumno />,
+  },
+  {
     path: "/home",
-    element: <Home />,
+      element: <Home  />,
   },
   {
-    path: "/group/exams",
-    element: <Group edit={true}/>,
+    path: "/homealumno",
+    element: <HomeAlumno />,
   },
   {
-    path: "/group/results",
-    element: <Group edit={false}/>,
+    path: "/group/resumen",
+      element: <Group />,
+  },
+  {
+    path: "/examenes",
+    element: <Examenes />,
+  },
+  {
+    path: "/grupos",
+      element: <Grupos />,
   },
   {
     path: "/results",
-    element: <Results />,
+      element: <Results />,
   },
   {
     path: "/crear/examen",
-    element: <CrearExamen/>
+      element: <CrearExamen />,
   },
   {
     path: "/questions",
-    element: <Questions/>
-  }
+      element: <Questions />,
+  },
+  {
+    path: "/resumenExamen",
+      element: <ResumenExamen />,
+  },
+  {
+    path: "/resumenAlumno",
+    element: <ResumenAlumno />,
+  },
+  {
+    path: "/examenAlumno",
+      element: <ExamenAlumno />,
+  },
 ];
 
 export default AppRoutes;

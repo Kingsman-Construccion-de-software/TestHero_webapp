@@ -101,7 +101,7 @@ export default function Login() {
           />
           {status !== "Login exitoso." && (
             <p className="textoError">{status}</p>
-          )}Se 
+          )}
           <button className="loginButton">Ingresar</button>
         </form>
       </div>

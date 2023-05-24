@@ -19,6 +19,37 @@ body {
   padding-top: 15px;
 }
 
+.titleRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.textBox {
+    display: flex;
+    align-items: center;
+    margin-right: 40px;
+}
+
+.textBox button {
+padding: 8px 16px;
+font-size: 16px;
+background-color: #0596ff;
+color: white;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+.textBox button:hover {
+background-color: #0478d9;
+}
+
+.textBox input[type="text"] {
+margin-right: 10px;
+}
+
+
 .subtitles {
   color: #ebebeb;
   font-size: 30px;
@@ -70,4 +101,10 @@ body {
   margin-top: 30px;
   margin-bottom: 50px;
   margin-right: 8vw;
+}
+
+.vacio {
+  color: #ebebeb;
+  font-size: 34px;
+  text-align: center;
 }

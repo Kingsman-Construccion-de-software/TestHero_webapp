@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./formularioPregunta.css";
 import axios from "axios";
+import swal from "sweetalert";
 /**
  * @author Bernardo de la Sierra y Julio Meza
  * @version 2.1.1
@@ -84,7 +85,11 @@ export default function FormularioPregunta({
     await axios.post(URIrespuesta, data2);
     await axios.post(URIrespuesta, data3);
     await axios.post(URIrespuesta, data4);
-
+    swal({
+      title: "Se ha creado una pregunta",
+      button: "Aceptar",
+      icon: "success",
+    });
     getPreguntas();
     handleSelected();
   };

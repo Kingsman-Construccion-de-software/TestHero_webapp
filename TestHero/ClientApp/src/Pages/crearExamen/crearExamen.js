@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./crearExamen.css";
 import "../home/home.css";
 import Sidebar from "../../components/sidebar/Sidebar.js";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import ProfesorContext from "context/contextoProfesor";
+import swal from "sweetalert";
 /**
- * @author: Cesar Ivan Hernandez Melendez
+ * @author: Cesar Ivan Hernandez Melendez y Bernardo de la Sierra Rábago
  * @license: GP
  * @version: 2.1.0
  * Esta clase está dedicada a la página de Crear Examenes
@@ -26,7 +27,9 @@ function CrearExamen() {
   const [searchParams] = useSearchParams();
   const [etiquetas, setEtiquetas] = useState([]);
   const [showingEtiquetas, setShowingEtiquetas] = useState([]);
-
+  const { state, setState } = useContext(ProfesorContext);
+  const [codigo, setCodigo] = useState([]);
+  const parametro = searchParams.get("grupo");
   /**
    * Nos da todos las etiquetas
    */
@@ -67,7 +70,7 @@ function CrearExamen() {
   };
 
   const goToExamenes = () => {
-    navigate("/group/exams");
+    navigate(`/examenAlumno?grupo=${state.idGrupo}`);
   };
 
   /**Funcion para actualizar la clase  */
@@ -75,27 +78,33 @@ function CrearExamen() {
     event.preventDefault();
 
     const url = "api/examen";
+    const codigoExamen = makeId(8);
+
+    const url2 = "api/examen/codigo/" + codigoExamen;
 
     const data = {
-      Codigo: makeId(8),
+      Codigo: codigoExamen,
       Nombre: titulo,
       Materia: materia,
       FechaInicio: fecha1 + "T" + hora1,
       FechaFin: fecha2 + "T" + hora2,
-      idGrupo: searchParams.get("grupo"),
+      idGrupo: state.idGrupo,
     };
 
     const result = await axios.post(url, data);
-    console.log(result.data);
+    const resultado = await axios.get(url2);
 
     await tags.forEach((tag) => postTag(tag, result.data.idExamen));
+    swal({
+      title: "Se ha creado un examen",
+      button: "Aceptar",
+      icon: "success",
+    });
     goToExamenes();
   };
 
   const postTag = async (tag, idExamen) => {
     const filtrado = etiquetas.filter((etiqueta) => etiqueta.nombre === tag);
-    console.log(tag);
-    console.log(filtrado);
 
     let id = 0;
 

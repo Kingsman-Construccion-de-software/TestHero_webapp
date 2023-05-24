@@ -1,0 +1,46 @@
+.container,
+.list {
+    display: flex;
+    margin-bottom: 0;
+}
+
+.container {
+    border-bottom: 2.5px solid #0596ff;
+    padding:0;
+    list-style-type:none;
+}
+
+.container,
+.aux-container {
+    margin-left: 10%;
+    background-color: #1d1d1d;
+    margin-bottom: auto;
+}
+
+.aux-container,
+.item-container {
+    border-bottom: 1px ridge #0596ff;
+    list-style-type: none;
+}
+
+.item-container {
+  background-color: transparent;
+}
+
+.item-container button {
+  border: none;
+  opacity: 0.5;
+  color: #1d1d1d;
+  font-size: x-large;
+  font-weight: 500;
+  padding: 10px 18px;
+}
+
+.item-container.active-item button {
+  opacity: 1;
+}
+
+.active-item {
+  color: white;
+  border-bottom: 1.5px solid #ebebeb;
+}
