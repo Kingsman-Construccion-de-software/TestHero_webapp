@@ -15,8 +15,8 @@ import PreguntasAlumno from "Pages/preguntasAlumno/PreguntasAlumno";
 export default function ResumenAlumno() {
   // Estados iniciales
   const [examen, setExamen] = useState();
+  const [puntaje, setPuntaje] = useState(0);
   const { state, setState } = useContext(ProfesorContext);
-  const [calificaciones, setCalificaciones] = useState();
   const [searchParams] = useSearchParams();
   const parametros = searchParams.get("examen");
 
@@ -34,12 +34,8 @@ export default function ResumenAlumno() {
   const getCalificacion = async () => {
     try {
       const url = `api/alumno/examen/${parametros}/${state.id}`;
-      console.log(url);
-      console.log(parametros);
       const res = await axios.get(url);
-      console.log(res.data[0]);
-      setCalificaciones(res.data[0]);
-      console.log(calificaciones);
+      setPuntaje(res.data[0].calificacion);
     } catch (error) {
       console.log(error);
     }
@@ -62,7 +58,7 @@ export default function ResumenAlumno() {
             {examen && <h2>Código: {examen.codigo}</h2>}
           </div>
           <div className="subtitles">
-            {calificaciones && <h2>Calificación:</h2>}
+            <h2>Calificación: {puntaje}</h2>
           </div>
         </div>
       </div>

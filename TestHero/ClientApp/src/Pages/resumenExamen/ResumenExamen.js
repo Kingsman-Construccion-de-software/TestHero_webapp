@@ -16,20 +16,20 @@ import Results from "Pages/results/Results";
  */
 export default function ResumenExamen() {
   // Estados iniciales
-    const [examen, setExamen] = useState();
+  const [examen, setExamen] = useState();
 
-    const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
-    const handleInputChange = (event) => {
-        setText(event.target.value);
-    };
+  const handleInputChange = (event) => {
+    setText(event.target.value);
+  };
 
-    const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-    const handleCopyButtonClick = () => {
-        navigator.clipboard.writeText(text);
-        alert('Text copied to clipboard!');
-    };
+  const handleCopyButtonClick = () => {
+    navigator.clipboard.writeText(text);
+    alert("Text copied to clipboard!");
+  };
 
   /**Checa que daod un idExmaen se pueda obtener todo su informacion */
   const getExamen = async () => {
@@ -62,17 +62,15 @@ export default function ResumenExamen() {
         </div>
       </div>
       <div>
-      
-          <MultipleViewCard
-            views={[
-              { title: "Preguntas", component: <Questions /> },
-              {
-                title: "Resultados",
-                component: <Results codigos={examen} />,
-              },
-            ]}
-          />
-        
+        <MultipleViewCard
+          views={[
+            { title: "Preguntas", component: <Questions /> },
+            {
+              title: "Resultados",
+              component: <Results codigos={examen} />,
+            },
+          ]}
+        />
       </div>
     </div>
   );
