@@ -24,7 +24,6 @@ export default function Results() {
       const result = await axios.get(url);
       if (result.data) {
         setAlumno(result.data);
-        console.log(result.data);
       }
     } catch (error) {
       alert(error);

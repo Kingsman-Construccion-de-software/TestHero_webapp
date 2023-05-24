@@ -42,3 +42,8 @@
   font-size: 35px;
   font-weight: 500;
 }
+
+.datosAlumno {
+  display: flex;
+  flex-direction: column;
+}

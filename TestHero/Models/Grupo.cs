@@ -59,6 +59,17 @@ namespace TestHero
         }
 
         /// <summary>
+        /// Nos da un grupo por id
+        /// </summary>
+        public async Task<List<Grupo>> GetGrupoAlumnos(int id)
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"get_grupo_alumnos";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id", id);
+            return await ReadAllAsync(await cmd.ExecuteReaderAsync());
+        }
+        /// <summary>
         /// Agrega los grupos
         /// </summary>
         public async Task InsertGrupo()

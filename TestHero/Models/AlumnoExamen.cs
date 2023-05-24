@@ -54,7 +54,19 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@idE", id);
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
-
+        /// <summary>
+        /// Metodo para obtener las calificaciones
+        /// </summary>
+        public async Task<List<AlumnoExamen>> GetAlumnosCalificacion(int idA, int idE)
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"get_alumnos_calificacion";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@idE", idA);
+            cmd.Parameters.AddWithValue("@idA", idE);
+            return await ReadAllAsync(await cmd.ExecuteReaderAsync());
+        }
+        
         /// <summary>
         /// Funcion que inserta alumnos en un examen
         /// </summary>

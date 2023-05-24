@@ -18,8 +18,7 @@ export default function GrupoAlumno({ nombre, fechaFin, link }) {
   };
 
   return (
-    // onClick={goToExamen}
-    <div className="fondo">
+    <div className="fondo" onClick={goToExamen}>
       <div className="imagenGrupo"></div>
       <div className="infoGrupo">
         <div className="tituloCard">{nombre}</div>

@@ -25,6 +25,8 @@ const context = [
   "/api/alumno/examen",
   "/api/alumno/pregunta",
   "/api/alumno",
+  "api/grupo/alumno",
+  "api/grupo/alumnos",
   "/api/login/alumno",
   "/api/alumno/examenes",
 ];
