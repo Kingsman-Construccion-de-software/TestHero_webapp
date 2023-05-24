@@ -6,6 +6,7 @@ import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
 import "./preguntaAlumno.css";
 import swal from "sweetalert";
+import { isRegularExpressionLiteral } from "typescript";
 /**
  * @author Bernardo de la Sierra y Julio Meza
  * @version 3.1.1
@@ -21,7 +22,7 @@ export default function PreguntaAlumno({
   // Aparicio de datos
   const [open, setOpen] = useState(false);
   const [showing, setShowing] = useState(false);
-
+  const [actionable, setActionable] = useState(true);
   const [selected, setSelected] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
   // Actualizador de pregunta
@@ -39,17 +40,21 @@ export default function PreguntaAlumno({
    * Funcion para hacer el drag and drop de la pregunta
    */
   const toggleOpen = () => {
+    setActionable(true);
     setOpen(!open);
   };
   /**
    * Te da cuerto tiempo para ver si la pregunta esta abierta sino se cierra
    */
   const timeOutOpen = () => {
-    setShowing(!showing);
-    if (open) {
-      setTimeout(toggleOpen, 1000);
-    } else {
-      toggleOpen();
+    if(actionable){
+      setActionable(false);
+      setShowing(!showing);
+      if (open) {
+        setTimeout(toggleOpen, 1000);
+      } else {
+        toggleOpen();
+      }
     }
   };
 
