@@ -102,5 +102,11 @@
     color: #FD4D4D;
     margin-top: 20px;
 }
+.BackArrow {
+    position: absolute;
+    top: 1.8vw;
+    left: 2.8vw;
+    width: 6vw!important;
+}
 
 
