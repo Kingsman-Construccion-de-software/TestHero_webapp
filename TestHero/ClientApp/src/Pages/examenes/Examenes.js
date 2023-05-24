@@ -38,7 +38,6 @@ export default function Examenes() {
     try {
       const result = await axios.get(url);
       if (result.data) {
-        console.log(result.data);
         setExamenes(result.data);
       }
     } catch (error) {
@@ -48,7 +47,6 @@ export default function Examenes() {
 
   useEffect(() => {
     getGrupo();
-    console.log(examenes);
   }, [state.id]);
 
   return (

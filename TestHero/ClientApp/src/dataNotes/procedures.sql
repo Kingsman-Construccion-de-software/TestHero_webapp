@@ -363,6 +363,21 @@ BEGIN
 END 
 // DELIMITER ;
 
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_alumnos_calificacion;
+CREATE PROCEDURE  get_alumnos_calificacion(IN idE int, IN idA int)
+BEGIN
+	SELECT alumno.idAlumno, alumno.nombres, alumno.apellidos, alumnoexamen.calificacion, alumnoexamen.puntos
+    from alumno 
+    inner join grupo on 
+    alumno.idGrupo = grupo.idGrupo 
+    inner join alumnoexamen on
+	alumno.idAlumno  = alumnoexamen.idAlumno 
+    WHERE alumnoexamen.idExamen = idE AND
+    alumno.idAlumno = idA;
+END 
+// DELIMITER ;
+
 call get_alumnos_grupo(7);
 call get_alumno_pregunta(2,9);
 call  get_alumnos_examen(8);
@@ -370,10 +385,12 @@ call get_profesor_full(1);
 call get_alumno_full(3);
 call insert_grupo("prueba",1);
 call get_alumnos_examenes(3);
+call get_alumnos_calificacion(13,2);
 SELECT * FROM alumno;
 SELECT * FROM etiqueta;
 select * from pregunta;
 select * from grupo;
 select * from profesor;
 select * from examen;
-
+select * from alumnoexamen;
+select * from examen;
