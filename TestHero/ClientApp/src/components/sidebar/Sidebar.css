@@ -44,11 +44,11 @@
   margin-left: 1px;
   margin-right: 1px;
   margin-bottom: 40px;
-  width: 60%;
+  width: 60%!important;
 }
 
 .iconSidebar {
-  width: 100%;
+  width: 88%!important;
 }
 
 @media screen and (max-height: 450px) {

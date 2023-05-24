@@ -11,7 +11,7 @@ import ProfesorContext from "context/contextoProfesor";
 // import PreLogin from "Pages/prelogin/PreLogin";
 
 /**
- * @author Bernardo de la Sierra y Leonardo García 
+ * @author Bernardo de la Sierra y Leonardo García
  * @version 2.1.1
  * @license Gp
  * @params Sin parametros
@@ -86,7 +86,7 @@ export default function Login() {
     return (
         <div className="login">
             <div className="loginWrapper">
-                <img className="BackArrow" src={BackArrow} onClick={GoBack} alt="tilin"></img>
+                <img className="BackArrow" src={BackArrow} onClick={GoBack} alt="GoBack"></img>
                 <img src={logo} alt="Logo testHero" />
                 <form className="loginBox" onSubmit={handleLogin}>
                     <p className="texto">Correo</p>
