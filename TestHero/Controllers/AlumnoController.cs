@@ -72,6 +72,21 @@ namespace TestHero.Controllers
             return new OkObjectResult(result);
         }
 
+        // GET api/alumno/pregunta/idA/idE
+        [Route("api/alumnopregunta/{idA:int}/{idE:int}")]
+        [HttpGet]
+        /// <summary>
+        /// Rutamiento de getalumnopregunta
+        /// </summary>
+        public async Task<IActionResult> GetAlumnoPreguntas(int idA, int idE)
+        {
+            await Db.Connection.OpenAsync();
+            AlumnoPregunta alumno = new AlumnoPregunta(Db);
+            var result = await alumno.GetAlumnoPreguntas(idA,idE);
+            return new OkObjectResult(result);
+        }
+
+
 
         // POST api/alumno/pregunta
         [Route("api/alumno/pregunta")]

@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import "./SidebarAlumno.css";
 
 /**
- * @author: Leonardo García
+ * @author: Bernardo de la Sierra
  * @license: GP
  * @version: 1.1.0
  * @description Esta clase está dedicada a la creación de una sidebar reutilizable en la mayoría de las páginas

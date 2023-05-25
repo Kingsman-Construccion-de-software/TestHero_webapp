@@ -404,15 +404,33 @@ BEGIN
     WHERE alumno.idAlumno  = id;
 END 
 // DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_alumnopreguntas;
+CREATE PROCEDURE  get_alumnopreguntas(IN idA int,IN idE INT)
+BEGIN
+	SELECT alumnopregunta.idAlumno, alumnopregunta.idPregunta, alumnopregunta.idRespuesta
+    FROM alumnopregunta 
+    inner join pregunta 
+    on alumnopregunta.idPregunta  = pregunta.idPregunta  
+    WHERE alumnopregunta.idAlumno = idA  
+    and pregunta.idExamen = idE;
+END 
+// DELIMITER ;
+
+
 call get_alumnos_grupo(7);
-call get_alumno_pregunta(2,9);
-call  get_alumnos_examen(8);
+call get_alumno_pregunta(2,1);
+call  get_alumnos_examen(13);
 call get_profesor_full(1);
 call get_alumno_full(2);
 call insert_grupo("prueba",1);
 call get_alumnos_examenes(3);
 call get_alumnos_calificacion(13,2);
 call get_grupo_alumnos(2);
+call get_alumnopreguntas(2,13);
+SELECT * FROM alumnopregunta;
+SELECT * FROM alumnoexamen;
 SELECT * FROM alumno;
 SELECT * FROM etiqueta;
 select * from pregunta;

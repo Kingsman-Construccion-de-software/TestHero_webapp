@@ -38,6 +38,17 @@ namespace TestHero
         /// <summary>
         /// Metodo para obtener la respuesta de un alumno para una pregunta y recibe un Id como parametro
         /// </summary>
+        public async Task<List<AlumnoPregunta>> GetAlumnoPreguntas(int idA, int idE)
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"get_alumnopreguntas";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@idA", idA);
+            cmd.Parameters.AddWithValue("@idE", idE);
+            return await ReadAllAsync(await cmd.ExecuteReaderAsync());
+        }
+
+
         public async Task<List<AlumnoPregunta>> GetAlumnoPregunta(int idA, int idP)
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();

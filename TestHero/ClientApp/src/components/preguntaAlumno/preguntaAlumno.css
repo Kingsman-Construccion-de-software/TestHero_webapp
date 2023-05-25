@@ -1,164 +1,174 @@
 .dropdown {
-    width: 100%;
-    background-color: #0596ff;
-    color: #ebebeb;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0px;
-    padding: 10px;
-    z-index: 1;
+  width: 100%;
+  background-color: #0596ff;
+  color: #ebebeb;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0px;
+  padding: 10px;
+  z-index: 1;
+}
+
+.titulo {
+  font-size: 35px;
+  font-weight: 500;
+  margin-left: 20px;
+}
+
+.pregIcon {
+  float: right;
+  margin-right: 20px;
+}
+
+.pregIcon:hover {
+  cursor: pointer;
+}
+
+.pregunta {
+  margin-top: 50px;
+  width: 70%;
+  margin-right: 50px;
+}
+
+.extension {
+  display: flex;
+  align-items: center;
+  background-color: rgba(5, 150, 255, 0.3);
+  color: #ebebeb;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+}
+
+.showing {
+  animation-name: show;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  z-index: -5;
+}
+
+.hiding {
+  animation-name: hide;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  z-index: -5;
+}
+
+@keyframes show {
+  from {
+    max-height: 0;
+    opacity: 0;
   }
-  
-  .titulo {
-    font-size: 35px;
-    font-weight: 500;
-    margin-left: 20px;
+  to {
+    max-height: 500px;
+    opacity: 1;
   }
-  
-  .pregIcon {
-    float: right;
-    margin-right: 20px;
+}
+
+@keyframes hide {
+  from {
+    max-height: 500px;
+    opacity: 1;
   }
-  
-  .pregIcon:hover {
-    cursor: pointer;
+  to {
+    max-height: 0px;
+    opacity: 0;
   }
-  
-  .pregunta {
-    margin-top: 50px;
-    width: 70%;
-    margin-right: 50px;
-  }
-  
-  .extension {
-    display: flex;
-    align-items: center;
-    background-color: rgba(5, 150, 255, 0.3);
-    color: #ebebeb;
-    border-radius: 5px;
-    padding: 10px;
-    width: 100%;
-  }
-  
-  .showing {
-    animation-name: show;
-    animation-duration: 1.5s;
-    animation-timing-function: ease-out;
-    z-index: -5;
-  }
-  
-  .hiding {
-    animation-name: hide;
-    animation-duration: 1.5s;
-    animation-timing-function: ease-out;
-    z-index: -5;
-  }
-  
-  @keyframes show {
-    from {
-      max-height: 0;
-      opacity: 0;
-    }
-    to {
-      max-height: 500px;
-      opacity: 1;
-    }
-  }
-  
-  @keyframes hide {
-    from {
-      max-height: 500px;
-      opacity: 1;
-    }
-    to {
-      max-height: 0px;
-      opacity: 0;
-    }
-  }
-  
-  .respuestas {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    width: 80%;
-  }
-  
-  .respuesta {
-    margin: 10px 0 10px 15px;
-    width: 40%;
-  }
-  
-  .respuesta input {
-    display: inline-block;
-  }
-  
-  .respuesta p {
-    margin-left: 10px;
-    font-size: 18px;
-    display: inline-block;
-  }
-  
-  .iconsRespuesta {
-    width: 20%;
-    max-width: 200px;
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  .crudIcon:hover {
-    cursor: pointer;
-  }
-  
-  .modaldetalles {
-    background-color: #0596ff;
-    border: none;
-    text-align: center;
-    color: #ebebeb;
-  }
-  
-  .modal-footer {
-    align-items: center;
-    justify-content: space-around;
-  }
-  
-  .modal-dialog {
-    margin-top: 200px;
-  }
-  
-  .tamanobody {
-    font-size: 22px;
-  }
-  
-  .botonCancelar {
-    margin-top: 30px;
-    margin-bottom: 40px;
-    background-color: #0596ff;
-    color: #ebebeb;
-    padding: 10px 20px;
-    border-width: 2px;
-    border-color: #ebebeb;
-    font-size: 24px;
-  }
-  
-  .botonEliminar {
-    margin-top: 30px;
-    padding: 10px 20px;
-    margin-bottom: 40px;
-    background-color: #ebebeb;
-    color: #fd4d4d;
-    border-color: #ebebeb;
-    font-size: 24px;
-  }
-  
-  .titulopregunta {
-    font-size: 35px;
-    font-weight: 500;
-    margin-left: 20px;
-    background-color: #0596ff;
-    color: #ebebeb;
-    border: none;
-    width: 85%;
-  }
-  
+}
+
+.respuestas {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 80%;
+}
+
+.respuesta {
+  margin: 10px 0 10px 15px;
+  width: 40%;
+}
+
+.respuesta input {
+  display: inline-block;
+}
+
+.respuesta p {
+  margin-left: 10px;
+  font-size: 18px;
+  display: inline-block;
+}
+
+.iconsRespuesta {
+  width: 20%;
+  max-width: 200px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.crudIcon:hover {
+  cursor: pointer;
+}
+
+.modaldetalles {
+  background-color: #0596ff;
+  border: none;
+  text-align: center;
+  color: #ebebeb;
+}
+
+.modal-footer {
+  align-items: center;
+  justify-content: space-around;
+}
+
+.modal-dialog {
+  margin-top: 200px;
+}
+
+.tamanobody {
+  font-size: 22px;
+}
+
+.botonCancelar {
+  margin-top: 30px;
+  margin-bottom: 40px;
+  background-color: #0596ff;
+  color: #ebebeb;
+  padding: 10px 20px;
+  border-width: 2px;
+  border-color: #ebebeb;
+  font-size: 24px;
+}
+
+.botonEliminar {
+  margin-top: 30px;
+  padding: 10px 20px;
+  margin-bottom: 40px;
+  background-color: #ebebeb;
+  color: #fd4d4d;
+  border-color: #ebebeb;
+  font-size: 24px;
+}
+
+.titulopregunta {
+  font-size: 35px;
+  font-weight: 500;
+  margin-left: 20px;
+  background-color: #0596ff;
+  color: #ebebeb;
+  border: none;
+  width: 85%;
+}
+
+.bienomal {
+  color: #ebebeb;
+  display: flex;
+  justify-content: space-between;
+}
+
+.iconosalumno {
+  display: flex;
+  align-items: center;
+}
