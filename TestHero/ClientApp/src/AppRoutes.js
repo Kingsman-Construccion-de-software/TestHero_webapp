@@ -12,6 +12,7 @@ import LoginAlumno from "Pages/loginalumno/LoginAlumno";
 import HomeAlumno from "Pages/homeAlumno/HomeAlumno";
 import Examenes from "Pages/examenes/Examenes";
 import ResumenAlumno from "resumenAlumno/ResumenAlumno";
+import Inicio from "Pages/Inicio/Inicio"
 
 const AppRoutes = [
   {
@@ -70,6 +71,10 @@ const AppRoutes = [
   {
     path: "/examenAlumno",
     element: <ExamenAlumno />,
+  },
+  {
+      path: "/inicio",
+      element: <Inicio />,
   },
 ];
 
