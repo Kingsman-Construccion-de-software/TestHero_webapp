@@ -108,8 +108,13 @@
   justify-content: space-around;
 }
 
-.crudIcon:hover {
+.crudIcon1:hover {
   cursor: pointer;
+  color: #0596FF;
+}
+.crudIcon2:hover {
+  cursor: pointer;
+  color: #FD4D4D;
 }
 
 .modaldetalles {
