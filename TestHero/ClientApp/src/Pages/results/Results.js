@@ -57,8 +57,6 @@ export default function Results({ codigos }) {
     <div className={styles.container}>
       <Sidebar />
       <div className={styles.mainContent}>
-        <div className={styles.header}>
-        
         {calificaciones.length === 0 ? (
           <>
             <div className="vacio">
