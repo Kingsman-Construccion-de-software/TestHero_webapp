@@ -58,13 +58,7 @@ export default function Results({ codigos }) {
       <Sidebar />
       <div className={styles.mainContent}>
         <div className={styles.header}>
-          <input
-            className={styles["search-bar"]}
-            type="search"
-            placeholder="Buscar"
-          />
-        </div>
-
+        
         {calificaciones.length === 0 ? (
           <>
             <div className="vacio">
