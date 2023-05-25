@@ -5,7 +5,7 @@ import Tasks from "../../assets/Tasks.png";
 import BackArrow from "../../assets/BackArrow.png";
 import Questions from "../../assets/Questions.png";
 import Out from "../../assets/Out.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import "./SidebarAlumno.css";
 
@@ -17,12 +17,20 @@ import "./SidebarAlumno.css";
  */
 
 export default function Sidebar() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <div className="sidenav">
       <img className="logoPrincipal" src={SidebarLogo} alt="logo" />
-      <Link to={"/homealumno"}>
-        <img className="iconSidebar" src={BackArrow} alt="Volver" />
-      </Link>
+      {location.pathname !== "/homealumno" && (
+        <img
+          className="iconSidebar"
+          src={BackArrow}
+          alt="Volver"
+          onClick={() => navigate(-1)}
+        />
+      )}
       <Link to={"/homealumno"}>
         <img className="iconSidebar" src={Home} alt="Inicio" />
       </Link>
