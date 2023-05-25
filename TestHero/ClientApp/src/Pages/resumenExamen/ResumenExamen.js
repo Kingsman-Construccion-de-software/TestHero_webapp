@@ -55,9 +55,11 @@ export default function ResumenExamen() {
         <div className="content">
           {examen && <h1 className="tituloExamen">{examen.nombre}</h1>}
           <div className="subtitles">
-            {examen && (
-              <h2 className={styles["mover"]}>Código: {examen.codigo}</h2>
-            )}
+            <div className="SuperiorLeft">
+              {examen && (
+                <h2 className={styles["mover"]}>Código: {examen.codigo}</h2>
+              )}
+            </div>
           </div>
         </div>
       </div>
