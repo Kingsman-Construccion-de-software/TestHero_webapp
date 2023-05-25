@@ -20,7 +20,7 @@ export default function PreguntaAlumno({ pregunta, alumnoRespuesta }) {
   const [correcta, setCorrecta] = useState(false);
 
   const [respuestas, setRespuestas] = useState([]);
-
+  const [actionable, setActionable] = useState(true);
   /**
    * Funcion para hacer el drag and drop de la pregunta
    */
@@ -32,7 +32,7 @@ export default function PreguntaAlumno({ pregunta, alumnoRespuesta }) {
    * Te da cuerto tiempo para ver si la pregunta esta abierta sino se cierra
    */
   const timeOutOpen = () => {
-    if(actionable){
+    if (actionable) {
       setActionable(false);
       setShowing(!showing);
       if (open) {
