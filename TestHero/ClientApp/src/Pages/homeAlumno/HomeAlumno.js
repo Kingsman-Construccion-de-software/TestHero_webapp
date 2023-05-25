@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-// import React, { useRef } from "react";
 import "./homealumno.css";
-// import logo from "../../assets/logo.png";
 import UserIcon from "../../assets/UserIcon.png";
 import SidebarAlumno from "../../components/sidebarAlumno/SidebarAlumno";
 import GrupoAlumno from "components/grupoAlumno/GrupoAlumno";
