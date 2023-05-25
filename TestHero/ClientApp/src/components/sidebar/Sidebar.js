@@ -1,10 +1,8 @@
 import React from "react";
 import SidebarLogo from "../../assets/SidebarLogo.png";
 import Home from "../../assets/Home.png";
-import BackArrow from "../../assets/BackArrow.png"
-import Questions from "../../assets/Questions.png";
+import BackArrow from "../../assets/BackArrow.png";
 import Groups from "../../assets/Groups.png";
-import Analytics from "../../assets/Analytics.png";
 import Out from "../../assets/Out.png";
 import { Link } from "react-router-dom";
 
@@ -18,26 +16,26 @@ import "./Sidebar.css";
  */
 
 export default function Sidebar() {
-    return (
-        <div className="sidenav">
-            <img className="logoPrincipal" src={SidebarLogo} alt="logo" />
-            <Link to={"/home"}>
-                <img className="iconSidebar" src={BackArrow} alt="GoBack" />
-            </Link>
-            <Link to={"/home"}>
-                <img className="iconSidebar" src={Home} alt="Home" />
-            </Link>
-            <Link to={"/grupos"}>
-                <img className="iconSidebar" src={Groups} alt="Groups"/>
-            </Link>
+  return (
+    <div className="sidenav">
+      <img className="logoPrincipal" src={SidebarLogo} alt="logo" />
+      <Link to={"/home"}>
+        <img className="iconSidebar" src={BackArrow} alt="Volver" />
+      </Link>
+      <Link to={"/home"}>
+        <img className="iconSidebar" src={Home} alt="Inicio" />
+      </Link>
+      <Link to={"/grupos"}>
+        <img className="iconSidebar" src={Groups} alt="Grupos" />
+      </Link>
 
-            <Link to={"/"}>
-                <img className="iconSidebar" src={Out} alt="Log out" />
-            </Link>
-        </div>
-    );
+      <Link to={"/"}>
+        <img className="iconSidebar" src={Out} alt="Salir" />
+      </Link>
+    </div>
+  );
 }
 // Luego metemos las analiticas,
 /*<Link to={"/grupos"}>
 <img className="iconSidebar" src={Analytics} alt="Analiticas" />
-</Link>*/ 
+</Link>*/
