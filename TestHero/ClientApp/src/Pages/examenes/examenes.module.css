@@ -15,7 +15,7 @@
   .search-bar2 {
     height: 38px;
     padding: 0 3px;
-    width: 50px;
+    max-width: 500px;
     border: none;
     border-radius: 6px;
   }

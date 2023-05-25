@@ -36,7 +36,7 @@ export default function Questions() {
   /** Se obtiene las preguntas de un examen */
   const getPreguntas = async () => {
     try {
-      const URIpreguntas = "api/pregunta/examen/" + examen.idExamen;
+      const URIpreguntas = "api/pregunta/examen/" + searchParams.get("examen");
       const res = await axios.get(URIpreguntas);
       setPreguntas(res.data);
     } catch (e) {

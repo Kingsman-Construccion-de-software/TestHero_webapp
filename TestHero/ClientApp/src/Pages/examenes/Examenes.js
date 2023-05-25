@@ -1,11 +1,10 @@
 import styles from "./examenes.module.css";
-
 import SidebarAlumno from "../../components/sidebarAlumno/SidebarAlumno";
 import ProfesorContext from "context/contextoProfesor";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Modal, Button } from "react-bootstrap";
+
 /**
  * @author: Bernardo de la Sierra
  * @license: GP
@@ -32,6 +31,7 @@ export default function Examenes() {
     newState.idGrupo = idGrupo;
     setState(newState);
   };
+
   const getGrupo = async () => {
     const url = "api/alumno/examenes/" + state.id;
 
