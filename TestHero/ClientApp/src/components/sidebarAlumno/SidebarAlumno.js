@@ -1,10 +1,9 @@
 import React from "react";
 import SidebarLogo from "../../assets/SidebarLogo.png";
 import Home from "../../assets/Home.png";
-import BackArrow from "../../assets/BackArrow.png";
+import Tasks from "../../assets/Tasks.png";
+import BackArrow from "../../assets/BackArrow.png"
 import Questions from "../../assets/Questions.png";
-import Groups from "../../assets/Groups.png";
-import Analytics from "../../assets/Analytics.png";
 import Out from "../../assets/Out.png";
 import { Link } from "react-router-dom";
 
@@ -30,13 +29,13 @@ export default function Sidebar() {
       <Link to={"/examenes"}>
         <img className="iconSidebar" src={Groups} alt="Groups" />
       </Link>
-
       <Link to={"/"}>
         <img className="iconSidebar" src={Out} alt="Log out" />
       </Link>
     </div>
   );
 }
+
 // Luego metemos las analiticas,
 /*<Link to={"/grupos"}>
 <img className="iconSidebar" src={Analytics} alt="Analiticas" />

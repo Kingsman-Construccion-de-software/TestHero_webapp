@@ -17,9 +17,10 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
   // Aparicio de datos
   const [open, setOpen] = useState(false);
   const [showing, setShowing] = useState(false);
+  const [actionable, setActionable] = useState(true);
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState(0);
   // Actualizador de pregunta
   const [fpregunta, setFpregunta] = useState(pregunta.textoPregunta);
   const [opcion1, setOpcion1] = useState("");
@@ -35,23 +36,27 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
     setSelectedValue(parseInt(event.target.value));
   };
 
-  /**
+ /**
    * Funcion para hacer el drag and drop de la pregunta
    */
-  const toggleOpen = () => {
-    setOpen(!open);
-  };
-  /**
-   * Te da cuerto tiempo para ver si la pregunta esta abierta sino se cierra
-   */
-  const timeOutOpen = () => {
+ const toggleOpen = () => {
+  setActionable(true);
+  setOpen(!open);
+};
+/**
+ * Te da cuerto tiempo para ver si la pregunta esta abierta sino se cierra
+ */
+const timeOutOpen = () => {
+  if(actionable){
+    setActionable(false);
     setShowing(!showing);
     if (open) {
       setTimeout(toggleOpen, 1000);
     } else {
       toggleOpen();
     }
-  };
+  }
+};
   //Funciones anonimas para abrir o cerrar cierto evento
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -62,6 +67,8 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
     const URIrespuestas = "api/respuesta/pregunta/";
     const res = await axios.get(`${URIrespuestas}${pregunta.idPregunta}`);
     setRespuestas(res.data);
+    let correctIndex = res.data.findIndex(it => it.esCorrecta === 1);
+    setSelectedValue(correctIndex);
   };
 
   /**
@@ -88,7 +95,10 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
   /**
    * Actualiza una pregunta dado un idPregunta
    */
-  const updatePregunta = async () => {
+  const updatePregunta = async (e) => {
+
+    e.preventDefault()
+
     const URIupdate = "api/pregunta/";
     await axios.put(`${URIupdate}${pregunta.idPregunta}`, {
       textoPregunta: fpregunta,
@@ -116,61 +126,44 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
    */
   const updateRespuesta = async (respuesta, idx) => {
     const URIupdateP = "api/respuesta/";
-    console.log(respuesta);
     await axios.put(`${URIupdateP}${respuestas[idx].idRespuesta}`, respuesta);
   };
   /**
    * Funcion para activar el punto al crear una respueta
    */
   const initializeOpciones = () => {
-    if (selectedValue === "opcion0") {
+    if (selectedValue === 0) {
       respuestas[0].esCorrecta = 1;
-    } else if (selectedValue === "opcion1") {
+    } else if (selectedValue === 1) {
       respuestas[1].esCorrecta = 1;
-    } else if (selectedValue === "opcion2") {
-      respuestas[2].sCorrecta = 1;
-    } else if (selectedValue === "opcion3") {
-      respuestas[3].EsCorrecta = 1;
+    } else if (selectedValue === 2) {
+      respuestas[2].esCorrecta = 1;
+    } else if (selectedValue === 3) {
+      respuestas[3].esCorrecta = 1;
     }
+
+    console.log(selectedValue)
 
     respuestas.forEach((respuesta, index) => {
       setOpciones[index](respuesta.textoRespuesta);
     });
   };
 
-  useEffect(() => {
-    getRespuestas();
-  }, []);
-
-  useEffect(() => {
-    if (selected) {
-      initializeOpciones();
-    }
-  }, [selected]);
-
-  return (
-    <div className="pregunta">
-      <div className="dropdown">
-        {!selected && <p className="titulo">{pregunta.textoPregunta}</p>}
-        {selected && (
-          <input
-            className="titulopregunta"
-            value={fpregunta}
-            onChange={(e) => setFpregunta(e.target.value)}
-            type="text"
-          />
-        )}
-        <div class="pregIcon" onClick={timeOutOpen}>
-          <FaArrowDown size={40} />
+  const createPregunta = () => {
+    return (
+      <form>
+        <div className="dropdown">
+          <p className="titulo">{pregunta.textoPregunta}</p>
+          <div class="pregIcon" onClick={timeOutOpen}>
+            <FaArrowDown size={40} />
+          </div>
         </div>
-      </div>
-      {open && (
-        <div className={showing ? "extension showing" : "extension hiding"}>
-          <form className="respuestas">
-            {respuestas &&
-              respuestas.map((respuesta, index) => (
-                <div className="respuesta" key={index}>
-                  {!selected && (
+        {open && 
+          <div className={showing ? "extension showing" : "extension hiding"}>
+            <div className="respuestas">
+              {respuestas &&
+                respuestas.map((respuesta, index) => (
+                  <div className="respuesta" key={index}>
                     <>
                       {respuesta.esCorrecta === 1 ? (
                         <input
@@ -189,44 +182,102 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
                       )}
                       <p>{respuesta.textoRespuesta} </p>
                     </>
-                  )}
-                  {selected && (
-                    <>
-                      <input
-                        type="radio"
-                        value={index}
-                        required
-                        checked={selectedValue === index}
-                        onChange={handleOptionChange}
-                      />
-                      <input
-                        className="opciones"
-                        placeholder={`Opcion ${index + 1}`}
-                        value={opciones[index]}
-                        onChange={(e) => setOpciones[index](e.target.value)}
-                        type="text"
-                      />
-                    </>
-                  )}
                 </div>
               ))}
-          </form>
-
-          <div className="iconsRespuesta">
-            <div
-              className="crudIcon"
-              onClick={() => {
-                handleSelected();
-              }}
-            >
-              <FaEdit size={35} />
             </div>
-            <div className="crudIcon">
-              <MdCancel size={35} onClick={handleShow} />
+            {actionable &&  
+            <div className="iconsRespuesta">
+              <div className="crudIcon" onClick={handleSelected}>
+                <FaEdit size={35} />
+              </div>
+              <div className="crudIcon">
+                <MdCancel size={35} onClick={handleShow} />
+              </div>
+            </div>
+            }          
+          </div>
+        }
+      </form>
+    )
+  }
+
+  const createFormPregunta = () => {
+    return (
+      <form onSubmit={updatePregunta}>
+          <div className="dropdown">
+            <input
+                className="titulopregunta"
+                value={fpregunta}
+                required
+                onChange={(e) => setFpregunta(e.target.value)}
+                type="text"
+              />
+          </div>
+          <div className="extension">
+            <div className="respuestas">
+            {respuestas &&
+                respuestas.map((respuesta, index) => (
+                  <div className="respuesta" key={index}>
+                    {selected && (
+                      <>
+                        <input
+                          type="radio"
+                          value={index}
+                          name="opciones"
+                          required
+                          checked={selectedValue === index}
+                          onChange={handleOptionChange}
+                        />
+                        <input
+                          name="opciones"
+                          required
+                          placeholder={`Opcion ${index + 1}`}
+                          value={opciones[index]}
+                          onChange={(e) => setOpciones[index](e.target.value)}
+                          type="text"
+                        />
+                      </>
+                    )}
+                  </div>
+                ))}
+            </div>
+            <div className="iconsRespuesta">
+              <div className="crudIcon" onClick={handleSelected}>
+                <FaEdit size={35} />
+              </div>
+              <div className="crudIcon">
+                <MdCancel size={35} onClick={handleShow} />
+              </div>
             </div>
           </div>
-        </div>
-      )}
+          <p className="aviso">
+            Asegúrate de llenar todos los campos y marcar una respuesta como
+            correcta
+          </p>
+          <input
+            type="submit"
+            value="Guardar Pregunta"
+            className="botonPreguntas"
+          />
+        </form>
+    )
+  }
+
+  useEffect(() => {
+    getRespuestas();
+  }, []);
+
+  useEffect(() => {
+    if (selected) {
+      initializeOpciones();
+    }
+  }, [selected]);
+
+  return (
+    <div className="pregunta">
+      {!selected && createPregunta()}
+      {selected && createFormPregunta()}
+
       <Modal show={show} onHide={handleClose} className="modal">
         <Modal.Header closeButton className="modaldetalles">
           <Modal.Title>
@@ -253,20 +304,6 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
           </Button>
         </Modal.Footer>
       </Modal>
-      {selected && (
-        <>
-          <p className="aviso">
-            Asegúrate de llenar todos los campos y marcar una respuesta como
-            correcta
-          </p>
-          <input
-            type="submit"
-            value="Guardar Pregunta"
-            className="botonPreguntas"
-            onClick={updatePregunta}
-          />
-        </>
-      )}
     </div>
   );
 }
