@@ -22,11 +22,9 @@ export default function ResumenExamen() {
 
     const inputRef = useRef(null);
 
-  const handleInputChange = (event) => {
-    setText(event.target.value);
-  };
-
-  const [searchParams] = useSearchParams();
+    const handleInputChange = (event) => {
+        setText(event.target.value);
+    };
 
     const handleCopyButtonClick = () => {
         const text = inputRef.current.value;
@@ -36,46 +34,48 @@ export default function ResumenExamen() {
         }
     };
 
-  /**Checa que daod un idExmaen se pueda obtener todo su informacion */
-  const getExamen = async () => {
-    try {
-      const url = "api/examen/" + searchParams.get("examen");
-      const res = await axios.get(url);
-      setExamen(res.data[0]);
-    } catch (e) {
-      alert(e);
-    }
-  };
+    const [searchParams] = useSearchParams();
 
-  useEffect(() => {
-    getExamen();
-  }, []);
+    const getExamen = async () => {
+        try {
+            const url = "api/examen/" + searchParams.get("examen");
+            const res = await axios.get(url);
+            setExamen(res.data[0]);
+        } catch (e) {
+            alert(e);
+        }
+    };
 
-  return (
-    <div>
-      <div>
-        <Sidebar />
-      </div>
-          <div className="page">
-              <div className="content">
-                  {examen && (
-                      <div className="title-row">
-                          <h1 className="tituloExamen">{examen.nombre}</h1>
-                          <div className="input-row">
-                              <input
-                                  type="text"
-                                  ref={inputRef}
-                                  defaultValue={`https://localhost:44423/examenAlumno?grupo=${grupo.idGrupo}`}
-                                  placeholder={`https://localhost:44423/examenAlumno?grupo=${grupo.idGrupo}`}
-                                  className="input-text"
-                              />
-                              <button onClick={handleCopyButtonClick} className="copy-button">
-                                  Copiar
-                              </button>
-                          </div>
-                      </div>
-                  )}
-                  <div className="subtitles">
+    useEffect(() => {
+        getExamen();
+    }, []);
+
+    return (
+        <div>
+            <div>
+                <Sidebar />
+            </div>
+            <div className="page">
+                <div className="content">
+                    {examen && (
+                        <div className="title-row">
+                            <h1 className="tituloExamen">{examen.nombre}</h1>
+                            <div className="input-row">
+                                <input
+                                    type="text"
+                                    ref={inputRef}
+                                    value={text}
+                                    onChange={handleInputChange}
+                                    placeholder="Enter text"
+                                    className="input-text"
+                                />
+                                <button onClick={handleCopyButtonClick} className="copy-button">
+                                    Copy
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                    <div className="subtitles">
             {examen && (
               <h2 className={styles["mover"]}>Código: {examen.codigo}</h2>
             )}
