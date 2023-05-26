@@ -72,6 +72,7 @@ export default function PreguntasAlumno() {
             {preguntas && alumnoRespuesta.length === 0 && (
               <>
                 <div className="vacio">
+                  <br />
                   Todavia no has resuelto un examen para ver tus respuestas
                 </div>
               </>
@@ -82,7 +83,7 @@ export default function PreguntasAlumno() {
                 <PreguntaAlumno
                   key={index}
                   pregunta={pregunta}
-                  alumnoRespuesta={alumnoRespuesta[index].idRespuesta}
+                  alumnoRespuesta={alumnoRespuesta[index]}
                 />
               ))}
           </div>

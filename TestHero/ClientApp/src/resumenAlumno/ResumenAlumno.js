@@ -57,6 +57,8 @@ export default function ResumenAlumno() {
           <div className="subtitles">
             {examen && <h2>Código: {examen.codigo}</h2>}
           </div>
+          <br />
+          <br />
           <div className="subtitles">
             <h2>Calificación: {puntaje}</h2>
           </div>

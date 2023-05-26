@@ -53,7 +53,7 @@ export default function PreguntaAlumno({ pregunta, alumnoRespuesta }) {
       setRespuestas(result.data);
       result.data.forEach((el) => {
         if (el.esCorrecta === 1) {
-          setCorrecta(el.idRespuesta === alumnoRespuesta);
+          setCorrecta(el.idRespuesta === alumnoRespuesta.idRespuesta);
         }
       });
     } catch (error) {
@@ -85,7 +85,7 @@ export default function PreguntaAlumno({ pregunta, alumnoRespuesta }) {
               respuestas.map((respuesta, index) => (
                 <div className="respuesta" key={index}>
                   <>
-                    {respuesta.idRespuesta === alumnoRespuesta ? (
+                    {respuesta.idRespuesta === alumnoRespuesta.idRespuesta ? (
                       <input type="radio" checked />
                     ) : (
                       <input disabled type="radio" />
