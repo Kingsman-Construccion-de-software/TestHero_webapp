@@ -51,15 +51,29 @@ export default function ResumenExamen() {
       <div>
         <Sidebar />
       </div>
-      <div className="page">
-        <div className="content">
-          {examen && <h1 className="tituloExamen">{examen.nombre}</h1>}
-          <div className="subtitles">
-            <div className="SuperiorLeft">
-              {examen && (
-                <h2 className={styles["mover"]}>Código: {examen.codigo}</h2>
-              )}
-            </div>
+          <div className="page">
+              <div className="content">
+                  {examen && (
+                      <div className="title-row">
+                          <h1 className="tituloExamen">{examen.nombre}</h1>
+                          <div className="input-row">
+                              <input
+                                  type="text"
+                                  value={text}
+                                  onChange={handleInputChange}
+                                  placeholder="Enter text"
+                                  className="input-text"
+                              />
+                              <button onClick={handleCopyButtonClick} className="copy-button">
+                                  Copy
+                              </button>
+                          </div>
+                      </div>
+                  )}
+                  <div className="subtitles">
+            {examen && (
+              <h2 className={styles["mover"]}>Código: {examen.codigo}</h2>
+            )}
           </div>
         </div>
       </div>
