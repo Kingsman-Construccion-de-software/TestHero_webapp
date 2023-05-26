@@ -110,15 +110,15 @@
 
 .crudIcon1:hover {
   cursor: pointer;
-  color: #0596FF;
+  color: #0596ff;
 }
 .crudIcon2:hover {
   cursor: pointer;
-  color: #FD4D4D;
+  color: #fd4d4d;
 }
 
-.modaldetalles {
-  background-color: #0596ff;
+.modaldetalles3 {
+  background-color: #1d1d1d;
   border: none;
   text-align: center;
   color: #ebebeb;
@@ -137,10 +137,10 @@
   font-size: 22px;
 }
 
-.botonCancelar {
+.botonCancelar2 {
   margin-top: 30px;
   margin-bottom: 40px;
-  background-color: #0596ff;
+  background-color: #1d1d1d;
   color: #ebebeb;
   padding: 10px 20px;
   border-width: 2px;

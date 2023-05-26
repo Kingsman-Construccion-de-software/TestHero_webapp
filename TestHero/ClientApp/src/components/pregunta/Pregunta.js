@@ -36,27 +36,27 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
     setSelectedValue(parseInt(event.target.value));
   };
 
- /**
+  /**
    * Funcion para hacer el drag and drop de la pregunta
    */
- const toggleOpen = () => {
-  setActionable(true);
-  setOpen(!open);
-};
-/**
- * Te da cuerto tiempo para ver si la pregunta esta abierta sino se cierra
- */
-const timeOutOpen = () => {
-  if(actionable){
-    setActionable(false);
-    setShowing(!showing);
-    if (open) {
-      setTimeout(toggleOpen, 1000);
-    } else {
-      toggleOpen();
+  const toggleOpen = () => {
+    setActionable(true);
+    setOpen(!open);
+  };
+  /**
+   * Te da cuerto tiempo para ver si la pregunta esta abierta sino se cierra
+   */
+  const timeOutOpen = () => {
+    if (actionable) {
+      setActionable(false);
+      setShowing(!showing);
+      if (open) {
+        setTimeout(toggleOpen, 1000);
+      } else {
+        toggleOpen();
+      }
     }
-  }
-};
+  };
   //Funciones anonimas para abrir o cerrar cierto evento
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -67,7 +67,7 @@ const timeOutOpen = () => {
     const URIrespuestas = "api/respuesta/pregunta/";
     const res = await axios.get(`${URIrespuestas}${pregunta.idPregunta}`);
     setRespuestas(res.data);
-    let correctIndex = res.data.findIndex(it => it.esCorrecta === 1);
+    let correctIndex = res.data.findIndex((it) => it.esCorrecta === 1);
     setSelectedValue(correctIndex);
   };
 
@@ -96,8 +96,7 @@ const timeOutOpen = () => {
    * Actualiza una pregunta dado un idPregunta
    */
   const updatePregunta = async (e) => {
-
-    e.preventDefault()
+    e.preventDefault();
 
     const URIupdate = "api/pregunta/";
     await axios.put(`${URIupdate}${pregunta.idPregunta}`, {
@@ -142,7 +141,7 @@ const timeOutOpen = () => {
       respuestas[3].esCorrecta = 1;
     }
 
-    console.log(selectedValue)
+    console.log(selectedValue);
 
     respuestas.forEach((respuesta, index) => {
       setOpciones[index](respuesta.textoRespuesta);
@@ -158,7 +157,7 @@ const timeOutOpen = () => {
             <FaArrowDown size={40} />
           </div>
         </div>
-        {open && 
+        {open && (
           <div className={showing ? "extension showing" : "extension hiding"}>
             <div className="respuestas">
               {respuestas &&
@@ -182,86 +181,86 @@ const timeOutOpen = () => {
                       )}
                       <p>{respuesta.textoRespuesta} </p>
                     </>
+                  </div>
+                ))}
+            </div>
+            {actionable && (
+              <div className="iconsRespuesta">
+                <div className="crudIcon1" onClick={handleSelected}>
+                  <FaEdit size={35} />
                 </div>
-              ))}
-            </div>
-            {actionable &&  
-            <div className="iconsRespuesta">
-              <div className="crudIcon1" onClick={handleSelected}>
-                <FaEdit size={35} />
+                <div className="crudIcon2">
+                  <MdCancel size={35} onClick={handleShow} />
+                </div>
               </div>
-              <div className="crudIcon2">
-                <MdCancel size={35} onClick={handleShow} />
-              </div>
-            </div>
-            }          
+            )}
           </div>
-        }
+        )}
       </form>
-    )
-  }
+    );
+  };
 
   const createFormPregunta = () => {
     return (
       <form onSubmit={updatePregunta}>
-          <div className="dropdown">
-            <input
-                className="titulopregunta"
-                value={fpregunta}
-                required
-                onChange={(e) => setFpregunta(e.target.value)}
-                type="text"
-              />
-          </div>
-          <div className="extension">
-            <div className="respuestas">
-            {respuestas &&
-                respuestas.map((respuesta, index) => (
-                  <div className="respuesta" key={index}>
-                    {selected && (
-                      <>
-                        <input
-                          type="radio"
-                          value={index}
-                          name="opciones"
-                          required
-                          checked={selectedValue === index}
-                          onChange={handleOptionChange}
-                        />
-                        <input
-                          name="opciones"
-                          required
-                          placeholder={`Opcion ${index + 1}`}
-                          value={opciones[index]}
-                          onChange={(e) => setOpciones[index](e.target.value)}
-                          type="text"
-                        />
-                      </>
-                    )}
-                  </div>
-                ))}
-            </div>
-            <div className="iconsRespuesta">
-              <div className="crudIcon1" onClick={handleSelected}>
-                <FaEdit size={35} />
-              </div>
-              <div className="crudIcon2">
-                <MdCancel size={35} onClick={handleShow} />
-              </div>
-            </div>
-          </div>
-          <p className="aviso">
-            Asegúrate de llenar todos los campos y marcar una respuesta como
-            correcta
-          </p>
+        <div className="dropdown">
           <input
-            type="submit"
-            value="Guardar Pregunta"
-            className="botonPreguntas"
+            className="titulopregunta"
+            value={fpregunta}
+            required
+            onChange={(e) => setFpregunta(e.target.value)}
+            type="text"
           />
-        </form>
-    )
-  }
+        </div>
+        <div className="extension">
+          <div className="respuestas">
+            {respuestas &&
+              respuestas.map((respuesta, index) => (
+                <div className="respuesta" key={index}>
+                  {selected && (
+                    <>
+                      <input
+                        type="radio"
+                        value={index}
+                        name="opciones"
+                        required
+                        checked={selectedValue === index}
+                        onChange={handleOptionChange}
+                      />
+                      <input
+                        name="opciones"
+                        required
+                        placeholder={`Opcion ${index + 1}`}
+                        value={opciones[index]}
+                        onChange={(e) => setOpciones[index](e.target.value)}
+                        type="text"
+                      />
+                    </>
+                  )}
+                </div>
+              ))}
+          </div>
+          <div className="iconsRespuesta">
+            <div className="crudIcon1" onClick={handleSelected}>
+              <FaEdit size={35} />
+            </div>
+            <div className="crudIcon2">
+              <MdCancel size={35} onClick={handleShow} />
+            </div>
+          </div>
+        </div>
+        <p className="aviso">
+          Asegúrate de llenar todos los campos y marcar una respuesta como
+          correcta
+        </p>
+        <input
+          type="submit"
+          value="Guardar Pregunta"
+          className="botonPreguntas"
+        />
+      </form>
+    );
+  };
 
   useEffect(() => {
     getRespuestas();
@@ -279,19 +278,19 @@ const timeOutOpen = () => {
       {selected && createFormPregunta()}
 
       <Modal show={show} onHide={handleClose} className="modal">
-        <Modal.Header closeButton className="modaldetalles">
+        <Modal.Header closeButton className="modaldetalles3">
           <Modal.Title>
             ¿Estás seguro de que deseas eliminar esta pregunta?
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="modaldetalles tamanobody">
+        <Modal.Body className="modaldetalles3 tamanobody">
           No se podrá recuperar después
         </Modal.Body>
-        <Modal.Footer className="modaldetalles">
+        <Modal.Footer className="modaldetalles3">
           <Button
             variant="secondary"
             onClick={handleClose}
-            className="botonCancelar"
+            className="botonCancelar2"
           >
             Cancelar
           </Button>
