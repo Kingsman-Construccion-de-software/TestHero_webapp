@@ -7,8 +7,8 @@ import { Modal, Button } from "react-bootstrap";
 import "./Pregunta.css";
 import swal from "sweetalert";
 /**
- * @author Bernardo de la Sierra y Julio Meza
- * @version 3.1.1
+ * @author Bernardo de la Sierra y Julio Meza, LGnan (color)
+ * @version 3.1.2
  * @license Gp
  * @params Recibe pregunta, filtraprefuntas y getpreguntas
  * @description Este formulario edita y elimina preguntas, es como la parte de adentro
@@ -187,10 +187,10 @@ const timeOutOpen = () => {
             </div>
             {actionable &&  
             <div className="iconsRespuesta">
-              <div className="crudIcon" onClick={handleSelected}>
+              <div className="crudIcon1" onClick={handleSelected}>
                 <FaEdit size={35} />
               </div>
-              <div className="crudIcon">
+              <div className="crudIcon2">
                 <MdCancel size={35} onClick={handleShow} />
               </div>
             </div>
@@ -242,10 +242,10 @@ const timeOutOpen = () => {
                 ))}
             </div>
             <div className="iconsRespuesta">
-              <div className="crudIcon" onClick={handleSelected}>
+              <div className="crudIcon1" onClick={handleSelected}>
                 <FaEdit size={35} />
               </div>
-              <div className="crudIcon">
+              <div className="crudIcon2">
                 <MdCancel size={35} onClick={handleShow} />
               </div>
             </div>
