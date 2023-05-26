@@ -1,6 +1,6 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import styles from "./resumen.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 import { useSearchParams } from "react-router-dom";
@@ -18,7 +18,9 @@ export default function ResumenExamen() {
   // Estados iniciales
   const [examen, setExamen] = useState();
 
-  const [text, setText] = useState("");
+    const [text, setText] = useState("");
+
+    const inputRef = useRef(null);
 
   const handleInputChange = (event) => {
     setText(event.target.value);
@@ -26,10 +28,13 @@ export default function ResumenExamen() {
 
   const [searchParams] = useSearchParams();
 
-  const handleCopyButtonClick = () => {
-    navigator.clipboard.writeText(text);
-    alert("Text copied to clipboard!");
-  };
+    const handleCopyButtonClick = () => {
+        const text = inputRef.current.value;
+        if (text) {
+            navigator.clipboard.writeText(text);
+            alert("Text copied to clipboard!");
+        }
+    };
 
   /**Checa que daod un idExmaen se pueda obtener todo su informacion */
   const getExamen = async () => {
@@ -51,28 +56,28 @@ export default function ResumenExamen() {
       <div>
         <Sidebar />
       </div>
-      <div className="page">
-        <div className="content">
-          {examen && (
-            <div className="title-row">
-              <h1 className="tituloExamen">{examen.nombre}</h1>
-              <div className="input-row">
-                <input
-                  type="text"
-                  value={text}
-                  onChange={handleInputChange}
-                  placeholder="Enter text"
-                  className="input-text"
-                />
-                <button onClick={handleCopyButtonClick} className="copy-button">
-                  Copy
-                </button>
-              </div>
-            </div>
-          )}
-          <div className="subtitles">
+          <div className="page">
+              <div className="content">
+                  {examen && (
+                      <div className="title-row">
+                          <h1 className="tituloExamen">{examen.nombre}</h1>
+                          <div className="input-row">
+                              <input
+                                  type="text"
+                                  ref={inputRef}
+                                  defaultValue={`https://localhost:44423/examenAlumno?grupo=${grupo.idGrupo}`}
+                                  placeholder={`https://localhost:44423/examenAlumno?grupo=${grupo.idGrupo}`}
+                                  className="input-text"
+                              />
+                              <button onClick={handleCopyButtonClick} className="copy-button">
+                                  Copiar
+                              </button>
+                          </div>
+                      </div>
+                  )}
+                  <div className="subtitles">
             {examen && (
-              <h3 className={styles["mover"]}>Código: {examen.codigo}</h3>
+              <h2 className={styles["mover"]}>Código: {examen.codigo}</h2>
             )}
           </div>
         </div>
