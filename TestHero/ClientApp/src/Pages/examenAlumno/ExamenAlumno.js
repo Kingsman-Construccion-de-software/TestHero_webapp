@@ -13,37 +13,37 @@ import Alumno from "Pages/alumno/Alumno";
  * @description Clase que renderea los componentes
  */
 export default function ExamenAlumno() {
-    const [grupo, setGrupo] = useState();
-    const [text, setText] = useState("");
+  const [grupo, setGrupo] = useState();
+  const [text, setText] = useState("");
 
-    const handleInputChange = (event) => {
-        setText(event.target.value);
-    };
+  const handleInputChange = (event) => {
+    setText(event.target.value);
+  };
 
-    const [searchParams] = useSearchParams();
-    const parametro = searchParams.get("grupo");
+  const [searchParams] = useSearchParams();
+  const parametro = searchParams.get("grupo");
 
-    const getGrupo = async () => {
-        const url = `api/grupo/${parametro}`;
+  const getGrupo = async () => {
+    const url = `api/grupo/${parametro}`;
 
-        try {
-            const result = await axios.get(url);
-            if (result.data) {
-                setGrupo(result.data[0]);
-            }
-        } catch (error) {
-            alert(error);
-        }
-    };
+    try {
+      const result = await axios.get(url);
+      if (result.data) {
+        setGrupo(result.data[0]);
+      }
+    } catch (error) {
+      alert(error);
+    }
+  };
 
-    useEffect(() => {
-        getGrupo();
-    }, []);
+  useEffect(() => {
+    getGrupo();
+  }, []);
 
-    const handleCopyButtonClick = () => {
-        navigator.clipboard.writeText(text);
-        alert("Text copied to clipboard!");
-    };
+  const handleCopyButtonClick = () => {
+    navigator.clipboard.writeText(text);
+    alert("Text copied to clipboard!");
+  };
 
   return (
     <div>
@@ -58,13 +58,13 @@ export default function ExamenAlumno() {
               <div className="input-row">
                 <input
                   type="text"
-                  value={text}
+                  value={`https://localhost:44423/examenAlumno?grupo=${grupo.idGrupo}`}
                   onChange={handleInputChange}
-                  placeholder="Enter text"
+                  placeholder={`https://localhost:44423/examenAlumno?grupo=${grupo.idGrupo}`}
                   className="input-text"
                 />
                 <button onClick={handleCopyButtonClick} className="copy-button">
-                  Copy
+                  Copiar
                 </button>
               </div>
             </div>
