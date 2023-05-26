@@ -12,33 +12,50 @@ body {
 }
 
 .tituloExamen {
-  color: #ebebeb;
-  font-style: bold;
-  font-size: 40px;
-  margin-bottom: 40px;
-  padding-top: 15px;
+    color: #ebebeb;
+    font-style: bold;
+    font-size: 40px;
+    margin-bottom: 10px;
+    padding-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 20px;
 }
 
 .titleRow {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    margin-right: 10px;
 }
 
 .textBox {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    margin-right: 40px;
+    margin-right: 20px;
 }
 
-.textBox button {
-padding: 8px 16px;
-font-size: 16px;
-background-color: #0596ff;
-color: white;
-border: none;
-border-radius: 4px;
-cursor: pointer;
+.input-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right:200px;
+}
+
+.input-text {
+    padding: 5px;
+}
+
+.copy-button {
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: #0596ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 .textBox button:hover {

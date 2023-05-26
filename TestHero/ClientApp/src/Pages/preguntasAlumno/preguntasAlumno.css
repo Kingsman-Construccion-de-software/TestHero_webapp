@@ -3,47 +3,54 @@
   width: 100vw;
 }
 
-body {
-  background-color: #1d1d1d;
-}
-
 .content {
   margin-left: 15vw;
 }
 
 .tituloExamen {
-  color: #ebebeb;
-  font-style: bold;
-  font-size: 40px;
-  margin-bottom: 40px;
-  padding-top: 15px;
+    display: flex;
+    align-items: center;
+    color: #ebebeb;
+    font-style:bold;
+    font-size: 40px;
+    margin-bottom: 1px;
+    padding-top: 15px;
 }
 
-.titleRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
 
-.textBox {
-  display: flex;
-  align-items: center;
-  margin-right: 40px;
+.input-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 400px;
 }
 
-.textBox button {
-  padding: 8px 16px;
-  font-size: 16px;
-  background-color: #0596ff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.input-text {
+    padding: 5px;
 }
 
-.textBox button:hover {
-  background-color: #0478d9;
+.copy-button {
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: #0596ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
+
+    .input-text:hover,
+    .copy-button:hover {
+        background-color: #0478d9;
+    }
+
 
 .textBox input[type="text"] {
   margin-right: 10px;

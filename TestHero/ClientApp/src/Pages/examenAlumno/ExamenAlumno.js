@@ -13,27 +13,37 @@ import Alumno from "Pages/alumno/Alumno";
  * @description Clase que renderea los componentes
  */
 export default function ExamenAlumno() {
-  // Estados iniciales
-  const [grupo, setGrupo] = useState();
+    const [grupo, setGrupo] = useState();
+    const [text, setText] = useState("");
 
-  const [searchParams] = useSearchParams();
-  const parametro = searchParams.get("grupo");
-  /**Checa que daod un idExmaen se pueda obtener todo su informacion */
-  const getGrupo = async () => {
-    const url = `api/grupo/${parametro}`;
+    const handleInputChange = (event) => {
+        setText(event.target.value);
+    };
 
-    try {
-      const result = await axios.get(url);
-      if (result.data) {
-        setGrupo(result.data[0]);
-      }
-    } catch (error) {
-      alert(error);
-    }
-  };
-  useEffect(() => {
-    getGrupo();
-  }, []);
+    const [searchParams] = useSearchParams();
+    const parametro = searchParams.get("grupo");
+
+    const getGrupo = async () => {
+        const url = `api/grupo/${parametro}`;
+
+        try {
+            const result = await axios.get(url);
+            if (result.data) {
+                setGrupo(result.data[0]);
+            }
+        } catch (error) {
+            alert(error);
+        }
+    };
+
+    useEffect(() => {
+        getGrupo();
+    }, []);
+
+    const handleCopyButtonClick = () => {
+        navigator.clipboard.writeText(text);
+        alert("Text copied to clipboard!");
+    };
 
   return (
     <div>
@@ -42,7 +52,23 @@ export default function ExamenAlumno() {
       </div>
       <div className="page">
         <div className="content">
-          {grupo && <h1 className="tituloExamen">{grupo.nombre}</h1>}
+          {grupo && (
+            <div className="title-row">
+              <h1 className="tituloExamen">{grupo.nombre}</h1>
+              <div className="input-row">
+                <input
+                  type="text"
+                  value={text}
+                  onChange={handleInputChange}
+                  placeholder="Enter text"
+                  className="input-text"
+                />
+                <button onClick={handleCopyButtonClick} className="copy-button">
+                  Copy
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <div>
