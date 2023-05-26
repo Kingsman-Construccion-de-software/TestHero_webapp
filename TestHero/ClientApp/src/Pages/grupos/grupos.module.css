@@ -13,6 +13,7 @@
 
 /* SEARCH BAR */
 .search-bar2 {
+  margin-left: 650px;
   height: 38px;
   padding: 0 3px;
   width: 50px;
@@ -134,10 +135,6 @@
   color: #0596ff;
   border-color: #ebebeb;
   font-size: 24px;
-}
-
-.margen {
-  margin-right: 800px;
 }
 
 .lista {

@@ -57,13 +57,18 @@ export default function ResumenExamen() {
           <div className="subtitles">
             <div className="SuperiorLeft">
               {examen && (
-                <h2 className={styles["mover"]}>Código: {examen.codigo}</h2>
+                <>
+                  <h2 className={styles["mover"]}>Código: {examen.codigo}</h2>
+                </>
               )}
             </div>
           </div>
         </div>
       </div>
       <div>
+        <br />
+        <br />
+        <br />
         <MultipleViewCard
           views={[
             { title: "Preguntas", component: <Questions /> },

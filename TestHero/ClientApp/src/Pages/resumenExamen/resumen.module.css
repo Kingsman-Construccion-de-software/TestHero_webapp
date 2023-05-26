@@ -1,5 +1,13 @@
 h2 {
-    position: absolute;
-    top: 1;
-    right: 0;
+  position: absolute;
+  top: 1;
+  left: 0;
+  margin-left: 160px;
+}
+
+h3 {
+  position: absolute;
+  top: 1;
+  right: 0;
+  margin-right: 172px;
 }
