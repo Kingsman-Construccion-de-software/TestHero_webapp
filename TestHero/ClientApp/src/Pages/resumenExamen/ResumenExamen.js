@@ -16,20 +16,20 @@ import Results from "Pages/results/Results";
  */
 export default function ResumenExamen() {
   // Estados iniciales
-    const [examen, setExamen] = useState();
+  const [examen, setExamen] = useState();
 
-    const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
-    const handleInputChange = (event) => {
-        setText(event.target.value);
-    };
+  const handleInputChange = (event) => {
+    setText(event.target.value);
+  };
 
-    const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-    const handleCopyButtonClick = () => {
-        navigator.clipboard.writeText(text);
-        alert('Text copied to clipboard!');
-    };
+  const handleCopyButtonClick = () => {
+    navigator.clipboard.writeText(text);
+    alert("Text copied to clipboard!");
+  };
 
   /**Checa que daod un idExmaen se pueda obtener todo su informacion */
   const getExamen = async () => {
@@ -51,10 +51,26 @@ export default function ResumenExamen() {
       <div>
         <Sidebar />
       </div>
-      <div className="page">
-        <div className="content">
-          {examen && <h1 className="tituloExamen">{examen.nombre}</h1>}
-          <div className="subtitles">
+          <div className="page">
+              <div className="content">
+                  {examen && (
+                      <div className="title-row">
+                          <h1 className="tituloExamen">{examen.nombre}</h1>
+                          <div className="input-row">
+                              <input
+                                  type="text"
+                                  value={text}
+                                  onChange={handleInputChange}
+                                  placeholder="Enter text"
+                                  className="input-text"
+                              />
+                              <button onClick={handleCopyButtonClick} className="copy-button">
+                                  Copy
+                              </button>
+                          </div>
+                      </div>
+                  )}
+                  <div className="subtitles">
             {examen && (
               <h2 className={styles["mover"]}>Código: {examen.codigo}</h2>
             )}
@@ -62,17 +78,15 @@ export default function ResumenExamen() {
         </div>
       </div>
       <div>
-      
-          <MultipleViewCard
-            views={[
-              { title: "Preguntas", component: <Questions /> },
-              {
-                title: "Resultados",
-                component: <Results codigos={examen} />,
-              },
-            ]}
-          />
-        
+        <MultipleViewCard
+          views={[
+            { title: "Preguntas", component: <Questions /> },
+            {
+              title: "Resultados",
+              component: <Results codigos={examen} />,
+            },
+          ]}
+        />
       </div>
     </div>
   );
