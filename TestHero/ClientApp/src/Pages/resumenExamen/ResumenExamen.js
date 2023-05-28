@@ -18,64 +18,64 @@ export default function ResumenExamen() {
   // Estados iniciales
   const [examen, setExamen] = useState();
 
-    const [text, setText] = useState("");
+  const [text, setText] = useState("https://localhost:44423/examenAlumno");
 
-    const inputRef = useRef(null);
+  const inputRef = useRef(null);
 
-    const handleInputChange = (event) => {
-        setText(event.target.value);
-    };
+  const handleInputChange = (event) => {
+    setText(event.target.value);
+  };
 
-    const handleCopyButtonClick = () => {
-        const text = inputRef.current.value;
-        if (text) {
-            navigator.clipboard.writeText(text);
-            alert("Text copied to clipboard!");
-        }
-    };
+  const handleCopyButtonClick = () => {
+    const text = inputRef.current.value;
+    if (text) {
+      navigator.clipboard.writeText(text);
+      alert("Text copied to clipboard!");
+    }
+  };
 
-    const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-    const getExamen = async () => {
-        try {
-            const url = "api/examen/" + searchParams.get("examen");
-            const res = await axios.get(url);
-            setExamen(res.data[0]);
-        } catch (e) {
-            alert(e);
-        }
-    };
+  const getExamen = async () => {
+    try {
+      const url = "api/examen/" + searchParams.get("examen");
+      const res = await axios.get(url);
+      setExamen(res.data[0]);
+    } catch (e) {
+      alert(e);
+    }
+  };
 
-    useEffect(() => {
-        getExamen();
-    }, []);
+  useEffect(() => {
+    getExamen();
+  }, []);
 
-    return (
-        <div>
-            <div>
-                <Sidebar />
+  return (
+    <div>
+      <div>
+        <Sidebar />
+      </div>
+      <div className="page">
+        <div className="content">
+          {examen && (
+            <div className="title-row">
+              <h1 className="tituloExamen">{examen.nombre}</h1>
+              <div className="input-row">
+                <input
+                  type="text"
+                  ref={inputRef}
+                  value={text}
+                  onChange={handleInputChange}
+                  placeholder="Enter text"
+                  className="input-text"
+                />
+                <button onClick={handleCopyButtonClick} className="copy-button">
+                  Copy
+                </button>
+              </div>
             </div>
-            <div className="page">
-                <div className="content">
-                    {examen && (
-                        <div className="title-row">
-                            <h1 className="tituloExamen">{examen.nombre}</h1>
-                            <div className="input-row">
-                                <input
-                                    type="text"
-                                    ref={inputRef}
-                                    value={text}
-                                    onChange={handleInputChange}
-                                    placeholder="Enter text"
-                                    className="input-text"
-                                />
-                                <button onClick={handleCopyButtonClick} className="copy-button">
-                                    Copy
-                                </button>
-                            </div>
-                        </div>
-                    )}
-                    <div className="subtitles">
+          )}
+          <div className="subtitles">
             {examen && (
               <h2 className={styles["mover"]}>Código: {examen.codigo}</h2>
             )}
@@ -83,6 +83,9 @@ export default function ResumenExamen() {
         </div>
       </div>
       <div>
+        <br />
+        <br />
+        <br />
         <MultipleViewCard
           views={[
             { title: "Preguntas", component: <Questions /> },
