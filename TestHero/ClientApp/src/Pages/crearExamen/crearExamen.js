@@ -252,6 +252,8 @@ function CrearExamen() {
               <label htmlFor="tag-input">
                 Etiquetas: (se mostrarán antes de iniciar el juego)
               </label>
+              <br />
+
               <input
                 list="tags"
                 id="tag-input"
