@@ -57,7 +57,7 @@ export default function Results({ codigos }) {
     <div className={styles.container}>
       <Sidebar />
       <div className={styles.mainContent}>
-        {calificaciones.length === 0 ? (
+        {calificaciones && calificaciones.length === 0 ? (
           <>
             <div className="vacio">
               Comparte el código del examen con tus alumnos para que puedan
