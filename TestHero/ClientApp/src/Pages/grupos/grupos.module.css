@@ -92,8 +92,8 @@
 }
 
 .titulogrupo {
-  font-size: 65px;
-  font-weight: 800;
+  font-size: 30px;
+  font-weight: 600;
   margin-left: -10px;
   background-color: #ebebeb;
   color: #1d1d1d;
@@ -141,4 +141,8 @@
   color: #ebebeb;
   font-size: 34px;
   text-align: center;
+}
+
+.btn-close.modal-header .btn-close {
+  background-color: #ebebeb;
 }
