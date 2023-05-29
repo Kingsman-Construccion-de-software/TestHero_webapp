@@ -35,7 +35,7 @@ export default function ResumenAlumno() {
     try {
       const url = `api/alumno/examen/${parametros}/${state.id}`;
       const res = await axios.get(url);
-      setPuntaje(res.data[0].calificacion);
+      setPuntaje(res.data.calificacion);
     } catch (error) {
       console.log(error);
     }
