@@ -84,8 +84,6 @@ CREATE TABLE IF NOT EXISTS Pregunta (
   `pregunta` TEXT NOT NULL,
   `idExamen` INT NOT NULL,
   FOREIGN KEY (`idExamen`) REFERENCES `Examen` (`idExamen`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION
 );
 
 -- -----------------------------------------------------
@@ -97,8 +95,6 @@ CREATE TABLE IF NOT EXISTS Respuesta (
   `esCorrecta` TINYINT NULL,
   `idPregunta` INT NOT NULL,
   FOREIGN KEY (`idPregunta`) REFERENCES `Pregunta` (`idPregunta`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION
 );
 
 -- -----------------------------------------------------
