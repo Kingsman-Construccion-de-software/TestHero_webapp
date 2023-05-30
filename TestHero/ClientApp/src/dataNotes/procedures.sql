@@ -34,8 +34,8 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS get_alumno;
 CREATE PROCEDURE get_alumno(IN corr VARCHAR(45), IN pass VARCHAR(45))
 BEGIN
-	SELECT correo, 
-password, idAlumno from alumno
+	SELECT correo, password, idAlumno, idGrupo
+    FROM alumno
     WHERE correo = corr
     AND password = pass;
 END //
