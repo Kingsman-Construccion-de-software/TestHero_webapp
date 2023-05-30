@@ -69,6 +69,9 @@ function CrearExamen() {
     return result;
   };
 
+  /**
+   * Navegar a examenes
+   */
   const goToExamenes = () => {
     navigate(`/examenAlumno?grupo=${state.idGrupo}`);
   };
@@ -77,22 +80,32 @@ function CrearExamen() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const url = "api/examen";
-    const codigoExamen = makeId(8);
+    //retornar si las fechas no son validas
+    const date1 = fecha1 + "T" + hora1;
+    const date2 = fecha2 + "T" + hora2;
+    if(!validarFecha(date1, date2)){
+      return;
+    }
 
-    const url2 = "api/examen/codigo/" + codigoExamen;
+
+    //se genera un codigo que no haya sido usado en otro examen
+    const url = "api/examen";
+    let codigoExamen = makeId(8);
+    while(await buscar_examen(codigoExamen)){
+      console.log(codigoExamen);
+      codigoExamen = makeId(8);
+    }
 
     const data = {
       Codigo: codigoExamen,
       Nombre: titulo,
       Materia: materia,
-      FechaInicio: fecha1 + "T" + hora1,
-      FechaFin: fecha2 + "T" + hora2,
+      FechaInicio: date1,
+      FechaFin: date2,
       idGrupo: state.idGrupo,
     };
 
     const result = await axios.post(url, data);
-    const resultado = await axios.get(url2);
 
     await tags.forEach((tag) => postTag(tag, result.data.idExamen));
     swal({
@@ -103,6 +116,63 @@ function CrearExamen() {
     goToExamenes();
   };
 
+/**
+ * Busca si un código de examen ya fue registrado
+ */
+  const buscar_examen = async (codigoExamen) => {
+    const url2 = "api/examen/codigo/" + codigoExamen;
+    try{
+      const resultado = await axios.get(url2);
+      if(resultado.status === 200){
+        return true;
+      } else {
+        return false;
+      }
+    } catch(error){
+      return false;
+    }
+  }
+
+   /**
+   * Validar fechas del examen
+   */
+  const validarFecha = (date1, date2) => {
+    try{
+      const d1 = new Date(date1);
+      const d2 = new Date(date2);
+      const now = new Date();
+      let valid = d2.getTime() > now.getTime() && d2.getTime() > d1.getTime();
+      if(!valid){
+        if(d2.getTime() <= now.getTime()){
+          swal({
+            title: "La fecha de fin debe ser mayor a la fecha actual",
+            button: "Aceptar",
+            icon: "info",
+          });
+        } else if(d2.getTime() <= d1.getTime()){
+          swal({
+            title: "La fecha de fin debe ser mayor a la fecha de inicio",
+            button: "Aceptar",
+            icon: "info",
+          });
+        } else {
+          swal({
+            title: "Ingresa las fecha y hora en el formato indicado",
+            button: "Aceptar",
+            icon: "info",
+          });
+        }
+      }
+       
+      return valid;
+    } catch(error){
+      return false;
+    }
+  }
+
+  /**
+   * Enviar request para agregar una etiqueta
+   */
   const postTag = async (tag, idExamen) => {
     const filtrado = etiquetas.filter((etiqueta) => etiqueta.nombre === tag);
 
@@ -134,7 +204,7 @@ function CrearExamen() {
       }
     }
   };
-  /**Checa que etiqeuta fue eliminar y le debes pasar como parametro la etiqueta a eliminar */
+  /**Checa que etiqueta fue eliminar y le debes pasar como parametro la etiqueta a eliminar */
   const handleTagDelete = (tagToDelete) => {
     setTags(tags.filter((tag) => tag !== tagToDelete));
   };
@@ -175,7 +245,7 @@ function CrearExamen() {
                 type="text"
                 className="form-control"
                 id="materia"
-                placeholder="Nombre de la"
+                placeholder="Nombre de la materia"
                 value={materia}
                 required
                 onChange={(event) => setMateria(event.target.value)}
