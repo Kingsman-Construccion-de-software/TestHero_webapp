@@ -253,6 +253,12 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
           Asegúrate de llenar todos los campos y marcar una respuesta como
           correcta
         </p>
+        <button
+          className="botonCancelarPreguntaEditar"
+          onClick={handleSelected}
+        >
+          Cancelar
+        </button>
         <input
           type="submit"
           value="Guardar Pregunta"

@@ -41,6 +41,12 @@ export default function FormularioPregunta({
     e.preventDefault();
 
     if (!selectedValue) {
+      swal({
+        title:
+          "Antes de crear la pregunta debe seleccionar la respuesta correcta",
+        button: "Aceptar",
+        icon: "warning",
+      });
       return;
     }
 
@@ -186,6 +192,9 @@ export default function FormularioPregunta({
             correcta
           </p>
         )}
+        <button className="botonCancelarPregunta" onClick={handleSelected}>
+          Cancelar
+        </button>
         <input
           type="submit"
           value="Crear pregunta"
