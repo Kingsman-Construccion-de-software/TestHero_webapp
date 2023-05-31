@@ -101,7 +101,7 @@
 }
 
 .boton {
-  background-color: #0596FF;
+  background-color: #0596ff;
   border-radius: 5px;
   padding: 10px 40px;
   border: none;
@@ -115,9 +115,8 @@
   font-weight: 500;
 }
 
-
 .botonPreguntas {
-  background-color: #0596FF;
+  background-color: #0596ff;
   border-radius: 5px;
   padding: 15px 40px;
   border: none;
@@ -139,4 +138,15 @@
   box-shadow: none;
   color: #ebebeb;
   border: none;
+}
+
+.botonCancelarPregunta {
+  background-color: #ebebeb;
+  border-radius: 5px;
+  padding: 15px 40px;
+  color: #0596ff;
+  margin-top: 28px;
+  margin-right: 335px;
+  font-size: 20px;
+  margin-bottom: 30px;
 }
