@@ -76,6 +76,9 @@
 
     .loginButton:hover {
         cursor: pointer;
+        background-color: #046db8;
+        transform: scale(0.98);
+        box-shadow: 2px 2px rgba(0px, 0px, 0px, 0.24);
     }
 
     .loginButton:focus {
@@ -100,7 +103,7 @@
 .textoError {
     font-size: 20px;
     font-weight: bold;
-    color: #FD4D4D;
+    color: #fd4d4d;
     margin-top: 20px;
 }
 
@@ -109,4 +112,8 @@
     top: 1.8vw;
     left: 2.8vw;
     width: 6vw !important;
+}
+
+.BackArrow:hover {
+    cursor: pointer;
 }

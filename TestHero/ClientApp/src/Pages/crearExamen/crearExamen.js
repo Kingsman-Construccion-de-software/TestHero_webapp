@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import "./crearExamen.css";
-import "../home/home.css";
 import Sidebar from "../../components/sidebar/Sidebar.js";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";

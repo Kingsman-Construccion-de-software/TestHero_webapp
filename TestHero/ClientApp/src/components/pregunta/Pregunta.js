@@ -4,7 +4,7 @@ import { MdCancel } from "react-icons/md";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
-import "./Pregunta.css";
+import styles from "./pregunta.module.css";
 import swal from "sweetalert";
 /**
  * @author Bernardo de la Sierra y Julio Meza, LGnan (color)
@@ -151,18 +151,18 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
   const createPregunta = () => {
     return (
       <form>
-        <div className="dropdown">
-          <p className="titulo">{pregunta.textoPregunta}</p>
-          <div class="pregIcon" onClick={timeOutOpen}>
+        <div className={styles["dropdown"]}>
+          <p className={styles["titulo"]}>{pregunta.textoPregunta}</p>
+          <div className={styles["pregIcon"]} onClick={timeOutOpen}>
             <FaArrowDown size={40} />
           </div>
         </div>
         {open && (
-          <div className={showing ? "extension showing" : "extension hiding"}>
-            <div className="respuestas">
+          <div className={showing ? `${styles.extension} ${styles.showing}` : `${styles.extension} ${styles.hiding}`} >
+            <div className={styles["respuestas"]}>
               {respuestas &&
                 respuestas.map((respuesta, index) => (
-                  <div className="respuesta" key={index}>
+                  <div className={styles["respuesta"]} key={index}>
                     <>
                       {respuesta.esCorrecta === 1 ? (
                         <input
@@ -185,11 +185,11 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
                 ))}
             </div>
             {actionable && (
-              <div className="iconsRespuesta">
-                <div className="crudIcon1" onClick={handleSelected}>
+              <div className={styles["iconsRespuesta"]}>
+                <div className={styles["crudIcon1"]} onClick={handleSelected}>
                   <FaEdit size={35} />
                 </div>
-                <div className="crudIcon2">
+                <div className={styles["crudIcon2"]}>
                   <MdCancel size={35} onClick={handleShow} />
                 </div>
               </div>
@@ -203,20 +203,20 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
   const createFormPregunta = () => {
     return (
       <form onSubmit={updatePregunta}>
-        <div className="dropdown">
+        <div className={styles["dropdown"]}>
           <input
-            className="titulopregunta"
+            className={styles["inputpregunta"]}
             value={fpregunta}
             required
             onChange={(e) => setFpregunta(e.target.value)}
             type="text"
           />
         </div>
-        <div className="extension">
-          <div className="respuestas">
+        <div className={styles["extension"]}>
+          <div className={styles["respuestas"]}>
             {respuestas &&
               respuestas.map((respuesta, index) => (
-                <div className="respuesta" key={index}>
+                <div className={styles["respuesta"]} key={index}>
                   {selected && (
                     <>
                       <input
@@ -231,6 +231,7 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
                         name="opciones"
                         required
                         placeholder={`Opcion ${index + 1}`}
+                        className={styles["opciones"]}
                         value={opciones[index]}
                         onChange={(e) => setOpciones[index](e.target.value)}
                         type="text"
@@ -240,23 +241,23 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
                 </div>
               ))}
           </div>
-          <div className="iconsRespuesta">
-            <div className="crudIcon1" onClick={handleSelected}>
+          <div className={styles["iconsRespuesta"]}>
+            <div className={styles["crudIcon1"]} onClick={handleSelected}>
               <FaEdit size={35} />
             </div>
-            <div className="crudIcon2">
+            <div className={styles["crudIcon2"]}>
               <MdCancel size={35} onClick={handleShow} />
             </div>
           </div>
         </div>
-        <p className="aviso">
+        <p className={styles["aviso"]}>
           Asegúrate de llenar todos los campos y marcar una respuesta como
           correcta
         </p>
         <input
           type="submit"
           value="Guardar Pregunta"
-          className="botonPreguntas"
+          className={styles["botonPreguntas"]}
         />
       </form>
     );
@@ -273,31 +274,31 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
   }, [selected]);
 
   return (
-    <div className="pregunta">
+    <div className={styles["pregunta"]}>
       {!selected && createPregunta()}
       {selected && createFormPregunta()}
 
-      <Modal show={show} onHide={handleClose} className="modal">
-        <Modal.Header closeButton className="modaldetalles3">
+      <Modal show={show} onHide={handleClose} className={styles["modal"]}>
+        <Modal.Header closeButton className={styles["modaldetalles3"]}>
           <Modal.Title>
             ¿Estás seguro de que deseas eliminar esta pregunta?
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="modaldetalles3 tamanobody">
+        <Modal.Body className={`${styles.modaldetalles3} ${styles.fontbody}`}>
           No se podrá recuperar después
         </Modal.Body>
-        <Modal.Footer className="modaldetalles3">
+        <Modal.Footer className={styles["modaldetalles3"]}>
           <Button
             variant="secondary"
             onClick={handleClose}
-            className="botonCancelar2"
+            className={styles["botonCancelar2"]}
           >
             Cancelar
           </Button>
           <Button
             variant="secondary"
             onClick={() => deletePregunta()}
-            className="botonEliminar"
+            className={styles["botonCancelar2"]}
           >
             Eliminar
           </Button>

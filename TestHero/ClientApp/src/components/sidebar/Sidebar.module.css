@@ -18,7 +18,7 @@
 /* The navigation menu links */
 .sidenav a {
   text-decoration: none;
-  width: 60%;
+  width: 80%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,12 +51,10 @@
   width: 88%!important;
 }
 
-@media screen and (max-height: 450px) {
-  .sidenav {
-    padding-top: 15px;
-  }
+.icon {
+  color:white;
+}
 
-  .sidenav a {
-    font-size: 18px;
-  }
+.icon:hover {
+  color:rgb(207, 207, 207);
 }

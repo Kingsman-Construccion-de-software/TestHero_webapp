@@ -1,9 +1,11 @@
-﻿import styles from "./inicio.module.css"
+﻿import React from "react";
+import styles from "./invitacion.module.css"
 
 import logoImage from "assets/logo.png"
 import backGroundImage from "assets/fondo.jpg"
+import { Link } from "react-router-dom"
 
-export default function Inicio() {
+export default function Invitacion() {
     return (
         <div className={styles['outer-container']}>
             <div className={styles.container}>
@@ -18,13 +20,13 @@ export default function Inicio() {
                 { /* INFO CONTAINER */}
                 <div className={styles['info-container']}>
                     <div>
-                        <span>Recibiste una invitación para:</span>
-                        <span><h3>Matemáticas I</h3></span>
+                        <h2>Recibiste una invitación para:</h2>
+                        <h3>Matemáticas I</h3>
                     </div>
 
                     { /* SUBMIT BUTTON */ }
                     <button className={styles['submit-btn']}>
-                            Iniciar sesión
+                           <Link className={styles['btn-link']} to="/loginalumno">Iniciar sesión</Link>
                     </button>
                 </div>
             </div>
