@@ -1,6 +1,6 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import styles from "./resumen.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 import { useSearchParams } from "react-router-dom";
@@ -18,20 +18,24 @@ export default function ResumenExamen() {
   // Estados iniciales
   const [examen, setExamen] = useState();
 
-  const [text, setText] = useState("");
+  const [text, setText] = useState("https://localhost:44423/examenAlumno");
+
+  const inputRef = useRef(null);
 
   const handleInputChange = (event) => {
     setText(event.target.value);
   };
 
-  const [searchParams] = useSearchParams();
-
   const handleCopyButtonClick = () => {
-    navigator.clipboard.writeText(text);
-    alert("Text copied to clipboard!");
+    const text = inputRef.current.value;
+    if (text) {
+      navigator.clipboard.writeText(text);
+      alert("Text copied to clipboard!");
+    }
   };
 
-  /**Checa que daod un idExmaen se pueda obtener todo su informacion */
+  const [searchParams] = useSearchParams();
+
   const getExamen = async () => {
     try {
       const url = "api/examen/" + searchParams.get("examen");
@@ -53,7 +57,24 @@ export default function ResumenExamen() {
       </div>
       <div className="page">
         <div className="content">
-          {examen && <h1 className="tituloExamen">{examen.nombre}</h1>}
+          {examen && (
+            <div className="title-row">
+              <h1 className="tituloExamen">{examen.nombre}</h1>
+              <div className="input-row">
+                <input
+                  type="text"
+                  ref={inputRef}
+                  value={text}
+                  onChange={handleInputChange}
+                  placeholder="Enter text"
+                  className="input-text"
+                />
+                <button onClick={handleCopyButtonClick} className="copy-button">
+                  Copy
+                </button>
+              </div>
+            </div>
+          )}
           <div className="subtitles">
             {examen && (
               <h2 className={styles["mover"]}>Código: {examen.codigo}</h2>
@@ -62,6 +83,9 @@ export default function ResumenExamen() {
         </div>
       </div>
       <div>
+        <br />
+        <br />
+        <br />
         <MultipleViewCard
           views={[
             { title: "Preguntas", component: <Questions /> },

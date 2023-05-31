@@ -4,6 +4,7 @@ using System.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using MySqlConnector;
 using System.Dynamic;
+using System.Security.Cryptography;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -29,6 +30,7 @@ namespace TestHero.Controllers
         {
             string msg = "";
             int idUsuario = 0;
+            int idGrupo = 0;
 
             try
             {
@@ -49,6 +51,7 @@ namespace TestHero.Controllers
                     else
                     {
                         idUsuario = result[0].Id;
+                        idGrupo = result[0].IdGrupo;
                         msg = "Login exitoso";
                     }
                 }
@@ -61,6 +64,8 @@ namespace TestHero.Controllers
             dynamic res = new ExpandoObject();
             res.message = msg;
             res.id = idUsuario;
+            res.idGrupo = idGrupo;
+
 
             return new OkObjectResult(res);
 

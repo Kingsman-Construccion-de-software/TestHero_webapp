@@ -32,8 +32,11 @@ export default function Sidebar() {
         />
       )}
       <Link to={"/homealumno"}>
+
         <img className="iconSidebar" src={Home} alt="Inicio" />
+
       </Link>
+
       <Link to={"/examenes"}>
         <img className="iconSidebar" src={Tasks} alt="Tareas" />
       </Link>
@@ -43,8 +46,3 @@ export default function Sidebar() {
     </div>
   );
 }
-
-// Luego metemos las analiticas,
-/*<Link to={"/grupos"}>
-<img className="iconSidebar" src={Analytics} alt="Analiticas" />
-</Link>*/
