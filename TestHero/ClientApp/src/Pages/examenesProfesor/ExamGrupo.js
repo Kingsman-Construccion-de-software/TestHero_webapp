@@ -76,7 +76,7 @@ export default function Group({ parametro }) {
                     ` ${styles[`border-color-${idx % 3}`]}`
                   }
                 >
-                  <Link to={`/resumenExamen?examen=${examen.idExamen}`}>
+                  <Link to={`/resumen/examen?examen=${examen.idExamen}`}>
                     {examen.nombre}
                   </Link>
                 </li>
@@ -87,7 +87,7 @@ export default function Group({ parametro }) {
         <div>
           <>
             <BsFillPlusCircleFill
-              className="circulo"
+              className={styles["circulo"]}
               onClick={goToCrearExamen}
             />
           </>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./formularioPregunta.css";
+import styles from "./formularioPregunta.module.css";
 import axios from "axios";
 import swal from "sweetalert";
 /**
@@ -101,11 +101,11 @@ export default function FormularioPregunta({
   };
 
   return (
-    <div className="pregunta">
+    <div className={styles["pregunta"]}>
       <form onSubmit={creaPregunta}>
-        <div className="dropdown">
+        <div className={styles["dropdown"]}>
           <input
-            className="titulopregunta"
+            className={styles["inputpregunta"]}
             placeholder="Escribe la pregunta"
             value={fpregunta}
             required
@@ -114,9 +114,9 @@ export default function FormularioPregunta({
           />
         </div>
 
-        <div className="extension">
-          <div className="respuestas">
-            <div className="respuesta">
+        <div className={styles["extension"]}>
+          <div className={styles["respuestas"]}>
+            <div className={styles["respuesta"]}>
               <input
                 type="radio"
                 value="option0"
@@ -125,7 +125,7 @@ export default function FormularioPregunta({
                 onChange={handleOptionChange}
               />
               <input
-                className="opciones"
+                className={styles["opciones"]}
                 placeholder="Opcion 1"
                 value={opcion}
                 required
@@ -133,7 +133,7 @@ export default function FormularioPregunta({
                 type="text"
               />
             </div>
-            <div className="respuesta" value="opción2">
+            <div className={styles["respuesta"]} value="opción2">
               <input
                 type="radio"
                 value="option1"
@@ -142,7 +142,7 @@ export default function FormularioPregunta({
                 onChange={handleOptionChange}
               />
               <input
-                className="opciones"
+                className={styles["opciones"]}
                 placeholder="Opcion 2"
                 value={opcion2}
                 required
@@ -150,7 +150,7 @@ export default function FormularioPregunta({
                 type="text"
               />
             </div>
-            <div className="respuesta" value="opción3">
+            <div className={styles["respuesta"]} value="opción3">
               <input
                 type="radio"
                 value="option2"
@@ -159,7 +159,7 @@ export default function FormularioPregunta({
                 onChange={handleOptionChange}
               />
               <input
-                className="opciones"
+                className={styles["opciones"]}
                 placeholder="Opcion 3"
                 value={opcion3}
                 required
@@ -167,7 +167,7 @@ export default function FormularioPregunta({
                 type="text"
               />
             </div>
-            <div className="respuesta" value="opción4">
+            <div className={styles["respuesta"]} value="opción4">
               <input
                 type="radio"
                 value="option3"
@@ -176,7 +176,7 @@ export default function FormularioPregunta({
                 onChange={handleOptionChange}
               />
               <input
-                className="opciones"
+                className={styles["opciones"]}
                 placeholder="Opcion 4"
                 value={opcion4}
                 required
@@ -187,7 +187,7 @@ export default function FormularioPregunta({
           </div>
         </div>
         {!selectedValue && (
-          <p className="aviso">
+          <p className={styles["aviso"]}>
             Asegúrate de llenar todos los campos y marcar una respuesta como
             correcta
           </p>
@@ -198,7 +198,7 @@ export default function FormularioPregunta({
         <input
           type="submit"
           value="Crear pregunta"
-          className="botonPreguntas"
+          className={styles["botonPreguntas"]}
         />
       </form>
     </div>

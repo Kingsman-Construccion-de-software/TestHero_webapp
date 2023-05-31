@@ -62,9 +62,9 @@
         outline: none;
     }
 
-.loginButton {
+.ButtonDouble {
     margin-top: 20px;
-    height: 60px;
+    height: 80px;
     border: none;
     background-color: #0596ff;
     color: white;
@@ -72,19 +72,27 @@
     font-weight: 500;
     border-radius: 10px;
     padding: 10px;
+    width: 220px;
+    text-decoration: none !important;
+    box-shadow: 7px 7px rgba(0px, 0px, 0px, 0.24);
 }
 
-    .loginButton:hover {
+    .ButtonDouble:hover {
         cursor: pointer;
+        text-decoration: none !important;
+        background-color: #046db8;
+        transform: scale(0.98);
+        box-shadow: 2px 2px rgba(0px, 0px, 0px, 0.24);
     }
 
-    .loginButton:focus {
+    .ButtonDouble:focus {
         outline: none;
+        text-decoration: none;
     }
 
-    .loginButton:disabled {
-        cursor: not-allowed;
-    }
+.loginButton:disabled {
+    cursor: not-allowed;
+}
 
 .loginForgot {
     text-align: center;
@@ -104,9 +112,16 @@
     margin-top: 20px;
 }
 
-.BackArrow {
-    position: absolute;
-    top: 1.8vw;
-    left: 2.8vw;
-    width: 6vw !important;
+.estiloCentro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration:none;
+}
+a{
+    text-decoration:none;
 }

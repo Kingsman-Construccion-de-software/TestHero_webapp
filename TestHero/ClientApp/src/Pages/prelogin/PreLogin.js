@@ -1,5 +1,5 @@
 import React from "react";
-import "./prelogin.css";
+import styles from "./prelogin.module.css";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 /**
@@ -13,18 +13,18 @@ import { Link } from "react-router-dom";
 export default function PreLogin() {
     return (
         <div>
-            <div className="login">
-                <div className="loginWrapper">
+            <div className={styles['login']}>
+                <div className={styles['loginWrapper']}>
                     <img src={logo} alt="Logo testHero" />
-                    <Link to={`/loginprofesor`}>
-                        <div className="estiloCentro">
-                            <button className="ButtonDouble">Soy Profesor</button>
+                    <Link to={`/login/profesor`}>
+                        <div className={styles['estiloCentro']}>
+                            <button className={styles['ButtonDouble']}>Soy Profesor</button>
                         </div>
                     </Link>
                     <br></br>
-                    <Link to={`/loginalumno`}>
-                        <div className="estiloCentro">
-                            <button className="ButtonDouble">Soy Alumno</button>
+                    <Link to={`/login/alumno`}>
+                        <div className={styles['estiloCentro']}>
+                            <button className={styles['ButtonDouble']}>Soy Alumno</button>
                         </div>
                     </Link>
                 </div>

@@ -1,5 +1,5 @@
 import Sidebar from "../../components/sidebar/Sidebar";
-import styles from "./resumen.module.css";
+import styles from "./resumenexamen.module.css";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
@@ -55,37 +55,34 @@ export default function ResumenExamen() {
       <div>
         <Sidebar />
       </div>
-      <div className="page">
-        <div className="content">
+      <div className={styles["page"]}>
+        <div className={styles["content"]}>
           {examen && (
-            <div className="title-row">
-              <h1 className="tituloExamen">{examen.nombre}</h1>
-              <div className="input-row">
+            <div className={styles["title-row"]}>
+              <h1 className={styles["tituloExamen"]}>{examen.nombre}</h1>
+              <div className={styles["input-row"]}>
                 <input
                   type="text"
                   ref={inputRef}
                   value={text}
                   onChange={handleInputChange}
                   placeholder="Enter text"
-                  className="input-text"
+                  className={styles["input-text"]}
                 />
-                <button onClick={handleCopyButtonClick} className="copy-button">
+                <button onClick={handleCopyButtonClick} className={styles["copy-button"]}>
                   Copy
                 </button>
               </div>
             </div>
           )}
-          <div className="subtitles">
+          <div className={styles["subtitles"]}>
             {examen && (
-              <h2 className={styles["mover"]}>Código: {examen.codigo}</h2>
+              <h2 className={styles['subtitle']}>Código: {examen.codigo}</h2>
             )}
           </div>
         </div>
       </div>
       <div>
-        <br />
-        <br />
-        <br />
         <MultipleViewCard
           views={[
             { title: "Preguntas", component: <Questions /> },

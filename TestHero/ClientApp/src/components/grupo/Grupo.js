@@ -1,5 +1,5 @@
 import React from "react";
-import "./grupo.css";
+import styles from "./grupo.module.css";
 import { useNavigate } from "react-router-dom";
 /**
  * @author Bernardo de la Sierra y Julio Meza
@@ -18,12 +18,12 @@ export default function Grupo({ nombre, fechaFin, grupo, link }) {
   };
 
   return (
-    <div className="fondo" onClick={goToExamen}>
-      <div className="imagenGrupo"></div>
-      <div className="infoGrupo">
-        <div className="tituloCard">{nombre}</div>
-        <div className="subtitulo">{grupo}</div>
-        <div className="fecha">
+    <div className={styles['fondo']} onClick={goToExamen}>
+      <div className={styles['imagenGrupo']}></div>
+      <div className={styles['infoGrupo']}>
+        <div className={styles['tituloCard']}>{nombre}</div>
+        <div className={styles['subtitulo']}>{grupo}</div>
+        <div className={styles['fecha']}>
           Disponible hasta el {fechaFin.substring(0, 10)}
         </div>
       </div>

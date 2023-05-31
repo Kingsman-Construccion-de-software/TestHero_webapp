@@ -98,3 +98,23 @@
   font-size: 34px;
   text-align: center;
 }
+
+.circulo {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  color: #0596ff;
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  float: right;
+  margin-bottom: 50px;
+  margin-right: 50px;
+}
+
+.circulo:hover{
+  cursor:pointer;
+  color: #046db8;
+  transform: scale(0.98);
+  box-shadow: 2px 2px rgba(0px, 0px, 0px, 0.24);
+}

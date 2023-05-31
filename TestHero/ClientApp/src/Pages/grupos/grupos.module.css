@@ -102,8 +102,9 @@
 }
 
 .modal {
-  background-color: #1d1d1d;
+  background-color: rgba(63, 63, 63, 0.7);
 }
+
 
 .modaldetalles2 {
   background-color: #1d1d1d;
@@ -135,6 +136,15 @@
   color: #0596ff;
   border-color: #ebebeb;
   font-size: 24px;
+  box-shadow: 7px 7px rgba(0px, 0px, 0px, 0.24);
+}
+
+.botonCrear:hover {
+  cursor: pointer;
+  background-color: #d0d0d0;
+  color: #0596ff;
+  transform: scale(0.98);
+  box-shadow: 2px 2px rgba(0px, 0px, 0px, 0.24);
 }
 
 .lista {
@@ -143,6 +153,26 @@
   text-align: center;
 }
 
-.btn-close.modal-header .btn-close {
-  background-color: #ebebeb;
+button.btn-close .btn-close.modal-header, .btn-close {
+  background-color: #00a39b;
+}
+
+.circulo {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  color: #0596ff;
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  float: right;
+  margin-bottom: 50px;
+  margin-right: 50px;
+}
+
+.circulo:hover{
+  cursor:pointer;
+  color: #046db8;
+  transform: scale(0.98);
+  box-shadow: 2px 2px rgba(0px, 0px, 0px, 0.24);
 }

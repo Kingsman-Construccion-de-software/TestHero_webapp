@@ -4,18 +4,22 @@
     margin-bottom: 0;
 }
 
-.container {
-    border-bottom: 2.5px solid #0596ff;
-    padding:0;
-    list-style-type:none;
+.list{
+  padding-left: 0;
 }
 
-.container,
-.aux-container {
-    margin-left: 10%;
+.container {
+    border-bottom: 2.5px solid #0596ff;
+    list-style-type:none;
+    max-width: 80%;
+}
+
+.container {
+    margin-left: 12%;
     background-color: #1d1d1d;
     margin-bottom: auto;
 }
+
 
 .aux-container,
 .item-container {

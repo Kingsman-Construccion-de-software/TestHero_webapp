@@ -1,4 +1,4 @@
-import styles from "./questions.css";
+import styles from "./questions.module.css";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Pregunta from "../../components/pregunta/Pregunta";
 import { useState, useEffect } from "react";
@@ -61,12 +61,12 @@ export default function Questions() {
       <div>
         <Sidebar />
       </div>
-      <div className="page">
-        <div className="content">
-          <div className="preguntas">
+      <div className={styles["page"]}>
+        <div className={styles["content"]}>
+          <div className={styles["preguntas"]}>
             {preguntas.length === 0 && (
               <>
-                <div className="vacio">
+                <div className={styles["vacio"]}>
                   Comienza a crear preguntas para este examen.
                 </div>
               </>
@@ -94,7 +94,7 @@ export default function Questions() {
             handleSelected();
           }}
         >
-          {!selected && <BsFillPlusCircleFill className="circulo" />}
+          {!selected && <BsFillPlusCircleFill className={styles["circulo"]} />}
         </div>
       </div>
     </div>

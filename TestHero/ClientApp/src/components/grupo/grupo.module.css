@@ -10,6 +10,7 @@
 
 .fondo:hover {
   cursor: pointer;
+  background-color: rgba(5, 150, 255, 1);
 }
 
 .imagenGrupo {
@@ -39,3 +40,4 @@
   font-size: 20px;
   margin-top: 25px;
 }
+

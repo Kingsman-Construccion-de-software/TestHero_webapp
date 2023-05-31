@@ -1,5 +1,5 @@
 import React from "react";
-import "./login.css";
+import styles from "./login.module.css";
 import logo from "../../assets/logo.png";
 import BackArrow from "../../assets/BackArrow.png"
 import { useState } from "react";
@@ -84,34 +84,34 @@ export default function Login() {
     };
 
     return (
-        <div className="login">
-            <div className="loginWrapper">
-                <img className="BackArrow" src={BackArrow} onClick={GoBack} alt="GoBack"></img>
+        <div className={styles['login']}>
+            <div className={styles['loginWrapper']}>
+                <img className={styles['BackArrow']} src={BackArrow} onClick={GoBack} alt="GoBack"></img>
                 <img src={logo} alt="Logo testHero" />
-                <form className="loginBox" onSubmit={handleLogin}>
-                    <p className="texto">Correo</p>
+                <form className={styles['loginBox']} onSubmit={handleLogin}>
+                    <p className={styles['texto']}>Correo</p>
                     <input
                         placeholder="Correo"
                         type="email"
-                        className="loginInput"
+                        className={styles['loginInput']}
                         onChange={(e) => handleEmailChange(e.target.value)}
                         value={email}
                         required
                     />
-                    <p className="texto">Contraseña</p>
+                    <p className={styles['texto']}>Contraseña</p>
                     <input
                         placeholder="Contraseña"
                         type="password"
-                        className="loginInput"
+                        className={styles['loginInput']}
                         onChange={(e) => handlePasswordChange(e.target.value)}
                         value={password}
                         required
                         minLength="8"
                     />
                     {status !== "Login exitoso." && (
-                        <p className="textoError">{status}</p>
+                        <p className={styles['textoError']}>{status}</p>
                     )}
-                    <button className="loginButton">Ingresar</button>
+                    <button className={styles['loginButton']}>Ingresar</button>
                 </form>
             </div>
         </div>
