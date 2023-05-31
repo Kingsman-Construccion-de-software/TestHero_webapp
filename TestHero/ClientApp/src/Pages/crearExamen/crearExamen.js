@@ -110,6 +110,7 @@ function CrearExamen() {
 
     if (filtrado.length === 0) {
       const url = "api/etiqueta";
+
       const data = {
         Nombre: tag,
       };
@@ -129,8 +130,16 @@ function CrearExamen() {
     if (event.key === "Enter") {
       event.preventDefault();
       if (currentTag.trim() !== "") {
-        setTags([...tags, currentTag.trim()]);
-        setCurrentTag("");
+        if (tags.filter((tag) => tag === currentTag.trim()).length > 0) {
+          swal({
+            title: "Ya se agregó esta etiqueta, intenta otra por favor",
+            button: "Aceptar",
+            icon: "info",
+          });
+        } else {
+          setTags([...tags, currentTag.trim()]);
+          setCurrentTag("");
+        }
       }
     }
   };
