@@ -15,6 +15,19 @@ namespace TestHero.Controllers
             Db = db;
         }
 
+        [Route("api/profesor")]
+        [HttpPost]
+        /// <summary>
+        /// Rutamiento de registor profesor
+        /// </summary>
+        public async Task<IActionResult> Post([FromBody] Profesor body)
+        {
+            await Db.Connection.OpenAsync();
+            body.Db = Db;
+            await body.InsertProfesor();
+            return new OkObjectResult(body);
+        }
+
         // GET: api/profesor/id
         [Route("api/profesor/{id:int}")]
         [HttpGet]
