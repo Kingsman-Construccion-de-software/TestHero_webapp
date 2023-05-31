@@ -416,6 +416,14 @@ END;
 // DELIMITER ;
 
 
+DELIMITER //
+DROP PROCEDURE IF EXISTS registra_profesor;
+CREATE PROCEDURE registra_profesor(IN nom  VARCHAR(45),IN ape  VARCHAR(45),IN corr VARCHAR(45) ,IN pass VARCHAR(45))
+BEGIN
+	INSERT INTO profesor(nombres,apellidos,correo,password) values(nom,ape,corr,pass);
+END //
+DELIMITER ;
 
+call registra_profesor("Papa","Solorzano","pruebapapa@gmail.com",12345678);
 
-
+select * from profesor;
