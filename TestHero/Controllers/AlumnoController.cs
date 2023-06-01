@@ -86,7 +86,7 @@ namespace TestHero.Controllers
         {
             await Db.Connection.OpenAsync();
             AlumnoPregunta alumno = new AlumnoPregunta(Db);
-            var result = await alumno.GetAlumnoPreguntas(idA,idE);
+            var result = await alumno.GetAlumnoPreguntas(idA, idE);
             return new OkObjectResult(result);
         }
 
@@ -132,6 +132,20 @@ namespace TestHero.Controllers
             Alumno alumno = new Alumno(Db);
             var result = await alumno.GetAlumno(id);
             result[0].IdAlumno = id;
+            return new OkObjectResult(result);
+        }
+
+        [Route("api/alumno")]
+        [HttpGet]
+        /// <summary>
+        /// Rutamiento de get profesor por idProfesor
+        /// </summary>
+        public async Task<IActionResult> GetAlumnos()
+
+        {
+            await Db.Connection.OpenAsync();
+            Alumno alumno = new Alumno(Db);
+            var result = await alumno.GetAlumnos();
             return new OkObjectResult(result);
         }
     }
