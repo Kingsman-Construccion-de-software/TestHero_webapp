@@ -1,0 +1,97 @@
+.CrearExamen {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 5px;
+  color: #ebebeb;
+  border: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.CrearExamen h2 {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 40px;
+}
+
+.label {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.input[type="text"],
+.textarea {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 800px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.tagDatalist {
+  max-height: 8em;
+  overflow: hidden;
+  position: absolute;
+  border: 0 none;
+  color: green;
+}
+
+.botonPreguntas {
+  background-color: #0596ff;
+  border-radius: 5px;
+  padding: 15px 40px;
+  border: none;
+  color: #ebebeb;
+  margin-top: 10px;
+  font-size: 20px;
+  margin-bottom: 30px;
+  box-shadow: 7px 7px rgba(0px, 0px, 0px, 0.24);
+}
+
+.botonPreguntas:hover {
+  cursor: pointer;
+  background-color: #046db8;
+  transform: scale(0.98);
+  box-shadow: 2px 2px rgba(0px, 0px, 0px, 0.24);
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.custom-form {
+  border: none;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.tag {
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.tag span {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.tagInput {
+  width: 85%;
+  height: 40px;
+  border-radius: 7px;
+  margin-top: 10px;
+}
