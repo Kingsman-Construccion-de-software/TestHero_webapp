@@ -47,6 +47,26 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@id", id);
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
+
+
+        /// <summary>
+        /// Funcion para registrar al profesor 
+        /// </summary>
+        public async Task InsertProfesor()
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"registra_profesor";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@nom",Nombre);
+            cmd.Parameters.AddWithValue("@ape", Apellido);
+            cmd.Parameters.AddWithValue("@corr", Correo);
+            cmd.Parameters.AddWithValue("@pass", Password);
+            await cmd.ExecuteNonQueryAsync();
+            using MySqlCommand cmdInt = Db.Connection.CreateCommand();
+            cmdInt.CommandText = @"SELECT MAX(idProfesor) FROM profesor;";
+            IdProfesor = Convert.ToInt32(cmdInt.ExecuteScalar());
+        }
+
         /// <summary>
         /// Lectura de todos los atributos de profesor
         /// </summary>
