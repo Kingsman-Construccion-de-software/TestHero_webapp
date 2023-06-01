@@ -34,19 +34,22 @@
   
   .input-text {
       padding: 5px;
+      background-color: #d0d0d0;
+      color: #1d1d1d;
   }
+  
   
   .copy-button {
       padding: 8px 16px;
       font-size: 16px;
       background-color: #0596ff;
-      color: white;
+      color: #ebebeb !important;
+      color: #1d1d1d;
       border: none;
       border-radius: 4px;
       cursor: pointer;
   }
   
-      .input-text:hover,
       .copy-button:hover {
           background-color:#046db8;
       }
