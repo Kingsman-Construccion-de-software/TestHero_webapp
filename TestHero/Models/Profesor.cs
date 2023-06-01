@@ -48,7 +48,16 @@ namespace TestHero
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
 
-
+        /// <summary>
+        /// Nos dice todos los profesores
+        /// </summary>
+        public async Task<List<Profesor>> GetProfesores()
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"dame_profesor";
+            cmd.CommandType = CommandType.StoredProcedure;
+            return await ReadAllAsync(await cmd.ExecuteReaderAsync());
+        }
         /// <summary>
         /// Funcion para registrar al profesor 
         /// </summary>

@@ -424,6 +424,16 @@ BEGIN
 END //
 DELIMITER ;
 
+DELIMITER //
+DROP PROCEDURE IF EXISTS dame_profesor;
+CREATE PROCEDURE  dame_profesor()
+BEGIN
+	SELECT nombres, apellidos, correo 
+    FROM profesor;
+END //
+DELIMITER ;
+
 call registra_profesor("Papa","Solorzano","pruebapapa@gmail.com",12345678);
 
+call dame_profesor();
 select * from profesor;

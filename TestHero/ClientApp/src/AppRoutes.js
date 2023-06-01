@@ -12,7 +12,8 @@ import LoginAlumno from "Pages/loginalumno/LoginAlumno";
 import HomeAlumno from "Pages/homeAlumno/HomeAlumno";
 import Examenes from "Pages/examenesAlumno/Examenes";
 import ResumenAlumno from "resumenAlumno/ResumenAlumno";
-import Invitacion from "Pages/Invitacion/Invitacion"
+import Invitacion from "Pages/Invitacion/Invitacion";
+import RegistroProfesor from "Pages/RegistroProfesor/RegistroProfesor";
 
 const AppRoutes = [
   {
@@ -73,8 +74,12 @@ const AppRoutes = [
     element: <ResumenGrupo />,
   },
   {
-      path: "/invitacion",
-      element: <Invitacion />,
+    path: "/invitacion",
+    element: <Invitacion />,
+  },
+  {
+    path: "/registroProfesor",
+    element: <RegistroProfesor />,
   },
 ];
 

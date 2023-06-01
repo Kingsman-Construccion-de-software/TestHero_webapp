@@ -118,10 +118,3 @@
 .BackArrow:hover {
   cursor: pointer;
 }
-
-.textoRegistrate {
-  font-size: 25px;
-  font-weight: bold;
-  color: #f0f2f5;
-  text-align: center;
-}
