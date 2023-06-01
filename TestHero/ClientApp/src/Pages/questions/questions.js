@@ -40,7 +40,6 @@ export default function Questions() {
       const res = await axios.get(URIpreguntas);
       setPreguntas(res.data);
     } catch (e) {
-      console.log(e);
     }
   };
 

@@ -72,7 +72,7 @@ function CrearExamen() {
    * Navegar a examenes
    */
   const goToExamenes = () => {
-    navigate(`/examenAlumno?grupo=${state.idGrupo}`);
+    navigate(`/examen/alumno?grupo=${state.idGrupo}`);
   };
 
   /**Funcion para actualizar la clase  */
@@ -91,7 +91,6 @@ function CrearExamen() {
     const url = "api/examen";
     let codigoExamen = makeId(8);
     while(await buscar_examen(codigoExamen)){
-      console.log(codigoExamen);
       codigoExamen = makeId(8);
     }
 
@@ -184,15 +183,12 @@ function CrearExamen() {
         Nombre: tag,
       };
       const result = await axios.post(url, data);
-      console.log(result.data);
       id = result.data.idEtiqueta;
     } else {
       id = filtrado[0].idEtiqueta;
     }
-    console.log(id);
     const url = `api/etiqueta/${id}/examen/${idExamen}`;
     const result = await axios.post(url);
-    console.log(result.data);
   };
   /**Checa que tecla fue usada */
   const handleKeyDown = (event) => {

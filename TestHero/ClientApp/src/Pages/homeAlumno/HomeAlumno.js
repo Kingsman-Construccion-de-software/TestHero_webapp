@@ -71,7 +71,7 @@ export default function HomeAlumno() {
                 key={examen.idExamen}
                 nombre={examen.nombre}
                 fechaFin={examen.fechaFin}
-                link={`/resumenAlumno?examen=${examen.idExamen}`}
+                link={`/resumen/alumno?examen=${examen.idExamen}`}
               />
             ))}
         </div>

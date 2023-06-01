@@ -54,7 +54,7 @@ export default function HomePrincipal() {
                 nombre={examen.nombre}
                 fechaFin={examen.fechaFin}
                 grupo={examen.grupo}
-                link={`/resumenExamen?examen=${examen.idExamen}`}
+                link={`/resumen/examen?examen=${examen.idExamen}`}
               />
             ))}
         </div>

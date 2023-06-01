@@ -13,10 +13,9 @@
 
 /* SEARCH BAR */
 .search-bar2 {
-  margin-left: 650px;
   height: 38px;
   padding: 0 3px;
-  max-width: 500px;
+  width: 400px;
   border: none;
   border-radius: 6px;
 }
@@ -138,6 +137,13 @@
 }
 
 .lista {
+  color: #ebebeb;
+  font-size: 34px;
+  text-align: center;
+}
+
+
+.vacio {
   color: #ebebeb;
   font-size: 34px;
   text-align: center;

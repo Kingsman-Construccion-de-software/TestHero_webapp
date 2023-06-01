@@ -10,7 +10,7 @@ import ResumenGrupo from "Pages/resumenGrupo/ResumenGrupo";
 import PreLogin from "Pages/prelogin/PreLogin";
 import LoginAlumno from "Pages/loginalumno/LoginAlumno";
 import HomeAlumno from "Pages/homeAlumno/HomeAlumno";
-import Examenes from "Pages/examenesAlumno/Examenes";
+import ExamenesAlumno from "Pages/examenesAlumno/ExamenesAlumno";
 import ResumenAlumno from "resumenAlumno/ResumenAlumno";
 import Invitacion from "Pages/Invitacion/Invitacion";
 import RegistroProfesor from "Pages/RegistroProfesor/RegistroProfesor";
@@ -44,7 +44,7 @@ const AppRoutes = [
   },
   {
     path: "/examenes",
-    element: <Examenes />,
+    element: <ExamenesAlumno />,
   },
   {
     path: "/grupos",
