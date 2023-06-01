@@ -34,3 +34,4 @@ DELIMITER ;
 
 SELECT * FROM alumno;
 SELECT * FROM examen;
+Select * from profesor;

@@ -415,12 +415,11 @@ BEGIN
 END;
 // DELIMITER ;
 
-
 DELIMITER //
-DROP PROCEDURE IF EXISTS registra_profesor;
-CREATE PROCEDURE registra_profesor(IN nom  VARCHAR(45),IN ape  VARCHAR(45),IN corr VARCHAR(45) ,IN pass VARCHAR(45))
+DROP PROCEDURE IF EXISTS insert_examen_poder;
+CREATE PROCEDURE insert_examen_poder(IN idE  int, IN idP  int)
 BEGIN
-	INSERT INTO profesor(nombres,apellidos,correo,password) values(nom,ape,corr,pass);
+	INSERT INTO ExamenPoder(idExamen,idPoder) values(idE, idP);
 END //
 DELIMITER ;
 
