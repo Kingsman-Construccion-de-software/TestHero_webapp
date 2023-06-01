@@ -10,7 +10,7 @@ export default function Invitacion() {
         <div className={styles['outer-container']}>
             <div className={styles.container}>
                 { /* BACKGROUND IMAGE */ }
-                <img className={styles['bg-image']} src={backGroundImage} />
+                <img className={styles['bg-image']} src={backGroundImage} alt="icon"/>
 
                 { /* LOGO IMAGE */}
                 <div>
@@ -25,9 +25,9 @@ export default function Invitacion() {
                     </div>
 
                     { /* SUBMIT BUTTON */ }
-                    <button className={styles['submit-btn']}>
-                           <Link className={styles['btn-link']} to="/loginalumno">Iniciar sesión</Link>
-                    </button>
+                    <Link className={styles['submit-btn']} to="/login/alumno">
+                        <p className={styles['btn-link']}>Iniciar sesión</p>
+                    </Link>
                 </div>
             </div>
         </div>

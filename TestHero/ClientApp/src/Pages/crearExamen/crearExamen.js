@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
-import "./crearExamen.css";
+import styles from "./crearExamen.module.css";
 import Sidebar from "../../components/sidebar/Sidebar.js";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ProfesorContext from "context/contextoProfesor";
 import swal from "sweetalert";
+
 /**
  * @author: Cesar Ivan Hernandez Melendez y Bernardo de la Sierra Rábago
  * @license: GP
@@ -29,6 +30,7 @@ function CrearExamen() {
   const { state, setState } = useContext(ProfesorContext);
   const [codigo, setCodigo] = useState([]);
   const parametro = searchParams.get("grupo");
+
   /**
    * Nos da todos las etiquetas
    */
@@ -227,10 +229,10 @@ function CrearExamen() {
         <Sidebar />
       </div>
       <div class="home_background">
-        <div className="CrearExamen">
+        <div className={styles["CrearExamen"]}>
           <h2>Crear un examen</h2>
           <form className="custom-form" onSubmit={handleSubmit}>
-            <div className="form-group">
+            <div className={styles["form-group"]}>
               <label htmlFor="titulo">Nombre del examen</label>
               <input
                 type="text"
@@ -243,7 +245,7 @@ function CrearExamen() {
               />
             </div>
 
-            <div className="form-group">
+            <div className={styles["form-group"]}>
               <label htmlFor="materia">Materia</label>
               <input
                 type="text"
@@ -256,7 +258,7 @@ function CrearExamen() {
               />
             </div>
 
-            <div className="form-group row">
+            <div className={`${styles['form-group']} row`}>
               <label htmlFor="fecha1" className="col-sm-2 col-form-label">
                 Fecha de Inicio
               </label>
@@ -285,7 +287,7 @@ function CrearExamen() {
               </div>
             </div>
 
-            <div className="form-group row">
+            <div className={`${styles['form-group']} row`}>
               <label htmlFor="fecha2" className="col-sm-2 col-form-label">
                 Fecha de Cierre
               </label>
@@ -314,15 +316,15 @@ function CrearExamen() {
               </div>
             </div>
 
-            <div className="tags-container">
+            <div className={styles["tags-container"]}>
               {tags.map((tag) => (
-                <div className="tag" key={tag}>
+                <div className={styles["tag"]} key={tag}>
                   <span>{tag}</span>
                   <button onClick={() => handleTagDelete(tag)}>×</button>
                 </div>
               ))}
             </div>
-            <div className="form-group">
+            <div className={styles["form-group"]}>
               <label htmlFor="tag-input">
                 Etiquetas: (se mostrarán antes de iniciar el juego)
               </label>
@@ -330,16 +332,16 @@ function CrearExamen() {
 
               <input
                 list="tags"
-                id="tag-input"
+                id={styles["tag-input"]}
                 type="text"
-                className="tagInput"
+                className="form-control"
                 value={currentTag}
                 placeholder="Pulsa Enter para ingresar la etiqueta"
                 onKeyDown={handleKeyDown}
                 onChange={(event) => setCurrentTag(event.target.value)}
               />
               {showingEtiquetas && (
-                <datalist id="tags" className="tagDatalist">
+                <datalist id="tags" className={styles["tagDatalist"]}>
                   {showingEtiquetas &&
                     showingEtiquetas.map((etiqueta) => (
                       <option key={etiqueta.idEtiqueta} value={etiqueta.nombre}>
@@ -350,7 +352,7 @@ function CrearExamen() {
               )}
             </div>
 
-            <button type="submit" className="boton" align="right">
+            <button type="submit" className={styles["botonPreguntas"]} align="right">
               Crear examen
             </button>
           </form>
