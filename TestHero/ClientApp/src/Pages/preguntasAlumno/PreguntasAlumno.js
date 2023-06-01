@@ -1,4 +1,4 @@
-import styles from "./preguntasAlumno.css";
+import styles from "./preguntasAlumno.module.css";
 import SidebarAlumno from "components/sidebarAlumno/SidebarAlumno";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
@@ -36,7 +36,6 @@ export default function PreguntasAlumno() {
       const res = await axios.get(URIpreguntas);
       setPreguntas(res.data);
     } catch (e) {
-      console.log(e);
     }
   };
 
@@ -51,7 +50,6 @@ export default function PreguntasAlumno() {
 
     try {
       const result = await axios.get(url);
-      console.log(result.data);
       setAlumnoRespuesta(result.data);
     } catch (error) {
       alert(error);
@@ -66,25 +64,27 @@ export default function PreguntasAlumno() {
       <div>
         <SidebarAlumno />
       </div>
-      <div className="page">
-        <div className="content">
-          <div className="preguntas">
+      <div className={styles["page"]}>
+        <div className={styles["content"]}>
+          <div className={styles["preguntas"]}>
             {preguntas && alumnoRespuesta.length === 0 && (
               <>
-                <div className="vacio">
-                  Todavia no has resuelto un examen para ver tus respuestas
+                <div className={styles["vacio"]}>
+                  Todavía no has resuelto este examen
                 </div>
               </>
             )}
-            {preguntas &&
-              alumnoRespuesta.length > 0 &&
-              preguntas.map((pregunta, index) => (
-                <PreguntaAlumno
+            {(preguntas &&
+              preguntas.length > 0 &&
+              alumnoRespuesta.length > 0) &&
+              preguntas.map((pregunta, index) => {
+                console.log(pregunta);
+                return <PreguntaAlumno
                   key={index}
                   pregunta={pregunta}
-                  alumnoRespuesta={alumnoRespuesta[index].idRespuesta}
+                  alumnoRespuesta={alumnoRespuesta[index] != null ? alumnoRespuesta[index].idRespuesta : 0}
                 />
-              ))}
+}             )}
           </div>
         </div>
       </div>

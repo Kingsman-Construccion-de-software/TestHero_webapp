@@ -71,3 +71,10 @@
 .row-colored {
     background-color: #0596FF;
 }
+
+.vacio {
+    color: #ebebeb;
+    font-size: 34px;
+    text-align: center;
+    margin-bottom: 30px;
+  }

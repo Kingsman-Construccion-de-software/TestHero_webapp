@@ -37,6 +37,11 @@
 
 .fecha {
   font-size: 20px;
-  margin-top: 25px;
+  margin-top: 40px;
   text-align: end;
+}
+
+.fondo:hover {
+  cursor: pointer;
+  background-color: rgba(5, 150, 255, 1);
 }

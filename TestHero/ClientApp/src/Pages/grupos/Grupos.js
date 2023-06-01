@@ -50,7 +50,6 @@ export default function Grupos() {
     try {
       const result = await axios.get(url);
       if (result.data) {
-        console.log(result.data);
         setGrupos(result.data);
       }
     } catch (error) {
@@ -66,7 +65,6 @@ export default function Grupos() {
       idProfesor: state.id,
       Nombre: fgrupo,
     });
-    console.log(result);
     swal({
       title: "Se ha creado un grupo",
       button: "Aceptar",
@@ -78,7 +76,6 @@ export default function Grupos() {
   };
   useEffect(() => {
     getGrupo();
-    console.log(grupos);
   }, [state.id]);
 
   return (

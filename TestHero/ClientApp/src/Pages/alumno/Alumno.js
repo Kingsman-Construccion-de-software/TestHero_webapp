@@ -11,7 +11,7 @@ import axios from "axios";
  * @params Sin parametros
  * @description Clase que muestra los resultados de los alumnos
  */
-export default function Results() {
+export default function Alumnos() {
   // Inicializacion de estados
   const { state, setState } = useContext(ProfesorContext);
   const [alumno, setAlumno] = useState([]);
@@ -40,7 +40,7 @@ export default function Results() {
       <div className={styles.mainContent}>
         {alumno.length === 0 ? (
           <>
-            <div className="vacio">
+            <div className={styles.vacio}>
               Comparte este enlace con tus alumnos para que puedan unirse al
               grupo.
             </div>
