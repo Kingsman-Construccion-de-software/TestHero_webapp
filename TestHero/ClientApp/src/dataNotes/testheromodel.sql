@@ -165,6 +165,22 @@ CREATE TABLE IF NOT EXISTS AlumnoPregunta (
     ON UPDATE NO ACTION
 );
 
+-- -----------------------------------------------------
+-- Table `AlumnoPoder`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS AlumnoPoder (
+  `idAlumno` INT NOT NULL,
+  `idPoder` INT NOT NULL,
+  `Cantidad` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`idAlumno`, `idPoder`),
+  FOREIGN KEY(`idAlumno`) REFERENCES `Alumno`(`idAlumno`)
+	ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  FOREIGN KEY(`idPoder`) REFERENCES `Poder`(`idPoder`)
+	ON DELETE CASCADE
+    ON UPDATE NO ACTION
+);
+
 insert into profesor (nombres, apellidos, correo, password) values ('Schuyler', 'Cocker', 'scocker0@clickbank.net', 'kQFe2wDjAyhz');
 insert into profesor (nombres, apellidos, correo, password) values ('Trista', 'Mandeville', 'tmandeville1@bravesites.com', 'fieoBpun8');
 insert into profesor (nombres, apellidos, correo, password) values ('Gayle', 'Duesberry', 'gduesberry2@symantec.com', '9PS6HRj8Rc');
@@ -299,4 +315,3 @@ insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealiza
 insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (4, 10, 10, 16382, '2023-05-20');
 
 use testhero;
-select * from profesor;
