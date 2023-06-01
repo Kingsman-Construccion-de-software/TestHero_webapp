@@ -6,6 +6,7 @@ import MultipleViewCard from "components/multiple-view-card/MultipleViewCard";
 import Group from "Pages/examenesProfesor/ExamGrupo";
 import Alumno from "Pages/alumno/Alumno";
 import styles from "./resumengrupo.module.css";
+import swal from "sweetalert";
 
 /**
  * @author Bernardo de la Sierra y Julio Meza
@@ -47,7 +48,11 @@ export default function ResumenGrupo() {
         const text = inputRef.current.value;
         if (text) {
             navigator.clipboard.writeText(text);
-            alert("Text copied to clipboard!");
+            swal({
+                title: "Se ha copiado el link para compartir el grupo",
+                button: "Aceptar",
+                icon: "success",
+              });
         }
     };
 
@@ -65,6 +70,7 @@ export default function ResumenGrupo() {
                                 <input
                                     type="text"
                                     ref={inputRef}
+                                    disabled
                                     defaultValue={`https://localhost:44423/examenAlumno?grupo=${grupo.idGrupo}`}
                                     placeholder={`https://localhost:44423/examenAlumno?grupo=${grupo.idGrupo}`}
                                     className={styles["input-text"]}

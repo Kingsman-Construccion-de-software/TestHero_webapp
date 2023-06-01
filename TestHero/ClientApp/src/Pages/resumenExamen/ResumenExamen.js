@@ -21,19 +21,7 @@ export default function ResumenExamen() {
   const [text, setText] = useState("https://localhost:44423/examenAlumno");
 
   const inputRef = useRef(null);
-
-  const handleInputChange = (event) => {
-    setText(event.target.value);
-  };
-
-  const handleCopyButtonClick = () => {
-    const text = inputRef.current.value;
-    if (text) {
-      navigator.clipboard.writeText(text);
-      alert("Text copied to clipboard!");
-    }
-  };
-
+  
   const [searchParams] = useSearchParams();
 
   const getExamen = async () => {
@@ -60,19 +48,6 @@ export default function ResumenExamen() {
           {examen && (
             <div className={styles["title-row"]}>
               <h1 className={styles["tituloExamen"]}>{examen.nombre}</h1>
-              <div className={styles["input-row"]}>
-                <input
-                  type="text"
-                  ref={inputRef}
-                  value={text}
-                  onChange={handleInputChange}
-                  placeholder="Enter text"
-                  className={styles["input-text"]}
-                />
-                <button onClick={handleCopyButtonClick} className={styles["copy-button"]}>
-                  Copy
-                </button>
-              </div>
             </div>
           )}
           <div className={styles["subtitles"]}>

@@ -192,7 +192,7 @@ export default function FormularioPregunta({
             correcta
           </p>
         )}
-        <button className="botonCancelarPregunta" onClick={handleSelected}>
+        <button className={styles['botonCancelarPregunta']} onClick={handleSelected}>
           Cancelar
         </button>
         <input

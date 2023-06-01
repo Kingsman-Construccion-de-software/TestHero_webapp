@@ -255,7 +255,7 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
           correcta
         </p>
         <button
-          className="botonCancelarPreguntaEditar"
+          className={styles["botonCancelarPreguntaEditar"]}
           onClick={handleSelected}
         >
           Cancelar
@@ -304,7 +304,7 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
           <Button
             variant="secondary"
             onClick={() => deletePregunta()}
-            className={styles["botonCancelar2"]}
+            className={styles["botonEliminar"]}
           >
             Eliminar
           </Button>
