@@ -30,14 +30,16 @@ CREATE TABLE IF NOT EXISTS Grupo (
 -- -----------------------------------------------------
 -- Table `Alumno`
 -- -----------------------------------------------------
+-- borrar matricula xd
 CREATE TABLE IF NOT EXISTS Alumno (
   `idAlumno` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `nombres` VARCHAR(45) NOT NULL,
   `apellidos` VARCHAR(45) NOT NULL,
-  `matricula` VARCHAR(45) NOT NULL UNIQUE,
+  `matricula` VARCHAR(45) NOT NULL UNIQUE, 
   `correo` VARCHAR(45) NOT NULL UNIQUE,
   `password` VARCHAR(45) NOT NULL,
   `idGrupo` INT NOT NULL,
+  `tickets` int default 0,
   FOREIGN KEY(`idGrupo`) REFERENCES `Grupo`(`idGrupo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
@@ -77,13 +79,24 @@ CREATE TABLE IF NOT EXISTS AlumnoExamen (
 );
 
 -- -----------------------------------------------------
+-- Table `Etiqueta`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Etiqueta (
+  `idEtiqueta` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `nombre` VARCHAR(45) NULL UNIQUE
+);
+
+
+-- -----------------------------------------------------
 -- Table `Pregunta`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Pregunta (
   `idPregunta` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `pregunta` TEXT NOT NULL,
   `idExamen` INT NOT NULL,
-  FOREIGN KEY (`idExamen`) REFERENCES `Examen` (`idExamen`)
+  `idEtiqueta` Int,
+  FOREIGN KEY (`idExamen`) REFERENCES `Examen` (`idExamen`),
+  foreign key (`idEtiqueta`) references `Etiqueta` (`idEtiqueta`)
 );
 
 -- -----------------------------------------------------
@@ -120,13 +133,6 @@ CREATE TABLE IF NOT EXISTS ExamenPoder (
     ON UPDATE NO ACTION
 );
 
--- -----------------------------------------------------
--- Table `Etiquetas`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Etiqueta (
-  `idEtiqueta` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `nombre` VARCHAR(45) NULL UNIQUE
-);
 
 -- -----------------------------------------------------
 -- Table `ExamenEtiquetas`
@@ -292,3 +298,5 @@ insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealiza
 insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (3, 9, 7, 16382, '2023-05-22');
 insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (4, 10, 10, 16382, '2023-05-20');
 
+use testhero;
+select * from profesor;
