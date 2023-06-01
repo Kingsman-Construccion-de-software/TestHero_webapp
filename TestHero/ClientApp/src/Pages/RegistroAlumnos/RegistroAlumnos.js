@@ -1,25 +1,24 @@
 import React from "react";
-import styles from "./registroProfesor.module.css";
+import styles from "./registroAlumnos.module.css";
 import logo from "../../assets/logo.png";
 import BackArrow from "../../assets/BackArrow.png";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import ProfesorContext from "context/contextoProfesor";
 import swal from "sweetalert";
 /**
  * @author Bernardo de la Sierra
  * @version 1.0.0
  * @license Gp
  * @params Sin parametros
- * @description Clase para registrar al profesor
+ * @description Clase para registrar al alumno
  */
 
-export default function RegistroProfesor() {
+export default function RegistroAlumnos() {
   // Parametros a actualizar
   const [nombre, setNombre] = useState("");
-  const [profesor, setProfesor] = useState();
+  const [alumno, setAlumno] = useState();
   const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,8 +54,8 @@ export default function RegistroProfesor() {
       Correo: email,
       Password: password,
     };
-    getProfesor();
-    if (profesor.filter((profe) => profe.correo === email).length > 0) {
+    getAlumno();
+    if (alumno.filter((profe) => profe.correo === email).length > 0) {
       swal({
         title: "El correo ya existe en la base de datos",
         button: "Aceptar",
@@ -64,7 +63,7 @@ export default function RegistroProfesor() {
       });
     } else {
       if (password === confirmar) {
-        const url = "api/profesor ";
+        const url = "api/alumno ";
         const result = await axios.post(url, data);
         setStatus("Registro exitoso");
         swal({
@@ -82,26 +81,24 @@ export default function RegistroProfesor() {
       }
     }
   };
-  const getProfesor = async (e) => {
-    const url = "api/profesor ";
+  const getAlumno = async (e) => {
+    const url = "api/alumno";
     const result = await axios.get(url);
-    setProfesor(result.data);
-    console.log(result);
-    console.log(profesor);
+    setAlumno(result.data);
   };
 
   useEffect(() => {
     if (status === "Registro exitoso") {
-      navigate("/login/profesor");
+      navigate("/login/alumno");
     }
   }, [status]);
 
   useEffect(() => {
-    getProfesor();
+    getAlumno();
   }, []);
   // función para hacer el boton de regreso
   function GoBack() {
-    navigate("/login/profesor");
+    navigate("/login/alumno");
   }
 
   return (

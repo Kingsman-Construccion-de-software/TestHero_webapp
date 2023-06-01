@@ -433,7 +433,25 @@ BEGIN
 END //
 DELIMITER ;
 
-call registra_profesor("Papa","Solorzano","pruebapapa@gmail.com",12345678);
+DELIMITER //
+DROP PROCEDURE IF EXISTS dame_alumno;
+CREATE PROCEDURE  dame_alumno()
+BEGIN
+	SELECT nombres, apellidos, correo 
+    FROM alumno;
+END //
+DELIMITER ;
 
+DELIMITER //
+DROP PROCEDURE IF EXISTS registra_alumno;
+CREATE PROCEDURE registra_alumno(IN nom  VARCHAR(45),IN ape  VARCHAR(45),IN corr VARCHAR(45) ,IN pass VARCHAR(45))
+BEGIN
+	INSERT INTO alumno(nombres,apellidos,correo,password) values(nom,ape,corr,pass);
+END //
+DELIMITER ;
+
+call registra_profesor("Papa","Solorzano","pruebapapa@gmail.com",12345678);
+call  registra_alumno("Papa","Solorzano","pruebapapa@gmail.com",12345678);
 call dame_profesor();
+call dame_alumno();
 select * from profesor;

@@ -71,6 +71,7 @@
   font-size: 20px;
   font-weight: 500;
   border-radius: 10px;
+  box-shadow: 7px 7px rgba(0px, 0px, 0px, 0.24);
   padding: 10px;
 }
 
@@ -116,10 +117,4 @@
 
 .BackArrow:hover {
   cursor: pointer;
-}
-.textoRegistrate {
-  font-size: 25px;
-  font-weight: bold;
-  color: #f0f2f5;
-  text-align: center;
 }

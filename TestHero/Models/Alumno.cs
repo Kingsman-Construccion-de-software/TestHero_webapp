@@ -59,7 +59,18 @@ public class Alumno
         cmd.Parameters.AddWithValue("@id", idAlumno);
         return await ReadAllAsync(await cmd.ExecuteReaderAsync());
     }
-   
+
+    /// <summary>
+    /// Nos dice todos los alumnos
+    /// </summary>
+    public async Task<List<Alumno>> GetAlumnos()
+    {
+        using MySqlCommand cmd = Db.Connection.CreateCommand();
+        cmd.CommandText = @"dame_alumno";
+        cmd.CommandType = CommandType.StoredProcedure;
+        return await ReadAllAsync(await cmd.ExecuteReaderAsync());
+    }
+
 
     private async Task<List<Alumno>> ReadAllAsync(MySqlDataReader reader)
     {
