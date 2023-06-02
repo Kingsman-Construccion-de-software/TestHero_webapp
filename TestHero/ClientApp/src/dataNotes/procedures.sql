@@ -451,7 +451,8 @@ END //
 DELIMITER ;
 
 call registra_profesor("Papa","Solorzano","pruebapapa@gmail.com",12345678);
-call  registra_alumno("Papa","Solorzano","pruebapapa@gmail.com",12345678);
+call  registra_alumno("Prueba","Solorzano","prueba@gmail.com",12345678);
 call dame_profesor();
 call dame_alumno();
+select * from alumno;
 select * from profesor;
