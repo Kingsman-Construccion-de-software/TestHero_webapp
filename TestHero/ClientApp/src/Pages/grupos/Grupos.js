@@ -94,7 +94,7 @@ export default function Grupos() {
           />
         </div>
         {grupos.length === 0 && (
-          <div className={styles["lista"]}>Comienza a crear tus grupos</div>
+          <div className={styles["vacio"]}>Comienza a crear tus grupos</div>
         )}
         <ul className={styles["exams-list"]}>
           {resultados &&

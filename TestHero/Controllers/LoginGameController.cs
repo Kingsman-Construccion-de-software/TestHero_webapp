@@ -58,7 +58,7 @@ namespace TestHero.Controllers
             }
             catch (Exception ex)
             {
-                msg = "Ocurrió un error interno. Vuelve a intentarlo.";
+                msg = "Ocurrió un error interno. Vuelve a intentarlo";
             }
 
             dynamic res = new ExpandoObject();

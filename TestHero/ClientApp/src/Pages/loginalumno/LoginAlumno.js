@@ -7,6 +7,7 @@ import axios from "axios";
 import { useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import ProfesorContext from "context/contextoProfesor";
+import { useSearchParams } from "react-router-dom";
 
 /**
  * @author Bernardo de la Sierra y Leonardo García
@@ -23,6 +24,9 @@ export default function Login() {
   const [status, setStatus] = useState("");
   const { state, setState } = useContext(ProfesorContext);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+
   /**Cambia el correo */
   const handleEmailChange = (value) => {
     setEmail(value);
@@ -46,24 +50,41 @@ export default function Login() {
       const result = await axios.post(url, data);
       setStatus(result.data.message);
       if (result.data.message === "Login exitoso") {
-        getAlumno(result.data.id);
+        getAlumno(result.data.id, result.data.idGrupo);
       }
     } catch (error) {
       alert(error);
     }
   };
   /**Checa que dado un idAlumno nos guarde su informacion */
-  const getAlumno = async (id) => {
+  const getAlumno = async (id, idGrupo) => {
     const url = `api/alumno/${id}`;
 
     try {
       const result = await axios.get(url);
       let res = result.data[0];
+      let idGr = 0;
+
+      let paramGrupo = searchParams.get("grupo")
+
+      if(idGrupo === -1){
+        if(paramGrupo){
+          console.log("e");
+          idGr = searchParams.get("grupo");
+        } else {
+          idGr = -1;
+        }
+      } else {
+          idGr = idGrupo;
+      }
+
       let alumno = {
         id: res.idAlumno,
         nombre: res.nombres + " " + res.apellidos,
         correo: res.correo,
+        idGrupo: idGr
       };
+      
       setState(alumno);
     } catch (error) {
       alert(error);

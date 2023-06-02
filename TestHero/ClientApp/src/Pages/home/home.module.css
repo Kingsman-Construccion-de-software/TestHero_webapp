@@ -30,7 +30,8 @@
 
 .icono {
   width: 10%;
-  min-width: 100px;
+  min-width: 70px;
+  max-width: 120px;
   text-align: left;
   margin-left: 15vw;
   margin-right: 4vw;
