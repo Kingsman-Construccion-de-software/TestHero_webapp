@@ -112,6 +112,23 @@ namespace TestHero
         }
 
         /// <summary>
+        /// Actualiza Examen
+        /// </summary>
+        public async Task UpdateExamen(int id)
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"update_examen";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@fecha1", FechaInicio);
+            cmd.Parameters.AddWithValue("@fecha2", FechaFin);
+            cmd.Parameters.AddWithValue("@nombre", Nombre);
+            cmd.Parameters.AddWithValue("@materia", Materia);
+            await cmd.ExecuteNonQueryAsync();
+            IdExamen = id;
+        }
+
+        /// <summary>
         /// Lectura de todos los atributos de examen
         /// </summary>
         private async Task<List<Examen>> ReadAllAsync(MySqlDataReader reader)
