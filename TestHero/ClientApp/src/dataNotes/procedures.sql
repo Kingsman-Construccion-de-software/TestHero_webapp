@@ -262,7 +262,6 @@ BEGIN
     WHERE idGrupo = id;
 END //
 DELIMITER ;
-
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_etiquetas_examen;
 CREATE PROCEDURE get_etiquetas_examen(IN idE int)
@@ -464,10 +463,6 @@ BEGIN
 END //
 DELIMITER ;
 
-call registra_profesor("Papa","Solorzano","pruebapapa@gmail.com",12345678);
-call  registra_alumno("Prueba","Solorzano","prueba@gmail.com",12345678);
-call dame_profesor();
-call dame_alumno();
-select * from alumno;
-select * from profesor;
+-- call registra_profesor("Papa","Solorzano","pruebapapa@gmail.com",12345678);
+CALL insert_examen("a1234567", "mate","mate", "12-05-2023T12:00:00", "12-06-2023T12:00:00", 1);
 

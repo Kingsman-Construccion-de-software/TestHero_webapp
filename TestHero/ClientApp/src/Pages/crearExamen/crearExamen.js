@@ -27,10 +27,12 @@ function CrearExamen() {
   const [searchParams] = useSearchParams();
   const [etiquetas, setEtiquetas] = useState([]);
   const [showingEtiquetas, setShowingEtiquetas] = useState([]);
-  const [poder, setPoder] = useState([]);
   const { state, setState } = useContext(ProfesorContext);
   const [codigo, setCodigo] = useState([]);
   const parametro = searchParams.get("grupo");
+
+  const nombresPoderes = ["Volver a intentar", "Más tiempo", "Ayuda"];
+  const [poderes, setPoderes] = useState(nombresPoderes.map((el) => 0));
 
   /**
    * Nos da todos las etiquetas
@@ -108,6 +110,7 @@ function CrearExamen() {
     const result = await axios.post(url, data);
 
     await tags.forEach((tag) => postTag(tag, result.data.idExamen));
+    await poderes.forEach((poder, id) => sendPoder(id, result.data.idExamen));
     swal({
       title: "Se ha creado un examen",
       button: "Aceptar",
@@ -223,15 +226,10 @@ function CrearExamen() {
     filterTags(currentTag);
   }, [currentTag]);
 
-  function validateCheck(e) {
-    if (e.target.checked) {
-      setPoder([e.target.value]);
-      console.log(e.target.value);
-    } else {
-      setPoder([e.target.value]);
-      console.log(e.target.value);
-    }
-  }
+  const sendPoder = async (idPoder, idExamen) => {
+    const url = `api/examen/${idExamen}/poder/${idPoder}`;
+    await axios.post(url);
+  };
 
   return (
     <div>
@@ -373,54 +371,32 @@ function CrearExamen() {
                     Poderes: (potenciadores para el alumno)
                   </label>
                   <div className={styles["checks"]}>
-                    <div className={styles["CheckFormat"]}>
-                      <input
-                        type="checkbox"
-                        id="retryCheckbox"
-                        onChange={function validateCheck(e) {
-                          if (e.target.checked) {
-                            setPoder([e.target.value]);
-                            console.log(e.target.value);
-                          } else {
-                            setPoder([e.target.value]);
-                            console.log(e.target.value);
-                          }
-                        }}
-                      />
-                      <label className={styles["label"]} for="retryCheckbox">Reintentar</label>
-                    </div>
-                    <div className={styles["CheckFormat"]}>
-                      <input
-                        type="checkbox"
-                        id="timeCheckbox"
-                        onChange={function validateCheck(e) {
-                          if (e.target.checked) {
-                            setPoder([e.target.value]);
-                            console.log(e.target.value);
-                          } else {
-                            setPoder([e.target.value]);
-                            console.log(e.target.value);
-                          }
-                        }}
-                      />
-                      <label className={styles["label"]} for="timeCheckbox">Tiempo</label>
-                    </div>
-                    <div className={styles["CheckFormat"]}>
-                      <input
-                        type="checkbox"
-                        id="helpCheckbox"
-                        onChange={function validateCheck(e) {
-                          if (e.target.checked) {
-                            setPoder([e.target.value]);
-                            console.log(e.target.value);
-                          } else {
-                            setPoder([e.target.value]);
-                            console.log("e.target.value");
-                          }
-                        }}
-                      />
-                      <label className={styles["label"]} for="helpCheckbox">Ayuda</label>
-                    </div>
+                    {nombresPoderes.map((poder, id) => {
+                      return (
+                        <>
+                          <div className={styles["CheckFormat"]}>
+                            <input
+                              type="checkbox"
+                              id={poder}
+                              onChange={function validateCheck(e) {
+                                if (e.target.checked) {
+                                  setPoderes(
+                                    poderes.map((p, i) => (i === id ? 1 : p))
+                                  );
+                                } else {
+                                  setPoderes(
+                                    poderes.map((p, i) => (i === id ? 0 : p))
+                                  );
+                                }
+                              }}
+                            />
+                            <label className={styles["label"]} for={poder}>
+                              {poder}
+                            </label>
+                          </div>
+                        </>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
