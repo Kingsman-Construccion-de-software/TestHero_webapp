@@ -71,7 +71,11 @@ export default function PreguntaAlumno({ pregunta, alumnoRespuesta }) {
         <p className={styles["titulo"]}>{pregunta.textoPregunta}</p>
         <div className={styles["iconosalumno"]}>
           <div className={styles["bienomal"]}>
-            {correcta ? <BiCheck size={60} /> : <BiX size={60} />}
+            {correcta ? (
+              <BiCheck style={{ color: "#4ee8a4" }} size={60} />
+            ) : (
+              <BiX style={{ color: "fd4d4d" }} size={60} />
+            )}
           </div>
           <div className={styles["pregIcon"]} onClick={timeOutOpen}>
             <FaArrowDown size={40} />
@@ -79,7 +83,13 @@ export default function PreguntaAlumno({ pregunta, alumnoRespuesta }) {
         </div>
       </div>
       {open && (
-        <div className={showing ? `${styles["extension"]} ${styles["showing"]}`  :  `${styles["extension"]} ${styles["hiding"]}`}>
+        <div
+          className={
+            showing
+              ? `${styles["extension"]} ${styles["showing"]}`
+              : `${styles["extension"]} ${styles["hiding"]}`
+          }
+        >
           <form className={styles["respuestas"]}>
             {respuestas &&
               respuestas.map((respuesta, index) => (
