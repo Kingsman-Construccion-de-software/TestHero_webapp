@@ -423,6 +423,17 @@ BEGIN
 END //
 DELIMITER ;
 
+DELIMITER //
+DROP PROCEDURE IF EXISTS update_examen;
+CREATE PROCEDURE update_examen(IN id INT, IN fecha1 DATETIME, IN fecha2 DATETIME,
+IN nombre_val VARCHAR(45), IN materia_val VARCHAR(45))
+BEGIN
+    UPDATE examen
+    SET fechaInicio = fecha1, fechaFin = fecha2, nombre = nombre_val, materia = materia_val
+    WHERE idExamen = id;
+END //
+DELIMITER ;
+
 call registra_profesor("Papa","Solorzano","pruebapapa@gmail.com",12345678);
 
 select * from profesor;
