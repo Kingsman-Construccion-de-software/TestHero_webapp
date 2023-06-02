@@ -1,3 +1,4 @@
+
 .CrearExamen {
   max-width: 700px;
   margin: 0 auto;
@@ -12,6 +13,7 @@
 .CrearExamen h2 {
   margin-top: 10px;
   margin-bottom: 30px;
+  /* margin-top: 0; */
 }
 
 .form-group {
@@ -21,7 +23,7 @@
 .label {
   display: block;
   font-size: 20px;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
 }
 
 .input[type="text"],
@@ -94,4 +96,50 @@
   height: 40px;
   border-radius: 7px;
   margin-top: 10px;
+}
+input[type="checkbox"] {
+  box-sizing: border-box;
+
+  width: 25px;
+  height: 20px;
+  left: 848px;
+  top: 751px;
+
+  background: #D9D9D9;
+  box-shadow: 0px 3px 5px rgba(46, 46, 66, 0.08);
+  border-radius: 5px;
+
+}
+
+input[type="checkbox"]:checked::before {
+  content: none;
+  display: inline-block;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+input[type="checkbox"]+label {
+  font-size: 16px;
+  margin-left: 8px;
+  align-items: center;
+}
+
+.CheckFormat {
+  display: flex;
+  margin-right: 8px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.checks {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.label2{
+  margin-bottom: 1vw;
 }

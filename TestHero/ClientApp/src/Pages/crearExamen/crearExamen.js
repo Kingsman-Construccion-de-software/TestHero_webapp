@@ -8,9 +8,9 @@ import ProfesorContext from "context/contextoProfesor";
 import swal from "sweetalert";
 
 /**
- * @author: Cesar Ivan Hernandez Melendez y Bernardo de la Sierra Rábago
+ * @author: Cesar Ivan Hernandez Melendez, Bernardo de la Sierra Rábago, y Leonardo García
  * @license: GP
- * @version: 2.1.0
+ * @version: 2.2.0
  * Esta clase está dedicada a la página de Crear Examenes
  */
 
@@ -27,6 +27,7 @@ function CrearExamen() {
   const [searchParams] = useSearchParams();
   const [etiquetas, setEtiquetas] = useState([]);
   const [showingEtiquetas, setShowingEtiquetas] = useState([]);
+  const [poder, setPoder] = useState([]);
   const { state, setState } = useContext(ProfesorContext);
   const [codigo, setCodigo] = useState([]);
   const parametro = searchParams.get("grupo");
@@ -84,15 +85,14 @@ function CrearExamen() {
     //retornar si las fechas no son validas
     const date1 = fecha1 + "T" + hora1;
     const date2 = fecha2 + "T" + hora2;
-    if(!validarFecha(date1, date2)){
+    if (!validarFecha(date1, date2)) {
       return;
     }
-
 
     //se genera un codigo que no haya sido usado en otro examen
     const url = "api/examen";
     let codigoExamen = makeId(8);
-    while(await buscar_examen(codigoExamen)){
+    while (await buscar_examen(codigoExamen)) {
       codigoExamen = makeId(8);
     }
 
@@ -116,40 +116,40 @@ function CrearExamen() {
     goToExamenes();
   };
 
-/**
- * Busca si un código de examen ya fue registrado
- */
+  /**
+   * Busca si un código de examen ya fue registrado
+   */
   const buscar_examen = async (codigoExamen) => {
     const url2 = "api/examen/codigo/" + codigoExamen;
-    try{
+    try {
       const resultado = await axios.get(url2);
-      if(resultado.status === 200){
+      if (resultado.status === 200) {
         return true;
       } else {
         return false;
       }
-    } catch(error){
+    } catch (error) {
       return false;
     }
-  }
+  };
 
-   /**
+  /**
    * Validar fechas del examen
    */
   const validarFecha = (date1, date2) => {
-    try{
+    try {
       const d1 = new Date(date1);
       const d2 = new Date(date2);
       const now = new Date();
       let valid = d2.getTime() > now.getTime() && d2.getTime() > d1.getTime();
-      if(!valid){
-        if(d2.getTime() <= now.getTime()){
+      if (!valid) {
+        if (d2.getTime() <= now.getTime()) {
           swal({
             title: "La fecha de fin debe ser mayor a la fecha actual",
             button: "Aceptar",
             icon: "info",
           });
-        } else if(d2.getTime() <= d1.getTime()){
+        } else if (d2.getTime() <= d1.getTime()) {
           swal({
             title: "La fecha de fin debe ser mayor a la fecha de inicio",
             button: "Aceptar",
@@ -163,12 +163,12 @@ function CrearExamen() {
           });
         }
       }
-       
+
       return valid;
-    } catch(error){
+    } catch (error) {
       return false;
     }
-  }
+  };
 
   /**
    * Enviar request para agregar una etiqueta
@@ -223,6 +223,16 @@ function CrearExamen() {
     filterTags(currentTag);
   }, [currentTag]);
 
+  function validateCheck(e) {
+    if (e.target.checked) {
+      setPoder([e.target.value]);
+      console.log(e.target.value);
+    } else {
+      setPoder([e.target.value]);
+      console.log(e.target.value);
+    }
+  }
+
   return (
     <div>
       <div>
@@ -258,7 +268,7 @@ function CrearExamen() {
               />
             </div>
 
-            <div className={`${styles['form-group']} row`}>
+            <div className={`${styles["form-group"]} row`}>
               <label htmlFor="fecha1" className="col-sm-2 col-form-label">
                 Fecha de Inicio
               </label>
@@ -287,7 +297,7 @@ function CrearExamen() {
               </div>
             </div>
 
-            <div className={`${styles['form-group']} row`}>
+            <div className={`${styles["form-group"]} row`}>
               <label htmlFor="fecha2" className="col-sm-2 col-form-label">
                 Fecha de Cierre
               </label>
@@ -324,35 +334,103 @@ function CrearExamen() {
                 </div>
               ))}
             </div>
-            <div className={styles["form-group"]}>
-              <label htmlFor="tag-input">
-                Etiquetas: (se mostrarán antes de iniciar el juego)
-              </label>
-              <br />
+            <div className="row">
+              <div className="col-6">
+                <div className={styles["form-group"]}>
+                  <label className={styles["label2"]} htmlFor="tag-input">
+                    Etiquetas: (se mostrarán antes de iniciar el juego)
+                  </label>
+                  <br />
 
-              <input
-                list="tags"
-                id={styles["tag-input"]}
-                type="text"
-                className="form-control"
-                value={currentTag}
-                placeholder="Pulsa Enter para ingresar la etiqueta"
-                onKeyDown={handleKeyDown}
-                onChange={(event) => setCurrentTag(event.target.value)}
-              />
-              {showingEtiquetas && (
-                <datalist id="tags" className={styles["tagDatalist"]}>
-                  {showingEtiquetas &&
-                    showingEtiquetas.map((etiqueta) => (
-                      <option key={etiqueta.idEtiqueta} value={etiqueta.nombre}>
-                        {etiqueta.nombre}
-                      </option>
-                    ))}
-                </datalist>
-              )}
+                  <input
+                    list="tags"
+                    id={styles["tag-input"]}
+                    type="text"
+                    className="form-control"
+                    value={currentTag}
+                    placeholder="Pulsa Enter para ingresar la etiqueta"
+                    onKeyDown={handleKeyDown}
+                    onChange={(event) => setCurrentTag(event.target.value)}
+                  />
+                  {showingEtiquetas && (
+                    <datalist id="tags" className={styles["tagDatalist"]}>
+                      {showingEtiquetas &&
+                        showingEtiquetas.map((etiqueta) => (
+                          <option
+                            key={etiqueta.idEtiqueta}
+                            value={etiqueta.nombre}
+                          >
+                            {etiqueta.nombre}
+                          </option>
+                        ))}
+                    </datalist>
+                  )}
+                </div>
+              </div>
+              <div className="col-6">
+                <div className={styles["form-group"]}>
+                  <label className={styles["label2"]} htmlFor="tag-input">
+                    Poderes: (potenciadores para el alumno)
+                  </label>
+                  <div className={styles["checks"]}>
+                    <div className={styles["CheckFormat"]}>
+                      <input
+                        type="checkbox"
+                        id="retryCheckbox"
+                        onChange={function validateCheck(e) {
+                          if (e.target.checked) {
+                            setPoder([e.target.value]);
+                            console.log(e.target.value);
+                          } else {
+                            setPoder([e.target.value]);
+                            console.log(e.target.value);
+                          }
+                        }}
+                      />
+                      <label className={styles["label"]} for="retryCheckbox">Reintentar</label>
+                    </div>
+                    <div className={styles["CheckFormat"]}>
+                      <input
+                        type="checkbox"
+                        id="timeCheckbox"
+                        onChange={function validateCheck(e) {
+                          if (e.target.checked) {
+                            setPoder([e.target.value]);
+                            console.log(e.target.value);
+                          } else {
+                            setPoder([e.target.value]);
+                            console.log(e.target.value);
+                          }
+                        }}
+                      />
+                      <label className={styles["label"]} for="timeCheckbox">Tiempo</label>
+                    </div>
+                    <div className={styles["CheckFormat"]}>
+                      <input
+                        type="checkbox"
+                        id="helpCheckbox"
+                        onChange={function validateCheck(e) {
+                          if (e.target.checked) {
+                            setPoder([e.target.value]);
+                            console.log(e.target.value);
+                          } else {
+                            setPoder([e.target.value]);
+                            console.log("e.target.value");
+                          }
+                        }}
+                      />
+                      <label className={styles["label"]} for="helpCheckbox">Ayuda</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <button type="submit" className={styles["botonPreguntas"]} align="right">
+            <button
+              type="submit"
+              className={styles["botonPreguntas"]}
+              align="right"
+            >
               Crear examen
             </button>
           </form>
