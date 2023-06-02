@@ -8,49 +8,48 @@
 }
 
 .tituloExamen {
-    display: flex;
-    align-items: center;
-    color: #ebebeb;
-    font-style:bold;
-    font-size: 40px;
-    margin-bottom: 1px;
-    padding-top: 15px;
+  display: flex;
+  align-items: center;
+  color: #ebebeb;
+  font-style: bold;
+  font-size: 40px;
+  margin-bottom: 1px;
+  padding-top: 15px;
 }
 
 .title-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-right: 20px;
-    margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 20px;
+  margin-bottom: 20px;
 }
 
 .input-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 400px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 400px;
 }
 
 .input-text {
-    padding: 5px;
+  padding: 5px;
 }
 
 .copy-button {
-    padding: 8px 16px;
-    font-size: 16px;
-    background-color: #0596ff;
-    color: #ebebeb;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #0596ff;
+  color: #ebebeb;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-    .input-text:hover,
-    .copy-button:hover {
-        background-color: #0478d9;
-    }
-
+.input-text:hover,
+.copy-button:hover {
+  background-color: #0478d9;
+}
 
 .textBox input[type="text"] {
   margin-right: 10px;
@@ -113,4 +112,10 @@
   color: #ebebeb;
   font-size: 34px;
   text-align: center;
+}
+.vacio2 {
+  color: #ebebeb;
+  font-size: 34px;
+  text-align: center;
+  margin-top: 2000px;
 }

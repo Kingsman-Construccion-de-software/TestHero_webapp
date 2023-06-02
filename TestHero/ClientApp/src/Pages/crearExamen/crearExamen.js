@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import styles from "./crearExamen.module.css";
 import Sidebar from "../../components/sidebar/Sidebar.js";
 import axios from "axios";
-import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ProfesorContext from "context/contextoProfesor";
 import swal from "sweetalert";
@@ -24,12 +23,9 @@ function CrearExamen() {
   const [hora2, setHora2] = useState("");
   const [tags, setTags] = useState([]);
   const [currentTag, setCurrentTag] = useState("");
-  const [searchParams] = useSearchParams();
   const [etiquetas, setEtiquetas] = useState([]);
   const [showingEtiquetas, setShowingEtiquetas] = useState([]);
   const { state, setState } = useContext(ProfesorContext);
-  const [codigo, setCodigo] = useState([]);
-  const parametro = searchParams.get("grupo");
 
   /**
    * Nos da todos las etiquetas
@@ -84,15 +80,14 @@ function CrearExamen() {
     //retornar si las fechas no son validas
     const date1 = fecha1 + "T" + hora1;
     const date2 = fecha2 + "T" + hora2;
-    if(!validarFecha(date1, date2)){
+    if (!validarFecha(date1, date2)) {
       return;
     }
-
 
     //se genera un codigo que no haya sido usado en otro examen
     const url = "api/examen";
     let codigoExamen = makeId(8);
-    while(await buscar_examen(codigoExamen)){
+    while (await buscar_examen(codigoExamen)) {
       codigoExamen = makeId(8);
     }
 
@@ -116,40 +111,40 @@ function CrearExamen() {
     goToExamenes();
   };
 
-/**
- * Busca si un código de examen ya fue registrado
- */
+  /**
+   * Busca si un código de examen ya fue registrado
+   */
   const buscar_examen = async (codigoExamen) => {
     const url2 = "api/examen/codigo/" + codigoExamen;
-    try{
+    try {
       const resultado = await axios.get(url2);
-      if(resultado.status === 200){
+      if (resultado.status === 200) {
         return true;
       } else {
         return false;
       }
-    } catch(error){
+    } catch (error) {
       return false;
     }
-  }
+  };
 
-   /**
+  /**
    * Validar fechas del examen
    */
   const validarFecha = (date1, date2) => {
-    try{
+    try {
       const d1 = new Date(date1);
       const d2 = new Date(date2);
       const now = new Date();
       let valid = d2.getTime() > now.getTime() && d2.getTime() > d1.getTime();
-      if(!valid){
-        if(d2.getTime() <= now.getTime()){
+      if (!valid) {
+        if (d2.getTime() <= now.getTime()) {
           swal({
             title: "La fecha de fin debe ser mayor a la fecha actual",
             button: "Aceptar",
             icon: "info",
           });
-        } else if(d2.getTime() <= d1.getTime()){
+        } else if (d2.getTime() <= d1.getTime()) {
           swal({
             title: "La fecha de fin debe ser mayor a la fecha de inicio",
             button: "Aceptar",
@@ -163,12 +158,12 @@ function CrearExamen() {
           });
         }
       }
-       
+
       return valid;
-    } catch(error){
+    } catch (error) {
       return false;
     }
-  }
+  };
 
   /**
    * Enviar request para agregar una etiqueta
@@ -258,7 +253,7 @@ function CrearExamen() {
               />
             </div>
 
-            <div className={`${styles['form-group']} row`}>
+            <div className={`${styles["form-group"]} row`}>
               <label htmlFor="fecha1" className="col-sm-2 col-form-label">
                 Fecha de Inicio
               </label>
@@ -287,7 +282,7 @@ function CrearExamen() {
               </div>
             </div>
 
-            <div className={`${styles['form-group']} row`}>
+            <div className={`${styles["form-group"]} row`}>
               <label htmlFor="fecha2" className="col-sm-2 col-form-label">
                 Fecha de Cierre
               </label>
@@ -352,7 +347,11 @@ function CrearExamen() {
               )}
             </div>
 
-            <button type="submit" className={styles["botonPreguntas"]} align="right">
+            <button
+              type="submit"
+              className={styles["botonPreguntas"]}
+              align="right"
+            >
               Crear examen
             </button>
           </form>
