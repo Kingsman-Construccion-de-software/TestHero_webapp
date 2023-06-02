@@ -123,7 +123,7 @@ namespace TestHero.Controllers
             return new OkObjectResult(result);
         }
 
-        [Route("api/alumno")]
+        [Route("api/alumnosRegistro")]
         [HttpGet]
         /// <summary>
         /// Rutamiento de get profesor por idProfesor
@@ -135,6 +135,19 @@ namespace TestHero.Controllers
             Alumno alumno = new Alumno(Db);
             var result = await alumno.GetAlumnos();
             return new OkObjectResult(result);
+        }
+
+        [Route("api/alumnosRegistro")]
+        [HttpPost]
+        /// <summary>
+        /// Rutamiento de registor alumno
+        /// </summary>
+        public async Task<IActionResult> Post([FromBody] Alumno body)
+        {
+            await Db.Connection.OpenAsync();
+            body.Db = Db;
+            await body.InsertAlumno();
+            return new OkObjectResult(body);
         }
     }
 }

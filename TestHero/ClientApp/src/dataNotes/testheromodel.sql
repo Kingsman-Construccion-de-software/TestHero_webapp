@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS Grupo (
 -- -----------------------------------------------------
 -- Table `Alumno`
 -- -----------------------------------------------------
--- borrar matricula xd
+
 CREATE TABLE IF NOT EXISTS Alumno (
   `idAlumno` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `nombres` VARCHAR(45) NOT NULL,

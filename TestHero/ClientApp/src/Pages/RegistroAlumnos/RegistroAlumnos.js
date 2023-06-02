@@ -2,9 +2,8 @@ import React from "react";
 import styles from "./registroAlumnos.module.css";
 import logo from "../../assets/logo.png";
 import BackArrow from "../../assets/BackArrow.png";
-import { useState } from "react";
 import axios from "axios";
-import { useEffect, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 /**
@@ -24,6 +23,7 @@ export default function RegistroAlumnos() {
   const [password, setPassword] = useState("");
   const [confirmar, setConfirmar] = useState("");
   const [status, setStatus] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   /**Cambia el nombre */
   const handleNombreChange = (value) => {
@@ -40,6 +40,32 @@ export default function RegistroAlumnos() {
   /**Cambia la contraseña */
   const handlePasswordChange = (value) => {
     setPassword(value);
+    if (value.length < 8) {
+      setErrorMessage("");
+    } else if (
+      !value.match(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,64}$/
+      )
+    ) {
+      setErrorMessage(
+        "La contraseña debe contener al menos una letra, un número y un símbolo"
+      );
+    } else {
+      setErrorMessage("");
+    }
+  };
+
+  const handleBlur = () => {
+    if (
+      password.length >= 8 &&
+      !password.match(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,64}$/
+      )
+    ) {
+      setErrorMessage(
+        "La contraseña debe contener al menos una letra, un número y un símbolo"
+      );
+    }
   };
   /**Confirmar la contraseña */
   const handleConfirmarChange = (value) => {
@@ -49,13 +75,13 @@ export default function RegistroAlumnos() {
   const handleRegister = async (e) => {
     e.preventDefault();
     const data = {
-      Nombre: nombre,
-      Apellido: apellido,
+      Nombres: nombre,
+      Apellidos: apellido,
       Correo: email,
       Password: password,
     };
     getAlumno();
-    if (alumno.filter((profe) => profe.correo === email).length > 0) {
+    if (alumno.filter((alu) => alu.correo === email).length > 0) {
       swal({
         title: "El correo ya existe en la base de datos",
         button: "Aceptar",
@@ -63,7 +89,7 @@ export default function RegistroAlumnos() {
       });
     } else {
       if (password === confirmar) {
-        const url = "api/alumno ";
+        const url = "api/alumnosRegistro";
         const result = await axios.post(url, data);
         setStatus("Registro exitoso");
         swal({
@@ -82,9 +108,11 @@ export default function RegistroAlumnos() {
     }
   };
   const getAlumno = async (e) => {
-    const url = "api/alumno";
+    const url = "api/alumnosRegistro";
     const result = await axios.get(url);
     setAlumno(result.data);
+    console.log(result);
+    console.log(alumno);
   };
 
   useEffect(() => {
@@ -152,6 +180,8 @@ export default function RegistroAlumnos() {
                 value={password}
                 required
                 minLength="8"
+                maxLength="64"
+                onBlur={handleBlur}
               />
             </div>
             <div className="col-6">
@@ -166,6 +196,11 @@ export default function RegistroAlumnos() {
                 required
                 minLength="8"
               />
+            </div>
+            <div className="col-12">
+              {errorMessage && (
+                <p className={`${styles["errorMessage"]} }`}>{errorMessage}</p>
+              )}
             </div>
           </div>
           <button className={styles["loginButton"]}>Registrate</button>
