@@ -86,9 +86,12 @@ export default function PreguntasAlumno() {
             )}
             <div>
               {checaFechas ? (
-                <div className={styles["vacio"]}>
-                  El resultado se mostrara después de la fecha {formato}
-                </div>
+                <>
+                  <div className={styles["vacio"]}>
+                    El resultado se mostrará después de la fecha
+                  </div>
+                  <div className={styles["vacio"]}> {formato}</div>
+                </>
               ) : (
                 <>
                   {preguntas &&
