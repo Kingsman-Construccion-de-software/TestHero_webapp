@@ -35,10 +35,9 @@ CREATE TABLE IF NOT EXISTS Alumno (
   `idAlumno` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `nombres` VARCHAR(45) NOT NULL,
   `apellidos` VARCHAR(45) NOT NULL,
-  `matricula` VARCHAR(45) NOT NULL UNIQUE, 
   `correo` VARCHAR(45) NOT NULL UNIQUE,
   `password` VARCHAR(45) NOT NULL,
-  `idGrupo` INT NOT NULL,
+  `idGrupo` INT,
   `tickets` int default 0,
   FOREIGN KEY(`idGrupo`) REFERENCES `Grupo`(`idGrupo`)
     ON DELETE NO ACTION
@@ -205,16 +204,16 @@ insert into grupo (nombre, idProfesor) values ('Química', 5);
 insert into grupo (nombre, idProfesor) values ('Fisica', 3);
 insert into grupo (nombre, idProfesor) values ('Mate I', 11);
 
-insert into alumno (nombres, apellidos, matricula, correo, password, idGrupo) values ('Zsazsa', 'Warret', '01GZG5J7AT3Q8DFS9QMP7XCZWE', 'zwarret0@google.nl', '6YsO8xqf38Z', 7);
-insert into alumno (nombres, apellidos, matricula, correo, password, idGrupo) values ('Brendon', 'Dearness', '01GZG5J7AV28T7QGBC2AE9Z88V', 'bdearness1@digg.com', '4jXbOAu5', 2);
-insert into alumno (nombres, apellidos, matricula, correo, password, idGrupo) values ('Janeczka', 'Skeleton', '01GZG5J7AW9KQ6WKD5GP640CT7', 'jskeleton2@statcounter.com', 'TSKalUX2BMK', 8);
-insert into alumno (nombres, apellidos, matricula, correo, password, idGrupo) values ('Blythe', 'Bassano', '01GZG5J7AW9G1RJT3FZXK4VC29', 'bbassano3@nytimes.com', 'JK2mAvb9GHE', 7);
-insert into alumno (nombres, apellidos, matricula, correo, password, idGrupo) values ('Benedicto', 'Arlt', '01GZG5J7AXNDXYB354JMYYD3VW', 'barlt4@wisc.edu', 'dbXJci4YR', 5);
-insert into alumno (nombres, apellidos, matricula, correo, password, idGrupo) values ('Leeland', 'Eyam', '01GZG5J7AXSTS43A3ZHKVA4FPG', 'leyam5@parallels.com', 'EvfdlEcS', 6);
-insert into alumno (nombres, apellidos, matricula, correo, password, idGrupo) values ('Wallas', 'Pillington', '01GZG5J7AYZXXDRST4J1GRPVTS', 'wpillington6@samsung.com', 'j9ZUxqQ0eL', 2);
-insert into alumno (nombres, apellidos, matricula, correo, password, idGrupo) values ('Holly', 'Dugan', '01GZG5J7AZ0WRVRB3ESXM5ZQX7', 'hdugan7@mozilla.org', 'AvBwqx8zO', 2);
-insert into alumno (nombres, apellidos, matricula, correo, password, idGrupo) values ('Herschel', 'Tabourin', '01GZG5J7AZM4ZH59C59F6XX67E', 'htabourin8@arstechnica.com', 'paCZfam5r', 9);
-insert into alumno (nombres, apellidos, matricula, correo, password, idGrupo) values ('Sheffy', 'Collinge', '01GZG5J7B056SAE4Z0PBYGH8D9', 'scollinge9@oakley.com', 'PijATpClEDf', 9);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Zsazsa', 'Warret', 'zwarret0@google.nl', '6YsO8xqf38Z', 7);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Brendon', 'Dearness', 'bdearness1@digg.com', '4jXbOAu5', 2);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Janeczka', 'Skeleton', 'jskeleton2@statcounter.com', 'TSKalUX2BMK', 8);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Blythe', 'Bassano', 'bbassano3@nytimes.com', 'JK2mAvb9GHE', 7);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Benedicto', 'Arlt', 'barlt4@wisc.edu', 'dbXJci4YR', 5);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Leeland', 'Eyam', 'leyam5@parallels.com', 'EvfdlEcS', 6);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Wallas', 'Pillington', 'wpillington6@samsung.com', 'j9ZUxqQ0eL', 2);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Holly', 'Dugan', 'hdugan7@mozilla.org', 'AvBwqx8zO', 2);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Herschel', 'Tabourin', 'htabourin8@arstechnica.com', 'paCZfam5r', 9);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Sheffy', 'Collinge', 'scollinge9@oakley.com', 'PijATpClEDf', 9);
 
 INSERT INTO Examen (codigo, nombre, materia, fechaInicio, fechaFin, idGrupo) VALUES ('EXAM123A', 'Examen de Matemáticas', 'Matemáticas', '2023-06-01 09:00:00', '2023-06-01 11:00:00', 5);
 INSERT INTO Examen (codigo, nombre, materia, fechaInicio, fechaFin, idGrupo) VALUES ('EXAM456B', 'Examen de Historia', 'Historia', '2023-06-02 10:00:00', '2023-06-02 12:00:00', 3);
@@ -314,4 +313,3 @@ insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealiza
 insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (3, 9, 7, 16382, '2023-05-22');
 insert into alumnoexamen (idAlumno, idExamen, calificacion, puntos, fechaRealizacion) values (4, 10, 10, 16382, '2023-05-20');
 
-use testhero;

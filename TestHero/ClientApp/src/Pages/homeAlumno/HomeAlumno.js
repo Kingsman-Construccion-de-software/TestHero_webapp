@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import "./homealumno.css";
+import styles from "./homealumno.module.css";
 import UserIcon from "../../assets/UserIcon.png";
 import SidebarAlumno from "../../components/sidebarAlumno/SidebarAlumno";
 import GrupoAlumno from "components/grupoAlumno/GrupoAlumno";
 import { useContext, useEffect } from "react";
 import ProfesorContext from "context/contextoProfesor";
 import axios from "axios";
+import swal from "sweetalert";
 
 /**
  * @author: Bernardo de la Sierra
@@ -26,20 +27,43 @@ export default function HomeAlumno() {
       const result = await axios.get(url);
       setExamenes(result.data);
     } catch (error) {
-      alert(error);
     }
   };
 
   const getGrupos = async () => {
-    const url = "api/grupo/alumnos/" + state.id;
-
-    try {
-      const result = await axios.get(url);
-      setGrupo(result.data[0]);
-    } catch (error) {
-      alert(error);
+   if(state.idGrupo !== -1) {
+      const url = "api/grupo/alumnos/" + state.id;
+      try {
+        const result = await axios.get(url);
+        if(result.data.length === 0){
+          addToGrupo(state.id, state.idGrupo);
+        } else {
+          setGrupo(result.data[0]);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
+
+  const addToGrupo = async (idAlumno, idGrupo) => {
+    try{
+      const url = "api/grupo/" + idGrupo + "/alumno/" + idAlumno;
+      const result = await axios.post(url);
+      setState({
+        ...state,
+        idGrupo: idGrupo
+      });
+      swal({
+        title:
+          "Has sigo agregado a un grupo",
+        button: "Aceptar",
+        icon: "info",
+      });
+    } catch(error){
+      alert(error);
+    }
+  }
 
   useEffect(() => {
     getExamenesActivos();
@@ -51,21 +75,22 @@ export default function HomeAlumno() {
       <div>
         <SidebarAlumno />
       </div>
-      <div className="home_background">
-        <h1 className="tituloPagina">¡Bienvenido!</h1>
-        <div className="datos">
-          <img className="icono" src={UserIcon} alt="icono de usuario" />
-          <div className="datosAlumno">
-            <span className="nombreUsuario">{state.nombre}</span>
+      <div className={styles.home_background}>
+        <h1 className={styles.tituloPagina}>¡Bienvenido!</h1>
+        <div className={styles.datos}>
+          <img className={styles.icono} src={UserIcon} alt="icono de usuario" />
+          <div className={styles.datosAlumno}>
+            <span className={styles.nombreUsuario}>{state.nombre}</span>
             {grupo && (
-              <span className="nombreUsuario">
-                Calificación: {grupo.nombre}
+              <span className={styles.nombreUsuario}>
+                Grupo: {grupo.nombre}
               </span>
             )}
           </div>
         </div>
-        <div className="examActuales">
-          {examenes.length > 0 &&
+        <div className={styles.examActuales}>
+          {!grupo && <p className={styles.vacio}>Aún no eres miembro de ningún grupo. Consúltalo con tu profesor.</p>}
+          {grupo && examenes.length > 0 &&
             examenes.map((examen) => (
               <GrupoAlumno
                 key={examen.idExamen}

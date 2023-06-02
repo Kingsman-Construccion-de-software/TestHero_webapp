@@ -415,43 +415,17 @@ BEGIN
 END;
 // DELIMITER ;
 
-
 DELIMITER //
-DROP PROCEDURE IF EXISTS registra_profesor;
-CREATE PROCEDURE registra_profesor(IN nom  VARCHAR(45),IN ape  VARCHAR(45),IN corr VARCHAR(45) ,IN pass VARCHAR(45))
+DROP PROCEDURE IF EXISTS insert_grupo_alumno;
+CREATE PROCEDURE insert_grupo_alumno(idG INT, idA INT)
 BEGIN
-	INSERT INTO profesor(nombres,apellidos,correo,password) values(nom,ape,corr,pass);
-END //
-DELIMITER ;
+	UPDATE alumno
+    SET alumno.idGrupo = idG
+	WHERE alumno.idAlumno = idA;
+END;
+// DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS dame_profesor;
-CREATE PROCEDURE  dame_profesor()
-BEGIN
-	SELECT nombres, apellidos, correo 
-    FROM profesor;
-END //
-DELIMITER ;
+SELECT * FROM alumno;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS dame_alumno;
-CREATE PROCEDURE  dame_alumno()
-BEGIN
-	SELECT nombres, apellidos, correo 
-    FROM alumno;
-END //
-DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS registra_alumno;
-CREATE PROCEDURE registra_alumno(IN nom  VARCHAR(45),IN ape  VARCHAR(45),IN corr VARCHAR(45) ,IN pass VARCHAR(45))
-BEGIN
-	INSERT INTO alumno(nombres,apellidos,correo,password) values(nom,ape,corr,pass);
-END //
-DELIMITER ;
 
-call registra_profesor("Papa","Solorzano","pruebapapa@gmail.com",12345678);
-call  registra_alumno("Papa","Solorzano","pruebapapa@gmail.com",12345678);
-call dame_profesor();
-call dame_alumno();
-select * from profesor;
