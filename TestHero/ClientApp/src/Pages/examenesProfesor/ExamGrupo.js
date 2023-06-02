@@ -12,7 +12,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
  * @version: 2.1.0
  * @description Esta clase esta dedicada al creacion de grupos
  */
-export default function Group({ parametro }) {
+export default function ExamGrupo({ parametro }) {
   // Estados
   const { state, setState } = useContext(ProfesorContext);
   const [examenes, setExamenes] = useState([]);
@@ -46,7 +46,6 @@ export default function Group({ parametro }) {
       const result = await axios.get(url);
       setExamenes([...result.data]);
     } catch (error) {
-      console.log(error);
     }
   };
 

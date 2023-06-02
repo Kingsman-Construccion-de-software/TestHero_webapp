@@ -75,8 +75,16 @@ namespace TestHero
                         Correo = reader.GetString(0),
                         Password = reader.GetString(1),
                         Id = reader.GetInt32(2),
-                        IdGrupo = reader.GetInt32(3)
                     };
+
+                    try
+                    {
+                        user.IdGrupo = reader.GetInt32(3);
+                    } catch(Exception ex)
+                    {
+                        user.IdGrupo = -1;
+                    }
+
                     users.Add(user);
                 }
             }

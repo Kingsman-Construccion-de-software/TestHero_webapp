@@ -86,7 +86,7 @@ namespace TestHero.Controllers
         {
             await Db.Connection.OpenAsync();
             AlumnoPregunta alumno = new AlumnoPregunta(Db);
-            var result = await alumno.GetAlumnoPreguntas(idA,idE);
+            var result = await alumno.GetAlumnoPreguntas(idA, idE);
             return new OkObjectResult(result);
         }
 
@@ -106,19 +106,7 @@ namespace TestHero.Controllers
             return new OkObjectResult(body);
         }
 
-        [Route("api/grupo/alumno/{id:int}")]
-        [HttpGet]
-        /// <summary>
-        /// Rutamiento de GetGruposAlumno por idgrupo
-        /// </summary>
-        public async Task<IActionResult> GetGrupoAlumno(int id)
-
-        {
-            await Db.Connection.OpenAsync();
-            Alumno alumno = new Alumno(Db);
-            var result = await alumno.GetGrupoAlumno(id);
-            return new OkObjectResult(result);
-        }
+        
 
         [Route("api/alumno/{id:int}")]
         [HttpGet]
@@ -133,6 +121,33 @@ namespace TestHero.Controllers
             var result = await alumno.GetAlumno(id);
             result[0].IdAlumno = id;
             return new OkObjectResult(result);
+        }
+
+        [Route("api/alumnosRegistro")]
+        [HttpGet]
+        /// <summary>
+        /// Rutamiento de get profesor por idProfesor
+        /// </summary>
+        public async Task<IActionResult> GetAlumnos()
+
+        {
+            await Db.Connection.OpenAsync();
+            Alumno alumno = new Alumno(Db);
+            var result = await alumno.GetAlumnos();
+            return new OkObjectResult(result);
+        }
+
+        [Route("api/alumnosRegistro")]
+        [HttpPost]
+        /// <summary>
+        /// Rutamiento de registor alumno
+        /// </summary>
+        public async Task<IActionResult> Post([FromBody] Alumno body)
+        {
+            await Db.Connection.OpenAsync();
+            body.Db = Db;
+            await body.InsertAlumno();
+            return new OkObjectResult(body);
         }
     }
 }

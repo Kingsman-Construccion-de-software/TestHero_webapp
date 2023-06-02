@@ -141,7 +141,6 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
       respuestas[3].esCorrecta = 1;
     }
 
-    console.log(selectedValue);
 
     respuestas.forEach((respuesta, index) => {
       setOpciones[index](respuesta.textoRespuesta);

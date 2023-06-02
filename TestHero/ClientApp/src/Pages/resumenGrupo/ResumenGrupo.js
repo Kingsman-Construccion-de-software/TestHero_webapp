@@ -71,8 +71,7 @@ export default function ResumenGrupo() {
                                     type="text"
                                     ref={inputRef}
                                     disabled
-                                    defaultValue={`https://localhost:44423/examenAlumno?grupo=${grupo.idGrupo}`}
-                                    placeholder={`https://localhost:44423/examenAlumno?grupo=${grupo.idGrupo}`}
+                                    defaultValue={`https://localhost:44423/invitacion?grupo=${grupo.idGrupo}`}
                                     className={styles["input-text"]}
                                 />
                                 <button onClick={handleCopyButtonClick} className={styles["copy-button"]}>
