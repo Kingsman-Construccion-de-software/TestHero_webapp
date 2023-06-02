@@ -25,6 +25,7 @@ export default function RegistroProfesor() {
   const [password, setPassword] = useState("");
   const [confirmar, setConfirmar] = useState("");
   const [status, setStatus] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   /**Cambia el nombre */
   const handleNombreChange = (value) => {
@@ -41,6 +42,32 @@ export default function RegistroProfesor() {
   /**Cambia la contraseña */
   const handlePasswordChange = (value) => {
     setPassword(value);
+    if (value.length < 8) {
+      setErrorMessage("");
+    } else if (
+      !value.match(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,64}$/
+      )
+    ) {
+      setErrorMessage(
+        "La contraseña debe contener al menos una letra, un número y un símbolo"
+      );
+    } else {
+      setErrorMessage("");
+    }
+  };
+
+  const handleBlur = () => {
+    if (
+      password.length >= 8 &&
+      !password.match(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,64}$/
+      )
+    ) {
+      setErrorMessage(
+        "La contraseña debe contener al menos una letra, un número y un símbolo"
+      );
+    }
   };
   /**Confirmar la contraseña */
   const handleConfirmarChange = (value) => {
@@ -155,6 +182,8 @@ export default function RegistroProfesor() {
                 value={password}
                 required
                 minLength="8"
+                maxLength="64"
+                onBlur={handleBlur}
               />
             </div>
             <div className="col-6">
@@ -170,6 +199,11 @@ export default function RegistroProfesor() {
                 minLength="8"
               />
             </div>
+          </div>
+          <div className="col-12">
+            {errorMessage && (
+              <p className={`${styles["errorMessage"]} }`}>{errorMessage}</p>
+            )}
           </div>
           <button className={styles["loginButton"]}>Registrate</button>
         </form>

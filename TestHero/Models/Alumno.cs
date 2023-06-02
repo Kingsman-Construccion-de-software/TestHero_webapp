@@ -9,26 +9,24 @@ using TestHero;
 /// <summary>
 /// Modelo que une la tabla de alumno
 /// Aqui se definen todas las atributos de alumno
-/// como lo son  idalumno, nombre, apellido, matricula, correo, password y idGrupo
+/// como lo son  idalumno, nombre, apellido, correo, password y idGrupo
 /// </summary>
 public class Alumno
 {
     public int IdAlumno { get; set; }
     public string Nombres { get; set; }
     public string Apellidos { get; set; }
-    public string Matricula { get; set; }
     public string Correo { get; set; }
     public string Password { get; set; }
     public int IdGrupo { get; set; }
 
     [JsonConstructor]
-    public Alumno(string Nombres,string Apellidos, string Matricula, string Correo,
+    public Alumno(string Nombres,string Apellidos, string Correo,
         string Password, int IdGrupo)
     {
      
         this.Nombres = Nombres;
         this.Apellidos = Apellidos;
-        this.Matricula = Matricula;
         this.Correo = Correo;
         this.Password = Password;
         this.IdGrupo = IdGrupo;
@@ -70,7 +68,23 @@ public class Alumno
         cmd.CommandType = CommandType.StoredProcedure;
         return await ReadAllAsync(await cmd.ExecuteReaderAsync());
     }
-
+    /// <summary>
+    /// Funcion para registrar al alumno
+    /// </summary>
+    public async Task InsertAlumno()
+    {
+        using MySqlCommand cmd = Db.Connection.CreateCommand();
+        cmd.CommandText = @"registra_alumno";
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@nom", Nombres);
+        cmd.Parameters.AddWithValue("@ape", Apellidos);
+        cmd.Parameters.AddWithValue("@corr", Correo);
+        cmd.Parameters.AddWithValue("@pass", Password);
+        await cmd.ExecuteNonQueryAsync();
+        using MySqlCommand cmdInt = Db.Connection.CreateCommand();
+        cmdInt.CommandText = @"SELECT MAX(idAlumno) FROM alumno;";
+        IdAlumno = Convert.ToInt32(cmdInt.ExecuteScalar());
+    }
 
     private async Task<List<Alumno>> ReadAllAsync(MySqlDataReader reader)
     {
