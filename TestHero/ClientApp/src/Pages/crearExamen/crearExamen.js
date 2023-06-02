@@ -74,7 +74,7 @@ function CrearExamen() {
    * Navegar a examenes
    */
   const goToExamenes = () => {
-    navigate(`/examen/alumno?grupo=${state.idGrupo}`);
+    navigate(`/resumen/grupo?grupo=${state.idGrupo}`);
   };
 
   /**Funcion para actualizar la clase  */
