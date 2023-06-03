@@ -2,6 +2,8 @@ import { useState } from "react";
 import styles from "./formularioPregunta.module.css";
 import axios from "axios";
 import swal from "sweetalert";
+import { BsFillCaretDownFill } from "react-icons/bs";
+
 /**
  * @author Bernardo de la Sierra y Julio Meza
  * @version 2.1.1
@@ -13,6 +15,11 @@ export default function FormularioPregunta({
   handleSelected,
   getPreguntas,
   idExamen,
+  selects,
+  setSelects,
+  etiquetas,
+  nombre,
+  setNombre,
 }) {
   // Estados para actualzar
   const [fpregunta, setFpregunta] = useState("");
@@ -21,7 +28,8 @@ export default function FormularioPregunta({
   const [opcion3, setOpcion3] = useState("");
   const [opcion4, setOpcion4] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
-
+  const [activo, setActivo] = useState(false);
+  const [guarda, setGuarda] = useState(-1);
   /**
    * Activa y desactiva el modal de eliminar
    */
@@ -40,7 +48,7 @@ export default function FormularioPregunta({
   const creaPregunta = async (e) => {
     e.preventDefault();
 
-    if (!selectedValue) {
+    if (!selectedValue && selects === "") {
       swal({
         title:
           "Antes de crear la pregunta debe seleccionar la respuesta correcta",
@@ -53,6 +61,7 @@ export default function FormularioPregunta({
     const result = await axios.post(URIpregunta, {
       idExamen: idExamen,
       textoPregunta: fpregunta,
+      idEtiqueta: guarda,
     });
 
     const data1 = {
@@ -96,6 +105,7 @@ export default function FormularioPregunta({
       button: "Aceptar",
       icon: "success",
     });
+    setSelects("");
     getPreguntas();
     handleSelected();
   };
@@ -184,15 +194,64 @@ export default function FormularioPregunta({
                 type="text"
               />
             </div>
+            <div className={styles["dropdown2"]}>
+              {selects === null ? (
+                <div
+                  className={styles["dropdown2-btn"]}
+                  onClick={(e) => setActivo(!activo)}
+                >
+                  Elige una etiqueta
+                  <BsFillCaretDownFill />
+                </div>
+              ) : selects === "" ? (
+                <div
+                  className={styles["dropdown2-btn"]}
+                  onClick={(e) => setActivo(!activo)}
+                >
+                  Elige una etiqueta
+                  <BsFillCaretDownFill />
+                </div>
+              ) : (
+                <div
+                  className={styles["dropdown2-btn"]}
+                  onClick={(e) => setActivo(!activo)}
+                >
+                  {selects}
+                  <BsFillCaretDownFill />
+                </div>
+              )}
+
+              {activo && (
+                <div className={styles["dropdown2-content"]}>
+                  {etiquetas.map((op) => (
+                    <div
+                      className={styles["dropdown2-item"]}
+                      key={op.idEtiqueta}
+                      onClick={(e) => {
+                        setSelects(op.nombre);
+                        setActivo(false);
+                        setGuarda(op.idEtiqueta);
+                      }}
+                    >
+                      {op.nombre}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
+
         {!selectedValue && (
           <p className={styles["aviso"]}>
             Asegúrate de llenar todos los campos y marcar una respuesta como
             correcta
           </p>
         )}
-        <button className={styles['botonCancelarPregunta']} onClick={handleSelected}>
+        <button
+          className={styles["botonCancelarPregunta"]}
+          onClick={handleSelected}
+        >
           Cancelar
         </button>
         <input

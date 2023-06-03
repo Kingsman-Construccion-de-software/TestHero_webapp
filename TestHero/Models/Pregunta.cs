@@ -21,12 +21,15 @@ namespace TestHero
 
         public int IdExamen { get; set; }
         public string TextoPregunta { get; set; }
+        public int IdEtiqueta { get; set; }
 
         [JsonConstructor]
-        public Pregunta(int IdExamen, string TextoPregunta)
+        public Pregunta(int IdExamen, string TextoPregunta, 
+            int IdEtiqueta)
         {
             this.IdExamen = IdExamen;
             this.TextoPregunta = TextoPregunta;
+            this.IdEtiqueta = IdEtiqueta;
         }
 
 
@@ -66,6 +69,7 @@ namespace TestHero
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@preg", TextoPregunta);
             cmd.Parameters.AddWithValue("@idE", IdExamen);
+            cmd.Parameters.AddWithValue("@idEt", IdEtiqueta);
             await cmd.ExecuteNonQueryAsync();
             using MySqlCommand cmdInt = Db.Connection.CreateCommand();
             cmdInt.CommandText = @"SELECT MAX(idPregunta) FROM pregunta;";

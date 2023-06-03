@@ -17,8 +17,21 @@ export default function Questions() {
   // Estados iniciales
   const [examen, setExamen] = useState();
   const [preguntas, setPreguntas] = useState([]);
+  const [etiquetas, setEtiquetas] = useState([]);
   const [selected, setSelected] = useState(false);
   const [searchParams] = useSearchParams();
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("");
+  const [selects, setSelects] = useState("");
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    setIsOpen(false);
+  };
   /**Checa que esta seleccionado el boton de crear para desplegar el modal */
   const handleSelected = () => {
     setSelected(!selected);
@@ -39,12 +52,22 @@ export default function Questions() {
       const URIpreguntas = "api/pregunta/examen/" + searchParams.get("examen");
       const res = await axios.get(URIpreguntas);
       setPreguntas(res.data);
-    } catch (e) {
-    }
+    } catch (e) {}
+  };
+
+  /** Se obtiene las etiquetas de un examen */
+  const getEtiqueta = async () => {
+    try {
+      const URIetiqueta = "api/etiqueta/examen/" + searchParams.get("examen");
+      const res = await axios.get(URIetiqueta);
+      setEtiquetas(res.data);
+      console.log(res.data);
+    } catch (e) {}
   };
 
   useEffect(() => {
     getExamen();
+    getEtiqueta();
   }, []);
 
   useEffect(() => {
@@ -76,6 +99,9 @@ export default function Questions() {
                 pregunta={pregunta}
                 filterPreguntas={filterPreguntas}
                 getPreguntas={getPreguntas}
+                selects={selects}
+                setSelects={setSelects}
+                etiquetas={etiquetas}
               />
             ))}
             {selected && (
@@ -83,6 +109,9 @@ export default function Questions() {
                 handleSelected={handleSelected}
                 getPreguntas={getPreguntas}
                 idExamen={examen.idExamen}
+                selects={selects}
+                setSelects={setSelects}
+                etiquetas={etiquetas}
               />
             )}
           </div>
