@@ -417,48 +417,21 @@ END;
 // DELIMITER ;
 
 DELIMITER //
-DROP PROCEDURE IF EXISTS insert_grupo_alumno;
-CREATE PROCEDURE insert_grupo_alumno(idG INT, idA INT)
+DROP PROCEDURE IF EXISTS insert_examen_poder;
+CREATE PROCEDURE insert_examen_poder(IN idE  int, IN idP  int)
 BEGIN
-	UPDATE alumno
-    SET alumno.idGrupo = idG
-	WHERE alumno.idAlumno = idA;
-END;
-// DELIMITER ;
-
-SELECT * FROM alumno;
-
-DELIMITER //
-DROP PROCEDURE IF EXISTS registra_profesor;
-CREATE PROCEDURE registra_profesor(IN nom  VARCHAR(45),IN ape  VARCHAR(45),IN corr VARCHAR(45) ,IN pass VARCHAR(45))
-BEGIN
-	INSERT INTO profesor(nombres,apellidos,correo,password) values(nom,ape,corr,pass);
+	INSERT INTO ExamenPoder(idExamen,idPoder) values(idE, idP);
 END //
 DELIMITER ;
 
 DELIMITER //
-DROP PROCEDURE IF EXISTS dame_profesor;
-CREATE PROCEDURE  dame_profesor()
+DROP PROCEDURE IF EXISTS update_examen;
+CREATE PROCEDURE update_examen(IN id INT, IN fecha1 DATETIME, IN fecha2 DATETIME,
+IN nombre_val VARCHAR(45), IN materia_val VARCHAR(45))
 BEGIN
-	SELECT nombres, apellidos, correo 
-    FROM profesor;
-END //
-DELIMITER ;
-
-DELIMITER //
-DROP PROCEDURE IF EXISTS dame_alumno;
-CREATE PROCEDURE  dame_alumno()
-BEGIN
-	SELECT nombres, apellidos, correo 
-    FROM alumno;
-END //
-DELIMITER ;
-
-DELIMITER //
-DROP PROCEDURE IF EXISTS registra_alumno;
-CREATE PROCEDURE registra_alumno(IN nom  VARCHAR(45),IN ape  VARCHAR(45),IN corr VARCHAR(45) ,IN pass VARCHAR(45))
-BEGIN
-	INSERT INTO alumno(nombres,apellidos,correo,password) values(nom,ape,corr,pass);
+    UPDATE examen
+    SET fechaInicio = fecha1, fechaFin = fecha2, nombre = nombre_val, materia = materia_val
+    WHERE idExamen = id;
 END //
 DELIMITER ;
 
@@ -487,6 +460,7 @@ END
 // DELIMITER ;
 
 call registra_profesor("Papa","Solorzano","pruebapapa@gmail.com",12345678);
+
 call  registra_alumno("Prueba","Solorzano","prueba@gmail.com",12345678);
 call dame_profesor();
 call dame_alumno();
@@ -498,3 +472,7 @@ select * from alumno;
 select * from profesor;
 select * from etiqueta;
 select * from pregunta;
+
+
+select * from profesor;
+
