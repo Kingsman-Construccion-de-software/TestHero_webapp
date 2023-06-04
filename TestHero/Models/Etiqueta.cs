@@ -37,12 +37,12 @@ namespace TestHero
         /// <summary>
         /// Nos dice las etiquetas de cierto examen dado el id del profesor
         /// </summary>
-        public async Task<List<Etiqueta>> GetEtiquetasExamen(int idProfesor)
+        public async Task<List<Etiqueta>> GetEtiquetasExamen(int idExamen)
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
             cmd.CommandText = @"get_etiquetas_examen";
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@idE", idProfesor);
+            cmd.Parameters.AddWithValue("@idE", idExamen);
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
         /// <summary>
@@ -64,6 +64,18 @@ namespace TestHero
             cmd.CommandText = @"get_etiqueta";
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
+            return await ReadAllAsync(await cmd.ExecuteReaderAsync());
+        }
+
+        /// <summary>
+        /// Nos dice las etiquetas de cierta etiqueta dado un id
+        /// </summary>
+        public async Task<List<Etiqueta>> GetNombreEtiqueta(int idP)
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"get_nombretiqueta";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@idP", idP);
             return await ReadAllAsync(await cmd.ExecuteReaderAsync());
         }
 

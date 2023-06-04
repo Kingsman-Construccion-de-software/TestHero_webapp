@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import styles from "./crearExamen.module.css";
 import Sidebar from "../../components/sidebar/Sidebar.js";
 import axios from "axios";
-import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ProfesorContext from "context/contextoProfesor";
 import swal from "sweetalert";
@@ -24,12 +23,9 @@ function CrearExamen() {
   const [hora2, setHora2] = useState("");
   const [tags, setTags] = useState([]);
   const [currentTag, setCurrentTag] = useState("");
-  const [searchParams] = useSearchParams();
   const [etiquetas, setEtiquetas] = useState([]);
   const [showingEtiquetas, setShowingEtiquetas] = useState([]);
   const { state, setState } = useContext(ProfesorContext);
-  const [codigo, setCodigo] = useState([]);
-  const parametro = searchParams.get("grupo");
 
   const nombresPoderes = ["Volver a intentar", "Más tiempo", "Ayuda"];
   const [poderes, setPoderes] = useState(nombresPoderes.map((el) => 0));

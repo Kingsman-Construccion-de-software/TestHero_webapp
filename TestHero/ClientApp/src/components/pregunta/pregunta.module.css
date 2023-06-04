@@ -24,7 +24,7 @@
 
 .pregIcon:hover {
   cursor: pointer;
-  color:rgb(207, 207, 207);
+  color: rgb(207, 207, 207);
 }
 
 .pregunta {
@@ -38,7 +38,7 @@
   align-items: center;
   background-color: rgba(5, 150, 255, 0.3);
   color: #ebebeb;
-  border-radius: 5px;
+  border-radius: 5px 5px 0px 0px;
   padding: 10px;
   margin-bottom: 10px;
   width: 100%;
@@ -146,7 +146,7 @@
   box-shadow: 2px 2px rgba(0px, 0px, 0px, 0.24);
 }
 
-.botonCancelar2:hover{
+.botonCancelar2:hover {
   transform: scale(0.98);
   background-color: #464545;
   box-shadow: 2px 2px rgba(0px, 0px, 0px, 0.24);
@@ -162,7 +162,7 @@
   font-size: 24px;
 }
 
-.botonEliminar:hover{
+.botonEliminar:hover {
   cursor: pointer;
   background-color: #d0d0d0;
   color: #fd4d4d;
@@ -228,7 +228,7 @@
   box-shadow: 7px 7px rgba(0px, 0px, 0px, 0.24);
 }
 
-.botonCancelarPreguntaEditar:hover{
+.botonCancelarPreguntaEditar:hover {
   cursor: pointer;
   background-color: #d0d0d0;
   color: #0596ff;
@@ -236,3 +236,52 @@
   box-shadow: 2px 2px rgba(0px, 0px, 0px, 0.24);
 }
 
+.contenedorEtiqueta {
+  background-color: rgba(5, 150, 255, 0.3);
+  border-radius: 0px 0px 5px 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  margin-top: -10px;
+}
+.dropdown2 {
+  width: 500px;
+
+  margin-left: 50px;
+  margin-top: -20px;
+  position: relative;
+  user-select: none;
+}
+
+.dropdown2 .dropdown2-btn {
+  padding: 10px;
+  background: #ebebeb;
+  box-shadow: 3px 3px 5px 10px rgba(0, 0, 0, 0.06);
+  font-weight: bold;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.dropdown2 .dropdown2-content {
+  position: absolute;
+  top: 110%;
+  padding: 10px;
+  background: #ebebeb;
+  box-shadow: 3px 3px 5px 10px rgba(0, 0, 0, 0.06);
+  font-weight: 500;
+  color: #333;
+  left: 0;
+  width: 105%;
+}
+
+.dropdown2 .dropdown2-content .dropdown2-item {
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.dropdown2 .dropdown2-content .dropdown2-item:hover {
+  background: #f4f4f4;
+}
