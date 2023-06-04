@@ -15,11 +15,7 @@ export default function FormularioPregunta({
   handleSelected,
   getPreguntas,
   idExamen,
-  selects,
-  setSelects,
   etiquetas,
-  nombre,
-  setNombre,
 }) {
   // Estados para actualzar
   const [fpregunta, setFpregunta] = useState("");
@@ -30,6 +26,7 @@ export default function FormularioPregunta({
   const [selectedValue, setSelectedValue] = useState("");
   const [activo, setActivo] = useState(false);
   const [guarda, setGuarda] = useState(-1);
+  const [selects, setSelects] = useState([]);
   /**
    * Activa y desactiva el modal de eliminar
    */
@@ -57,7 +54,7 @@ export default function FormularioPregunta({
       });
       return;
     }
-
+    console.log(selects);
     const result = await axios.post(URIpregunta, {
       idExamen: idExamen,
       textoPregunta: fpregunta,
@@ -105,7 +102,7 @@ export default function FormularioPregunta({
       button: "Aceptar",
       icon: "success",
     });
-    setSelects("");
+
     getPreguntas();
     handleSelected();
   };

@@ -68,8 +68,8 @@ namespace TestHero
             cmd.CommandText = @"insert_pregunta";
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@preg", TextoPregunta);
-            cmd.Parameters.AddWithValue("@idE", IdExamen);
             cmd.Parameters.AddWithValue("@idEt", IdEtiqueta);
+            cmd.Parameters.AddWithValue("@idE", IdExamen);   
             await cmd.ExecuteNonQueryAsync();
             using MySqlCommand cmdInt = Db.Connection.CreateCommand();
             cmdInt.CommandText = @"SELECT MAX(idPregunta) FROM pregunta;";
@@ -85,6 +85,7 @@ namespace TestHero
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
             cmd.Parameters.AddWithValue("@preg", TextoPregunta);
+            cmd.Parameters.AddWithValue("@idEt", IdEtiqueta);
             await cmd.ExecuteNonQueryAsync();
             IdPregunta = id;
         }
@@ -113,16 +114,14 @@ namespace TestHero
                     {
                         IdPregunta = reader.GetInt32(0),
                         TextoPregunta = reader.GetString(1),
-                        IdExamen = reader.GetInt32(2)
+                        IdExamen = reader.GetInt32(2),
+                        IdEtiqueta = reader.GetInt32(3)
                     };
                     preguntas.Add(pregunta);
                 }
             }
             return preguntas;
         }
-
-
-
 
     }
 

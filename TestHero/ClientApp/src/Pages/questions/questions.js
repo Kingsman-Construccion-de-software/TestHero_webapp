@@ -22,7 +22,6 @@ export default function Questions() {
   const [searchParams] = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
-  const [selects, setSelects] = useState("");
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -99,8 +98,6 @@ export default function Questions() {
                 pregunta={pregunta}
                 filterPreguntas={filterPreguntas}
                 getPreguntas={getPreguntas}
-                selects={selects}
-                setSelects={setSelects}
                 etiquetas={etiquetas}
               />
             ))}
@@ -109,8 +106,6 @@ export default function Questions() {
                 handleSelected={handleSelected}
                 getPreguntas={getPreguntas}
                 idExamen={examen.idExamen}
-                selects={selects}
-                setSelects={setSelects}
                 etiquetas={etiquetas}
               />
             )}

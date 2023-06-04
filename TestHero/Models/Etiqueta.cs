@@ -68,6 +68,18 @@ namespace TestHero
         }
 
         /// <summary>
+        /// Nos dice las etiquetas de cierta etiqueta dado un id
+        /// </summary>
+        public async Task<List<Etiqueta>> GetNombreEtiqueta(int idP)
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"get_nombretiqueta";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@idP", idP);
+            return await ReadAllAsync(await cmd.ExecuteReaderAsync());
+        }
+
+        /// <summary>
         /// Funcion para agregar etiquetas
         /// </summary>
         public async Task InsertEtiqueta()

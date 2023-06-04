@@ -85,7 +85,7 @@ export default function PreguntasAlumno() {
               </>
             )}
             <div>
-              {checaFechas ? (
+              {checaFechas && alumnoRespuesta.length > 0 ? (
                 <>
                   <div className={styles["vacio"]}>
                     El resultado se mostrará después de la fecha

@@ -59,6 +59,20 @@ namespace TestHero.Controllers
             return new OkObjectResult(result);
         }
 
+        // GET: api/etiquetanomre/id
+        [Route("api/etiquetanombre/{id:int}")]
+        [HttpGet]
+        /// <summary>
+        /// Rutamiento de getetiqueta para obtener el nombre
+        /// </summary>
+        public async Task<IActionResult> GetNombreEtiqueta(int id)
+
+        {
+            await Db.Connection.OpenAsync();
+            Etiqueta etiqueta = new Etiqueta(Db);
+            var result = await etiqueta.GetNombreEtiqueta(id);
+            return new OkObjectResult(result);
+        }
 
         // POST api/etiqueta/idEtiqueta/examen/idExamen
         [Route("api/etiqueta/{idEt:int}/examen/{idEx:int}")]

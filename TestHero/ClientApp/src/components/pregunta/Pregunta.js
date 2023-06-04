@@ -19,10 +19,7 @@ export default function Pregunta({
   pregunta,
   filterPreguntas,
   getPreguntas,
-  selects,
-  setSelects,
   etiquetas,
-  idE,
 }) {
   // Aparicio de datos
   const [open, setOpen] = useState(false);
@@ -42,6 +39,8 @@ export default function Pregunta({
   const setOpciones = [setOpcion1, setOpcion2, setOpcion3, setOpcion4];
   const [respuestas, setRespuestas] = useState([]);
   const [activo, setActivo] = useState(false);
+  const [selects, setSelects] = useState([]);
+  const [etiqueta, setEtiqueta] = useState(0);
   const handleOptionChange = (event) => {
     setSelectedValue(parseInt(event.target.value));
   };
@@ -83,6 +82,14 @@ export default function Pregunta({
   };
 
   /**
+   *Funcion para obtener la etiqueta de una pregunta
+   */
+  const getNombreEtiqueta = async () => {
+    const URIetiqueta = "api/etiquetanombre/";
+    const res = await axios.get(`${URIetiqueta}${pregunta.idPregunta}`);
+    setSelects(res.data[0].nombre);
+  };
+  /**
    * Funcion para abrir o cerrar todas las respuestas
    */
   const handleSelected = () => {
@@ -112,6 +119,7 @@ export default function Pregunta({
     const URIupdate = "api/pregunta/";
     await axios.put(`${URIupdate}${pregunta.idPregunta}`, {
       textoPregunta: fpregunta,
+      IdEtiqueta: etiqueta,
     });
 
     await opciones.forEach((opcion, idx) => {
@@ -219,27 +227,20 @@ export default function Pregunta({
                     onClick={(e) => setActivo(!activo)}
                   >
                     Elige una etiqueta
-                    {pregunta.idEtiqueta}
                   </div>
                 ) : selects === "" ? (
                   <div
                     className={styles["dropdown2-btn"]}
                     onClick={(e) => setActivo(!activo)}
                   >
-                    Elige una etiqueta
-                    {pregunta.idEtiqueta} Papa
-                    {etiquetas.idEtiqueta}
+                    {selects}
                   </div>
                 ) : (
                   <div
                     className={styles["dropdown2-btn"]}
                     onClick={(e) => setActivo(!activo)}
                   >
-                    {pregunta.idEtiqueta === etiquetas.idEtiqueta
-                      ? etiquetas.nombre
-                      : selects}
-                    {pregunta.idEtiqueta}
-                    {idE}
+                    {selects}
                   </div>
                 )}
               </div>
@@ -337,6 +338,7 @@ export default function Pregunta({
                     onClick={(e) => {
                       setSelects(op.nombre);
                       setActivo(false);
+                      setEtiqueta(op.idEtiqueta);
                     }}
                   >
                     {op.nombre}
@@ -367,6 +369,7 @@ export default function Pregunta({
 
   useEffect(() => {
     getRespuestas();
+    getNombreEtiqueta();
   }, []);
 
   useEffect(() => {
