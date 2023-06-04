@@ -42,6 +42,7 @@ END //
 DELIMITER ;
 
 
+
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_alumno_by_correo;
 CREATE PROCEDURE get_alumno_by_correo(IN corr VARCHAR(45))
@@ -56,7 +57,7 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS get_preguntas_examen;
 CREATE PROCEDURE get_preguntas_examen(IN idE int)
 BEGIN
-	SELECT idPregunta, pregunta, idExamen
+	SELECT idPregunta, pregunta, idExamen, idEtiqueta
     FROM pregunta 
     WHERE idExamen = idE;
 END 
@@ -66,7 +67,7 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS get_pregunta;
 CREATE PROCEDURE get_pregunta(IN id INT)
 BEGIN
-	SELECT  idPregunta, pregunta, idExamen
+	SELECT  idPregunta, pregunta,idEtiqueta, idExamen
     FROM pregunta
     WHERE idPregunta = id;
 END //
@@ -75,18 +76,18 @@ DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS insert_pregunta;
-CREATE PROCEDURE insert_pregunta(IN preg text ,IN idE int )
+CREATE PROCEDURE insert_pregunta(IN preg text ,IN idE int ,IN idEt int )
 BEGIN
-	INSERT INTO pregunta(pregunta,idExamen) values(preg,idE);
+	INSERT INTO pregunta(pregunta,idExamen, idEtiqueta) values(preg,idE,idEt);
 END //
 DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS update_pregunta;
-CREATE PROCEDURE update_pregunta(IN id INT, IN preg text)
+CREATE PROCEDURE update_pregunta(IN id INT, IN preg text, IN idEt INT)
 BEGIN
 	UPDATE pregunta
-    SET pregunta = preg
+    SET pregunta = preg, idEtiqueta = idEt
     WHERE idPregunta = id;
 END //
 DELIMITER ;
@@ -273,7 +274,7 @@ BEGIN
     ON e.idEtiqueta = ee.idEtiqueta
     WHERE ee.idExamen = idE;
 END 
-// DELIMITER ;
+// DELIMITER
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_etiquetas;
@@ -434,6 +435,44 @@ BEGIN
 END //
 DELIMITER ;
 
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_etiquetas_examenes;
+CREATE PROCEDURE get_etiquetas_examen(IN idE int)
+BEGIN
+	SELECT e.idEtiqueta, e.nombre
+    FROM etiqueta as e
+    JOIN examenEtiqueta as ee
+    ON e.idEtiqueta = ee.idEtiqueta
+    WHERE ee.idExamen = idE;
+END 
+// DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_nombretiqueta;
+CREATE PROCEDURE  get_nombretiqueta(IN idP int)
+BEGIN
+	SELECT etiqueta.idEtiqueta, etiqueta.nombre
+    from etiqueta
+    inner join pregunta on
+	pregunta.idEtiqueta  = etiqueta.idEtiqueta
+    WHERE pregunta .idPregunta   = idP;
+END 
+// DELIMITER ;
+
 call registra_profesor("Papa","Solorzano","pruebapapa@gmail.com",12345678);
 
+call  registra_alumno("Prueba","Solorzano","prueba@gmail.com",12345678);
+call dame_profesor();
+call dame_alumno();
+call get_etiquetas_examenes(11);
+call get_preguntas_examen(11);
+call get_nombretiqueta(47);
+call update_pregunta(50,"papa",12);
+select * from alumno;
 select * from profesor;
+select * from etiqueta;
+select * from pregunta;
+
+
+select * from profesor;
+

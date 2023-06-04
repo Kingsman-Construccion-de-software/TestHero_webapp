@@ -32,6 +32,7 @@ const context = [
   "/api/alumno/pregunta/",
   "/api/alumnopregunta/",
   "api/alumnosRegistro",
+  "api/etiquetanombre/",
 ];
 
 module.exports = function (app) {
