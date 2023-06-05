@@ -67,7 +67,7 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS get_pregunta;
 CREATE PROCEDURE get_pregunta(IN id INT)
 BEGIN
-	SELECT  idPregunta, pregunta,idEtiqueta, idExamen
+	SELECT  idPregunta, pregunta, idExamen, idEtiqueta
     FROM pregunta
     WHERE idPregunta = id;
 END //
@@ -485,16 +485,3 @@ BEGIN
     WHERE pregunta .idPregunta   = idP;
 END 
 // DELIMITER ;
-
-call registra_profesor("Papa","Solorzano","pruebapapa@gmail.com",12345678);
-call  registra_alumno("Prueba","Solorzano","prueba@gmail.com",12345678);
-call dame_profesor();
-call dame_alumno();
-call get_etiquetas_examenes(11);
-call get_preguntas_examen(11);
-call get_nombretiqueta(47);
-call update_pregunta(50,"papa",12);
-select * from alumno;
-select * from profesor;
-select * from etiqueta;
-select * from pregunta;
