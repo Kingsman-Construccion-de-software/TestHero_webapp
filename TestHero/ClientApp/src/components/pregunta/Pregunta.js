@@ -350,7 +350,7 @@ export default function Pregunta({
         </div>
         <p className={styles["aviso"]}>
           Asegúrate de llenar todos los campos y marcar una respuesta como
-          correcta
+          correcta.
         </p>
         <button
           className={styles["botonCancelarPreguntaEditar"]}
