@@ -56,7 +56,7 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS get_preguntas_examen;
 CREATE PROCEDURE get_preguntas_examen(IN idE int)
 BEGIN
-	SELECT idPregunta, pregunta, idExamen
+	SELECT idPregunta, pregunta, idExamen, idEtiqueta
     FROM pregunta 
     WHERE idExamen = idE;
 END 
@@ -442,18 +442,6 @@ BEGIN
 	INSERT INTO alumno(nombres,apellidos,correo,password) values(nom,ape,corr,pass);
 END //
 DELIMITER ;
-
-DELIMITER //
-DROP PROCEDURE IF EXISTS get_etiquetas_examenes;
-CREATE PROCEDURE get_etiquetas_examen(IN idE int)
-BEGIN
-	SELECT e.idEtiqueta, e.nombre
-    FROM etiqueta as e
-    JOIN examenEtiqueta as ee
-    ON e.idEtiqueta = ee.idEtiqueta
-    WHERE ee.idExamen = idE;
-END 
-// DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_nombretiqueta;

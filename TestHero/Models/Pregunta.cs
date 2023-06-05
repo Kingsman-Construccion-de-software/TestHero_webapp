@@ -21,11 +21,10 @@ namespace TestHero
 
         public int IdExamen { get; set; }
         public string TextoPregunta { get; set; }
-        public int IdEtiqueta { get; set; }
+        public int? IdEtiqueta { get; set; }
 
         [JsonConstructor]
-        public Pregunta(int IdExamen, string TextoPregunta, 
-            int IdEtiqueta)
+        public Pregunta(int IdExamen, string TextoPregunta, int? IdEtiqueta)
         {
             this.IdExamen = IdExamen;
             this.TextoPregunta = TextoPregunta;
@@ -114,9 +113,18 @@ namespace TestHero
                     {
                         IdPregunta = reader.GetInt32(0),
                         TextoPregunta = reader.GetString(1),
-                        IdExamen = reader.GetInt32(2),
-                        IdEtiqueta = reader.GetInt32(3)
+                        IdExamen = reader.GetInt32(2)
                     };
+
+                    try
+                    {
+                        pregunta.IdEtiqueta = reader.GetInt32(3);
+                    }
+                    catch (Exception e)
+                    {
+                     
+                    }
+
                     preguntas.Add(pregunta);
                 }
             }
