@@ -75,18 +75,18 @@ DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS insert_pregunta;
-CREATE PROCEDURE insert_pregunta(IN preg text ,IN idE int )
+CREATE PROCEDURE insert_pregunta(IN preg text ,IN idE int ,IN idEt int )
 BEGIN
-	INSERT INTO pregunta(pregunta,idExamen) values(preg,idE);
+	INSERT INTO pregunta(pregunta,idExamen, idEtiqueta) values(preg,idE,idEt);
 END //
 DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS update_pregunta;
-CREATE PROCEDURE update_pregunta(IN id INT, IN preg text)
+CREATE PROCEDURE update_pregunta(IN id INT, IN preg text, IN idEt INT)
 BEGIN
 	UPDATE pregunta
-    SET pregunta = preg
+    SET pregunta = preg, idEtiqueta = idEt
     WHERE idPregunta = id;
 END //
 DELIMITER ;
@@ -454,3 +454,23 @@ BEGIN
     WHERE pregunta .idPregunta   = idP;
 END 
 // DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS delete_exam;
+CREATE PROCEDURE delete_exam(IN id int)
+BEGIN
+	DELETE FROM AlumnoExamen WHERE AlumnoExamen.idExamen = id;
+	DELETE FROM ExamenPoder WHERE ExamenPoder.idExamen = id;
+    DELETE FROM Examen WHERE Examen.idExamen = id;
+END
+// DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS insert_pregunta2;
+CREATE PROCEDURE insert_pregunta2(IN preg text ,IN idE int )
+BEGIN
+	INSERT INTO pregunta(pregunta,idExamen) values(preg,idE);
+END //
+DELIMITER ;
+call insert_pregunta2("xd",1)
+select * from pregunta;

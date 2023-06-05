@@ -40,7 +40,7 @@ export default function Pregunta({
   const [respuestas, setRespuestas] = useState([]);
   const [activo, setActivo] = useState(false);
   const [selects, setSelects] = useState([]);
-  const [etiqueta, setEtiqueta] = useState(0);
+  const [etiqueta, setEtiqueta] = useState(null);
   const handleOptionChange = (event) => {
     setSelectedValue(parseInt(event.target.value));
   };
@@ -219,32 +219,41 @@ export default function Pregunta({
                 </div>
               )}
             </div>
-            <div className={styles["contenedorEtiqueta"]}>
-              <div className={styles["dropdown2"]}>
-                {selects === null ? (
-                  <div
-                    className={styles["dropdown2-btn"]}
-                    onClick={(e) => setActivo(!activo)}
-                  >
-                    Elige una etiqueta
-                  </div>
-                ) : selects === "" ? (
-                  <div
-                    className={styles["dropdown2-btn"]}
-                    onClick={(e) => setActivo(!activo)}
-                  >
-                    {selects}
-                  </div>
-                ) : (
-                  <div
-                    className={styles["dropdown2-btn"]}
-                    onClick={(e) => setActivo(!activo)}
-                  >
-                    {selects}
-                  </div>
-                )}
+            {etiquetas.length !== 0 && selects.length !== 0 && (
+              <div className={styles["contenedorEtiqueta"]}>
+                <div
+                  className={
+                    (styles["dropdown2"],
+                    showing
+                      ? `${styles.extension2} ${styles.showing2}`
+                      : `${styles.extension2} ${styles.hiding2}`)
+                  }
+                >
+                  {selects === null ? (
+                    <div
+                      className={styles["dropdown2-btn"]}
+                      onClick={(e) => setActivo(!activo)}
+                    >
+                      Elige una etiqueta
+                    </div>
+                  ) : selects === "" ? (
+                    <div
+                      className={styles["dropdown2-btn"]}
+                      onClick={(e) => setActivo(!activo)}
+                    >
+                      {selects}
+                    </div>
+                  ) : (
+                    <div
+                      className={styles["dropdown2-btn"]}
+                      onClick={(e) => setActivo(!activo)}
+                    >
+                      {selects}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
           </>
         )}
       </form>
@@ -302,53 +311,55 @@ export default function Pregunta({
             </div>
           </div>
         </div>
-        <div className={styles["contenedorEtiqueta"]}>
-          <div className={styles["dropdown2"]}>
-            {selects === null ? (
-              <div
-                className={styles["dropdown2-btn"]}
-                onClick={(e) => setActivo(!activo)}
-              >
-                Elige una etiqueta
-                <BsFillCaretDownFill />
-              </div>
-            ) : selects === "" ? (
-              <div
-                className={styles["dropdown2-btn"]}
-                onClick={(e) => setActivo(!activo)}
-              >
-                Elige una etiqueta
-                <BsFillCaretDownFill />
-              </div>
-            ) : (
-              <div
-                className={styles["dropdown2-btn"]}
-                onClick={(e) => setActivo(!activo)}
-              >
-                {selects}
-                <BsFillCaretDownFill />
-              </div>
-            )}
+        {etiquetas.length !== 0 && (
+          <div className={styles["contenedorEtiqueta"]}>
+            <div className={styles["dropdown2"]}>
+              {selects === null ? (
+                <div
+                  className={styles["dropdown2-btn"]}
+                  onClick={(e) => setActivo(!activo)}
+                >
+                  Elige una etiqueta
+                  <BsFillCaretDownFill />
+                </div>
+              ) : selects === "" ? (
+                <div
+                  className={styles["dropdown2-btn"]}
+                  onClick={(e) => setActivo(!activo)}
+                >
+                  Elige una etiqueta
+                  <BsFillCaretDownFill />
+                </div>
+              ) : (
+                <div
+                  className={styles["dropdown2-btn"]}
+                  onClick={(e) => setActivo(!activo)}
+                >
+                  {selects}
+                  <BsFillCaretDownFill />
+                </div>
+              )}
 
-            {activo && (
-              <div className={styles["dropdown2-content"]}>
-                {etiquetas.map((op) => (
-                  <div
-                    className={styles["dropdown2-item"]}
-                    key={op.idEtiqueta}
-                    onClick={(e) => {
-                      setSelects(op.nombre);
-                      setActivo(false);
-                      setEtiqueta(op.idEtiqueta);
-                    }}
-                  >
-                    {op.nombre}
-                  </div>
-                ))}
-              </div>
-            )}
+              {activo && (
+                <div className={styles["dropdown2-content"]}>
+                  {etiquetas.map((op) => (
+                    <div
+                      className={styles["dropdown2-item"]}
+                      key={op.idEtiqueta}
+                      onClick={(e) => {
+                        setSelects(op.nombre);
+                        setActivo(false);
+                        setEtiqueta(op.idEtiqueta);
+                      }}
+                    >
+                      {op.nombre}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
         <p className={styles["aviso"]}>
           Asegúrate de llenar todos los campos y marcar una respuesta como
           correcta.

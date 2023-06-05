@@ -118,9 +118,9 @@
 .BackArrow:hover {
   cursor: pointer;
 }
+
 .errorMessage {
-  color: white;
-  background-color: red;
+  color: #fd4d4d;
   font-size: 23px;
   text-align: center;
 }

@@ -25,7 +25,7 @@ export default function FormularioPregunta({
   const [opcion4, setOpcion4] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
   const [activo, setActivo] = useState(false);
-  const [guarda, setGuarda] = useState(-1);
+  const [guarda, setGuarda] = useState(null);
   const [selects, setSelects] = useState([]);
   /**
    * Activa y desactiva el modal de eliminar
@@ -44,6 +44,7 @@ export default function FormularioPregunta({
    */
   const creaPregunta = async (e) => {
     e.preventDefault();
+    console.log(etiquetas);
 
     if (!selectedValue && selects === "") {
       swal({
@@ -55,6 +56,8 @@ export default function FormularioPregunta({
       return;
     }
     console.log(selects);
+    console.log(etiquetas);
+
     const result = await axios.post(URIpregunta, {
       idExamen: idExamen,
       textoPregunta: fpregunta,
@@ -97,7 +100,7 @@ export default function FormularioPregunta({
     await axios.post(URIrespuesta, data2);
     await axios.post(URIrespuesta, data3);
     await axios.post(URIrespuesta, data4);
-    
+
     swal({
       title: "Se ha creado una pregunta",
       button: "Aceptar",
@@ -192,51 +195,53 @@ export default function FormularioPregunta({
                 type="text"
               />
             </div>
-            <div className={styles["dropdown2"]}>
-              {selects === null ? (
-                <div
-                  className={styles["dropdown2-btn"]}
-                  onClick={(e) => setActivo(!activo)}
-                >
-                  Elige una etiqueta
-                  <BsFillCaretDownFill />
-                </div>
-              ) : selects === "" ? (
-                <div
-                  className={styles["dropdown2-btn"]}
-                  onClick={(e) => setActivo(!activo)}
-                >
-                  Elige una etiqueta
-                  <BsFillCaretDownFill />
-                </div>
-              ) : (
-                <div
-                  className={styles["dropdown2-btn"]}
-                  onClick={(e) => setActivo(!activo)}
-                >
-                  {selects}
-                  <BsFillCaretDownFill />
-                </div>
-              )}
+            {etiquetas.length !== 0 && (
+              <div className={styles["dropdown2"]}>
+                {selects === null ? (
+                  <div
+                    className={styles["dropdown2-btn"]}
+                    onClick={(e) => setActivo(!activo)}
+                  >
+                    Elige una etiqueta
+                    <BsFillCaretDownFill />
+                  </div>
+                ) : selects === "" ? (
+                  <div
+                    className={styles["dropdown2-btn"]}
+                    onClick={(e) => setActivo(!activo)}
+                  >
+                    Elige una etiqueta
+                    <BsFillCaretDownFill />
+                  </div>
+                ) : (
+                  <div
+                    className={styles["dropdown2-btn"]}
+                    onClick={(e) => setActivo(!activo)}
+                  >
+                    {selects}
+                    <BsFillCaretDownFill />
+                  </div>
+                )}
 
-              {activo && (
-                <div className={styles["dropdown2-content"]}>
-                  {etiquetas.map((op) => (
-                    <div
-                      className={styles["dropdown2-item"]}
-                      key={op.idEtiqueta}
-                      onClick={(e) => {
-                        setSelects(op.nombre);
-                        setActivo(false);
-                        setGuarda(op.idEtiqueta);
-                      }}
-                    >
-                      {op.nombre}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+                {activo && (
+                  <div className={styles["dropdown2-content"]}>
+                    {etiquetas.map((op) => (
+                      <div
+                        className={styles["dropdown2-item"]}
+                        key={op.idEtiqueta}
+                        onClick={(e) => {
+                          setSelects(op.nombre);
+                          setActivo(false);
+                          setGuarda(op.idEtiqueta);
+                        }}
+                      >
+                        {op.nombre}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
