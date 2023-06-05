@@ -42,7 +42,6 @@ END //
 DELIMITER ;
 
 
-
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_alumno_by_correo;
 CREATE PROCEDURE get_alumno_by_correo(IN corr VARCHAR(45))
@@ -57,7 +56,7 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS get_preguntas_examen;
 CREATE PROCEDURE get_preguntas_examen(IN idE int)
 BEGIN
-	SELECT idPregunta, pregunta, idExamen, idEtiqueta
+	SELECT idPregunta, pregunta, idExamen
     FROM pregunta 
     WHERE idExamen = idE;
 END 
@@ -76,18 +75,18 @@ DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS insert_pregunta;
-CREATE PROCEDURE insert_pregunta(IN preg text ,IN idE int ,IN idEt int )
+CREATE PROCEDURE insert_pregunta(IN preg text ,IN idE int )
 BEGIN
-	INSERT INTO pregunta(pregunta,idExamen, idEtiqueta) values(preg,idE,idEt);
+	INSERT INTO pregunta(pregunta,idExamen) values(preg,idE);
 END //
 DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS update_pregunta;
-CREATE PROCEDURE update_pregunta(IN id INT, IN preg text, IN idEt INT)
+CREATE PROCEDURE update_pregunta(IN id INT, IN preg text)
 BEGIN
 	UPDATE pregunta
-    SET pregunta = preg, idEtiqueta = idEt
+    SET pregunta = preg
     WHERE idPregunta = id;
 END //
 DELIMITER ;
@@ -274,7 +273,7 @@ BEGIN
     ON e.idEtiqueta = ee.idEtiqueta
     WHERE ee.idExamen = idE;
 END 
-// DELIMITER
+// DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_etiquetas;
@@ -426,24 +425,6 @@ BEGIN
 END;
 // DELIMITER ;
 
-SELECT * FROM alumno;
-
-DELIMITER //
-DROP PROCEDURE IF EXISTS registra_profesor;
-CREATE PROCEDURE registra_profesor(IN nom  VARCHAR(45),IN ape  VARCHAR(45),IN corr VARCHAR(45) ,IN pass VARCHAR(45))
-BEGIN
-	INSERT INTO profesor(nombres,apellidos,correo,password) values(nom,ape,corr,pass);
-END //
-DELIMITER ;
-
-DELIMITER //
-DROP PROCEDURE IF EXISTS dame_profesor;
-CREATE PROCEDURE  dame_profesor()
-BEGIN
-	SELECT nombres, apellidos, correo 
-    FROM profesor;
-END //
-DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS dame_alumno;

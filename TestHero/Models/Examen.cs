@@ -112,6 +112,23 @@ namespace TestHero
         }
 
         /// <summary>
+        /// Actualiza Examen
+        /// </summary>
+        public async Task UpdateExamen(int id)
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"update_examen";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@fecha1", FechaInicio);
+            cmd.Parameters.AddWithValue("@fecha2", FechaFin);
+            cmd.Parameters.AddWithValue("@nombre", Nombre);
+            cmd.Parameters.AddWithValue("@materia", Materia);
+            await cmd.ExecuteNonQueryAsync();
+            IdExamen = id;
+        }
+
+        /// <summary>
         /// Lectura de todos los atributos de examen
         /// </summary>
         private async Task<List<Examen>> ReadAllAsync(MySqlDataReader reader)
@@ -137,9 +154,17 @@ namespace TestHero
             return examenes;
         }
 
-
-
-
+        /// <summary>
+        /// Nos dice los examenes de acuerdo a un ide de grupo
+        /// </summary>
+        public async Task<List<Examen>> DeleteExam(int id)
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"delete_exam";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id", id);
+            return await ReadAllAsync(await cmd.ExecuteReaderAsync());
+        }
     }
 
 }
