@@ -1,16 +1,15 @@
 import React, { useEffect, useState, useContext } from "react";
-import "./crearExamen.css";
-import "../home/home.css";
+import styles from "./crearExamen.module.css";
 import Sidebar from "../../components/sidebar/Sidebar.js";
 import axios from "axios";
-import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ProfesorContext from "context/contextoProfesor";
 import swal from "sweetalert";
+
 /**
- * @author: Cesar Ivan Hernandez Melendez y Bernardo de la Sierra Rábago
+ * @author: Cesar Ivan Hernandez Melendez, Bernardo de la Sierra Rábago, y Leonardo García
  * @license: GP
- * @version: 2.1.0
+ * @version: 2.2.0
  * Esta clase está dedicada a la página de Crear Examenes
  */
 
@@ -24,12 +23,13 @@ function CrearExamen() {
   const [hora2, setHora2] = useState("");
   const [tags, setTags] = useState([]);
   const [currentTag, setCurrentTag] = useState("");
-  const [searchParams] = useSearchParams();
   const [etiquetas, setEtiquetas] = useState([]);
   const [showingEtiquetas, setShowingEtiquetas] = useState([]);
   const { state, setState } = useContext(ProfesorContext);
-  const [codigo, setCodigo] = useState([]);
-  const parametro = searchParams.get("grupo");
+
+  const nombresPoderes = ["Volver a intentar", "Más tiempo", "Ayuda"];
+  const [poderes, setPoderes] = useState(nombresPoderes.map((el) => 0));
+
   /**
    * Nos da todos las etiquetas
    */
@@ -69,32 +69,44 @@ function CrearExamen() {
     return result;
   };
 
+  /**
+   * Navegar a examenes
+   */
   const goToExamenes = () => {
-    navigate(`/examenAlumno?grupo=${state.idGrupo}`);
+    navigate(`/resumen/grupo?grupo=${state.idGrupo}`);
   };
 
   /**Funcion para actualizar la clase  */
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const url = "api/examen";
-    const codigoExamen = makeId(8);
+    //retornar si las fechas no son validas
+    const date1 = fecha1 + "T" + hora1;
+    const date2 = fecha2 + "T" + hora2;
+    if (!validarFecha(date1, date2)) {
+      return;
+    }
 
-    const url2 = "api/examen/codigo/" + codigoExamen;
+    //se genera un codigo que no haya sido usado en otro examen
+    const url = "api/examen";
+    let codigoExamen = makeId(8);
+    while (await buscar_examen(codigoExamen)) {
+      codigoExamen = makeId(8);
+    }
 
     const data = {
       Codigo: codigoExamen,
       Nombre: titulo,
       Materia: materia,
-      FechaInicio: fecha1 + "T" + hora1,
-      FechaFin: fecha2 + "T" + hora2,
+      FechaInicio: date1,
+      FechaFin: date2,
       idGrupo: state.idGrupo,
     };
 
     const result = await axios.post(url, data);
-    const resultado = await axios.get(url2);
 
     await tags.forEach((tag) => postTag(tag, result.data.idExamen));
+    await poderes.forEach((poder, id) => sendPoder(id, result.data.idExamen));
     swal({
       title: "Se ha creado un examen",
       button: "Aceptar",
@@ -103,6 +115,63 @@ function CrearExamen() {
     goToExamenes();
   };
 
+  /**
+   * Busca si un código de examen ya fue registrado
+   */
+  const buscar_examen = async (codigoExamen) => {
+    const url2 = "api/examen/codigo/" + codigoExamen;
+    try {
+      const resultado = await axios.get(url2);
+      if (resultado.status === 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
+  };
+
+  /**
+   * Validar fechas del examen
+   */
+  const validarFecha = (date1, date2) => {
+    try {
+      const d1 = new Date(date1);
+      const d2 = new Date(date2);
+      const now = new Date();
+      let valid = d2.getTime() > now.getTime() && d2.getTime() > d1.getTime();
+      if (!valid) {
+        if (d2.getTime() <= now.getTime()) {
+          swal({
+            title: "La fecha de fin debe ser mayor a la fecha actual",
+            button: "Aceptar",
+            icon: "info",
+          });
+        } else if (d2.getTime() <= d1.getTime()) {
+          swal({
+            title: "La fecha de fin debe ser mayor a la fecha de inicio",
+            button: "Aceptar",
+            icon: "info",
+          });
+        } else {
+          swal({
+            title: "Ingresa las fecha y hora en el formato indicado",
+            button: "Aceptar",
+            icon: "info",
+          });
+        }
+      }
+
+      return valid;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  /**
+   * Enviar request para agregar una etiqueta
+   */
   const postTag = async (tag, idExamen) => {
     const filtrado = etiquetas.filter((etiqueta) => etiqueta.nombre === tag);
 
@@ -110,31 +179,37 @@ function CrearExamen() {
 
     if (filtrado.length === 0) {
       const url = "api/etiqueta";
+
       const data = {
         Nombre: tag,
       };
       const result = await axios.post(url, data);
-      console.log(result.data);
       id = result.data.idEtiqueta;
     } else {
       id = filtrado[0].idEtiqueta;
     }
-    console.log(id);
     const url = `api/etiqueta/${id}/examen/${idExamen}`;
     const result = await axios.post(url);
-    console.log(result.data);
   };
   /**Checa que tecla fue usada */
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
       if (currentTag.trim() !== "") {
-        setTags([...tags, currentTag.trim()]);
-        setCurrentTag("");
+        if (tags.filter((tag) => tag === currentTag.trim()).length > 0) {
+          swal({
+            title: "Ya se agregó esta etiqueta, intenta otra por favor",
+            button: "Aceptar",
+            icon: "info",
+          });
+        } else {
+          setTags([...tags, currentTag.trim()]);
+          setCurrentTag("");
+        }
       }
     }
   };
-  /**Checa que etiqeuta fue eliminar y le debes pasar como parametro la etiqueta a eliminar */
+  /**Checa que etiqueta fue eliminar y le debes pasar como parametro la etiqueta a eliminar */
   const handleTagDelete = (tagToDelete) => {
     setTags(tags.filter((tag) => tag !== tagToDelete));
   };
@@ -147,16 +222,21 @@ function CrearExamen() {
     filterTags(currentTag);
   }, [currentTag]);
 
+  const sendPoder = async (idPoder, idExamen) => {
+    const url = `api/examen/${idExamen}/poder/${idPoder}`;
+    await axios.post(url);
+  };
+
   return (
     <div>
       <div>
         <Sidebar />
       </div>
       <div class="home_background">
-        <div className="CrearExamen">
+        <div className={styles["CrearExamen"]}>
           <h2>Crear un examen</h2>
           <form className="custom-form" onSubmit={handleSubmit}>
-            <div className="form-group">
+            <div className={styles["form-group"]}>
               <label htmlFor="titulo">Nombre del examen</label>
               <input
                 type="text"
@@ -169,20 +249,20 @@ function CrearExamen() {
               />
             </div>
 
-            <div className="form-group">
+            <div className={styles["form-group"]}>
               <label htmlFor="materia">Materia</label>
               <input
                 type="text"
                 className="form-control"
                 id="materia"
-                placeholder="Nombre de la"
+                placeholder="Nombre de la materia"
                 value={materia}
                 required
                 onChange={(event) => setMateria(event.target.value)}
               />
             </div>
 
-            <div className="form-group row">
+            <div className={`${styles["form-group"]} row`}>
               <label htmlFor="fecha1" className="col-sm-2 col-form-label">
                 Fecha de Inicio
               </label>
@@ -211,7 +291,7 @@ function CrearExamen() {
               </div>
             </div>
 
-            <div className="form-group row">
+            <div className={`${styles["form-group"]} row`}>
               <label htmlFor="fecha2" className="col-sm-2 col-form-label">
                 Fecha de Cierre
               </label>
@@ -240,41 +320,89 @@ function CrearExamen() {
               </div>
             </div>
 
-            <div className="tags-container">
+            <div className={styles["tags-container"]}>
               {tags.map((tag) => (
-                <div className="tag" key={tag}>
+                <div className={styles["tag"]} key={tag}>
                   <span>{tag}</span>
                   <button onClick={() => handleTagDelete(tag)}>×</button>
                 </div>
               ))}
             </div>
-            <div className="form-group">
-              <label htmlFor="tag-input">
-                Etiquetas: (se mostrarán antes de iniciar el juego)
-              </label>
-              <input
-                list="tags"
-                id="tag-input"
-                type="text"
-                className="tagInput"
-                value={currentTag}
-                placeholder="Pulsa Enter para ingresar la etiqueta"
-                onKeyDown={handleKeyDown}
-                onChange={(event) => setCurrentTag(event.target.value)}
-              />
-              {showingEtiquetas && (
-                <datalist id="tags" className="tagDatalist">
-                  {showingEtiquetas &&
-                    showingEtiquetas.map((etiqueta) => (
-                      <option key={etiqueta.idEtiqueta} value={etiqueta.nombre}>
-                        {etiqueta.nombre}
-                      </option>
-                    ))}
-                </datalist>
-              )}
+            <div className="row">
+              <div className="col-6">
+                <div className={styles["form-group"]}>
+                  <label className={styles["label2"]} htmlFor="tag-input">
+                    Etiquetas: (se mostrarán antes de iniciar el juego)
+                  </label>
+                  <br />
+
+                  <input
+                    list="tags"
+                    id={styles["tag-input"]}
+                    type="text"
+                    className="form-control"
+                    value={currentTag}
+                    placeholder="Pulsa Enter para ingresar la etiqueta"
+                    onKeyDown={handleKeyDown}
+                    onChange={(event) => setCurrentTag(event.target.value)}
+                  />
+                  {showingEtiquetas && (
+                    <datalist id="tags" className={styles["tagDatalist"]}>
+                      {showingEtiquetas &&
+                        showingEtiquetas.map((etiqueta) => (
+                          <option
+                            key={etiqueta.idEtiqueta}
+                            value={etiqueta.nombre}
+                          >
+                            {etiqueta.nombre}
+                          </option>
+                        ))}
+                    </datalist>
+                  )}
+                </div>
+              </div>
+              <div className="col-6">
+                <div className={styles["form-group"]}>
+                  <label className={styles["label2"]} htmlFor="tag-input">
+                    Poderes: (potenciadores para el alumno)
+                  </label>
+                  <div className={styles["checks"]}>
+                    {nombresPoderes.map((poder, id) => {
+                      return (
+                        <>
+                          <div className={styles["CheckFormat"]}>
+                            <input
+                              type="checkbox"
+                              id={poder}
+                              onChange={function validateCheck(e) {
+                                if (e.target.checked) {
+                                  setPoderes(
+                                    poderes.map((p, i) => (i === id ? 1 : p))
+                                  );
+                                } else {
+                                  setPoderes(
+                                    poderes.map((p, i) => (i === id ? 0 : p))
+                                  );
+                                }
+                              }}
+                            />
+                            <label className={styles["label"]} for={poder}>
+                              {poder}
+                            </label>
+                          </div>
+                        </>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <button type="submit" className="boton" align="right">
+            <button
+              type="submit"
+              className={styles["botonPreguntas"]}
+              align="right"
+            >
               Crear examen
             </button>
           </form>

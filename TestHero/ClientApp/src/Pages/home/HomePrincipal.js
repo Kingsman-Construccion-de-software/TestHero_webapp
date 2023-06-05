@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // import React, { useRef } from "react";
-import "./home.css";
+import styles from "./home.module.css";
 // import logo from "../../assets/logo.png";
 import UserIcon from "../../assets/UserIcon.png";
 import Sidebar from "../../components/sidebar/Sidebar.js";
@@ -40,13 +40,13 @@ export default function HomePrincipal() {
       <div>
         <Sidebar />
       </div>
-      <div className="home_background">
-        <h1 className="tituloPagina">¡Bienvenido!</h1>
-        <div className="datos">
-          <img className="icono" src={UserIcon} alt="icono de usuario" />
-          <span className="nombreUsuario">{state.nombre}</span>
+      <div className={styles['home_background']}>
+        <h1 className={styles['tituloPagina']}>¡Bienvenido!</h1>
+        <div className={styles['datos']}>
+          <img className={styles['icono']} src={UserIcon} alt="icono de usuario" />
+          <span className={styles['nombreUsuario']}>{state.nombre}</span>
         </div>
-        <div className="examActuales">
+        <div className={styles['examActuales']}>
           {examenes &&
             examenes.map((examen) => (
               <Grupo
@@ -54,7 +54,7 @@ export default function HomePrincipal() {
                 nombre={examen.nombre}
                 fechaFin={examen.fechaFin}
                 grupo={examen.grupo}
-                link={`/resumenExamen?examen=${examen.idExamen}`}
+                link={`/resumen/examen?examen=${examen.idExamen}`}
               />
             ))}
         </div>

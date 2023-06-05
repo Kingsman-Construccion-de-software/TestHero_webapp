@@ -27,7 +27,6 @@ export default function Results({ codigos }) {
       const result = await axios.get(url);
       if (result.data) {
         setExamen(result.data[0]);
-        console.log(result.data[0]);
       }
     } catch (error) {
       alert(error);
@@ -39,9 +38,7 @@ export default function Results({ codigos }) {
       const url = "api/alumno/examen/" + examen.idExamen;
       const result = await axios.get(url);
       setCalificaciones([...result.data]);
-      console.log(result.data);
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -57,21 +54,15 @@ export default function Results({ codigos }) {
     <div className={styles.container}>
       <Sidebar />
       <div className={styles.mainContent}>
-        <div className={styles.header}>
-          <input
-            className={styles["search-bar"]}
-            type="search"
-            placeholder="Buscar"
-          />
-        </div>
-
-        {calificaciones.length === 0 ? (
+        {calificaciones && calificaciones.length === 0 ? (
           <>
-            <div className="vacio">
+            <div className={styles.vacio}>
               Comparte el código del examen con tus alumnos para que puedan
               responderlo.
             </div>
-            <h2 className="vacio">Código: {codigos.codigo}</h2>
+            <h2 className={styles.vacio}>
+              Código: {codigos.codigo}
+            </h2>
           </>
         ) : (
           <>

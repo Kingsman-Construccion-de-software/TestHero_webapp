@@ -1,6 +1,6 @@
 import Sidebar from "../../components/sidebar/Sidebar";
-import styles from "./resumen.module.css";
-import { useState, useEffect } from "react";
+import styles from "./resumenexamen.module.css";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 import { useSearchParams } from "react-router-dom";
@@ -18,20 +18,12 @@ export default function ResumenExamen() {
   // Estados iniciales
   const [examen, setExamen] = useState();
 
-  const [text, setText] = useState("");
+  const [text, setText] = useState("https://localhost:44423/examenAlumno");
 
-  const handleInputChange = (event) => {
-    setText(event.target.value);
-  };
-
+  const inputRef = useRef(null);
+  
   const [searchParams] = useSearchParams();
 
-  const handleCopyButtonClick = () => {
-    navigator.clipboard.writeText(text);
-    alert("Text copied to clipboard!");
-  };
-
-  /**Checa que daod un idExmaen se pueda obtener todo su informacion */
   const getExamen = async () => {
     try {
       const url = "api/examen/" + searchParams.get("examen");
@@ -51,12 +43,16 @@ export default function ResumenExamen() {
       <div>
         <Sidebar />
       </div>
-      <div className="page">
-        <div className="content">
-          {examen && <h1 className="tituloExamen">{examen.nombre}</h1>}
-          <div className="subtitles">
+      <div className={styles["page"]}>
+        <div className={styles["content"]}>
+          {examen && (
+            <div className={styles["title-row"]}>
+              <h1 className={styles["tituloExamen"]}>{examen.nombre}</h1>
+            </div>
+          )}
+          <div className={styles["subtitles"]}>
             {examen && (
-              <h2 className={styles["mover"]}>Código: {examen.codigo}</h2>
+              <h2 className={styles['subtitle']}>Código: {examen.codigo}</h2>
             )}
           </div>
         </div>

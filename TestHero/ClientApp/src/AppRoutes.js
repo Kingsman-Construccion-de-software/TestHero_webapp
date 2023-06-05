@@ -1,18 +1,20 @@
 import Home from "./Pages/home/HomePrincipal";
 import Login from "./Pages/login/Login";
-import Group from "./Pages/group/Group";
+import Group from "./Pages/examenesProfesor/ExamGrupo";
 import Results from "./Pages/results/Results";
 import Questions from "./Pages/questions/questions";
 import CrearExamen from "Pages/crearExamen/crearExamen";
 import Grupos from "./Pages/grupos/Grupos";
 import ResumenExamen from "./Pages/resumenExamen/ResumenExamen";
-import ExamenAlumno from "Pages/examenAlumno/ExamenAlumno";
+import ResumenGrupo from "Pages/resumenGrupo/ResumenGrupo";
 import PreLogin from "Pages/prelogin/PreLogin";
 import LoginAlumno from "Pages/loginalumno/LoginAlumno";
 import HomeAlumno from "Pages/homeAlumno/HomeAlumno";
-import Examenes from "Pages/examenes/Examenes";
+import ExamenesAlumno from "Pages/examenesAlumno/ExamenesAlumno";
 import ResumenAlumno from "resumenAlumno/ResumenAlumno";
-import Inicio from "Pages/Inicio/Inicio"
+import Invitacion from "Pages/Invitacion/Invitacion";
+import RegistroProfesor from "Pages/RegistroProfesor/RegistroProfesor";
+import RegistroAlumnos from "Pages/RegistroAlumnos/RegistroAlumnos";
 
 const AppRoutes = [
   {
@@ -21,11 +23,11 @@ const AppRoutes = [
     element: <PreLogin />,
   },
   {
-    path: "/loginprofesor",
+    path: "/login/profesor",
     element: <Login />,
   },
   {
-    path: "/loginalumno",
+    path: "/login/alumno",
     element: <LoginAlumno />,
   },
   {
@@ -42,7 +44,7 @@ const AppRoutes = [
   },
   {
     path: "/examenes",
-    element: <Examenes />,
+    element: <ExamenesAlumno />,
   },
   {
     path: "/grupos",
@@ -61,20 +63,28 @@ const AppRoutes = [
     element: <Questions />,
   },
   {
-    path: "/resumenExamen",
+    path: "/resumen/examen",
     element: <ResumenExamen />,
   },
   {
-    path: "/resumenAlumno",
+    path: "/resumen/alumno",
     element: <ResumenAlumno />,
   },
   {
-    path: "/examenAlumno",
-    element: <ExamenAlumno />,
+    path: "/resumen/grupo",
+    element: <ResumenGrupo />,
   },
   {
-      path: "/inicio",
-      element: <Inicio />,
+    path: "/invitacion",
+    element: <Invitacion />,
+  },
+  {
+    path: "/registroProfesor",
+    element: <RegistroProfesor />,
+  },
+  {
+    path: "/registroAlumno",
+    element: <RegistroAlumnos />,
   },
 ];
 

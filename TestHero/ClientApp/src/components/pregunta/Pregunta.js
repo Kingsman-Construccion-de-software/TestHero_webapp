@@ -4,16 +4,23 @@ import { MdCancel } from "react-icons/md";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
-import "./Pregunta.css";
+import styles from "./pregunta.module.css";
 import swal from "sweetalert";
+import { BsFillCaretDownFill } from "react-icons/bs";
+
 /**
- * @author Bernardo de la Sierra y Julio Meza
- * @version 3.1.1
+ * @author Bernardo de la Sierra y Julio Meza, LGnan (color)
+ * @version 3.1.2
  * @license Gp
  * @params Recibe pregunta, filtraprefuntas y getpreguntas
  * @description Este formulario edita y elimina preguntas, es como la parte de adentro
  */
-export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
+export default function Pregunta({
+  pregunta,
+  filterPreguntas,
+  getPreguntas,
+  etiquetas,
+}) {
   // Aparicio de datos
   const [open, setOpen] = useState(false);
   const [showing, setShowing] = useState(false);
@@ -31,32 +38,35 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
   const opciones = [opcion1, opcion2, opcion3, opcion4];
   const setOpciones = [setOpcion1, setOpcion2, setOpcion3, setOpcion4];
   const [respuestas, setRespuestas] = useState([]);
-
+  const [activo, setActivo] = useState(false);
+  const [selects, setSelects] = useState([]);
+  const [etiqueta, setEtiqueta] = useState(0);
   const handleOptionChange = (event) => {
     setSelectedValue(parseInt(event.target.value));
   };
 
- /**
+  /**
    * Funcion para hacer el drag and drop de la pregunta
    */
- const toggleOpen = () => {
-  setActionable(true);
-  setOpen(!open);
-};
-/**
- * Te da cuerto tiempo para ver si la pregunta esta abierta sino se cierra
- */
-const timeOutOpen = () => {
-  if(actionable){
-    setActionable(false);
-    setShowing(!showing);
-    if (open) {
-      setTimeout(toggleOpen, 1000);
-    } else {
-      toggleOpen();
+  const toggleOpen = () => {
+    setActionable(true);
+    setOpen(!open);
+  };
+  /**
+   * Te da cuerto tiempo para ver si la pregunta esta abierta sino se cierra
+   */
+  const timeOutOpen = () => {
+    console.log(pregunta);
+    if (actionable) {
+      setActionable(false);
+      setShowing(!showing);
+      if (open) {
+        setTimeout(toggleOpen, 1000);
+      } else {
+        toggleOpen();
+      }
     }
-  }
-};
+  };
   //Funciones anonimas para abrir o cerrar cierto evento
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -67,10 +77,18 @@ const timeOutOpen = () => {
     const URIrespuestas = "api/respuesta/pregunta/";
     const res = await axios.get(`${URIrespuestas}${pregunta.idPregunta}`);
     setRespuestas(res.data);
-    let correctIndex = res.data.findIndex(it => it.esCorrecta === 1);
+    let correctIndex = res.data.findIndex((it) => it.esCorrecta === 1);
     setSelectedValue(correctIndex);
   };
 
+  /**
+   *Funcion para obtener la etiqueta de una pregunta
+   */
+  const getNombreEtiqueta = async () => {
+    const URIetiqueta = "api/etiquetanombre/";
+    const res = await axios.get(`${URIetiqueta}${pregunta.idPregunta}`);
+    setSelects(res.data[0].nombre);
+  };
   /**
    * Funcion para abrir o cerrar todas las respuestas
    */
@@ -96,12 +114,12 @@ const timeOutOpen = () => {
    * Actualiza una pregunta dado un idPregunta
    */
   const updatePregunta = async (e) => {
-
-    e.preventDefault()
+    e.preventDefault();
 
     const URIupdate = "api/pregunta/";
     await axios.put(`${URIupdate}${pregunta.idPregunta}`, {
       textoPregunta: fpregunta,
+      IdEtiqueta: etiqueta,
     });
 
     await opciones.forEach((opcion, idx) => {
@@ -142,8 +160,6 @@ const timeOutOpen = () => {
       respuestas[3].esCorrecta = 1;
     }
 
-    console.log(selectedValue)
-
     respuestas.forEach((respuesta, index) => {
       setOpciones[index](respuesta.textoRespuesta);
     });
@@ -152,119 +168,209 @@ const timeOutOpen = () => {
   const createPregunta = () => {
     return (
       <form>
-        <div className="dropdown">
-          <p className="titulo">{pregunta.textoPregunta}</p>
-          <div class="pregIcon" onClick={timeOutOpen}>
+        <div className={styles["dropdown"]}>
+          <p className={styles["titulo"]}>{pregunta.textoPregunta}</p>
+          <div className={styles["pregIcon"]} onClick={timeOutOpen}>
             <FaArrowDown size={40} />
           </div>
         </div>
-        {open && 
-          <div className={showing ? "extension showing" : "extension hiding"}>
-            <div className="respuestas">
-              {respuestas &&
-                respuestas.map((respuesta, index) => (
-                  <div className="respuesta" key={index}>
-                    <>
-                      {respuesta.esCorrecta === 1 ? (
-                        <input
-                          type="radio"
-                          checked
-                          name={`opcion`}
-                          value={`opcion${index}`}
-                        />
-                      ) : (
-                        <input
-                          disabled
-                          type="radio"
-                          name={`opcion`}
-                          value={`opcion${index}`}
-                        />
-                      )}
-                      <p>{respuesta.textoRespuesta} </p>
-                    </>
+        {open && (
+          <>
+            <div
+              className={
+                showing
+                  ? `${styles.extension} ${styles.showing}`
+                  : `${styles.extension} ${styles.hiding}`
+              }
+            >
+              <div className={styles["respuestas"]}>
+                {respuestas &&
+                  respuestas.map((respuesta, index) => (
+                    <div className={styles["respuesta"]} key={index}>
+                      <>
+                        {respuesta.esCorrecta === 1 ? (
+                          <input
+                            type="radio"
+                            checked
+                            name={`opcion`}
+                            value={`opcion${index}`}
+                          />
+                        ) : (
+                          <input
+                            disabled
+                            type="radio"
+                            name={`opcion`}
+                            value={`opcion${index}`}
+                          />
+                        )}
+                        <p>{respuesta.textoRespuesta} </p>
+                      </>
+                    </div>
+                  ))}
+              </div>
+              {actionable && (
+                <div className={styles["iconsRespuesta"]}>
+                  <div className={styles["crudIcon1"]} onClick={handleSelected}>
+                    <FaEdit size={35} />
+                  </div>
+                  <div className={styles["crudIcon2"]}>
+                    <MdCancel size={35} onClick={handleShow} />
+                  </div>
                 </div>
-              ))}
+              )}
             </div>
-            {actionable &&  
-            <div className="iconsRespuesta">
-              <div className="crudIcon" onClick={handleSelected}>
-                <FaEdit size={35} />
-              </div>
-              <div className="crudIcon">
-                <MdCancel size={35} onClick={handleShow} />
+            <div className={styles["contenedorEtiqueta"]}>
+              <div className={styles["dropdown2"]}>
+                {selects === null ? (
+                  <div
+                    className={styles["dropdown2-btn"]}
+                    onClick={(e) => setActivo(!activo)}
+                  >
+                    Elige una etiqueta
+                  </div>
+                ) : selects === "" ? (
+                  <div
+                    className={styles["dropdown2-btn"]}
+                    onClick={(e) => setActivo(!activo)}
+                  >
+                    {selects}
+                  </div>
+                ) : (
+                  <div
+                    className={styles["dropdown2-btn"]}
+                    onClick={(e) => setActivo(!activo)}
+                  >
+                    {selects}
+                  </div>
+                )}
               </div>
             </div>
-            }          
-          </div>
-        }
+          </>
+        )}
       </form>
-    )
-  }
+    );
+  };
 
   const createFormPregunta = () => {
     return (
       <form onSubmit={updatePregunta}>
-          <div className="dropdown">
-            <input
-                className="titulopregunta"
-                value={fpregunta}
-                required
-                onChange={(e) => setFpregunta(e.target.value)}
-                type="text"
-              />
-          </div>
-          <div className="extension">
-            <div className="respuestas">
+        <div className={styles["dropdown"]}>
+          <input
+            className={styles["inputpregunta"]}
+            value={fpregunta}
+            required
+            onChange={(e) => setFpregunta(e.target.value)}
+            type="text"
+          />
+        </div>
+        <div className={styles["extension"]}>
+          <div className={styles["respuestas"]}>
             {respuestas &&
-                respuestas.map((respuesta, index) => (
-                  <div className="respuesta" key={index}>
-                    {selected && (
-                      <>
-                        <input
-                          type="radio"
-                          value={index}
-                          name="opciones"
-                          required
-                          checked={selectedValue === index}
-                          onChange={handleOptionChange}
-                        />
-                        <input
-                          name="opciones"
-                          required
-                          placeholder={`Opcion ${index + 1}`}
-                          value={opciones[index]}
-                          onChange={(e) => setOpciones[index](e.target.value)}
-                          type="text"
-                        />
-                      </>
-                    )}
+              respuestas.map((respuesta, index) => (
+                <div className={styles["respuesta"]} key={index}>
+                  {selected && (
+                    <>
+                      <input
+                        type="radio"
+                        value={index}
+                        name="opciones"
+                        required
+                        checked={selectedValue === index}
+                        onChange={handleOptionChange}
+                      />
+                      <input
+                        name="opciones"
+                        required
+                        placeholder={`Opcion ${index + 1}`}
+                        className={styles["opciones"]}
+                        value={opciones[index]}
+                        maxLength="60"
+                        onChange={(e) => setOpciones[index](e.target.value)}
+                        type="text"
+                      />
+                    </>
+                  )}
+                </div>
+              ))}
+          </div>
+          <div className={styles["iconsRespuesta"]}>
+            <div className={styles["crudIcon1"]} onClick={handleSelected}>
+              <FaEdit size={35} />
+            </div>
+            <div className={styles["crudIcon2"]}>
+              <MdCancel size={35} onClick={handleShow} />
+            </div>
+          </div>
+        </div>
+        <div className={styles["contenedorEtiqueta"]}>
+          <div className={styles["dropdown2"]}>
+            {selects === null ? (
+              <div
+                className={styles["dropdown2-btn"]}
+                onClick={(e) => setActivo(!activo)}
+              >
+                Elige una etiqueta
+                <BsFillCaretDownFill />
+              </div>
+            ) : selects === "" ? (
+              <div
+                className={styles["dropdown2-btn"]}
+                onClick={(e) => setActivo(!activo)}
+              >
+                Elige una etiqueta
+                <BsFillCaretDownFill />
+              </div>
+            ) : (
+              <div
+                className={styles["dropdown2-btn"]}
+                onClick={(e) => setActivo(!activo)}
+              >
+                {selects}
+                <BsFillCaretDownFill />
+              </div>
+            )}
+
+            {activo && (
+              <div className={styles["dropdown2-content"]}>
+                {etiquetas.map((op) => (
+                  <div
+                    className={styles["dropdown2-item"]}
+                    key={op.idEtiqueta}
+                    onClick={(e) => {
+                      setSelects(op.nombre);
+                      setActivo(false);
+                      setEtiqueta(op.idEtiqueta);
+                    }}
+                  >
+                    {op.nombre}
                   </div>
                 ))}
-            </div>
-            <div className="iconsRespuesta">
-              <div className="crudIcon" onClick={handleSelected}>
-                <FaEdit size={35} />
               </div>
-              <div className="crudIcon">
-                <MdCancel size={35} onClick={handleShow} />
-              </div>
-            </div>
+            )}
           </div>
-          <p className="aviso">
-            Asegúrate de llenar todos los campos y marcar una respuesta como
-            correcta
-          </p>
-          <input
-            type="submit"
-            value="Guardar Pregunta"
-            className="botonPreguntas"
-          />
-        </form>
-    )
-  }
+        </div>
+        <p className={styles["aviso"]}>
+          Asegúrate de llenar todos los campos y marcar una respuesta como
+          correcta.
+        </p>
+        <button
+          className={styles["botonCancelarPreguntaEditar"]}
+          onClick={handleSelected}
+        >
+          Cancelar
+        </button>
+        <input
+          type="submit"
+          value="Guardar Pregunta"
+          className={styles["botonPreguntas"]}
+        />
+      </form>
+    );
+  };
 
   useEffect(() => {
     getRespuestas();
+    getNombreEtiqueta();
   }, []);
 
   useEffect(() => {
@@ -274,31 +380,31 @@ const timeOutOpen = () => {
   }, [selected]);
 
   return (
-    <div className="pregunta">
+    <div className={styles["pregunta"]}>
       {!selected && createPregunta()}
       {selected && createFormPregunta()}
 
-      <Modal show={show} onHide={handleClose} className="modal">
-        <Modal.Header closeButton className="modaldetalles">
+      <Modal show={show} onHide={handleClose} className={styles["modal"]}>
+        <Modal.Header closeButton className={styles["modaldetalles3"]}>
           <Modal.Title>
             ¿Estás seguro de que deseas eliminar esta pregunta?
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="modaldetalles tamanobody">
+        <Modal.Body className={`${styles.modaldetalles3} ${styles.fontbody}`}>
           No se podrá recuperar después
         </Modal.Body>
-        <Modal.Footer className="modaldetalles">
+        <Modal.Footer className={styles["modaldetalles3"]}>
           <Button
             variant="secondary"
             onClick={handleClose}
-            className="botonCancelar"
+            className={styles["botonCancelar2"]}
           >
             Cancelar
           </Button>
           <Button
             variant="secondary"
             onClick={() => deletePregunta()}
-            className="botonEliminar"
+            className={styles["botonEliminar"]}
           >
             Eliminar
           </Button>

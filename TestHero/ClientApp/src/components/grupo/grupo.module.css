@@ -1,0 +1,43 @@
+.fondo {
+  width: 80%;
+  border: 2px solid #0596ff;
+  background-color: #1d1d1d;
+  color: #ebebeb;
+  border-radius: 5px;
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.fondo:hover {
+  cursor: pointer;
+  background-color: rgba(5, 150, 255, 1);
+}
+
+.imagenGrupo {
+  margin-right: 10%;
+  width: 60%;
+  max-width: 300px;
+  background-image: url("../../assets/trigo.png");
+  background-size: cover;
+}
+
+.infoGrupo {
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+
+.tituloCard {
+  font-size: 35px;
+  font-weight: 500;
+}
+
+.subtitulo {
+  margin-top: 10px;
+  font-size: 30px;
+}
+
+.fecha {
+  font-size: 20px;
+  margin-top: 25px;
+}
+

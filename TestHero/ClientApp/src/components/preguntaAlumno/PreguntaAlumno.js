@@ -3,7 +3,7 @@ import { FaArrowDown } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { BiCheck, BiX } from "react-icons/bi";
-import "./preguntaAlumno.css";
+import styles from "./preguntaAlumno.module.css";
 
 /**
  * @author Bernardo de la Sierra y Julio Meza
@@ -66,24 +66,34 @@ export default function PreguntaAlumno({ pregunta, alumnoRespuesta }) {
   }, []);
 
   return (
-    <div className="pregunta">
-      <div className="dropdown">
-        <p className="titulo">{pregunta.textoPregunta}</p>
-        <div className="iconosalumno">
-          <div className="bienomal">
-            {correcta ? <BiCheck size={60} /> : <BiX size={60} />}
+    <div className={styles["pregunta"]}>
+      <div className={styles["dropdown"]}>
+        <p className={styles["titulo"]}>{pregunta.textoPregunta}</p>
+        <div className={styles["iconosalumno"]}>
+          <div className={styles["bienomal"]}>
+            {correcta ? (
+              <BiCheck style={{ color: "#4ee8a4" }} size={60} />
+            ) : (
+              <BiX style={{ color: "fd4d4d" }} size={60} />
+            )}
           </div>
-          <div class="pregIcon" onClick={timeOutOpen}>
+          <div className={styles["pregIcon"]} onClick={timeOutOpen}>
             <FaArrowDown size={40} />
           </div>
         </div>
       </div>
       {open && (
-        <div className={showing ? "extension showing" : "extension hiding"}>
-          <form className="respuestas">
+        <div
+          className={
+            showing
+              ? `${styles["extension"]} ${styles["showing"]}`
+              : `${styles["extension"]} ${styles["hiding"]}`
+          }
+        >
+          <form className={styles["respuestas"]}>
             {respuestas &&
               respuestas.map((respuesta, index) => (
-                <div className="respuesta" key={index}>
+                <div className={styles["respuesta"]} key={index}>
                   <>
                     {respuesta.idRespuesta === alumnoRespuesta ? (
                       <input type="radio" checked />

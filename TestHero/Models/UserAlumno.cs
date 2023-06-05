@@ -18,6 +18,7 @@ namespace TestHero
     public class UserAlumno
     {
         public int Id { get; set; }
+        public int IdGrupo { get; set; }
 
         public string Correo { get; set; }
 
@@ -73,8 +74,17 @@ namespace TestHero
                     {
                         Correo = reader.GetString(0),
                         Password = reader.GetString(1),
-                        Id = reader.GetInt32(2)
+                        Id = reader.GetInt32(2),
                     };
+
+                    try
+                    {
+                        user.IdGrupo = reader.GetInt32(3);
+                    } catch(Exception ex)
+                    {
+                        user.IdGrupo = -1;
+                    }
+
                     users.Add(user);
                 }
             }

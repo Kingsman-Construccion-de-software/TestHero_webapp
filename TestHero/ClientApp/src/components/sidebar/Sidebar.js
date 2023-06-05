@@ -1,12 +1,12 @@
 import React from "react";
 import SidebarLogo from "../../assets/SidebarLogo.png";
-import Home from "../../assets/Home.png";
-import BackArrow from "../../assets/BackArrow.png";
-import Groups from "../../assets/Groups.png";
-import Out from "../../assets/Out.png";
-import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import "./Sidebar.css";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaArrowLeft, FaHome } from "react-icons/fa";
+import { BiGroup, BiExit } from "react-icons/bi";
+
+
+import styles from "./Sidebar.module.css";
 
 /**
  * @author: Leonardo García
@@ -20,26 +20,31 @@ export default function Sidebar() {
   const location = useLocation();
 
   return (
-    <div className="sidenav">
-      <img className="logoPrincipal" src={SidebarLogo} alt="logo" />
-      {location.pathname !== "/home" && (
-        <img
-          className="iconSidebar"
-          src={BackArrow}
-          alt="Volver"
-          onClick={() => navigate(-1)}
-        />
-      )}
-
-      <Link to={"/home"}>
-        <img className="iconSidebar" src={Home} alt="Inicio" />
+    <div className={styles['sidenav']}>
+      <img className={styles['logoPrincipal']} src={SidebarLogo} alt="logo" />
+      <a className={styles['iconSidebar']}>
+        {location.pathname !== "/home" && (
+            <FaArrowLeft 
+              className={styles["icon"]}
+              size={70}
+              onClick={() => navigate(-1)}
+            />
+        )}
+      </a>
+      <Link to={"/home"} className={styles['iconSidebar']}>
+        <FaHome 
+          className={styles["icon"]}
+          size={70}/>
       </Link>
       <Link to={"/grupos"}>
-        <img className="iconSidebar" src={Groups} alt="Grupos" />
+        <BiGroup           
+          className={styles["icon"]}
+          size={70}/>
       </Link>
-
       <Link to={"/"}>
-        <img className="iconSidebar" src={Out} alt="Salir" />
+        <BiExit 
+          className={styles["icon"]} 
+          size={70}/>
       </Link>
     </div>
   );

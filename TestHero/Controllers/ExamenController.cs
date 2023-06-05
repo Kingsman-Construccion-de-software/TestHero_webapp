@@ -107,6 +107,7 @@ namespace TestHero.Controllers
             return new OkObjectResult(result);
         }
 
+
         // DELETE api/<Examen>/id
         [Route("api/examen/{id:int}")]
         [HttpDelete]
@@ -123,5 +124,20 @@ namespace TestHero.Controllers
             await examen.DeleteExam(id);
             return new OkResult();
         }
+
+        [Route("api/examen/{id:int}")]
+        [HttpPut]
+        public async Task<IActionResult> Put(int id, [FromBody] Examen body)
+        {
+            await Db.Connection.OpenAsync();
+            body.Db = Db;
+            var result = await body.GetExamen(id);
+            if (result.Count == 0)
+                return new NotFoundResult();
+            await body.UpdateExamen(id);
+            return new OkObjectResult(body);
+        }
+
+
     }
 }
