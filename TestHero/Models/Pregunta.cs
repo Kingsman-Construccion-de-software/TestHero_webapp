@@ -67,8 +67,8 @@ namespace TestHero
             cmd.CommandText = @"insert_pregunta";
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@preg", TextoPregunta);
+            cmd.Parameters.AddWithValue("@idE", IdExamen);
             cmd.Parameters.AddWithValue("@idEt", IdEtiqueta);
-            cmd.Parameters.AddWithValue("@idE", IdExamen);   
             await cmd.ExecuteNonQueryAsync();
             using MySqlCommand cmdInt = Db.Connection.CreateCommand();
             cmdInt.CommandText = @"SELECT MAX(idPregunta) FROM pregunta;";
