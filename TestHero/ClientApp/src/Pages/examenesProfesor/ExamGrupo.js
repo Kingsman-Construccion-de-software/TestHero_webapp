@@ -62,7 +62,7 @@ export default function ExamGrupo({ parametro }) {
       <Sidebar />
       <div className={styles.mainContent}>
         {examenes.length === 0 && (
-          <div className="vacio">Comienza a crear exámenes para tu grupo.</div>
+          <div className={styles["vacio"]}>Comienza a crear exámenes para tu grupo.</div>
         )}
         <ul className={styles["exams-list"]}>
           {examenes &&

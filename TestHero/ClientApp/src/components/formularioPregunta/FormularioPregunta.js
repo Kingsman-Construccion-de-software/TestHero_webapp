@@ -97,6 +97,7 @@ export default function FormularioPregunta({
     await axios.post(URIrespuesta, data2);
     await axios.post(URIrespuesta, data3);
     await axios.post(URIrespuesta, data4);
+    
     swal({
       title: "Se ha creado una pregunta",
       button: "Aceptar",
