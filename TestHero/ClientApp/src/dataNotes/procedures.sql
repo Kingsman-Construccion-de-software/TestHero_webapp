@@ -66,7 +66,7 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS get_pregunta;
 CREATE PROCEDURE get_pregunta(IN id INT)
 BEGIN
-	SELECT  idPregunta, pregunta, idExamen
+	SELECT  idPregunta, pregunta, idExamen, idEtiqueta
     FROM pregunta
     WHERE idPregunta = id;
 END //
@@ -426,5 +426,43 @@ END;
 // DELIMITER ;
 
 
+DELIMITER //
+DROP PROCEDURE IF EXISTS dame_alumno;
+CREATE PROCEDURE  dame_alumno()
+BEGIN
+	SELECT nombres, apellidos, correo 
+    FROM alumno;
+END //
+DELIMITER ;
 
+DELIMITER //
+DROP PROCEDURE IF EXISTS registra_alumno;
+CREATE PROCEDURE registra_alumno(IN nom  VARCHAR(45),IN ape  VARCHAR(45),IN corr VARCHAR(45) ,IN pass VARCHAR(45))
+BEGIN
+	INSERT INTO alumno(nombres,apellidos,correo,password) values(nom,ape,corr,pass);
+END //
+DELIMITER ;
 
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_etiquetas_examenes;
+CREATE PROCEDURE get_etiquetas_examen(IN idE int)
+BEGIN
+	SELECT e.idEtiqueta, e.nombre
+    FROM etiqueta as e
+    JOIN examenEtiqueta as ee
+    ON e.idEtiqueta = ee.idEtiqueta
+    WHERE ee.idExamen = idE;
+END 
+// DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_nombretiqueta;
+CREATE PROCEDURE  get_nombretiqueta(IN idP int)
+BEGIN
+	SELECT etiqueta.idEtiqueta, etiqueta.nombre
+    from etiqueta
+    inner join pregunta on
+	pregunta.idEtiqueta  = etiqueta.idEtiqueta
+    WHERE pregunta .idPregunta   = idP;
+END 
+// DELIMITER ;
