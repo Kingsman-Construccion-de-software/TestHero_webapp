@@ -263,7 +263,6 @@ BEGIN
     WHERE idGrupo = id;
 END //
 DELIMITER ;
-
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_etiquetas_examen;
 CREATE PROCEDURE get_etiquetas_examen(IN idE int)
@@ -416,7 +415,24 @@ BEGIN
 END;
 // DELIMITER ;
 
+
+
 DELIMITER //
+
+DROP PROCEDURE IF EXISTS ;
+CREATE PROCEDURE insert_grupo_alumno(idG INT, idA INT)
+BEGIN
+	UPDATE alumno
+    SET alumno.idGrupo = idG
+	WHERE alumno.idAlumno = idA;
+END;
+// DELIMITER ;
+
+SELECT * FROM alumno;
+
+
+DELIMITER //
+
 DROP PROCEDURE IF EXISTS insert_examen_poder;
 CREATE PROCEDURE insert_examen_poder(IN idE  int, IN idP  int)
 BEGIN
@@ -459,6 +475,9 @@ BEGIN
 END 
 // DELIMITER ;
 
+
+CALL insert_examen("a1234567", "mate","mate", "12-05-2023T12:00:00", "12-06-2023T12:00:00", 1);
+
 call registra_profesor("Papa","Solorzano","pruebapapa@gmail.com",12345678);
 
 call  registra_alumno("Prueba","Solorzano","prueba@gmail.com",12345678);
@@ -474,5 +493,4 @@ select * from etiqueta;
 select * from pregunta;
 
 
-select * from profesor;
 
