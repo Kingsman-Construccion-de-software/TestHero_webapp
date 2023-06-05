@@ -27,6 +27,7 @@ namespace TestHero.Controllers
         /// </summary>
         public async Task<IActionResult> Login([FromBody] UserProfesor user)
         {
+
             string msg = "";
             int idUsuario = 0;
             

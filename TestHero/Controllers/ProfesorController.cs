@@ -43,5 +43,20 @@ namespace TestHero.Controllers
             result[0].IdProfesor = id;
             return new OkObjectResult(result);
         }
+
+
+        [Route("api/profesor")]
+        [HttpGet]
+        /// <summary>
+        /// Rutamiento de get profesor por idProfesor
+        /// </summary>
+        public async Task<IActionResult> GetProfesores()
+
+        {
+            await Db.Connection.OpenAsync();
+            Profesor profesor = new Profesor(Db);
+            var result = await profesor.GetProfesores();
+            return new OkObjectResult(result);
+        }
     }
 }

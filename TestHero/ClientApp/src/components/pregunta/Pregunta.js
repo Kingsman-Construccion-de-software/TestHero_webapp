@@ -6,6 +6,8 @@ import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
 import styles from "./pregunta.module.css";
 import swal from "sweetalert";
+import { BsFillCaretDownFill } from "react-icons/bs";
+
 /**
  * @author Bernardo de la Sierra y Julio Meza, LGnan (color)
  * @version 3.1.2
@@ -13,7 +15,12 @@ import swal from "sweetalert";
  * @params Recibe pregunta, filtraprefuntas y getpreguntas
  * @description Este formulario edita y elimina preguntas, es como la parte de adentro
  */
-export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
+export default function Pregunta({
+  pregunta,
+  filterPreguntas,
+  getPreguntas,
+  etiquetas,
+}) {
   // Aparicio de datos
   const [open, setOpen] = useState(false);
   const [showing, setShowing] = useState(false);
@@ -31,7 +38,9 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
   const opciones = [opcion1, opcion2, opcion3, opcion4];
   const setOpciones = [setOpcion1, setOpcion2, setOpcion3, setOpcion4];
   const [respuestas, setRespuestas] = useState([]);
-
+  const [activo, setActivo] = useState(false);
+  const [selects, setSelects] = useState([]);
+  const [etiqueta, setEtiqueta] = useState(0);
   const handleOptionChange = (event) => {
     setSelectedValue(parseInt(event.target.value));
   };
@@ -47,6 +56,7 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
    * Te da cuerto tiempo para ver si la pregunta esta abierta sino se cierra
    */
   const timeOutOpen = () => {
+    console.log(pregunta);
     if (actionable) {
       setActionable(false);
       setShowing(!showing);
@@ -71,6 +81,14 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
     setSelectedValue(correctIndex);
   };
 
+  /**
+   *Funcion para obtener la etiqueta de una pregunta
+   */
+  const getNombreEtiqueta = async () => {
+    const URIetiqueta = "api/etiquetanombre/";
+    const res = await axios.get(`${URIetiqueta}${pregunta.idPregunta}`);
+    setSelects(res.data[0].nombre);
+  };
   /**
    * Funcion para abrir o cerrar todas las respuestas
    */
@@ -101,6 +119,7 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
     const URIupdate = "api/pregunta/";
     await axios.put(`${URIupdate}${pregunta.idPregunta}`, {
       textoPregunta: fpregunta,
+      IdEtiqueta: etiqueta,
     });
 
     await opciones.forEach((opcion, idx) => {
@@ -141,8 +160,6 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
       respuestas[3].esCorrecta = 1;
     }
 
-    console.log(selectedValue);
-
     respuestas.forEach((respuesta, index) => {
       setOpciones[index](respuesta.textoRespuesta);
     });
@@ -158,43 +175,77 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
           </div>
         </div>
         {open && (
-          <div className={showing ? `${styles.extension} ${styles.showing}` : `${styles.extension} ${styles.hiding}`} >
-            <div className={styles["respuestas"]}>
-              {respuestas &&
-                respuestas.map((respuesta, index) => (
-                  <div className={styles["respuesta"]} key={index}>
-                    <>
-                      {respuesta.esCorrecta === 1 ? (
-                        <input
-                          type="radio"
-                          checked
-                          name={`opcion`}
-                          value={`opcion${index}`}
-                        />
-                      ) : (
-                        <input
-                          disabled
-                          type="radio"
-                          name={`opcion`}
-                          value={`opcion${index}`}
-                        />
-                      )}
-                      <p>{respuesta.textoRespuesta} </p>
-                    </>
-                  </div>
-                ))}
-            </div>
-            {actionable && (
-              <div className={styles["iconsRespuesta"]}>
-                <div className={styles["crudIcon1"]} onClick={handleSelected}>
-                  <FaEdit size={35} />
-                </div>
-                <div className={styles["crudIcon2"]}>
-                  <MdCancel size={35} onClick={handleShow} />
-                </div>
+          <>
+            <div
+              className={
+                showing
+                  ? `${styles.extension} ${styles.showing}`
+                  : `${styles.extension} ${styles.hiding}`
+              }
+            >
+              <div className={styles["respuestas"]}>
+                {respuestas &&
+                  respuestas.map((respuesta, index) => (
+                    <div className={styles["respuesta"]} key={index}>
+                      <>
+                        {respuesta.esCorrecta === 1 ? (
+                          <input
+                            type="radio"
+                            checked
+                            name={`opcion`}
+                            value={`opcion${index}`}
+                          />
+                        ) : (
+                          <input
+                            disabled
+                            type="radio"
+                            name={`opcion`}
+                            value={`opcion${index}`}
+                          />
+                        )}
+                        <p>{respuesta.textoRespuesta} </p>
+                      </>
+                    </div>
+                  ))}
               </div>
-            )}
-          </div>
+              {actionable && (
+                <div className={styles["iconsRespuesta"]}>
+                  <div className={styles["crudIcon1"]} onClick={handleSelected}>
+                    <FaEdit size={35} />
+                  </div>
+                  <div className={styles["crudIcon2"]}>
+                    <MdCancel size={35} onClick={handleShow} />
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className={styles["contenedorEtiqueta"]}>
+              <div className={styles["dropdown2"]}>
+                {selects === null ? (
+                  <div
+                    className={styles["dropdown2-btn"]}
+                    onClick={(e) => setActivo(!activo)}
+                  >
+                    Elige una etiqueta
+                  </div>
+                ) : selects === "" ? (
+                  <div
+                    className={styles["dropdown2-btn"]}
+                    onClick={(e) => setActivo(!activo)}
+                  >
+                    {selects}
+                  </div>
+                ) : (
+                  <div
+                    className={styles["dropdown2-btn"]}
+                    onClick={(e) => setActivo(!activo)}
+                  >
+                    {selects}
+                  </div>
+                )}
+              </div>
+            </div>
+          </>
         )}
       </form>
     );
@@ -251,6 +302,53 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
             </div>
           </div>
         </div>
+        <div className={styles["contenedorEtiqueta"]}>
+          <div className={styles["dropdown2"]}>
+            {selects === null ? (
+              <div
+                className={styles["dropdown2-btn"]}
+                onClick={(e) => setActivo(!activo)}
+              >
+                Elige una etiqueta
+                <BsFillCaretDownFill />
+              </div>
+            ) : selects === "" ? (
+              <div
+                className={styles["dropdown2-btn"]}
+                onClick={(e) => setActivo(!activo)}
+              >
+                Elige una etiqueta
+                <BsFillCaretDownFill />
+              </div>
+            ) : (
+              <div
+                className={styles["dropdown2-btn"]}
+                onClick={(e) => setActivo(!activo)}
+              >
+                {selects}
+                <BsFillCaretDownFill />
+              </div>
+            )}
+
+            {activo && (
+              <div className={styles["dropdown2-content"]}>
+                {etiquetas.map((op) => (
+                  <div
+                    className={styles["dropdown2-item"]}
+                    key={op.idEtiqueta}
+                    onClick={(e) => {
+                      setSelects(op.nombre);
+                      setActivo(false);
+                      setEtiqueta(op.idEtiqueta);
+                    }}
+                  >
+                    {op.nombre}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
         <p className={styles["aviso"]}>
           Asegúrate de llenar todos los campos y marcar una respuesta como
           correcta
@@ -272,6 +370,7 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
 
   useEffect(() => {
     getRespuestas();
+    getNombreEtiqueta();
   }, []);
 
   useEffect(() => {

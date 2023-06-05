@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
  * @version: 1.1.0
  * @description Esta clase esta dedicada al creacion de examenes
  */
-export default function Examenes() {
+export default function ExamenesAlumno() {
   // Estados Iniciales
   const { state, setState } = useContext(ProfesorContext);
   const [examenes, setExamenes] = useState([]);
@@ -64,8 +64,8 @@ export default function Examenes() {
             onChange={buscador}
           />
         </div>
-        {examenes.length === 0 && (
-          <div className={styles["lista"]}>No hay examenes registrados</div>
+        {examenes && examenes.length === 0 && (
+          <div className={styles["vacio"]}>No hay examenes registrados</div>
         )}
         <ul className={styles["exams-list"]}>
           {resultados &&
@@ -79,7 +79,7 @@ export default function Examenes() {
                   }
                 >
                   <Link
-                    to={`/resumenAlumno?examen=${examen.idExamen}`}
+                    to={`/resumen/alumno?examen=${examen.idExamen}`}
                     onClick={() => saveState(examen.idExamen)}
                   >
                     {examen.nombre}

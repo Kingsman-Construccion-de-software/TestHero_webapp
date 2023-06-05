@@ -1,0 +1,121 @@
+.page {
+  background-color: #1d1d1d;
+  width: 100vw;
+}
+
+.content {
+  margin-left: 15vw;
+}
+
+.tituloExamen {
+  display: flex;
+  align-items: center;
+  color: #ebebeb;
+  font-style: bold;
+  font-size: 40px;
+  margin-bottom: 1px;
+  padding-top: 15px;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 400px;
+}
+
+.input-text {
+  padding: 5px;
+}
+
+.copy-button {
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #0596ff;
+  color: #ebebeb;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.input-text:hover,
+.copy-button:hover {
+  background-color: #0478d9;
+}
+
+.textBox input[type="text"] {
+  margin-right: 10px;
+}
+
+.subtitles {
+  color: #ebebeb;
+  font-size: 30px;
+  font-weight: 500;
+  width: 85vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+.subtitles h2 {
+  margin-right: 150px;
+}
+
+.datos {
+  display: flex;
+  align-items: center;
+}
+
+.icono {
+  width: 10%;
+  min-width: 100px;
+  text-align: left;
+  margin-left: 15vw;
+  margin-right: 4vw;
+  float: left;
+}
+
+.nombreUsuario {
+  color: #ebebeb;
+  font-size: 35px;
+  font-weight: 500;
+}
+
+.preguntas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.circulo {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  color: #0596ff;
+  width: 4%;
+  height: 60px;
+  border-radius: 8px;
+  float: right;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  margin-right: 8vw;
+}
+
+.vacio {
+  color: #ebebeb;
+  font-size: 34px;
+  text-align: center;
+}
+.vacio2 {
+  color: #ebebeb;
+  font-size: 34px;
+  text-align: center;
+  margin-top: 2000px;
+}

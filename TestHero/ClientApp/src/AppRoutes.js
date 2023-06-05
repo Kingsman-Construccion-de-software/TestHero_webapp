@@ -10,9 +10,11 @@ import ResumenGrupo from "Pages/resumenGrupo/ResumenGrupo";
 import PreLogin from "Pages/prelogin/PreLogin";
 import LoginAlumno from "Pages/loginalumno/LoginAlumno";
 import HomeAlumno from "Pages/homeAlumno/HomeAlumno";
-import Examenes from "Pages/examenesAlumno/Examenes";
+import ExamenesAlumno from "Pages/examenesAlumno/ExamenesAlumno";
 import ResumenAlumno from "resumenAlumno/ResumenAlumno";
-import Invitacion from "Pages/Invitacion/Invitacion"
+import Invitacion from "Pages/Invitacion/Invitacion";
+import RegistroProfesor from "Pages/RegistroProfesor/RegistroProfesor";
+import RegistroAlumnos from "Pages/RegistroAlumnos/RegistroAlumnos";
 
 const AppRoutes = [
   {
@@ -42,7 +44,7 @@ const AppRoutes = [
   },
   {
     path: "/examenes",
-    element: <Examenes />,
+    element: <ExamenesAlumno />,
   },
   {
     path: "/grupos",
@@ -73,8 +75,16 @@ const AppRoutes = [
     element: <ResumenGrupo />,
   },
   {
-      path: "/invitacion",
-      element: <Invitacion />,
+    path: "/invitacion",
+    element: <Invitacion />,
+  },
+  {
+    path: "/registroProfesor",
+    element: <RegistroProfesor />,
+  },
+  {
+    path: "/registroAlumno",
+    element: <RegistroAlumnos />,
   },
 ];
 

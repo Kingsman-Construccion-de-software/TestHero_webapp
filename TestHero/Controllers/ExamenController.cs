@@ -107,5 +107,18 @@ namespace TestHero.Controllers
             return new OkObjectResult(result);
         }
 
+        [Route("api/examen/{id:int}")]
+        [HttpPut]
+        public async Task<IActionResult> Put(int id, [FromBody] Examen body)
+        {
+            await Db.Connection.OpenAsync();
+            body.Db = Db;
+            var result = await body.GetExamen(id);
+            if (result.Count == 0)
+                return new NotFoundResult();
+            await body.UpdateExamen(id);
+            return new OkObjectResult(body);
+        }
+
     }
 }

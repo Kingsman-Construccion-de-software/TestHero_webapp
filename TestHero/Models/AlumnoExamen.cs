@@ -10,11 +10,7 @@ namespace TestHero
 
     
     /// <summary>
-    /// Modelo que une la tabla de alumno y etiquetas
-    /// Aqui se definen todas las atributos de alumnoetiqueta
-    /// como lo son idalumno,nomhre,apellido y calificaccion
-    /// Tiene un constructor que define los datos
-    /// 2 metodos que son: GetAlumnosExamen y  ReadAllAsync
+    /// Modelo que une la tabla de alumno y examen
     /// </summary>
     public class AlumnoExamen
     {

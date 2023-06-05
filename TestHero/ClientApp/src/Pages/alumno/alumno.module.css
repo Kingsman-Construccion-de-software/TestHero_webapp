@@ -69,3 +69,9 @@
 .row-colored {
   background-color: #0596ff;
 }
+
+.vacio {
+  color: #ebebeb;
+  font-size: 34px;
+  text-align: center;
+}
