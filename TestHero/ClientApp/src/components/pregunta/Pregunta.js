@@ -284,6 +284,7 @@ export default function Pregunta({
                         placeholder={`Opcion ${index + 1}`}
                         className={styles["opciones"]}
                         value={opciones[index]}
+                        maxLength="60"
                         onChange={(e) => setOpciones[index](e.target.value)}
                         type="text"
                       />
