@@ -1,0 +1,23 @@
+
+-- Profesor (1 cuenta)
+insert into profesor (nombres, apellidos, correo, password) values ('Ernesto', 'Cruz', 'ecruz@gmail.com', 'neto1234');
+
+-- Alumno (5 cuentas)
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Rosa', 'Casio', 'rcasio@hotmail.com', '123rosaca', 8);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Joaquin', 'Rodriguez', 'joaquinrdz@gmail.com', 'j04qu1n', 8);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Rafael', 'Urbina', 'rafiqui@gmail.com', 'rafix777', 8);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Daniel', 'Gonzalez', 'dgonzalez@udem.edu', '07DaniBoi07', 8);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Nicolás', 'Cajas', 'nickcage@gmail.com', 'zSoyNico03z', 8);
+
+-- Grupo (alumnos)
+insert into grupo (nombre, idProfesor) values ('Introducción a Finanzas', 8);
+
+-- Examen (5)
+INSERT INTO Examen (codigo, nombre, materia, fechaInicio, fechaFin, idGrupo) VALUES ('FINEXA01', 'Examen de Tópicos', 'Finanzas', '2023-06-01 09:00:00', '2023-06-30 11:00:00', 8);
+INSERT INTO Examen (codigo, nombre, materia, fechaInicio, fechaFin, idGrupo) VALUES ('FINEXA02', 'Examen de Tópicos (Segundo Periodo)', 'Finanzas', '2023-06-01 09:00:00', '2023-06-30 11:00:00', 8);
+INSERT INTO Examen (codigo, nombre, materia, fechaInicio, fechaFin, idGrupo) VALUES ('FINEXA03', 'Examen Mediotermino', 'Finanzas', '2023-06-01 09:00:00', '2023-06-30 11:00:00', 8);
+INSERT INTO Examen (codigo, nombre, materia, fechaInicio, fechaFin, idGrupo) VALUES ('FINEXA04', 'Examen de Tópicos (Tercer Periodo)', 'Finanzas', '2023-06-01 09:00:00', '2023-06-30 11:00:00', 8);
+INSERT INTO Examen (codigo, nombre, materia, fechaInicio, fechaFin, idGrupo) VALUES ('FINEXA05', 'Examen Final', 'Finanzas', '2023-06-01 09:00:00', '2023-06-30 11:00:00', 8);
+
+-- Preguntas (10 cada examen)
+INSERT INTO pregunta (pregunta, idExamen) VALUES ('¿Qué es el sistema financiero?', 1);
