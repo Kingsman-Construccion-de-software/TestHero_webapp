@@ -233,6 +233,7 @@ export default function Pregunta({ pregunta, filterPreguntas, getPreguntas }) {
                         placeholder={`Opcion ${index + 1}`}
                         className={styles["opciones"]}
                         value={opciones[index]}
+                        maxLength="60"
                         onChange={(e) => setOpciones[index](e.target.value)}
                         type="text"
                       />
