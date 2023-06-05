@@ -42,7 +42,6 @@ END //
 DELIMITER ;
 
 
-
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_alumno_by_correo;
 CREATE PROCEDURE get_alumno_by_correo(IN corr VARCHAR(45))
@@ -57,7 +56,7 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS get_preguntas_examen;
 CREATE PROCEDURE get_preguntas_examen(IN idE int)
 BEGIN
-	SELECT idPregunta, pregunta, idExamen, idEtiqueta
+	SELECT idPregunta, pregunta, idExamen
     FROM pregunta 
     WHERE idExamen = idE;
 END 
@@ -67,7 +66,7 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS get_pregunta;
 CREATE PROCEDURE get_pregunta(IN id INT)
 BEGIN
-	SELECT  idPregunta, pregunta,idEtiqueta, idExamen
+	SELECT  idPregunta, pregunta, idExamen
     FROM pregunta
     WHERE idPregunta = id;
 END //
@@ -76,18 +75,18 @@ DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS insert_pregunta;
-CREATE PROCEDURE insert_pregunta(IN preg text ,IN idE int ,IN idEt int )
+CREATE PROCEDURE insert_pregunta(IN preg text ,IN idE int )
 BEGIN
-	INSERT INTO pregunta(pregunta,idExamen, idEtiqueta) values(preg,idE,idEt);
+	INSERT INTO pregunta(pregunta,idExamen) values(preg,idE);
 END //
 DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS update_pregunta;
-CREATE PROCEDURE update_pregunta(IN id INT, IN preg text, IN idEt INT)
+CREATE PROCEDURE update_pregunta(IN id INT, IN preg text)
 BEGIN
 	UPDATE pregunta
-    SET pregunta = preg, idEtiqueta = idEt
+    SET pregunta = preg
     WHERE idPregunta = id;
 END //
 DELIMITER ;
@@ -263,6 +262,7 @@ BEGIN
     WHERE idGrupo = id;
 END //
 DELIMITER ;
+
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_etiquetas_examen;
 CREATE PROCEDURE get_etiquetas_examen(IN idE int)
@@ -273,7 +273,7 @@ BEGIN
     ON e.idEtiqueta = ee.idEtiqueta
     WHERE ee.idExamen = idE;
 END 
-// DELIMITER
+// DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_etiquetas;
@@ -415,11 +415,8 @@ BEGIN
 END;
 // DELIMITER ;
 
-
-
 DELIMITER //
-
-DROP PROCEDURE IF EXISTS ;
+DROP PROCEDURE IF EXISTS insert_grupo_alumno;
 CREATE PROCEDURE insert_grupo_alumno(idG INT, idA INT)
 BEGIN
 	UPDATE alumno
@@ -428,69 +425,6 @@ BEGIN
 END;
 // DELIMITER ;
 
-SELECT * FROM alumno;
-
-
-DELIMITER //
-
-DROP PROCEDURE IF EXISTS insert_examen_poder;
-CREATE PROCEDURE insert_examen_poder(IN idE  int, IN idP  int)
-BEGIN
-	INSERT INTO ExamenPoder(idExamen,idPoder) values(idE, idP);
-END //
-DELIMITER ;
-
-DELIMITER //
-DROP PROCEDURE IF EXISTS update_examen;
-CREATE PROCEDURE update_examen(IN id INT, IN fecha1 DATETIME, IN fecha2 DATETIME,
-IN nombre_val VARCHAR(45), IN materia_val VARCHAR(45))
-BEGIN
-    UPDATE examen
-    SET fechaInicio = fecha1, fechaFin = fecha2, nombre = nombre_val, materia = materia_val
-    WHERE idExamen = id;
-END //
-DELIMITER ;
-
-DELIMITER //
-DROP PROCEDURE IF EXISTS get_etiquetas_examenes;
-CREATE PROCEDURE get_etiquetas_examen(IN idE int)
-BEGIN
-	SELECT e.idEtiqueta, e.nombre
-    FROM etiqueta as e
-    JOIN examenEtiqueta as ee
-    ON e.idEtiqueta = ee.idEtiqueta
-    WHERE ee.idExamen = idE;
-END 
-// DELIMITER ;
-
-DELIMITER //
-DROP PROCEDURE IF EXISTS get_nombretiqueta;
-CREATE PROCEDURE  get_nombretiqueta(IN idP int)
-BEGIN
-	SELECT etiqueta.idEtiqueta, etiqueta.nombre
-    from etiqueta
-    inner join pregunta on
-	pregunta.idEtiqueta  = etiqueta.idEtiqueta
-    WHERE pregunta .idPregunta   = idP;
-END 
-// DELIMITER ;
-
-
-CALL insert_examen("a1234567", "mate","mate", "12-05-2023T12:00:00", "12-06-2023T12:00:00", 1);
-
-call registra_profesor("Papa","Solorzano","pruebapapa@gmail.com",12345678);
-
-call  registra_alumno("Prueba","Solorzano","prueba@gmail.com",12345678);
-call dame_profesor();
-call dame_alumno();
-call get_etiquetas_examenes(11);
-call get_preguntas_examen(11);
-call get_nombretiqueta(47);
-call update_pregunta(50,"papa",12);
-select * from alumno;
-select * from profesor;
-select * from etiqueta;
-select * from pregunta;
 
 
 
