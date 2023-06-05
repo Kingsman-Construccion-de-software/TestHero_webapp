@@ -75,9 +75,15 @@ DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS insert_pregunta;
+<<<<<<< HEAD
 CREATE PROCEDURE insert_pregunta(IN preg text ,IN idE int ,IN idEt int )
 BEGIN
 	INSERT INTO pregunta(pregunta,idExamen, idEtiqueta) values(preg,idE,idEt);
+=======
+CREATE PROCEDURE insert_pregunta(IN preg text, IN idE int, In idEt int)
+BEGIN
+	INSERT INTO pregunta(pregunta,idExamen, idEtiqueta) values(preg,idE, idEt);
+>>>>>>> 008d9f261d5d92238ae71bcfdfefd3ce566da234
 END //
 DELIMITER ;
 
@@ -90,6 +96,7 @@ BEGIN
     WHERE idPregunta = id;
 END //
 DELIMITER ;
+
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS delete_pregunta;
@@ -455,6 +462,7 @@ BEGIN
 END 
 // DELIMITER ;
 
+<<<<<<< HEAD
 DELIMITER //
 DROP PROCEDURE IF EXISTS delete_exam;
 CREATE PROCEDURE delete_exam(IN id int)
@@ -474,3 +482,5 @@ END //
 DELIMITER ;
 call insert_pregunta2("xd",1)
 select * from pregunta;
+=======
+>>>>>>> 008d9f261d5d92238ae71bcfdfefd3ce566da234
