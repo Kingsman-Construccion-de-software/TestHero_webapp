@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 .vscode/settings.json
 VS instance.session.sql
+TestHero/appsettings.json

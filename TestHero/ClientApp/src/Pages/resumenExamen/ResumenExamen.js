@@ -1,8 +1,11 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import styles from "./resumenexamen.module.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext} from "react";
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
+import ProfesorContext from "context/contextoProfesor";
 
 import { useSearchParams } from "react-router-dom";
 import MultipleViewCard from "components/multiple-view-card/MultipleViewCard";
@@ -23,11 +26,16 @@ export default function ResumenExamen() {
 
   const inputRef = useRef(null);
 
-    const [searchParams] = useSearchParams();
-    const [show, setShow] = useState(false);
+  const [searchParams] = useSearchParams();
+  const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const navigate = useNavigate();
+  const { state, setState } = useContext(ProfesorContext);
+
+
 
   const getExamen = async () => {
     try {
@@ -43,8 +51,9 @@ export default function ResumenExamen() {
         const url = "api/examen/" + examen.idExamen;
 
         try {
-            const res = await axios.get(url);
-            console.log(res);
+            const res = await axios.delete(url);
+            navigate(`/resumen/grupo?grupo=${state.idGrupo}`);
+
         } catch (e) {
             alert(e);
         }
@@ -93,7 +102,7 @@ export default function ResumenExamen() {
           <Modal show={show} onHide={handleClose} className={styles["modal"]}>
               <Modal.Header closeButton className={styles["modaldetalles3"]}>
                   <Modal.Title>
-                      ¿Estás seguro de que deseas eliminar esta pregunta?
+                      ¿Estás seguro de que deseas eliminar este examen?
           </Modal.Title>
               </Modal.Header>
               <Modal.Body className={`${styles.modaldetalles3} ${styles.fontbody}`}>
