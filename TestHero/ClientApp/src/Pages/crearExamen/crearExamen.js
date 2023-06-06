@@ -7,9 +7,9 @@ import ProfesorContext from "context/contextoProfesor";
 import swal from "sweetalert";
 
 /**
- * @author: Cesar Ivan Hernandez Melendez y Bernardo de la Sierra Rábago
+ * @author: Cesar Ivan Hernandez Melendez, Bernardo de la Sierra Rábago, y Leonardo García
  * @license: GP
- * @version: 2.1.0
+ * @version: 2.2.0
  * Esta clase está dedicada a la página de Crear Examenes
  */
 
@@ -26,6 +26,9 @@ function CrearExamen() {
   const [etiquetas, setEtiquetas] = useState([]);
   const [showingEtiquetas, setShowingEtiquetas] = useState([]);
   const { state, setState } = useContext(ProfesorContext);
+
+  const nombresPoderes = ["Volver a intentar", "Más tiempo", "Ayuda"];
+  const [poderes, setPoderes] = useState(nombresPoderes.map((el) => 0));
 
   /**
    * Nos da todos las etiquetas
@@ -77,39 +80,6 @@ function CrearExamen() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    /** Maneja la funcion de actualizar el examen */
-    const updateExamen = async (idExamen, data) => {
-        const url = `api/examen/${idExamen}`;
-        try {
-            const result = await axios.put(url, data);
-            if (result.status === 200) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (error) {
-            return false;
-        }
-    };
-
-    const handleUpdate = async (idExamen, data) => {
-        const result = await updateExamen(idExamen, data);
-        if (result) {
-            swal({
-                title: "Examen actualizado",
-                button: "Aceptar",
-                icon: "success",
-            });
-            goToExamenes();
-        } else {
-            swal({
-                title: "Error al actualizar el examen",
-                button: "Aceptar",
-                icon: "error",
-            });
-        }
-    };
-
     //retornar si las fechas no son validas
     const date1 = fecha1 + "T" + hora1;
     const date2 = fecha2 + "T" + hora2;
@@ -135,21 +105,16 @@ function CrearExamen() {
 
     const result = await axios.post(url, data);
 
-    if (examToUpdate) {
-    handleUpdate(examToUpdate.idExamen, data);
-  } else {
-    const result = await axios.post(url, data);
-
     await tags.forEach((tag) => postTag(tag, result.data.idExamen));
+    await poderes.forEach((poder, id) => sendPoder(id, result.data.idExamen));
     swal({
       title: "Se ha creado un examen",
       button: "Aceptar",
       icon: "success",
     });
     goToExamenes();
-  }
   };
-  
+
   /**
    * Busca si un código de examen ya fue registrado
    */
@@ -257,12 +222,17 @@ function CrearExamen() {
     filterTags(currentTag);
   }, [currentTag]);
 
+  const sendPoder = async (idPoder, idExamen) => {
+    const url = `api/examen/${idExamen}/poder/${idPoder}`;
+    await axios.post(url);
+  };
+
   return (
     <div>
       <div>
         <Sidebar />
       </div>
-      <div className="home_background">
+      <div class="home_background">
         <div className={styles["CrearExamen"]}>
           <h2>Crear un examen</h2>
           <form className="custom-form" onSubmit={handleSubmit}>
@@ -358,32 +328,74 @@ function CrearExamen() {
                 </div>
               ))}
             </div>
-            <div className={styles["form-group"]}>
-              <label htmlFor="tag-input">
-                Etiquetas: (se mostrarán antes de iniciar el juego)
-              </label>
-              <br />
+            <div className="row">
+              <div className="col-6">
+                <div className={styles["form-group"]}>
+                  <label className={styles["label2"]} htmlFor="tag-input">
+                    Etiquetas: (se mostrarán antes de iniciar el juego)
+                  </label>
+                  <br />
 
-              <input
-                list="tags"
-                id={styles["tag-input"]}
-                type="text"
-                className="form-control"
-                value={currentTag}
-                placeholder="Pulsa Enter para ingresar la etiqueta"
-                onKeyDown={handleKeyDown}
-                onChange={(event) => setCurrentTag(event.target.value)}
-              />
-              {showingEtiquetas && (
-                <datalist id="tags" className={styles["tagDatalist"]}>
-                  {showingEtiquetas &&
-                    showingEtiquetas.map((etiqueta) => (
-                      <option key={etiqueta.idEtiqueta} value={etiqueta.nombre}>
-                        {etiqueta.nombre}
-                      </option>
-                    ))}
-                </datalist>
-              )}
+                  <input
+                    list="tags"
+                    id={styles["tag-input"]}
+                    type="text"
+                    className="form-control"
+                    value={currentTag}
+                    placeholder="Pulsa Enter para ingresar la etiqueta"
+                    onKeyDown={handleKeyDown}
+                    onChange={(event) => setCurrentTag(event.target.value)}
+                  />
+                  {showingEtiquetas && (
+                    <datalist id="tags" className={styles["tagDatalist"]}>
+                      {showingEtiquetas &&
+                        showingEtiquetas.map((etiqueta) => (
+                          <option
+                            key={etiqueta.idEtiqueta}
+                            value={etiqueta.nombre}
+                          >
+                            {etiqueta.nombre}
+                          </option>
+                        ))}
+                    </datalist>
+                  )}
+                </div>
+              </div>
+              <div className="col-6">
+                <div className={styles["form-group"]}>
+                  <label className={styles["label2"]} htmlFor="tag-input">
+                    Poderes: (potenciadores para el alumno)
+                  </label>
+                  <div className={styles["checks"]}>
+                    {nombresPoderes.map((poder, id) => {
+                      return (
+                        <>
+                          <div className={styles["CheckFormat"]}>
+                            <input
+                              type="checkbox"
+                              id={poder}
+                              onChange={function validateCheck(e) {
+                                if (e.target.checked) {
+                                  setPoderes(
+                                    poderes.map((p, i) => (i === id ? 1 : p))
+                                  );
+                                } else {
+                                  setPoderes(
+                                    poderes.map((p, i) => (i === id ? 0 : p))
+                                  );
+                                }
+                              }}
+                            />
+                            <label className={styles["label"]} for={poder}>
+                              {poder}
+                            </label>
+                          </div>
+                        </>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
             </div>
 
             <button
