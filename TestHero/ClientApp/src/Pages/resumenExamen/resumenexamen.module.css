@@ -72,9 +72,66 @@
     padding: 10px 20px;
 }
 
+.subtitles button:hover {
+    background-color:#046db8;
+}
+
 .subtitle {
     color: #ebebeb;
     margin-top: 30px;
     margin-bottom: 30px;
-} 
-  
+}
+
+.modaldetalles3 {
+    background-color: #1d1d1d;
+    border: none;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    color: #ebebeb;
+}
+
+.modal-footer {
+    align-items: center;
+    justify-content: space-around;
+}
+
+.modal-dialog {
+    margin-top: 200px;
+}
+
+.botonCancelar2 {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    background-color: #1d1d1d;
+    color: #ebebeb;
+    padding: 10px 20px;
+    border-width: 2px;
+    border-color: #ebebeb;
+    font-size: 24px;
+    box-shadow: 2px 2px rgba(0px, 0px, 0px, 0.24);
+}
+
+.botonCancelar2:hover {
+    transform: scale(0.98);
+    background-color: #464545;
+    box-shadow: 2px 2px rgba(0px, 0px, 0px, 0.24);
+}
+
+.botonEliminar {
+    margin-top: 30px;
+    padding: 10px 20px;
+    margin-bottom: 40px;
+    background-color: #ebebeb;
+    color: #fd4d4d;
+    border-color: #ebebeb;
+    font-size: 24px;
+}
+
+.botonEliminar:hover {
+    cursor: pointer;
+    background-color: #d0d0d0;
+    color: #fd4d4d;
+    transform: scale(0.98);
+    box-shadow: 2px 2px rgba(0px, 0px, 0px, 0.24);
+}
