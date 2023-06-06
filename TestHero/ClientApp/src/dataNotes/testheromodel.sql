@@ -568,5 +568,25 @@ INSERT INTO etiqueta (nombre) VALUES ('Historia');
 INSERT INTO etiqueta (nombre) VALUES ('Ciencias');
 INSERT INTO etiqueta (nombre) VALUES ('Literatura');
 INSERT INTO etiqueta (nombre) VALUES ('Arte');
+-- insert into etiqueta (nombre) values ('Biología')
 
+-- insert into examenetiqueta(idExamen, idEtiqueta) values (8, 1)
+-- insert into examenetiqueta(idExamen, idEtiqueta) values (11, 1)
+-- insert into examenetiqueta(idExamen, idEtiqueta) values (8, 2)
+-- insert into examenetiqueta(idExamen, idEtiqueta) values (11, 2)
+-- insert into examenetiqueta(idExamen, idEtiqueta) values (8, 3)
+-- insert into examenetiqueta(idExamen, idEtiqueta) values (11, 3)
+-- insert into examenetiqueta(idExamen, idEtiqueta) values (8, 4)
+-- insert into examenetiqueta(idExamen, idEtiqueta) values (11, 4)
+-- insert into examenetiqueta(idExamen, idEtiqueta) values (8, 5)
+-- insert into examenetiqueta(idExamen, idEtiqueta) values (11, 5)
 
+-- insert into examenpoder(idExamen, idPoder) values (1, 1)
+-- insert into examenpoder(idExamen, idPoder) values (1, 2)
+-- insert into examenpoder(idExamen, idPoder) values (2, 1)
+-- insert into examenpoder(idExamen, idPoder) values (2, 3)
+-- insert into examenpoder(idExamen, idPoder) values (3, 1)
+-- insert into examenpoder(idExamen, idPoder) values (4, 1)
+-- insert into examenpoder(idExamen, idPoder) values (4, 2)
+-- insert into examenpoder(idExamen, idPoder) values (4, 3)
+-- no hay poderes para el último examen
