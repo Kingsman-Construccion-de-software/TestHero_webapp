@@ -4,10 +4,10 @@ import ProfesorContext from "context/contextoProfesor";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { BsFillPlusCircleFill } from "react-icons/bs";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 /**
- * @author: Julio Meza
+ * @author: Julio Meza y Cesar Ivan Hernandez
  * @license: GP
  * @version: 2.1.0
  * @description Esta clase esta dedicada al creacion de grupos
@@ -19,14 +19,16 @@ export default function ExamGrupo({ parametro }) {
   const [grupo, setGrupo] = useState();
   const navigate = useNavigate();
 
-  /**
-   * Ruta que te manda a grupos
-   */
-
+  /** Ruta que te manda a grupos*/
   const goToCrearExamen = () => {
     navigate("/crear/examen");
   };
-  /**obtener la informacion del grupo*/
+
+  const goBackToCrearExamen = (idExamen) => {
+    navigate(`/crear/examen?examen=${idExamen}`);
+  };
+
+  /** Obtener la informacion del grupo*/
   const getGrupo = async () => {
     const url = `api/grupo/${parametro}`;
 
@@ -46,6 +48,7 @@ export default function ExamGrupo({ parametro }) {
       const result = await axios.get(url);
       setExamenes([...result.data]);
     } catch (error) {
+      console.error(error);
     }
   };
 
@@ -62,7 +65,7 @@ export default function ExamGrupo({ parametro }) {
       <Sidebar />
       <div className={styles.mainContent}>
         {examenes.length === 0 && (
-          <div className={styles["vacio"]}>Comienza a crear exámenes para tu grupo.</div>
+          <div className="vacio">Comienza a crear exámenes para tu grupo.</div>
         )}
         <ul className={styles["exams-list"]}>
           {examenes &&
@@ -78,6 +81,9 @@ export default function ExamGrupo({ parametro }) {
                   <Link to={`/resumen/examen?examen=${examen.idExamen}`}>
                     {examen.nombre}
                   </Link>
+                  <button onClick={() => goBackToCrearExamen(examen.idExamen)}>
+                    Modificar Examen
+                  </button>
                 </li>
               );
             })}
