@@ -1,3 +1,4 @@
+
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -64,6 +65,8 @@ namespace TestHero.Controllers
             }
         }
 
+
+
         // GET: api/<Examen>/id
         [Route("api/examen/{id:int}")]
         [HttpGet]
@@ -105,6 +108,24 @@ namespace TestHero.Controllers
             return new OkObjectResult(result);
         }
 
+
+        // DELETE api/<Examen>/id
+        [Route("api/examen/{id:int}")]
+        [HttpDelete]
+        /// <summary>
+        /// Rutamiento de delete por idPregunta
+        /// </summary>
+        public async Task<IActionResult> DeleteExam(int id)
+        {
+            await Db.Connection.OpenAsync();
+            Examen examen = new Examen(Db);
+            var result = await examen.GetExamen(id);
+            if (result.Count == 0)
+                return new NotFoundResult();
+            await examen.DeleteExam(id);
+            return new OkResult();
+        }
+
         [Route("api/examen/{id:int}")]
         [HttpPut]
         public async Task<IActionResult> Put(int id, [FromBody] Examen body)
@@ -118,5 +139,7 @@ namespace TestHero.Controllers
             return new OkObjectResult(body);
         }
 
+
     }
 }
+

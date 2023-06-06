@@ -100,13 +100,17 @@ export default function Pregunta({
    */
   const deletePregunta = async () => {
     const URIdelete = "api/pregunta/";
-    await axios.delete(`${URIdelete}${pregunta.idPregunta}`);
-    filterPreguntas(pregunta.idPregunta);
-    swal({
-      title: "Se ha eliminado una pregunta",
-      button: "Aceptar",
-      icon: "error",
-    });
+    try {
+      await axios.delete(`${URIdelete}${pregunta.idPregunta}`);
+      filterPreguntas(pregunta.idPregunta);
+      swal({
+        title: "Se ha eliminado una pregunta",
+        button: "Aceptar",
+        icon: "error",
+      });
+    } catch (error) {
+      console.log(error);
+    }
     getRespuestas();
     handleClose();
   };
@@ -117,19 +121,23 @@ export default function Pregunta({
     e.preventDefault();
 
     const URIupdate = "api/pregunta/";
-    await axios.put(`${URIupdate}${pregunta.idPregunta}`, {
-      textoPregunta: fpregunta,
-      IdEtiqueta: etiqueta,
-    });
+    try {
+      await axios.put(`${URIupdate}${pregunta.idPregunta}`, {
+        textoPregunta: fpregunta,
+        IdEtiqueta: etiqueta,
+      });
 
-    await opciones.forEach((opcion, idx) => {
-      let respuesta = {
-        TextoRespuesta: opcion,
-        EsCorrecta: selectedValue === idx ? 1 : 0,
-        IdPregunta: pregunta.idPregunta,
-      };
-      updateRespuesta(respuesta, idx);
-    });
+      await opciones.forEach((opcion, idx) => {
+        let respuesta = {
+          TextoRespuesta: opcion,
+          EsCorrecta: selectedValue === idx ? 1 : 0,
+          IdPregunta: pregunta.idPregunta,
+        };
+        updateRespuesta(respuesta, idx);
+      });
+    } catch (error) {
+      console.log(error);
+    }
     swal({
       title: "Se ha actualizado una pregunta",
       button: "Aceptar",
@@ -144,7 +152,11 @@ export default function Pregunta({
    */
   const updateRespuesta = async (respuesta, idx) => {
     const URIupdateP = "api/respuesta/";
-    await axios.put(`${URIupdateP}${respuestas[idx].idRespuesta}`, respuesta);
+    try {
+      await axios.put(`${URIupdateP}${respuestas[idx].idRespuesta}`, respuesta);
+    } catch (error) {
+      console.log(error);
+    }
   };
   /**
    * Funcion para activar el punto al crear una respueta

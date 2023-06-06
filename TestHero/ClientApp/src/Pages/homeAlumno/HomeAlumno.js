@@ -26,16 +26,15 @@ export default function HomeAlumno() {
     try {
       const result = await axios.get(url);
       setExamenes(result.data);
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const getGrupos = async () => {
-   if(state.idGrupo !== -1) {
+    if (state.idGrupo !== -1) {
       const url = "api/grupo/alumnos/" + state.id;
       try {
         const result = await axios.get(url);
-        if(result.data.length === 0){
+        if (result.data.length === 0) {
           addToGrupo(state.id, state.idGrupo);
         } else {
           setGrupo(result.data[0]);
@@ -47,23 +46,22 @@ export default function HomeAlumno() {
   };
 
   const addToGrupo = async (idAlumno, idGrupo) => {
-    try{
+    try {
       const url = "api/grupo/" + idGrupo + "/alumno/" + idAlumno;
       const result = await axios.post(url);
       setState({
         ...state,
-        idGrupo: idGrupo
+        idGrupo: idGrupo,
       });
       swal({
-        title:
-          "Has sigo agregado a un grupo",
+        title: "Has sigo agregado a un grupo",
         button: "Aceptar",
         icon: "info",
       });
-    } catch(error){
-      alert(error);
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     getExamenesActivos();
@@ -89,8 +87,13 @@ export default function HomeAlumno() {
           </div>
         </div>
         <div className={styles.examActuales}>
-          {!grupo && <p className={styles.vacio}>Aún no eres miembro de ningún grupo. Consúltalo con tu profesor.</p>}
-          {grupo && examenes.length > 0 &&
+          {!grupo && (
+            <p className={styles.vacio}>
+              Aún no eres miembro de ningún grupo. Consúltalo con tu profesor.
+            </p>
+          )}
+          {grupo &&
+            examenes.length > 0 &&
             examenes.map((examen) => (
               <GrupoAlumno
                 key={examen.idExamen}

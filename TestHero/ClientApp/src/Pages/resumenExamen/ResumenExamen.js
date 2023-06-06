@@ -21,7 +21,7 @@ export default function ResumenExamen() {
   const [text, setText] = useState("https://localhost:44423/examenAlumno");
 
   const inputRef = useRef(null);
-  
+
   const [searchParams] = useSearchParams();
 
   const getExamen = async () => {
@@ -30,7 +30,7 @@ export default function ResumenExamen() {
       const res = await axios.get(url);
       setExamen(res.data[0]);
     } catch (e) {
-      alert(e);
+      console.log(e);
     }
   };
 
@@ -65,9 +65,11 @@ export default function ResumenExamen() {
           )}
           <div className={styles["subtitles"]}>
             {examen && (
+
               <h2 className={styles['subtitle']}>Código: {examen.codigo}</h2>
              )}
               <button onClick={deleteExam}>Eliminar exámen</button>
+
           </div>
         </div>
       </div>

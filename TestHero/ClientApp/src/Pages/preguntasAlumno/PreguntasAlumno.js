@@ -37,7 +37,7 @@ export default function PreguntasAlumno() {
       console.log(checaFechas);
       setFormato(moment(res.data[0].fechaFin).format("MMMM D, YYYY h:mm A"));
     } catch (e) {
-      alert(e);
+      console.log(e);
     }
   };
   /** Se obtiene las preguntas de un examen */
@@ -46,7 +46,9 @@ export default function PreguntasAlumno() {
       const URIpreguntas = "api/pregunta/examen/" + searchParams.get("examen");
       const res = await axios.get(URIpreguntas);
       setPreguntas(res.data);
-    } catch (e) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -62,7 +64,7 @@ export default function PreguntasAlumno() {
       const result = await axios.get(url);
       setAlumnoRespuesta(result.data);
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 

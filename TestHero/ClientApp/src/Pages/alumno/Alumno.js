@@ -26,7 +26,7 @@ export default function Alumnos() {
         setAlumno(result.data);
       }
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 

@@ -48,7 +48,7 @@ export default function Login() {
         getProfesor(result.data.id);
       }
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
   /**Checa que dado un idProfesor nos guarde su informacion */
@@ -65,7 +65,7 @@ export default function Login() {
       };
       setState(profesor);
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 

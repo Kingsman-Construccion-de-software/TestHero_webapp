@@ -16,9 +16,7 @@ export default function PreguntaAlumno({ pregunta, alumnoRespuesta }) {
   // Aparicio de datos
   const [open, setOpen] = useState(false);
   const [showing, setShowing] = useState(false);
-
   const [correcta, setCorrecta] = useState(false);
-
   const [respuestas, setRespuestas] = useState([]);
   const [actionable, setActionable] = useState(true);
   /**

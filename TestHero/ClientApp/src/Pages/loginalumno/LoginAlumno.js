@@ -26,7 +26,6 @@ export default function Login() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-
   /**Cambia el correo */
   const handleEmailChange = (value) => {
     setEmail(value);
@@ -53,7 +52,7 @@ export default function Login() {
         getAlumno(result.data.id, result.data.idGrupo);
       }
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
   /**Checa que dado un idAlumno nos guarde su informacion */
@@ -65,29 +64,29 @@ export default function Login() {
       let res = result.data[0];
       let idGr = 0;
 
-      let paramGrupo = searchParams.get("grupo")
+      let paramGrupo = searchParams.get("grupo");
 
-      if(idGrupo === -1){
-        if(paramGrupo){
+      if (idGrupo === -1) {
+        if (paramGrupo) {
           console.log("e");
           idGr = searchParams.get("grupo");
         } else {
           idGr = -1;
         }
       } else {
-          idGr = idGrupo;
+        idGr = idGrupo;
       }
 
       let alumno = {
         id: res.idAlumno,
         nombre: res.nombres + " " + res.apellidos,
         correo: res.correo,
-        idGrupo: idGr
+        idGrupo: idGr,
       };
-      
+
       setState(alumno);
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 

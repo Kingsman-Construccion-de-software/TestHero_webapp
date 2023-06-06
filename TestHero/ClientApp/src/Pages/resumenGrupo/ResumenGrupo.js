@@ -9,7 +9,7 @@ import styles from "./resumengrupo.module.css";
 import swal from "sweetalert";
 
 /**
- * @author Bernardo de la Sierra y Julio Meza
+ * @author Bernardo de la Sierra y Julio Meza (LGnan puso una á en Exámenes)
  * @version 2.1.1
  * @license Gp
  * @params Sin parametros
@@ -36,7 +36,7 @@ export default function ResumenGrupo() {
                 setGrupo(result.data[0]);
             }
         } catch (error) {
-            alert(error);
+            console.log(error);
         }
     };
 
@@ -87,7 +87,7 @@ export default function ResumenGrupo() {
                     <MultipleViewCard
                         views={[
                             {
-                                title: "Examenes",
+                                title: "Exámenes",
                                 component: <Group parametro={parametro} />,
                             },
                             {
