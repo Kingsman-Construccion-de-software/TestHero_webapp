@@ -64,8 +64,6 @@ namespace TestHero.Controllers
             }
         }
 
-
-
         // GET: api/<Examen>/id
         [Route("api/examen/{id:int}")]
         [HttpGet]
