@@ -2,6 +2,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import styles from "./resumenexamen.module.css";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { Modal, Button } from "react-bootstrap";
 
 import { useSearchParams } from "react-router-dom";
 import MultipleViewCard from "components/multiple-view-card/MultipleViewCard";
@@ -22,7 +23,11 @@ export default function ResumenExamen() {
 
   const inputRef = useRef(null);
 
-  const [searchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
   const getExamen = async () => {
     try {
@@ -67,8 +72,8 @@ export default function ResumenExamen() {
             {examen && (
 
               <h2 className={styles['subtitle']}>Código: {examen.codigo}</h2>
-             )}
-              <button onClick={deleteExam}>Eliminar exámen</button>
+                      )}
+                      <button onClick={() => setShow(true)}>Eliminar exámen</button>
 
           </div>
         </div>
@@ -83,7 +88,34 @@ export default function ResumenExamen() {
             },
           ]}
         />
-      </div>
+          </div>
+
+          <Modal show={show} onHide={handleClose} className={styles["modal"]}>
+              <Modal.Header closeButton className={styles["modaldetalles3"]}>
+                  <Modal.Title>
+                      ¿Estás seguro de que deseas eliminar esta pregunta?
+          </Modal.Title>
+              </Modal.Header>
+              <Modal.Body className={`${styles.modaldetalles3} ${styles.fontbody}`}>
+                  No se podrá recuperar después
+        </Modal.Body>
+              <Modal.Footer className={styles["modaldetalles3"]}>
+                  <Button
+                      variant="secondary"
+                      onClick={handleClose}
+                      className={styles["botonCancelar2"]}
+                  >
+                      Cancelar
+          </Button>
+                  <Button
+                      variant="secondary"
+                      onClick={() => deleteExam()}
+                      className={styles["botonEliminar"]}
+                  >
+                      Eliminar
+          </Button>
+              </Modal.Footer>
+          </Modal>
     </div>
   );
 }
