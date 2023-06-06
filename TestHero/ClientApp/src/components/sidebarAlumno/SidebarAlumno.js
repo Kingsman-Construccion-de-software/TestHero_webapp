@@ -1,14 +1,10 @@
 import React from "react";
 import SidebarLogo from "../../assets/SidebarLogo.png";
-import Home from "../../assets/Home.png";
-import Tasks from "../../assets/Tasks.png";
-import BackArrow from "../../assets/BackArrow.png";
-import Questions from "../../assets/Questions.png";
-import Out from "../../assets/Out.png";
+
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaHome } from "react-icons/fa";
 import { BiExit } from "react-icons/bi";
-import {GiNotebook} from "react-icons/gi"
+import { GiNotebook } from "react-icons/gi";
 import styles from "./SidebarAlumno.module.css";
 
 /**
@@ -25,30 +21,24 @@ export default function Sidebar() {
   return (
     <div className={styles["sidenav"]}>
       <img className={styles["logoPrincipal"]} src={SidebarLogo} alt="logo" />
-      <a className={styles['iconSidebar']}>
+      <a className={styles["iconSidebar"]}>
         {location.pathname !== "/homealumno" && (
-            <FaArrowLeft 
-              className={styles["icon"]}
-              size={70}
-              onClick={() => navigate(-1)}
-            />
+          <FaArrowLeft
+            className={styles["icon"]}
+            size={70}
+            onClick={() => navigate(-1)}
+          />
         )}
       </a>
       <Link to={"/homealumno"}>
-        <FaHome 
-          className={styles["icon"]}
-          size={70}/>
+        <FaHome className={styles["icon"]} size={70} />
       </Link>
 
       <Link to={"/examenes"}>
-        <GiNotebook
-          className={styles["icon"]} 
-          size={70}/>
+        <GiNotebook className={styles["icon"]} size={70} />
       </Link>
       <Link to={"/"}>
-        <BiExit 
-          className={styles["icon"]} 
-          size={70}/>
+        <BiExit className={styles["icon"]} size={70} />
       </Link>
     </div>
   );

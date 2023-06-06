@@ -42,7 +42,7 @@ export default function Questions() {
       const res = await axios.get(url);
       setExamen(res.data[0]);
     } catch (e) {
-      alert(e);
+      console.log(e);
     }
   };
   /** Se obtiene las preguntas de un examen */
@@ -51,7 +51,9 @@ export default function Questions() {
       const URIpreguntas = "api/pregunta/examen/" + searchParams.get("examen");
       const res = await axios.get(URIpreguntas);
       setPreguntas(res.data);
-    } catch (e) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   /** Se obtiene las etiquetas de un examen */
@@ -61,7 +63,9 @@ export default function Questions() {
       const res = await axios.get(URIetiqueta);
       setEtiquetas(res.data);
       console.log(res.data);
-    } catch (e) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {

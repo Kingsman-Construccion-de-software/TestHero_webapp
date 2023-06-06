@@ -27,7 +27,7 @@ export default function ResumenAlumno() {
       const res = await axios.get(url);
       setExamen(res.data[0]);
     } catch (e) {
-      alert(e);
+      console.log(e);
     }
   };
 
@@ -36,8 +36,7 @@ export default function ResumenAlumno() {
       const url = `api/alumno/examen/${parametros}/${state.id}`;
       const res = await axios.get(url);
       setPuntaje(res.data.calificacion);
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -52,7 +51,9 @@ export default function ResumenAlumno() {
       </div>
       <div className={styles["page"]}>
         <div className={styles["content"]}>
-          {examen && <h1 className={styles["tituloExamen"]}>{examen.nombre}</h1>}
+          {examen && (
+            <h1 className={styles["tituloExamen"]}>{examen.nombre}</h1>
+          )}
           <div className={styles["subtitles"]}>
             {examen && <h3>Código: {examen.codigo}</h3>}
           </div>

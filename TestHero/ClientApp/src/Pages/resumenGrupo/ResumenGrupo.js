@@ -36,7 +36,7 @@ export default function ResumenGrupo() {
                 setGrupo(result.data[0]);
             }
         } catch (error) {
-            alert(error);
+            console.log(error);
         }
     };
 

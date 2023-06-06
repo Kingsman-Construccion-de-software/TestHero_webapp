@@ -4,9 +4,9 @@ import logo from "../../assets/logo.png";
 import BackArrow from "../../assets/BackArrow.png";
 import { useState } from "react";
 import axios from "axios";
-import { useEffect, useContext } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ProfesorContext from "context/contextoProfesor";
+
 import swal from "sweetalert";
 /**
  * @author Bernardo de la Sierra
@@ -91,8 +91,12 @@ export default function RegistroProfesor() {
       });
     } else {
       if (password === confirmar) {
-        const url = "api/profesor ";
-        const result = await axios.post(url, data);
+        try {
+          const url = "api/profesor ";
+          const result = await axios.post(url, data);
+        } catch (error) {
+          console.log(error);
+        }
         setStatus("Registro exitoso");
         swal({
           title:
@@ -110,11 +114,13 @@ export default function RegistroProfesor() {
     }
   };
   const getProfesor = async (e) => {
-    const url = "api/profesor ";
-    const result = await axios.get(url);
-    setProfesor(result.data);
-    console.log(result);
-    console.log(profesor);
+    try {
+      const url = "api/profesor ";
+      const result = await axios.get(url);
+      setProfesor(result.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {

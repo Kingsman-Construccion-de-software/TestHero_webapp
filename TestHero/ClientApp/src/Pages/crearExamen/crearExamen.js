@@ -37,9 +37,13 @@ function CrearExamen() {
   const navigate = useNavigate();
 
   const getTags = async () => {
-    const url = "api/etiqueta";
-    const result = await axios.get(url);
-    setEtiquetas([...result.data]);
+    try {
+      const url = "api/etiqueta";
+      const result = await axios.get(url);
+      setEtiquetas([...result.data]);
+    } catch (error) {
+      console.log(error);
+    }
   };
   /**
    * Filtra todas las etiquetas
@@ -102,11 +106,13 @@ function CrearExamen() {
       FechaFin: date2,
       idGrupo: state.idGrupo,
     };
-
-    const result = await axios.post(url, data);
-
-    await tags.forEach((tag) => postTag(tag, result.data.idExamen));
-    await poderes.forEach((poder, id) => sendPoder(id, result.data.idExamen));
+    try {
+      const result = await axios.post(url, data);
+      await tags.forEach((tag) => postTag(tag, result.data.idExamen));
+      await poderes.forEach((poder, id) => sendPoder(id, result.data.idExamen));
+    } catch (error) {
+      console.log(error);
+    }
     swal({
       title: "Se ha creado un examen",
       button: "Aceptar",
@@ -183,13 +189,21 @@ function CrearExamen() {
       const data = {
         Nombre: tag,
       };
-      const result = await axios.post(url, data);
-      id = result.data.idEtiqueta;
+      try {
+        const result = await axios.post(url, data);
+        id = result.data.idEtiqueta;
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       id = filtrado[0].idEtiqueta;
     }
     const url = `api/etiqueta/${id}/examen/${idExamen}`;
-    const result = await axios.post(url);
+    try {
+      const result = await axios.post(url);
+    } catch (error) {
+      console.log(error);
+    }
   };
   /**Checa que tecla fue usada */
   const handleKeyDown = (event) => {
