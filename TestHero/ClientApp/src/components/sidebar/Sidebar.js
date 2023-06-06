@@ -5,11 +5,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaHome } from "react-icons/fa";
 import { BiGroup, BiExit } from "react-icons/bi";
 
-
 import styles from "./Sidebar.module.css";
 
 /**
- * @author: Leonardo García
+ * @author: Leonardo García y Bernardo de la Sierra (Modifico)
  * @license: GP
  * @version: 1.1.0
  * @description Esta clase está dedicada a la creación de una sidebar reutilizable en la mayoría de las páginas
@@ -20,31 +19,25 @@ export default function Sidebar() {
   const location = useLocation();
 
   return (
-    <div className={styles['sidenav']}>
-      <img className={styles['logoPrincipal']} src={SidebarLogo} alt="logo" />
-      <a className={styles['iconSidebar']}>
+    <div className={styles["sidenav"]}>
+      <img className={styles["logoPrincipal"]} src={SidebarLogo} alt="logo" />
+      <a className={styles["iconSidebar"]}>
         {location.pathname !== "/home" && (
-            <FaArrowLeft 
-              className={styles["icon"]}
-              size={70}
-              onClick={() => navigate(-1)}
-            />
+          <FaArrowLeft
+            className={styles["icon"]}
+            size={70}
+            onClick={() => navigate(-1)}
+          />
         )}
       </a>
-      <Link to={"/home"} className={styles['iconSidebar']}>
-        <FaHome 
-          className={styles["icon"]}
-          size={70}/>
+      <Link to={"/home"} className={styles["iconSidebar"]}>
+        <FaHome className={styles["icon"]} size={70} />
       </Link>
       <Link to={"/grupos"}>
-        <BiGroup           
-          className={styles["icon"]}
-          size={70}/>
+        <BiGroup className={styles["icon"]} size={70} />
       </Link>
       <Link to={"/"}>
-        <BiExit 
-          className={styles["icon"]} 
-          size={70}/>
+        <BiExit className={styles["icon"]} size={70} />
       </Link>
     </div>
   );

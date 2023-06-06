@@ -39,6 +39,7 @@ export default function Results({ codigos }) {
       const result = await axios.get(url);
       setCalificaciones([...result.data]);
     } catch (error) {
+      console.log(error);
     }
   };
 
@@ -60,9 +61,7 @@ export default function Results({ codigos }) {
               Comparte el código del examen con tus alumnos para que puedan
               responderlo.
             </div>
-            <h2 className={styles.vacio}>
-              Código: {codigos.codigo}
-            </h2>
+            <h2 className={styles.vacio}>Código: {codigos.codigo}</h2>
           </>
         ) : (
           <>

@@ -89,8 +89,12 @@ export default function RegistroAlumnos() {
       });
     } else {
       if (password === confirmar) {
-        const url = "api/alumnosRegistro";
-        const result = await axios.post(url, data);
+        try {
+          const url = "api/alumnosRegistro";
+          const result = await axios.post(url, data);
+        } catch (error) {
+          console.log(error);
+        }
         setStatus("Registro exitoso");
         swal({
           title:
@@ -108,11 +112,13 @@ export default function RegistroAlumnos() {
     }
   };
   const getAlumno = async (e) => {
-    const url = "api/alumnosRegistro";
-    const result = await axios.get(url);
-    setAlumno(result.data);
-    console.log(result);
-    console.log(alumno);
+    try {
+      const url = "api/alumnosRegistro";
+      const result = await axios.get(url);
+      setAlumno(result.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {

@@ -1,5 +1,11 @@
 import React, { createContext, useState } from "react";
-
+/**
+ * @author Bernardo de la Sierra(Modifico ) y Julio Meza
+ * @version 2.1.1
+ * @license Gp
+ * @params Sin parametros
+ * @description Da contexto a todo el codigo para identificar si es alumno o maestro
+ */
 const DEFAULT_VALUE = {
   state: {
     id: -1,
