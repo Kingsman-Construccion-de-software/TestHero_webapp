@@ -477,3 +477,10 @@ DELIMITER ;
 
 select * from pregunta;
 
+
+select * from profesor;
+select * from pregunta;
+select * from alumno;
+SELECT * FROM alumnoexamen;
+SELECT * FROM alumnopregunta;
+Select * from examen;

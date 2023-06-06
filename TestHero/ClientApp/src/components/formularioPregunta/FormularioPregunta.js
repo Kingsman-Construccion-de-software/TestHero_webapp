@@ -43,58 +43,59 @@ export default function FormularioPregunta({
     // Rutas prestablecidas
     const URIpregunta = "api/pregunta";
     const URIrespuesta = "api/respuesta";
-    if (!selectedValue && selects === "") {
-      swal({
-        title:
-          "Antes de crear la pregunta debe seleccionar la respuesta correcta",
-        button: "Aceptar",
-        icon: "warning",
-      });
-      return;
-    }
     try {
-      const result = await axios.post(URIpregunta, {
-        idExamen: idExamen,
-        textoPregunta: fpregunta,
-        idEtiqueta: guarda,
-      });
+      if (!selectedValue || selects === "") {
+        swal({
+          title:
+            "Antes de crear la pregunta debe seleccionar la respuesta correcta",
+          button: "Aceptar",
+          icon: "warning",
+        });
+        return;
+      } else if (selectedValue) {
+        const result = await axios.post(URIpregunta, {
+          idExamen: idExamen,
+          textoPregunta: fpregunta,
+          idEtiqueta: guarda,
+        });
 
-      const data1 = {
-        TextoRespuesta: opcion,
-        EsCorrecta: 0,
-        idPregunta: result.data.idPregunta,
-      };
-      const data2 = {
-        TextoRespuesta: opcion2,
-        EsCorrecta: 0,
-        idPregunta: result.data.idPregunta,
-      };
+        const data1 = {
+          TextoRespuesta: opcion,
+          EsCorrecta: 0,
+          idPregunta: result.data.idPregunta,
+        };
+        const data2 = {
+          TextoRespuesta: opcion2,
+          EsCorrecta: 0,
+          idPregunta: result.data.idPregunta,
+        };
 
-      const data3 = {
-        TextoRespuesta: opcion3,
-        EsCorrecta: 0,
-        idPregunta: result.data.idPregunta,
-      };
-      const data4 = {
-        TextoRespuesta: opcion4,
-        EsCorrecta: 0,
-        idPregunta: result.data.idPregunta,
-      };
+        const data3 = {
+          TextoRespuesta: opcion3,
+          EsCorrecta: 0,
+          idPregunta: result.data.idPregunta,
+        };
+        const data4 = {
+          TextoRespuesta: opcion4,
+          EsCorrecta: 0,
+          idPregunta: result.data.idPregunta,
+        };
 
-      if (selectedValue === "option0") {
-        data1.EsCorrecta = 1;
-      } else if (selectedValue === "option1") {
-        data2.EsCorrecta = 1;
-      } else if (selectedValue === "option2") {
-        data3.EsCorrecta = 1;
-      } else if (selectedValue === "option3") {
-        data4.EsCorrecta = 1;
+        if (selectedValue === "option0") {
+          data1.EsCorrecta = 1;
+        } else if (selectedValue === "option1") {
+          data2.EsCorrecta = 1;
+        } else if (selectedValue === "option2") {
+          data3.EsCorrecta = 1;
+        } else if (selectedValue === "option3") {
+          data4.EsCorrecta = 1;
+        }
+
+        await axios.post(URIrespuesta, data1);
+        await axios.post(URIrespuesta, data2);
+        await axios.post(URIrespuesta, data3);
+        await axios.post(URIrespuesta, data4);
       }
-
-      await axios.post(URIrespuesta, data1);
-      await axios.post(URIrespuesta, data2);
-      await axios.post(URIrespuesta, data3);
-      await axios.post(URIrespuesta, data4);
     } catch (error) {
       console.log(error);
     }
