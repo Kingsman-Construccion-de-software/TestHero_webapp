@@ -63,6 +63,7 @@ export default function PreguntasAlumno() {
     try {
       const result = await axios.get(url);
       setAlumnoRespuesta(result.data);
+      console.log(result.data);
     } catch (error) {
       console.log(error);
     }
@@ -100,13 +101,13 @@ export default function PreguntasAlumno() {
                     preguntas.length > 0 &&
                     alumnoRespuesta.length > 0 &&
                     preguntas.map((pregunta, index) => {
-                      console.log(pregunta);
+                      console.log(alumnoRespuesta);
                       return (
                         <PreguntaAlumno
                           key={index}
                           pregunta={pregunta}
                           alumnoRespuesta={
-                            alumnoRespuesta[index] != null
+                            alumnoRespuesta[index] !== null
                               ? alumnoRespuesta[index].idRespuesta
                               : 0
                           }

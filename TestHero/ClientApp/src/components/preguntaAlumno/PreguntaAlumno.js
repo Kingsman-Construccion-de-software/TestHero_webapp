@@ -45,6 +45,7 @@ export default function PreguntaAlumno({ pregunta, alumnoRespuesta }) {
    *Funcion para obtener todas las respuestas
    */
   const getRespuestas = async () => {
+    console.log(alumnoRespuesta);
     const URIrespuestas = "api/respuesta/pregunta/";
     try {
       const result = await axios.get(`${URIrespuestas}${pregunta.idPregunta}`);
