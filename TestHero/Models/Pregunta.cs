@@ -63,24 +63,12 @@ namespace TestHero
         /// </summary>
         public async Task InsertPregunta()
         {
-            using MySqlCommand cmd = Db.Connection.CreateCommand();
-<<<<<<< HEAD
-            
-            
+            using MySqlCommand cmd = Db.Connection.CreateCommand();                       
                 cmd.CommandText = @"insert_pregunta";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@preg", TextoPregunta);
                 cmd.Parameters.AddWithValue("@idEt", IdEtiqueta);
                 cmd.Parameters.AddWithValue("@idE", IdExamen);
-            
-              
-=======
-            cmd.CommandText = @"insert_pregunta";
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@preg", TextoPregunta);
-            cmd.Parameters.AddWithValue("@idE", IdExamen);
-            cmd.Parameters.AddWithValue("@idEt", IdEtiqueta);
->>>>>>> 008d9f261d5d92238ae71bcfdfefd3ce566da234
             await cmd.ExecuteNonQueryAsync();
             using MySqlCommand cmdInt = Db.Connection.CreateCommand();
             cmdInt.CommandText = @"SELECT MAX(idPregunta) FROM pregunta;";
