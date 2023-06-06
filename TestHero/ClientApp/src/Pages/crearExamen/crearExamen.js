@@ -133,21 +133,31 @@ function CrearExamen() {
       idGrupo: state.idGrupo,
     };
 
-    const result = await axios.post(url, data);
+    // const result = await axios.post(url, data);
 
-    if (examToUpdate) {
-    handleUpdate(examToUpdate.idExamen, data);
-  } else {
+    //if (examToUpdate) {
+    //    handleUpdate(examToUpdate.idExamen, data);
+    //} else {
+    //    const result = await axios.post(url, data);
+
+    //    await tags.forEach((tag) => postTag(tag, result.data.idExamen));
+    //    swal({
+    //      title: "Se ha creado un examen",
+    //      button: "Aceptar",
+    //      icon: "success",
+    //    });
+    //    goToExamenes();
+    //}
+
     const result = await axios.post(url, data);
 
     await tags.forEach((tag) => postTag(tag, result.data.idExamen));
     swal({
-      title: "Se ha creado un examen",
-      button: "Aceptar",
-      icon: "success",
+        title: "Se ha creado un examen",
+        button: "Aceptar",
+        icon: "success",
     });
     goToExamenes();
-  }
   };
   
   /**
