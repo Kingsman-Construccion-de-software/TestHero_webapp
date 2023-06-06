@@ -25,12 +25,10 @@
     <Content Remove="$(SpaRoot)**" />
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
-    <None Remove="ClientApp\src\Pages\Inicio\" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ClientApp\src\dataNotes\" />
-    <Folder Include="ClientApp\src\Pages\Inicio\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

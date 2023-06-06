@@ -34,6 +34,19 @@ export default function ResumenExamen() {
     }
   };
 
+    const deleteExam = async () => {
+        const url = "api/examen/" + examen.idExamen;
+
+        try {
+            const res = await axios.get(url);
+            console.log(res);
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    console.log(examen);
+
   useEffect(() => {
     getExamen();
   }, []);
@@ -52,8 +65,11 @@ export default function ResumenExamen() {
           )}
           <div className={styles["subtitles"]}>
             {examen && (
-              <h2 className={styles["subtitle"]}>Código: {examen.codigo}</h2>
-            )}
+
+              <h2 className={styles['subtitle']}>Código: {examen.codigo}</h2>
+             )}
+              <button onClick={deleteExam}>Eliminar exámen</button>
+
           </div>
         </div>
       </div>
