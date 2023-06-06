@@ -75,15 +75,9 @@ DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS insert_pregunta;
-<<<<<<< HEAD
 CREATE PROCEDURE insert_pregunta(IN preg text ,IN idE int ,IN idEt int )
 BEGIN
-	INSERT INTO pregunta(pregunta,idExamen, idEtiqueta) values(preg,idE,idEt);
-=======
-CREATE PROCEDURE insert_pregunta(IN preg text, IN idE int, In idEt int)
-BEGIN
 	INSERT INTO pregunta(pregunta,idExamen, idEtiqueta) values(preg,idE, idEt);
->>>>>>> 008d9f261d5d92238ae71bcfdfefd3ce566da234
 END //
 DELIMITER ;
 
@@ -462,7 +456,6 @@ BEGIN
 END 
 // DELIMITER ;
 
-<<<<<<< HEAD
 DELIMITER //
 DROP PROCEDURE IF EXISTS delete_exam;
 CREATE PROCEDURE delete_exam(IN id int)
@@ -474,13 +467,13 @@ END
 // DELIMITER ;
 
 DELIMITER //
-DROP PROCEDURE IF EXISTS insert_pregunta2;
-CREATE PROCEDURE insert_pregunta2(IN preg text ,IN idE int )
+DROP PROCEDURE IF EXISTS insert_examen_poder;
+CREATE PROCEDURE insert_examen_poder(IN idE  int, IN idP  int)
 BEGIN
-	INSERT INTO pregunta(pregunta,idExamen) values(preg,idE);
+	INSERT INTO ExamenPoder(idExamen,idPoder) values(idE, idP);
 END //
 DELIMITER ;
-call insert_pregunta2("xd",1)
+
+
 select * from pregunta;
-=======
->>>>>>> 008d9f261d5d92238ae71bcfdfefd3ce566da234
+
