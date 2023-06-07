@@ -53,11 +53,10 @@
 
 .subtitles {
   display: flex;
-  justify-content: space-between;
-  margin-right: 80px;
+  /* margin-right: 5vw; */
 }
 
-.subtitles button {
+/* .subtitles button {
   margin-top: 20px;
   height: 40px;
   display: flex;
@@ -70,11 +69,11 @@
   font-weight: 500;
   border-radius: 10px;
   padding: 10px 20px;
-}
+} */
 
-.subtitles button:hover {
+/* .subtitles button:hover {
   background-color: #046db8;
-}
+} */
 
 .subtitle {
   color: #ebebeb;
@@ -135,3 +134,36 @@
   transform: scale(0.98);
   box-shadow: 2px 2px rgba(0px, 0px, 0px, 0.24);
 }
+
+
+.crudIcon1 {
+  color: #ebebeb;
+  /* margin-right: 2vw; */
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 50vw;
+  
+}
+
+.crudIcon1:hover {
+  cursor: pointer;
+  color: #0596ff;
+}
+
+.crudIcon2 {
+  color: #ebebeb;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 1vw;
+
+}
+
+.crud
+Icon2:hover {
+  cursor: pointer;
+  color: #fd4d4d;
+}
+
+/* .IconPos{
+  float: right;
+} */
