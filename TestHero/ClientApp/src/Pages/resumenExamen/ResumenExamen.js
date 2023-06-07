@@ -1,7 +1,6 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import styles from "./resumenexamen.module.css";
 import { useState, useEffect, useRef, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
@@ -34,7 +33,6 @@ export default function ResumenExamen() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const navigate = useNavigate();
   const { state, setState } = useContext(ProfesorContext);
 
   const getExamen = async () => {
@@ -57,16 +55,6 @@ export default function ResumenExamen() {
       alert(e);
     }
   };
-
-  const deleteExam = async () => {
-      const url = "api/examen/" + examen.idExamen;
-      try {
-          const res = await axios.get(url);
-          console.log(res);
-      } catch (e) {
-          alert(e);
-      }
-  }
 
   const EditExam = () => {
     navigate("/editar/examen");
@@ -94,8 +82,8 @@ export default function ResumenExamen() {
             {examen && (
               <h2 className={styles["subtitle"]}>Código: {examen.codigo}</h2>
             )}
-              <button onClick={EditExam}>Editar</button>
-              <button onClick={deleteExam}>Eliminar exámen</button>
+            <button onClick={EditExam}>Editar</button>
+            <button onClick={() => setShow(true)}>Eliminar exámen</button>
           </div>
         </div>
       </div>
