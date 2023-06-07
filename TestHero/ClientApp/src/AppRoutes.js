@@ -15,6 +15,7 @@ import ResumenAlumno from "resumenAlumno/ResumenAlumno";
 import Invitacion from "Pages/Invitacion/Invitacion";
 import RegistroProfesor from "Pages/RegistroProfesor/RegistroProfesor";
 import RegistroAlumnos from "Pages/RegistroAlumnos/RegistroAlumnos";
+import EditarExamen from "Pages/crearExamen/EditarExamen";
 
 const AppRoutes = [
   {
@@ -57,6 +58,10 @@ const AppRoutes = [
   {
     path: "/crear/examen",
     element: <CrearExamen />,
+  },
+  {
+    path: "/editar/examen",
+    element: <EditarExamen />,
   },
   {
     path: "/questions",

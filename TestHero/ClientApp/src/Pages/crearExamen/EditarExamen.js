@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import React, { useEffect, useState, useContext } from "react";
 import styles from "./crearExamen.module.css";
 import Sidebar from "../../components/sidebar/Sidebar.js";
@@ -7,227 +8,85 @@ import ProfesorContext from "context/contextoProfesor";
 import swal from "sweetalert";
 
 /**
- * @author: Cesar Ivan Hernandez Melendez, Bernardo de la Sierra Rábago, y Leonardo García
+ * @author: Cesar Ivan Hernandez Melendez
  * @license: GP
- * @version: 2.2.0
- * Esta clase está dedicada a la página de Crear Examenes
+ * @version: 4.0
+ * Esta clase está dedicada a la página de Editar Examenes
  */
 
-function CrearExamen() {
-  // Estados para actualizar y crear la informacion
-  const [titulo, setTitulo] = useState("");
-  const [materia, setMateria] = useState("");
-  const [fecha1, setFecha1] = useState("");
-  const [fecha2, setFecha2] = useState("");
-  const [hora1, setHora1] = useState("");
-  const [hora2, setHora2] = useState("");
-  const [tags, setTags] = useState([]);
-  const [currentTag, setCurrentTag] = useState("");
-  const [etiquetas, setEtiquetas] = useState([]);
-  const [showingEtiquetas, setShowingEtiquetas] = useState([]);
-  const { state, setState } = useContext(ProfesorContext);
+function EditarExamen() {
+    const [titulo, setTitulo] = useState("");
+    const [materia, setMateria] = useState("");
+    const [fecha1, setFecha1] = useState("");
+    const [fecha2, setFecha2] = useState("");
+    const [hora1, setHora1] = useState("");
+    const [hora2, setHora2] = useState("");
+    const [tags, setTags] = useState([]);
+    const [currentTag, setCurrentTag] = useState("");
+    const [etiquetas, setEtiquetas] = useState([]);
+    const [showingEtiquetas, setShowingEtiquetas] = useState([]);
+    const { state, setState } = useContext(ProfesorContext);
+    const { empid } = useParams();
+    const navigate = useNavigate();
 
-  const nombresPoderes = ["Volver a intentar", "Más tiempo", "Ayuda"];
-  const [poderes, setPoderes] = useState(nombresPoderes.map((el) => 0));
+    const nombresPoderes = ["Volver a intentar", "Más tiempo", "Ayuda"];
+    const [poderes, setPoderes] = useState(nombresPoderes.map((el) => 0));
 
-  /**
-   * Nos da todos las etiquetas
-   */
+    useEffect(() => {
+        fetch("https://localhost:44423/crear/examen/" + empid).then((res) => {
+            return res.json();
+        }).then((res) => {
+            setTitulo(res.titulo);
+            setMateria(res.materia);
+            setFecha1(res.fecha1);
+            setFecha2(res.fecha2);
+            setHora1(res.hora1);
+            setHora2(res.hora2);
+            setCurrentTag(res.currentTag);
+        }).catch((error) => {
+            console.log(error.message);
+        });
+        },  []);
 
-  const navigate = useNavigate();
-
-  const getTags = async () => {
-    const url = "api/etiqueta";
-    const result = await axios.get(url);
-    setEtiquetas([...result.data]);
-  };
-  /**
-   * Filtra todas las etiquetas
-   */
-  const filterTags = (input) => {
-    input = input.trim().toLowerCase();
-    const etiquetasFiltered = etiquetas.filter((etiqueta) =>
-      etiqueta.nombre.toLowerCase().includes(input)
-    );
-    setShowingEtiquetas(
-      etiquetasFiltered.slice(0, Math.min(etiquetasFiltered.length, 10))
-    );
-  };
-  /**
-   * Crea un codigo
-   */
-  const makeId = (length) => {
-    let result = "";
-    const characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    const charactersLength = characters.length;
-    let counter = 0;
-    while (counter < length) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-      counter += 1;
-    }
-    return result;
-  };
-
-  /**
-   * Navegar a examenes
-   */
-  const goToExamenes = () => {
-    navigate(`/resumen/grupo?grupo=${state.idGrupo}`);
-  };
-
-  /**Funcion para actualizar la clase  */
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    //retornar si las fechas no son validas
-    const date1 = fecha1 + "T" + hora1;
-    const date2 = fecha2 + "T" + hora2;
-    if (!validarFecha(date1, date2)) {
-      return;
-    }
-
-    //se genera un codigo que no haya sido usado en otro examen
-    const url = "api/examen";
-    let codigoExamen = makeId(8);
-    while (await buscar_examen(codigoExamen)) {
-      codigoExamen = makeId(8);
-    }
-
-    const data = {
-      Codigo: codigoExamen,
-      Nombre: titulo,
-      Materia: materia,
-      FechaInicio: date1,
-      FechaFin: date2,
-      idGrupo: state.idGrupo,
+    /**Checa que tecla fue usada */
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            if (currentTag.trim() !== "") {
+                if (tags.filter((tag) => tag === currentTag.trim()).length > 0) {
+                    swal({
+                        title: "Ya se agregó esta etiqueta, intenta otra por favor",
+                        button: "Aceptar",
+                        icon: "info",
+                    });
+                } else {
+                    setTags([...tags, currentTag.trim()]);
+                    setCurrentTag("");
+                }
+            }
+        }
+    };
+    /**Checa que etiqueta fue eliminar y le debes pasar como parametro la etiqueta a eliminar */
+    const handleTagDelete = (tagToDelete) => {
+        setTags(tags.filter((tag) => tag !== tagToDelete));
     };
 
-    const result = await axios.post(url, data);
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const empobj = { setTitulo, setMateria, setFecha1, setFecha2, setHora1, setHora2 };
 
-    await tags.forEach((tag) => postTag(tag, result.data.idExamen));
-    await poderes.forEach((poder, id) => sendPoder(id, result.data.idExamen));
-    swal({
-      title: "Se ha creado un examen",
-      button: "Aceptar",
-      icon: "success",
-    });
-    goToExamenes();
-  };
-
-  /**
-   * Busca si un código de examen ya fue registrado
-   */
-  const buscar_examen = async (codigoExamen) => {
-    const url2 = "api/examen/codigo/" + codigoExamen;
-    try {
-      const resultado = await axios.get(url2);
-      if (resultado.status === 200) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (error) {
-      return false;
+        fetch("https://localhost:44423/crear/examen/" + empid, {
+            method: "PUT",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(empobj)
+         }).then(() => {
+                navigate(-1);
+         }).catch((error) => {
+                console.log(error.message);
+         })
     }
-  };
 
-  /**
-   * Validar fechas del examen
-   */
-  const validarFecha = (date1, date2) => {
-    try {
-      const d1 = new Date(date1);
-      const d2 = new Date(date2);
-      const now = new Date();
-      let valid = d2.getTime() > now.getTime() && d2.getTime() > d1.getTime();
-      if (!valid) {
-        if (d2.getTime() <= now.getTime()) {
-          swal({
-            title: "La fecha de fin debe ser mayor a la fecha actual",
-            button: "Aceptar",
-            icon: "info",
-          });
-        } else if (d2.getTime() <= d1.getTime()) {
-          swal({
-            title: "La fecha de fin debe ser mayor a la fecha de inicio",
-            button: "Aceptar",
-            icon: "info",
-          });
-        } else {
-          swal({
-            title: "Ingresa las fecha y hora en el formato indicado",
-            button: "Aceptar",
-            icon: "info",
-          });
-        }
-      }
-
-      return valid;
-    } catch (error) {
-      return false;
-    }
-  };
-
-  /**
-   * Enviar request para agregar una etiqueta
-   */
-  const postTag = async (tag, idExamen) => {
-    const filtrado = etiquetas.filter((etiqueta) => etiqueta.nombre === tag);
-
-    let id = 0;
-
-    if (filtrado.length === 0) {
-      const url = "api/etiqueta";
-
-      const data = {
-        Nombre: tag,
-      };
-      const result = await axios.post(url, data);
-      id = result.data.idEtiqueta;
-    } else {
-      id = filtrado[0].idEtiqueta;
-    }
-    const url = `api/etiqueta/${id}/examen/${idExamen}`;
-    const result = await axios.post(url);
-  };
-  /**Checa que tecla fue usada */
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      if (currentTag.trim() !== "") {
-        if (tags.filter((tag) => tag === currentTag.trim()).length > 0) {
-          swal({
-            title: "Ya se agregó esta etiqueta, intenta otra por favor",
-            button: "Aceptar",
-            icon: "info",
-          });
-        } else {
-          setTags([...tags, currentTag.trim()]);
-          setCurrentTag("");
-        }
-      }
-    }
-  };
-  /**Checa que etiqueta fue eliminar y le debes pasar como parametro la etiqueta a eliminar */
-  const handleTagDelete = (tagToDelete) => {
-    setTags(tags.filter((tag) => tag !== tagToDelete));
-  };
-
-  useEffect(() => {
-    getTags();
-  }, []);
-
-  useEffect(() => {
-    filterTags(currentTag);
-  }, [currentTag]);
-
-  const sendPoder = async (idPoder, idExamen) => {
-    const url = `api/examen/${idExamen}/poder/${idPoder}`;
-    await axios.post(url);
-  };
-
-  return (
+    return (
     <div>
       <div>
         <Sidebar />
@@ -386,7 +245,7 @@ function CrearExamen() {
                                 }
                               }}
                             />
-                            <label className={styles["label"]} for={poder}>
+                            <label className={styles["label"]} htmlFor={poder}>
                               {poder}
                             </label>
                           </div>
@@ -412,4 +271,4 @@ function CrearExamen() {
   );
 }
 
-export default CrearExamen;
+export default EditarExamen;
