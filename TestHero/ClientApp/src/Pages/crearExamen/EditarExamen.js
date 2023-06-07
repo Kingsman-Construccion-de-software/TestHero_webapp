@@ -75,6 +75,7 @@ function EditarExamen() {
       const result = await axios.get(url);
       console.log(result.data);
       //setPoderes(result.data.map((p, i) => (i === p.idPoder ? 1 : p)));
+      // Detalle
     } catch (error) {
       console.log(error);
     }
