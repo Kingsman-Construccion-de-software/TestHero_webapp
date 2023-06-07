@@ -53,11 +53,10 @@
 
 .subtitles {
   display: flex;
-  justify-content: space-between;
-  margin-right: 80px;
+  /* margin-right: 5vw; */
 }
 
-.subtitles button {
+/* .subtitles button {
   margin-top: 20px;
   height: 40px;
   display: flex;
@@ -70,11 +69,11 @@
   font-weight: 500;
   border-radius: 10px;
   padding: 10px 20px;
-}
+} */
 
-.subtitles button:hover {
+/* .subtitles button:hover {
   background-color: #046db8;
-}
+} */
 
 .subtitle {
   color: #ebebeb;
@@ -135,97 +134,34 @@
   transform: scale(0.98);
   box-shadow: 2px 2px rgba(0px, 0px, 0px, 0.24);
 }
-=======
-.page {
-    background-color: #1d1d1d;
-    width: 100vw;
+
+.crudIcon1 {
+  color: #ebebeb;
+  /* margin-right: 2vw; */
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 50vw;
+  
 }
 
-.content {
-    margin-left: 12%;
+.crudIcon1:hover {
+  cursor: pointer;
+  color: #0596ff;
 }
 
-.tituloExamen {
-    display: flex;
-    align-items: center;
-    color: #ebebeb;
-    font-style: bold;
-    font-size: 40px;
-    margin-bottom: 1px;
+.crudIcon2 {
+  color: #ebebeb;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 1vw;
+
 }
 
-.title-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-right: 20px;
-    margin-bottom: 20px;
-    margin-top: 30px;
+.crudIcon2:hover {
+  cursor: pointer;
+  color: #fd4d4d;
 }
 
-.input-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 400px;
-}
-
-.input-text {
-    padding: 5px;
-}
-
-.copy-button {
-    padding: 8px 16px;
-    font-size: 16px;
-    background-color: #0596ff;
-    color: #ebebeb;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-    .input-text:hover,
-    .copy-button:hover {
-        background-color: #046db8;
-    }
-
-.subtitles {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    gap: 10px;
-}
-
-    .subtitles button {
-        margin-top: 20px;
-        height: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: none;
-        background-color: #0596ff;
-        color: #ebebeb;
-        font-size: 18px;
-        font-weight: 500;
-        border-radius: 10px;
-        padding: 10px 20px;
-    }
-
-    .subtitles h2 {
-        color: #ebebeb;
-        margin-top: 30px;
-        margin-bottom: 30px;
-        margin-right:610px;
-        text-align: left;
-    }
-
-    .subtitles > :last-child {
-        margin-right: 40px;
-    }
-
-.subtitle {
-    color: #ebebeb;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-
+/* .IconPos{
+  float: right;
+} */

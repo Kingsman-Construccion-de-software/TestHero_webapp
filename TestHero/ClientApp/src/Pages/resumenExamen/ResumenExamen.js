@@ -1,7 +1,8 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import styles from "./resumenexamen.module.css";
 import { useState, useEffect, useRef, useContext } from "react";
-
+import { MdCancel } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
 import ProfesorContext from "context/contextoProfesor";
@@ -82,8 +83,19 @@ export default function ResumenExamen() {
             {examen && (
               <h2 className={styles["subtitle"]}>Código: {examen.codigo}</h2>
             )}
-            <button onClick={EditExam}>Editar</button>
-            <button onClick={() => setShow(true)}>Eliminar exámen</button>
+            {/* <div className={styles["IconPos"]}> */}
+              <div className={styles["crudIcon1"]} onClick={EditExam}>
+                {/* <button onClick={EditExam}>Editar</button> */}
+                <FaEdit size={45} />
+              </div>
+              <div
+                className={styles["crudIcon2"]}
+                onClick={() => setShow(true)}
+              >
+                {/* <button onClick={() => setShow(true)}>Eliminar</button> */}
+                <MdCancel size={45} />
+              </div>
+            {/* </div> */}
           </div>
         </div>
       </div>
