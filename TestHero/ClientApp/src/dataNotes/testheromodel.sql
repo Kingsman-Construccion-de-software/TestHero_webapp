@@ -174,6 +174,8 @@ CREATE TABLE IF NOT EXISTS AlumnoPoder (
   PRIMARY KEY (`idAlumno`, `idPoder`),
   FOREIGN KEY(`idAlumno`) REFERENCES `Alumno`(`idAlumno`)
 	ON DELETE NO ACTION
+    
+    
     ON UPDATE NO ACTION,
   FOREIGN KEY(`idPoder`) REFERENCES `Poder`(`idPoder`)
 	ON DELETE CASCADE

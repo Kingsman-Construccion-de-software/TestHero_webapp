@@ -84,7 +84,6 @@ namespace TestHero
 
 
             await cmd.ExecuteNonQueryAsync();
-            using MySqlCommand cmdInt = Db.Connection.CreateCommand();
         }
 
 
