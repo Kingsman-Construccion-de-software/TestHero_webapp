@@ -1,8 +1,5 @@
-
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace TestHero.Controllers
 {
@@ -108,7 +105,6 @@ namespace TestHero.Controllers
             return new OkObjectResult(result);
         }
 
-
         // DELETE api/<Examen>/id
         [Route("api/examen/{id:int}")]
         [HttpDelete]
@@ -126,8 +122,12 @@ namespace TestHero.Controllers
             return new OkResult();
         }
 
+        // PUT api/<Examen>/id
         [Route("api/examen/{id:int}")]
         [HttpPut]
+        /// <summary>
+        /// Rutamiento de getalumnoexamen
+        /// </summary>
         public async Task<IActionResult> Put(int id, [FromBody] Examen body)
         {
             await Db.Connection.OpenAsync();
@@ -138,8 +138,5 @@ namespace TestHero.Controllers
             await body.UpdateExamen(id);
             return new OkObjectResult(body);
         }
-
-
     }
 }
-
