@@ -22,6 +22,7 @@ function EditarExamen() {
   const [hora1, setHora1] = useState("");
   const [hora2, setHora2] = useState("");
   const [tags, setTags] = useState([]);
+  const [examenes, setExamenes] = useState();
   const [currentTag, setCurrentTag] = useState("");
   const [etiquetas, setEtiquetas] = useState();
   const [showingEtiquetas, setShowingEtiquetas] = useState([]);
@@ -33,12 +34,15 @@ function EditarExamen() {
   const [poderes, setPoderes] = useState(nombresPoderes.map((el) => 0));
   const [searchParams] = useSearchParams();
   const parametro = searchParams.get("examen");
+  const goToExamenes = () => {
+    navigate(`/resumen/grupo?grupo=${examenes.idGrupo}`);
+  };
 
   const getExamenes = async () => {
     const url = "api/examen/" + parametro;
     try {
       const result = await axios.get(url);
-      console.log(result.data[0]);
+
       setTitulo(result.data[0].nombre);
       setMateria(result.data[0].materia);
       const modificaFecha = result.data[0].fechaInicio;
@@ -53,6 +57,8 @@ function EditarExamen() {
       var timePart = dateTimeParts[1]; // "11:00:00"
       setFecha2(datePart);
       setHora2(timePart);
+      setExamenes(result.data[0]);
+      console.log(result.data[0].codigo);
     } catch (error) {
       console.log(error);
     }
@@ -74,8 +80,18 @@ function EditarExamen() {
     try {
       const result = await axios.get(url);
       console.log(result.data);
-      //setPoderes(result.data.map((p, i) => (i === p.idPoder ? 1 : p)));
-      // Detalle
+
+      const poderesSeleccionados = nombresPoderes.map(() => 0);
+
+      // Recorrer los datos devueltos por la API
+      result.data.forEach((data) => {
+        const poderIndex = data.idPoder - 1; // Restar 1 al ID para obtener el índice del poder
+        if (poderIndex >= 0 && poderIndex < nombresPoderes.length) {
+          poderesSeleccionados[poderIndex] = 1;
+        }
+      });
+
+      setPoderes(poderesSeleccionados);
     } catch (error) {
       console.log(error);
     }
@@ -112,28 +128,97 @@ function EditarExamen() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const empobj = {
-      setTitulo,
-      setMateria,
-      setFecha1,
-      setFecha2,
-      setHora1,
-      setHora2,
+
+    //retornar si las fechas no son validas
+    const date1 = fecha1 + "T" + hora1;
+    const date2 = fecha2 + "T" + hora2;
+    if (!validarFecha(date1, date2)) {
+      return;
+    }
+
+    //se genera un codigo que no haya sido usado en otro examen
+    const url = "api/examen/" + parametro;
+    const data = {
+      Codigo: examenes.codigo,
+      Nombre: titulo,
+      Materia: materia,
+      FechaInicio: date1,
+      FechaFin: date2,
     };
 
-    fetch("https://localhost:44423/crear/examen/" + empid, {
-      method: "PUT",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(empobj),
-    })
-      .then(() => {
-        navigate(-1);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+    const result = await axios.put(url, data);
+
+    await tags.forEach((tag) => postTag(tag, result.data.idExamen));
+    await poderes.forEach((poder, id) => sendPoder(id, result.data.idExamen));
+    swal({
+      title: "Se ha editado un examen",
+      button: "Aceptar",
+      icon: "success",
+    });
+    goToExamenes();
   };
 
+  const sendPoder = async (idPoder, idExamen) => {
+    const url = `api/examen/${idExamen}/poder/${idPoder}`;
+    await axios.post(url);
+  };
+
+  const postTag = async (tag, idExamen) => {
+    const filtrado = etiquetas.filter((etiqueta) => etiqueta.nombre === tag);
+
+    let id = 0;
+
+    if (filtrado.length === 0) {
+      const url = "api/etiqueta";
+
+      const data = {
+        Nombre: tag,
+      };
+      const result = await axios.post(url, data);
+      id = result.data.idEtiqueta;
+    } else {
+      id = filtrado[0].idEtiqueta;
+    }
+    const url = `api/etiqueta/${id}/examen/${idExamen}`;
+    const result = await axios.post(url);
+  };
+
+  /**
+   * Validar fechas del examen
+   */
+  const validarFecha = (date1, date2) => {
+    try {
+      const d1 = new Date(date1);
+      const d2 = new Date(date2);
+      const now = new Date();
+      let valid = d2.getTime() > now.getTime() && d2.getTime() > d1.getTime();
+      if (!valid) {
+        if (d2.getTime() <= now.getTime()) {
+          swal({
+            title: "La fecha de fin debe ser mayor a la fecha actual",
+            button: "Aceptar",
+            icon: "info",
+          });
+        } else if (d2.getTime() <= d1.getTime()) {
+          swal({
+            title: "La fecha de fin debe ser mayor a la fecha de inicio",
+            button: "Aceptar",
+            icon: "info",
+          });
+        } else {
+          swal({
+            title: "Ingresa las fecha y hora en el formato indicado",
+            button: "Aceptar",
+            icon: "info",
+          });
+        }
+      }
+
+      return valid;
+    } catch (error) {
+      return false;
+    }
+  };
   return (
     <div>
       <div>
@@ -281,16 +366,11 @@ function EditarExamen() {
                             <input
                               type="checkbox"
                               id={poder}
-                              onChange={function validateCheck(e) {
-                                if (e.target.checked) {
-                                  setPoderes(
-                                    poderes.map((p, i) => (i === id ? 1 : p))
-                                  );
-                                } else {
-                                  setPoderes(
-                                    poderes.map((p, i) => (i === id ? 0 : p))
-                                  );
-                                }
+                              checked={poderes[id] === 1} // Verificar si el poder está seleccionado
+                              onChange={(e) => {
+                                const nuevosPoderes = [...poderes];
+                                nuevosPoderes[id] = e.target.checked ? 1 : 0;
+                                setPoderes(nuevosPoderes);
                               }}
                             />
                             <label className={styles["label"]} htmlFor={poder}>
