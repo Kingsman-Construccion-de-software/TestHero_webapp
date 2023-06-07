@@ -2,6 +2,7 @@
   "dependencies": {
     "bootstrap": "^5.2.3",
     "moment": "^2.29.4",
+    "react-router-dom": "^5.3.4",
     "sweetalert": "^2.1.2"
   }
 }

@@ -1,13 +1,12 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import styles from "./resumenexamen.module.css";
 import { useState, useEffect, useRef, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
 import ProfesorContext from "context/contextoProfesor";
 
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import MultipleViewCard from "components/multiple-view-card/MultipleViewCard";
 import Questions from "Pages/questions/questions";
 import Results from "Pages/results/Results";
@@ -26,13 +25,14 @@ export default function ResumenExamen() {
 
   const inputRef = useRef(null);
 
+  const navigate = useNavigate();
+
   const [searchParams] = useSearchParams();
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const navigate = useNavigate();
   const { state, setState } = useContext(ProfesorContext);
 
   const getExamen = async () => {
@@ -54,6 +54,10 @@ export default function ResumenExamen() {
     } catch (e) {
       alert(e);
     }
+  };
+
+  const EditExam = () => {
+    navigate("/editar/examen");
   };
 
   console.log(examen);
@@ -78,6 +82,7 @@ export default function ResumenExamen() {
             {examen && (
               <h2 className={styles["subtitle"]}>Código: {examen.codigo}</h2>
             )}
+            <button onClick={EditExam}>Editar</button>
             <button onClick={() => setShow(true)}>Eliminar exámen</button>
           </div>
         </div>
