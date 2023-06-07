@@ -14,6 +14,19 @@ namespace TestHero.Controllers
             Db = db;
         }
 
+        [Route("api/examenpoder/{id:int}")]
+        [HttpGet]
+        /// <summary>
+        /// Rutamiento de getprofesorexamenes dada una idexamen
+        /// </summary>
+        public async Task<IActionResult> GetPoderExamenes(int id)
+        {
+            await Db.Connection.OpenAsync();
+            ExamenPoder examen = new ExamenPoder(Db);
+            var result = await examen.GetPoderExamenes(id);
+            return new OkObjectResult(result);
+        }
+
         // POST "api/examen/{idE:int}/poder/{idP:int}"
         [Route("api/examen/{idE:int}/poder/{idP:int}")]
         [HttpPost]

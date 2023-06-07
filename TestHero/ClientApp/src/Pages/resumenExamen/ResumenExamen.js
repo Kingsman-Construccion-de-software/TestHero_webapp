@@ -1,11 +1,9 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import styles from "./resumenexamen.module.css";
-import { useState, useEffect, useRef, useContext } from "react";
-
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
 import ProfesorContext from "context/contextoProfesor";
-
 import { useSearchParams, useNavigate } from "react-router-dom";
 import MultipleViewCard from "components/multiple-view-card/MultipleViewCard";
 import Questions from "Pages/questions/questions";
@@ -20,11 +18,6 @@ import Results from "Pages/results/Results";
 export default function ResumenExamen() {
   // Estados iniciales
   const [examen, setExamen] = useState();
-
-  const [text, setText] = useState("https://localhost:44423/examenAlumno");
-
-  const inputRef = useRef(null);
-
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
@@ -57,7 +50,7 @@ export default function ResumenExamen() {
   };
 
   const EditExam = () => {
-    navigate("/editar/examen");
+    navigate("/editar/examen?examen=" + examen.idExamen);
   };
 
   console.log(examen);
