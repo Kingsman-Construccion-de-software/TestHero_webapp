@@ -20,11 +20,11 @@ namespace TestHero
 
         public int IdAlumno { get; set; }
         public int IdPregunta { get; set; }
-        public int? IdRespuesta { get; set; }
+        public int IdRespuesta { get; set; }
 
 
         [JsonConstructor]
-        public AlumnoPregunta(int IdAlumno, int IdPregunta, int? IdRespuesta)
+        public AlumnoPregunta(int IdAlumno, int IdPregunta, int IdRespuesta)
         {
             this.IdAlumno = IdAlumno;
             this.IdPregunta = IdPregunta;
@@ -66,13 +66,14 @@ namespace TestHero
         public async Task InsertAlumnoPregunta()
         {
             using MySqlCommand cmd = Db.Connection.CreateCommand();
-            if(IdRespuesta == -1)
+            if (IdRespuesta == -1)
             {
                 cmd.CommandText = @"insert_alumno_pregunta";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@idA", IdAlumno);
                 cmd.Parameters.AddWithValue("@idP", IdPregunta);
-            } else
+            }
+            else
             {
                 cmd.CommandText = @"insert_alumno_pregunta_respuesta";
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -80,7 +81,7 @@ namespace TestHero
                 cmd.Parameters.AddWithValue("@idP", IdPregunta);
                 cmd.Parameters.AddWithValue("@idR", IdRespuesta);
             }
-            
+
 
             await cmd.ExecuteNonQueryAsync();
             using MySqlCommand cmdInt = Db.Connection.CreateCommand();
@@ -102,17 +103,8 @@ namespace TestHero
                     {
                         IdAlumno = reader.GetInt32(0),
                         IdPregunta = reader.GetInt32(1),
+                        IdRespuesta = reader.GetInt32(2)
                     };
-
-                    try
-                    {
-                        respuesta.IdRespuesta = reader.GetInt32(2);
-                    }
-                    catch(Exception e)
-                    {
-                        respuesta.IdRespuesta = null;
-                    }
-
                     respuestas.Add(respuesta);
                 }
             }
