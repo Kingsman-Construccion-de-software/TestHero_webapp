@@ -102,8 +102,16 @@ namespace TestHero
                     {
                         IdAlumno = reader.GetInt32(0),
                         IdPregunta = reader.GetInt32(1),
-                        IdRespuesta = reader.GetInt32(2)
                     };
+
+                    try
+                    {
+                        respuesta.IdRespuesta = reader.GetInt32(2);
+                    } catch(Exception e)
+                    {
+                        respuesta.IdRespuesta = 0;
+                    }
+
                     respuestas.Add(respuesta);
                 }
             }
