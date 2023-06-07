@@ -1,9 +1,13 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import styles from "./resumenexamen.module.css";
-import { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import { useState, useEffect, useRef, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { useSearchParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Modal, Button } from "react-bootstrap";
+import ProfesorContext from "context/contextoProfesor";
+
+import { useSearchParams } from "react-router-dom";
 import MultipleViewCard from "components/multiple-view-card/MultipleViewCard";
 import Questions from "Pages/questions/questions";
 import Results from "Pages/results/Results";
@@ -22,9 +26,14 @@ export default function ResumenExamen() {
 
   const inputRef = useRef(null);
 
-  const navigate = useNavigate();
-
   const [searchParams] = useSearchParams();
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const navigate = useNavigate();
+  const { state, setState } = useContext(ProfesorContext);
 
   const getExamen = async () => {
     try {
@@ -32,22 +41,19 @@ export default function ResumenExamen() {
       const res = await axios.get(url);
       setExamen(res.data[0]);
     } catch (e) {
-      alert(e);
+      console.log(e);
     }
   };
 
   const deleteExam = async () => {
-      const url = "api/examen/" + examen.idExamen;
-      try {
-          const res = await axios.get(url);
-          console.log(res);
-      } catch (e) {
-          alert(e);
-      }
-  }
+    const url = "api/examen/" + examen.idExamen;
 
-  const EditExam = () => {
-    navigate("/editar/examen");
+    try {
+      const res = await axios.delete(url);
+      navigate(`/resumen/grupo?grupo=${state.idGrupo}`);
+    } catch (e) {
+      alert(e);
+    }
   };
 
   console.log(examen);
@@ -70,10 +76,9 @@ export default function ResumenExamen() {
           )}
           <div className={styles["subtitles"]}>
             {examen && (
-              <h2 className={styles['subtitle']}>Código: {examen.codigo}</h2>
+              <h2 className={styles["subtitle"]}>Código: {examen.codigo}</h2>
             )}
-              <button onClick={EditExam}>Editar</button>
-              <button onClick={deleteExam}>Eliminar exámen</button>
+            <button onClick={() => setShow(true)}>Eliminar exámen</button>
           </div>
         </div>
       </div>
@@ -88,6 +93,33 @@ export default function ResumenExamen() {
           ]}
         />
       </div>
+
+      <Modal show={show} onHide={handleClose} className={styles["modal"]}>
+        <Modal.Header closeButton className={styles["modaldetalles3"]}>
+          <Modal.Title>
+            ¿Estás seguro de que deseas eliminar este examen?
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className={`${styles.modaldetalles3} ${styles.fontbody}`}>
+          No se podrá recuperar después
+        </Modal.Body>
+        <Modal.Footer className={styles["modaldetalles3"]}>
+          <Button
+            variant="secondary"
+            onClick={handleClose}
+            className={styles["botonCancelar2"]}
+          >
+            Cancelar
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={() => deleteExam()}
+            className={styles["botonEliminar"]}
+          >
+            Eliminar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

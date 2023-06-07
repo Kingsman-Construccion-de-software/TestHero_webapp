@@ -262,7 +262,7 @@ function EditarExamen() {
               className={styles["botonPreguntas"]}
               align="right"
             >
-              Crear examen
+              Editar examen
             </button>
           </form>
         </div>
