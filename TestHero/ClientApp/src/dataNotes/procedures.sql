@@ -474,5 +474,15 @@ BEGIN
 END //
 DELIMITER ;
 
-SELECT * FROM alumnopregunta;
-SELECT * FROM alumno;
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_poderExamen;
+CREATE PROCEDURE  get_poderExamen(IN idE  int)
+BEGIN
+	SELECT idExamen, idPoder
+    FROM poder
+    WHERE idExamen = idE;
+END //
+DELIMITER ;
+
+call get_poderExamen(5);
+select * from pregunta;
