@@ -7,7 +7,7 @@ import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
 import ProfesorContext from "context/contextoProfesor";
 
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import MultipleViewCard from "components/multiple-view-card/MultipleViewCard";
 import Questions from "Pages/questions/questions";
 import Results from "Pages/results/Results";
@@ -25,6 +25,8 @@ export default function ResumenExamen() {
   const [text, setText] = useState("https://localhost:44423/examenAlumno");
 
   const inputRef = useRef(null);
+
+  const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
   const [show, setShow] = useState(false);
@@ -56,6 +58,20 @@ export default function ResumenExamen() {
     }
   };
 
+  const deleteExam = async () => {
+      const url = "api/examen/" + examen.idExamen;
+      try {
+          const res = await axios.get(url);
+          console.log(res);
+      } catch (e) {
+          alert(e);
+      }
+  }
+
+  const EditExam = () => {
+    navigate("/editar/examen");
+  };
+
   console.log(examen);
 
   useEffect(() => {
@@ -78,7 +94,8 @@ export default function ResumenExamen() {
             {examen && (
               <h2 className={styles["subtitle"]}>Código: {examen.codigo}</h2>
             )}
-            <button onClick={() => setShow(true)}>Eliminar exámen</button>
+              <button onClick={EditExam}>Editar</button>
+              <button onClick={deleteExam}>Eliminar exámen</button>
           </div>
         </div>
       </div>
