@@ -127,7 +127,17 @@ namespace TestHero
             await cmd.ExecuteNonQueryAsync();
             IdExamen = id;
         }
-
+        /// <summary>
+        /// Nos dice los examenes de acuerdo a un ide de grupo
+        /// </summary>
+        public async Task<List<Examen>> DeleteExam(int id)
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"delete_exam";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id", id);
+            return await ReadAllAsync(await cmd.ExecuteReaderAsync());
+        }
         /// <summary>
         /// Lectura de todos los atributos de examen
         /// </summary>
@@ -154,17 +164,7 @@ namespace TestHero
             return examenes;
         }
 
-        /// <summary>
-        /// Nos dice los examenes de acuerdo a un ide de grupo
-        /// </summary>
-        public async Task<List<Examen>> DeleteExam(int id)
-        {
-            using MySqlCommand cmd = Db.Connection.CreateCommand();
-            cmd.CommandText = @"delete_exam";
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@id", id);
-            return await ReadAllAsync(await cmd.ExecuteReaderAsync());
-        }
+      
     }
 
 }

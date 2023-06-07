@@ -1,5 +1,6 @@
 ﻿namespace TestHero;
 
+using Microsoft.AspNetCore.Mvc;
 using MySqlConnector;
 using System.Data;
 using System.Text.Json.Serialization;
@@ -29,5 +30,35 @@ public class ExamenPoder
         cmd.Parameters.AddWithValue("@idE", idExamen);
         cmd.Parameters.AddWithValue("@idP", idPoder);
         await cmd.ExecuteNonQueryAsync();
+    }
+
+    /// <summary>
+    /// Nos dice el id de x Poder
+    /// </summary>
+    public async Task<List<ExamenPoder>> GetPoderExamenes(int id)
+    {
+        using MySqlCommand cmd = Db.Connection.CreateCommand();
+        cmd.CommandText = @"get_poderExamen";
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@idE", id);
+        return await ReadAllAsync(await cmd.ExecuteReaderAsync());
+    }
+    private async Task<List<ExamenPoder>> ReadAllAsync(MySqlDataReader reader)
+    {
+        var examenes = new List<ExamenPoder>();
+        using (reader)
+        {
+            while (await reader.ReadAsync())
+            {
+                var examen = new ExamenPoder(Db)
+                {
+                    idExamen = reader.GetInt32(0),
+                    idPoder = reader.GetInt32(1),
+                    
+                };
+                examenes.Add(examen);
+            }
+        }
+        return examenes;
     }
 }

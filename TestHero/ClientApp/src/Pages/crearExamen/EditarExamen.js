@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ProfesorContext from "context/contextoProfesor";
 import swal from "sweetalert";
-
+import { useSearchParams } from "react-router-dom";
 /**
  * @author: Cesar Ivan Hernandez Melendez
  * @license: GP
@@ -15,85 +15,133 @@ import swal from "sweetalert";
  */
 
 function EditarExamen() {
-    const [titulo, setTitulo] = useState("");
-    const [materia, setMateria] = useState("");
-    const [fecha1, setFecha1] = useState("");
-    const [fecha2, setFecha2] = useState("");
-    const [hora1, setHora1] = useState("");
-    const [hora2, setHora2] = useState("");
-    const [tags, setTags] = useState([]);
-    const [currentTag, setCurrentTag] = useState("");
-    const [etiquetas, setEtiquetas] = useState([]);
-    const [showingEtiquetas, setShowingEtiquetas] = useState([]);
-    const { state, setState } = useContext(ProfesorContext);
-    const { empid } = useParams();
-    const navigate = useNavigate();
+  const [titulo, setTitulo] = useState("");
+  const [materia, setMateria] = useState("");
+  const [fecha1, setFecha1] = useState("");
+  const [fecha2, setFecha2] = useState("");
+  const [hora1, setHora1] = useState("");
+  const [hora2, setHora2] = useState("");
+  const [tags, setTags] = useState([]);
+  const [currentTag, setCurrentTag] = useState("");
+  const [etiquetas, setEtiquetas] = useState();
+  const [showingEtiquetas, setShowingEtiquetas] = useState([]);
+  const { state, setState } = useContext(ProfesorContext);
+  const { empid } = useParams();
+  const navigate = useNavigate();
 
-    const nombresPoderes = ["Volver a intentar", "Más tiempo", "Ayuda"];
-    const [poderes, setPoderes] = useState(nombresPoderes.map((el) => 0));
+  const nombresPoderes = ["Volver a intentar", "Más tiempo", "Ayuda"];
+  const [poderes, setPoderes] = useState(nombresPoderes.map((el) => 0));
+  const [searchParams] = useSearchParams();
+  const parametro = searchParams.get("examen");
 
-    useEffect(() => {
-        fetch("https://localhost:44423/crear/examen/" + empid).then((res) => {
-            return res.json();
-        }).then((res) => {
-            setTitulo(res.titulo);
-            setMateria(res.materia);
-            setFecha1(res.fecha1);
-            setFecha2(res.fecha2);
-            setHora1(res.hora1);
-            setHora2(res.hora2);
-            setCurrentTag(res.currentTag);
-        }).catch((error) => {
-            console.log(error.message);
-        });
-        },  []);
-
-    /**Checa que tecla fue usada */
-    const handleKeyDown = (event) => {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            if (currentTag.trim() !== "") {
-                if (tags.filter((tag) => tag === currentTag.trim()).length > 0) {
-                    swal({
-                        title: "Ya se agregó esta etiqueta, intenta otra por favor",
-                        button: "Aceptar",
-                        icon: "info",
-                    });
-                } else {
-                    setTags([...tags, currentTag.trim()]);
-                    setCurrentTag("");
-                }
-            }
-        }
-    };
-    /**Checa que etiqueta fue eliminar y le debes pasar como parametro la etiqueta a eliminar */
-    const handleTagDelete = (tagToDelete) => {
-        setTags(tags.filter((tag) => tag !== tagToDelete));
-    };
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const empobj = { setTitulo, setMateria, setFecha1, setFecha2, setHora1, setHora2 };
-
-        fetch("https://localhost:44423/crear/examen/" + empid, {
-            method: "PUT",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify(empobj)
-         }).then(() => {
-                navigate(-1);
-         }).catch((error) => {
-                console.log(error.message);
-         })
+  const getExamenes = async () => {
+    const url = "api/examen/" + parametro;
+    try {
+      const result = await axios.get(url);
+      console.log(result.data[0]);
+      setTitulo(result.data[0].nombre);
+      setMateria(result.data[0].materia);
+      const modificaFecha = result.data[0].fechaInicio;
+      var dateTimeParts = modificaFecha.split("T");
+      var datePart = dateTimeParts[0]; // "2023-06-30"
+      var timePart = dateTimeParts[1]; // "11:00:00"
+      setFecha1(datePart);
+      setHora1(timePart);
+      const modificaFecha2 = result.data[0].fechaFin;
+      var dateTimeParts = modificaFecha2.split("T");
+      var datePart = dateTimeParts[0]; // "2023-06-30"
+      var timePart = dateTimeParts[1]; // "11:00:00"
+      setFecha2(datePart);
+      setHora2(timePart);
+    } catch (error) {
+      console.log(error);
     }
+  };
+  const getEtiqueta = async () => {
+    const url = "api/etiqueta/examen/" + parametro;
+    try {
+      const result = await axios.get(url);
+      setShowingEtiquetas(result.data);
+      let nombres = result.data.map((resultado) => resultado.nombre);
+      setTags(nombres);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    return (
+  const getPoder = async () => {
+    const url = "api/examenpoder/" + parametro;
+    try {
+      const result = await axios.get(url);
+      console.log(result.data);
+      //setPoderes(result.data.map((p, i) => (i === p.idPoder ? 1 : p)));
+      // Detalle
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getExamenes();
+    getEtiqueta();
+    getPoder();
+  }, []);
+
+  /**Checa que tecla fue usada */
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      if (currentTag.trim() !== "") {
+        if (tags.filter((tag) => tag === currentTag.trim()).length > 0) {
+          swal({
+            title: "Ya se agregó esta etiqueta, intenta otra por favor",
+            button: "Aceptar",
+            icon: "info",
+          });
+        } else {
+          setTags([...tags, currentTag.trim()]);
+          setCurrentTag("");
+        }
+      }
+    }
+  };
+  /**Checa que etiqueta fue eliminar y le debes pasar como parametro la etiqueta a eliminar */
+  const handleTagDelete = (tagToDelete) => {
+    setTags(tags.filter((tag) => tag !== tagToDelete));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const empobj = {
+      setTitulo,
+      setMateria,
+      setFecha1,
+      setFecha2,
+      setHora1,
+      setHora2,
+    };
+
+    fetch("https://localhost:44423/crear/examen/" + empid, {
+      method: "PUT",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(empobj),
+    })
+      .then(() => {
+        navigate(-1);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  return (
     <div>
       <div>
         <Sidebar />
       </div>
       <div class="home_background">
         <div className={styles["CrearExamen"]}>
-          <h2>Crear un examen</h2>
+          <h2>Editar un examen</h2>
           <form className="custom-form" onSubmit={handleSubmit}>
             <div className={styles["form-group"]}>
               <label htmlFor="titulo">Nombre del examen</label>
