@@ -8,7 +8,7 @@ import { VictoryBoxPlot, VictoryPie, VictoryChart, VictoryAxis, VictoryTheme, Vi
 import {VictoryHistogram} from "victory-histogram";
 import { ObjectFlags } from "typescript";
 /**
- * @author: JUlio Meza y Bernardo de la Sierra
+ * @author: Julio Meza y Bernardo de la Sierra
  * @license: GP
  * @version: 1.1.1
  * Esta clase está dedicada al analisis de datos

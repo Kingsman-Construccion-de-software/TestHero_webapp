@@ -1,13 +1,14 @@
 import React from "react";
 import styles from "./loginalumno.module.css";
 import logo from "../../assets/logo.png";
-import BackArrow from "../../assets/BackArrow.png";
+// import BackArrow from "../../assets/BackArrow.png";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import ProfesorContext from "context/contextoProfesor";
 import { useSearchParams } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 
 /**
  * @author Bernardo de la Sierra y Leonardo García
@@ -96,20 +97,19 @@ export default function Login() {
     }
   }, [status]);
 
-  // función para hacer el boton de regreso
-  function GoBack() {
-    navigate("/");
-  }
+  // // función para hacer el boton de regreso
+  // function GoBack() {
+  //   navigate("/");
+  // }
 
   return (
     <div className={styles["login"]}>
       <div className={styles["loginWrapper"]}>
-        <img
+        <FaArrowLeft
           className={styles["BackArrow"]}
-          src={BackArrow}
-          onClick={GoBack}
-          alt="GoBack"
-        ></img>
+          size={70}
+          onClick={() => navigate(-1)}
+        />
         <img src={logo} alt="Logo testHero" />
         <form className={styles["loginBox"]} onSubmit={handleLogin}>
           <p className={styles["texto"]}>Correo</p>
