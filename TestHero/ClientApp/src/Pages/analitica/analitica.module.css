@@ -1,14 +1,23 @@
 .home_background {
   background-color: #1d1d1d;
-  width: 100vw;
+  width: 85vw;
   min-height: 100vh;
 }
 
 .tituloPagina {
   color: #ebebeb;
   font-style: bold;
-  font-size: 40px;
-  margin-bottom: 40px;
+  font-size: 30px;
+  margin-bottom: 30px;
+  padding-top: 15px;
+  padding-left: 15px;
+}
+
+.tituloGrafica {
+  color: #ebebeb;
+  font-style: bold;
+  font-size: 30px;
+  margin-bottom: 0px;
   padding-top: 15px;
   padding-left: 15px;
 }
@@ -17,41 +26,45 @@
   background-color: #0596ff;
   width: 80%;
   margin: 30px 250px;
-  height: 200px;
 }
 .cuadroPaginaChico {
   background-color: #0596ff;
   width: 30%;
   margin: 30px 10px; /* Cambiado 250px a 10px para ajustar los márgenes */
-  height: 300px;
   display: inline-block; /* Añadido para mostrar en la misma línea */
 }
 
 .espaciado {
+  display: flex;
   margin-left: 250px;
 }
 
 .cuadroPaginaGrafico {
   background-color: #0596ff;
-  width: 46%;
+  display: flex;
+  width: 45%;
+  padding-bottom: 30px;
   margin: 30px 10px; /* Cambiado 250px a 10px para ajustar los márgenes */
-  height: 600px;
   display: inline-block; /* Añadido para mostrar en la misma línea */
 }
 
 .datosPagina {
   color: #ebebeb;
   font-style: bold;
-  font-size: 30px;
-  margin-bottom: 40px;
-  padding-top: 15px;
+  font-size: 25px;
+  padding-bottom: 20px;
   padding-left: 15px;
 }
 
-.dropdown2 {
-  width: 500px;
+.pieContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  margin-left: 90px;
+.dropdown2 {
+  width: 90%;
+  margin-left: 10px;
   margin-top: 10px;
   position: relative;
   user-select: none;
@@ -71,6 +84,7 @@
 
 .dropdown2 .dropdown2-content {
   position: absolute;
+  z-index: 5;
   top: 110%;
   padding: 10px;
   background: #ebebeb;
