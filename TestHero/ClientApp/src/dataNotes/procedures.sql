@@ -484,6 +484,106 @@ BEGIN
 END //
 DELIMITER ;
 
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_promedio;
+CREATE PROCEDURE get_promedio(idE INT)
+BEGIN
+	 SELECT ROUND(AVG(calificacion), 2) AS promedio
+	 FROM alumnoexamen
+	 WHERE idExamen = idE;
+END //
+DELIMITER ;
 
-SELECT * FROM examen;
-SELECT * FROM alumnopregunta;
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_desv_est;
+CREATE PROCEDURE get_desv_est(idE INT)
+BEGIN
+	 SELECT ROUND(STDDEV(calificacion), 2) AS desv_est
+	 FROM alumnoexamen
+	 WHERE idExamen = idE;
+END //
+DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_tasa_aprob;
+CREATE PROCEDURE get_tasa_aprob(idE INT)
+BEGIN
+	 DECLARE total INT DEFAULT 0;
+     DECLARE pasado INT DEFAULT 0;
+     
+	 SELECT COUNT(*)
+     INTO total
+	 FROM alumnoexamen
+	 WHERE idExamen = idE;
+     
+     SELECT COUNT(*)
+     INTO pasado
+	 FROM alumnoexamen
+	 WHERE idExamen = idE
+     AND calificacion >= 60;
+     
+     SELECT ROUND(pasado/total, 2) AS tasa_aprobacion;
+
+END //
+DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_pregunta_mas_dificil;
+CREATE PROCEDURE get_pregunta_mas_dificil(idE INT)
+BEGIN
+	SELECT pregunta.pregunta, SUM(esCorrecta) AS totalCorrectas
+	FROM alumnopregunta
+	JOIN respuesta
+	ON respuesta.idRespuesta = alumnopregunta.idRespuesta
+	JOIN pregunta
+	ON pregunta.idPregunta = respuesta.idPregunta
+    WHERE pregunta.idExamen = idE
+	GROUP BY respuesta.idPregunta
+	ORDER BY totalCorrectas
+    LIMIT 1;
+END //
+DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_calificaciones;
+CREATE PROCEDURE get_calificaciones(idE INT)
+BEGIN
+	 SELECT calificacion
+	 FROM alumnoexamen
+	 WHERE idExamen = idE;
+END //
+DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_total_respuestas;
+CREATE PROCEDURE get_total_respuestas(idP INT)
+BEGIN
+	SELECT respuesta.respuesta, COUNT(*) as total_respuestas
+	FROM alumnopregunta
+	JOIN respuesta
+	ON alumnopregunta.idRespuesta = respuesta.idRespuesta
+	JOIN pregunta
+	ON pregunta.idPregunta = alumnopregunta.idPregunta
+	WHERE pregunta.idPregunta = idP
+	GROUP BY respuesta.respuesta;
+END //
+DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_porcentaje_tema;
+CREATE PROCEDURE get_porcentaje_tema(idE INT)
+BEGIN
+	SELECT etiqueta.nombre, ROUND(SUM(respuesta.esCorrecta)/COUNT(*), 2) AS porcentaje_correcto
+	FROM pregunta
+	JOIN etiqueta 
+	ON pregunta.idEtiqueta = etiqueta.idEtiqueta
+	JOIN alumnopregunta
+	ON alumnopregunta.idPregunta = pregunta.idPregunta
+	JOIN respuesta
+	ON respuesta.idRespuesta = alumnopregunta.idRespuesta
+	WHERE idExamen = idE
+	GROUP BY etiqueta.nombre;
+END //
+DELIMITER ;
+
+CALL get_total_respuestas(1);
