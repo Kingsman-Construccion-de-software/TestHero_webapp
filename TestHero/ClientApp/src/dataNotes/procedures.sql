@@ -593,7 +593,7 @@ DROP PROCEDURE IF EXISTS update_examen;
 CREATE PROCEDURE update_examen(IN id INT, IN nom varchar(45),IN mat varchar(45),IN fecha1  datetime, IN fecha2  datetime )
 BEGIN
 	UPDATE examen
-    SET examen.nom =  nombre, examen.materia = mat, examen.fechaInicio = fecha1  , examen.fechaFin = fecha2
+    SET examen.nombre =  nombre, examen.materia = mat, examen.fechaInicio = fecha1  , examen.fechaFin = fecha2
 	WHERE examen.idExamen = id;
 END// 
 DELIMITER ;
