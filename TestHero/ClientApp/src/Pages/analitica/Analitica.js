@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
+import ReactDOM from 'react-dom';
 import styles from "./analitica.module.css";
+import "./analitica.css";
 import axios from "axios";
 import { BsFillCaretDownFill } from "react-icons/bs";
+import { VictoryBoxPlot, VictoryPie, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel, VictoryLegend } from "victory";
+import {VictoryHistogram} from "victory-histogram";
 /**
  * @author: JUlio Meza y Bernardo de la Sierra
  * @license: GP
@@ -10,10 +14,13 @@ import { BsFillCaretDownFill } from "react-icons/bs";
  */
 
 export default function Analitica({ examen }) {
+
   const [promedio, setPromedio] = useState(0);
   const [desviacion, setDesviacion] = useState(0);
   const [tasa, setTasa] = useState(0);
   const [dificil, setDificil] = useState("");
+  const [calificaciones, setCalificaciones] = useState([]);
+  const [clasesRespuestas, setClasesRespuestas] = useState([]);
   const [selects, setSelects] = useState([]);
   const [preguntas, setPreguntas] = useState([]);
   const [activo, setActivo] = useState(false);
@@ -60,54 +67,231 @@ export default function Analitica({ examen }) {
       console.log(e);
     }
   };
-  //"api/pregunta/examen/{id:int}"
+
+  const getCalificaciones = async () => {
+    try {
+      const url = "api/examen/" + examen.idExamen + "/calificaciones";
+      const res = await axios.get(url);
+      setCalificaciones(res.data.map(res => res.valor));
+    } catch(e){
+      console.log(e);
+    }
+  }
+
+
   const getPreguntas = async () => {
     try {
       const url = "api/pregunta/examen/" + examen.idExamen;
       const res = await axios.get(url);
-      console.log(res.data);
       setPreguntas(res.data);
     } catch (e) {
       console.log(e);
     }
   };
+
+  const getClasesRespuestas = async (idPregunta) => {
+    try {
+      const url = "api/pregunta/" + idPregunta + "/clases/respuestas";
+      const res = await axios.get(url);
+      setClasesRespuestas(res.data);
+    } catch(e){
+      console.log(e);
+    }
+  }
+
+  const GraficaCajaBigotes = () => {
+    return (
+      <VictoryChart 
+        horizontal domainPadding={20}
+      >
+
+        <VictoryAxis
+          tickValues={[""]}
+          label=""
+          style={{
+            axis: {stroke: "#EBEBEB"},
+          }}
+        />
+
+        <VictoryAxis
+          dependentAxis
+          label="Calificación"
+          style={{
+            axis: {stroke: "#EBEBEB"},
+            axisLabel: {fontSize: 20, fill: "#EBEBEB", padding: 30},
+            tickLabels: {fontSize: 15, fill: "#EBEBEB", padding: 5}
+          }}
+          theme={VictoryTheme.material}
+          tickFormat={x => x}
+        />
+
+        <VictoryBoxPlot 
+          minLabels
+          maxLabels
+          medianLabels
+          labelOrientation="top"
+          boxWidth={50}
+          data={[ 
+            {x:1, y: calificaciones} 
+          ]}
+          style={{
+            min: { stroke: "tomato" },
+            max: { stroke: "orange" },
+            q1: { fill: "tomato" },
+            q3: { fill: "orange" },
+            median: { stroke: "#EBEBEB", strokeWidth: 3 },
+            minLabels: { fill: "#EBEBEB" },
+            medianLabels: { fill: "#EBEBEB"},
+            maxLabels: { fill: "#EBEBEB" }
+          }}
+          theme={VictoryTheme.material}
+        />
+      </VictoryChart>
+    );
+  }
+
+  const GraficaHistograma = () => {
+    return (
+      <VictoryChart 
+        domainPadding={20}
+
+      >
+
+        <VictoryAxis
+          label="Calificación"
+          style={{
+            axis: {stroke: "#EBEBEB"},
+            axisLabel: {fontSize: 20, fill: "#EBEBEB", padding: 30},
+            tickLabels: {fontSize: 15, fill: "#EBEBEB", padding: 5}
+          }}
+          theme={VictoryTheme.material}
+        />
+
+        <VictoryAxis
+          dependentAxis
+          label="Frecuencia"
+          style={{
+            axis: {stroke: "#EBEBEB"},
+            axisLabel: {fontSize: 20, fill: "#EBEBEB", padding:30},
+            tickLabels: {fontSize: 15, fill: "#EBEBEB", padding: 5}
+          }}
+          theme={VictoryTheme.material}
+        />
+
+        <VictoryHistogram
+          data={calificaciones.map((cal) => {
+              return {x: cal}
+            })
+          }
+          bins={Math.ceil(calificaciones.length / 5)}
+          style={{
+            data: {fill: "tomato", stroke: ""}
+          }}
+          theme={VictoryTheme.material}
+        />
+      </VictoryChart>
+    );
+  }
+
+  const GraficaPastel = () => {
+    let colors = ["tomato", "orange", "gold", "yellow"]
+
+    return (
+      <div className={styles["pieContainer"]}>
+        <VictoryPie
+          data={
+            construyeDiccionario(clasesRespuestas)
+          }
+          width={600}
+          style = {{
+            labels: {
+              fontSize: 0, fill: "#EBEBEB"
+            }
+          }}
+          colorScale={colors}
+          theme={VictoryTheme.material}
+        />
+        <VictoryLegend
+            title="Respuestas"
+            centerTitle
+            orientation="vertical"
+            gutter={10}
+            height={200}
+            style={{ 
+              border: { stroke: "#EBEBEB" }, 
+              title: {fontSize: 20, fill: "#EBEBEB" },
+              labels: { fill: "#EBEBEB"}
+            }}
+            data={clasesRespuestas.map((res, i) => 
+              { return {name: res.label, symbol: {fill: colors[i]}}}
+            )}
+        />
+      </div>
+    );
+  }
+
+  //crea un diccionario a partir de las clases de respuestas, para
+  //obtener los datos en el formato requerido por el pie chart
+  const construyeDiccionario = (data) => {
+    const dict = {}
+    data.forEach( (dat) => {
+      if(dict[dat.label]){
+        dict[dat.label] += 1;
+      } else {
+        dict[dat.label] = 1;
+      }
+    });
+
+    const res = Object.entries(dict).map(([key, value], idx) => {
+      return {x: idx, y: value, label: key}
+    })
+    return res;
+
+  }
+
+
+
   useEffect(() => {
     getPromedio();
     getDesviacion();
     getTasa();
     getDificil();
     getPreguntas();
+    getCalificaciones();
   }, []);
 
   return (
     <div className={styles["home_background"]}>
       <div className={styles["cuadroPagina"]}>
         <h1 className={styles["tituloPagina"]}>
-          Esta es la pregunta más difícil es
+          La pregunta más difícil es:
         </h1>
         <p className={styles["datosPagina"]}> {dificil} </p>
       </div>
       <div className={styles["espaciado"]}>
         <div className={styles["cuadroPaginaChico"]}>
           <h1 className={styles["tituloPagina"]}>Promedio</h1>
-          <p className={styles["datosPagina"]}>El promedio es de {promedio} </p>
+          <p className={styles["datosPagina"]}>{promedio} </p>
         </div>
         <div className={styles["cuadroPaginaChico"]}>
           <h1 className={styles["tituloPagina"]}>Desviación estándar</h1>
           <p className={styles["datosPagina"]}>
-            La desviación estándar es de {desviacion}{" "}
+            {desviacion}
           </p>
         </div>
         <div className={styles["cuadroPaginaChico"]}>
           <h1 className={styles["tituloPagina"]}>Tasa de aprobación</h1>
           <p className={styles["datosPagina"]}>
-            La tasa de aprobación es de {tasa}{" "}
+            {tasa}
           </p>
         </div>
       </div>
       <div className={styles["espaciado"]}>
         <div className={styles["cuadroPaginaGrafico"]}>
-          <h1 className={styles["tituloPagina"]}>Gráfico de cajas y bigotes</h1>
+          <h1 className={styles["tituloGrafica"]}>Gráfico de cajas y bigotes</h1>
+          {calificaciones && calificaciones.length > 0 && 
+            GraficaCajaBigotes()
+          }
         </div>
         <div className={styles["cuadroPaginaGrafico"]}>
           <h1 className={styles["tituloPagina"]}>Gráfico de pastel</h1>
@@ -144,10 +328,11 @@ export default function Analitica({ examen }) {
                 {preguntas.map((op, index) => (
                   <div
                     className={styles["dropdown2-item"]}
-                    key={op.idEtiqueta}
+                    key={op.idPregunta}
                     onClick={(e) => {
                       setSelects(op.textoPregunta);
                       setActivo(false);
+                      getClasesRespuestas(op.idPregunta)
                     }}
                   >
                     {op.textoPregunta}
@@ -156,14 +341,23 @@ export default function Analitica({ examen }) {
               </div>
             )}
           </div>
+
+
+          {clasesRespuestas && clasesRespuestas.length > 0 && 
+            GraficaPastel()
+          }
+
         </div>
       </div>
       <div className={styles["espaciado"]}>
         <div className={styles["cuadroPaginaGrafico"]}>
-          <h1 className={styles["tituloPagina"]}>Gráfico de histograma</h1>
+          <h1 className={styles["tituloGrafica"]}>Gráfico de histograma</h1>
+          {calificaciones && calificaciones.length > 0 && 
+            GraficaHistograma()
+          }
         </div>
         <div className={styles["cuadroPaginaGrafico"]}>
-          <h1 className={styles["tituloPagina"]}>Gráfico de radar</h1>
+          <h1 className={styles["tituloGrafica"]}>Gráfico de radar</h1>
         </div>
       </div>
     </div>
