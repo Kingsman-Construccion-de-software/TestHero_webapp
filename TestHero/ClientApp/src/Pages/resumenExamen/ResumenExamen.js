@@ -12,6 +12,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import MultipleViewCard from "components/multiple-view-card/MultipleViewCard";
 import Questions from "Pages/questions/questions";
 import Results from "Pages/results/Results";
+import Analitica from "Pages/analitica/Analitica";
 /**
  * @author Bernardo de la Sierra y Julio Meza
  * @version 2.1.1
@@ -79,19 +80,13 @@ export default function ResumenExamen() {
             {examen && (
               <h2 className={styles["subtitle"]}>Código: {examen.codigo}</h2>
             )}
-            {/* <div className={styles["IconPos"]}> */}
-              <div className={styles["crudIcon1"]} onClick={EditExam}>
-                {/* <button onClick={EditExam}>Editar</button> */}
-                <FaEdit size={45} />
-              </div>
-              <div
-                className={styles["crudIcon2"]}
-                onClick={() => setShow(true)}
-              >
-                {/* <button onClick={() => setShow(true)}>Eliminar</button> */}
-                <MdCancel size={45} />
-              </div>
-            {/* </div> */}
+
+            <div className={styles["crudIcon1"]} onClick={EditExam}>
+              <FaEdit size={45} />
+            </div>
+            <div className={styles["crudIcon2"]} onClick={() => setShow(true)}>
+              <MdCancel size={45} />
+            </div>
           </div>
         </div>
       </div>
@@ -102,6 +97,10 @@ export default function ResumenExamen() {
             {
               title: "Resultados",
               component: <Results codigos={examen} />,
+            },
+            {
+              title: "Analíticas",
+              component: <Analitica />,
             },
           ]}
         />

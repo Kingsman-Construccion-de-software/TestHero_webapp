@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-// import React, { useRef } from "react";
 import styles from "./home.module.css";
-// import logo from "../../assets/logo.png";
 import UserIcon from "../../assets/UserIcon.png";
 import Sidebar from "../../components/sidebar/Sidebar.js";
 import Grupo from "../../components/grupo/Grupo";

@@ -16,6 +16,7 @@ import Invitacion from "Pages/Invitacion/Invitacion";
 import RegistroProfesor from "Pages/RegistroProfesor/RegistroProfesor";
 import RegistroAlumnos from "Pages/RegistroAlumnos/RegistroAlumnos";
 import EditarExamen from "Pages/crearExamen/EditarExamen";
+import Analitica from "Pages/analitica/Analitica";
 
 const AppRoutes = [
   {
@@ -90,6 +91,10 @@ const AppRoutes = [
   {
     path: "/registroAlumno",
     element: <RegistroAlumnos />,
+  },
+  {
+    path: "/analitica",
+    element: <Analitica />,
   },
 ];
 
