@@ -4,8 +4,9 @@ import styles from "./analitica.module.css";
 import "./analitica.css";
 import axios from "axios";
 import { BsFillCaretDownFill } from "react-icons/bs";
-import { VictoryBoxPlot, VictoryPie, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel, VictoryLegend } from "victory";
+import { VictoryBoxPlot, VictoryPie, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel, VictoryLegend, VictoryGroup, VictoryArea, VictoryPolarAxis } from "victory";
 import {VictoryHistogram} from "victory-histogram";
+import { ObjectFlags } from "typescript";
 /**
  * @author: JUlio Meza y Bernardo de la Sierra
  * @license: GP
@@ -21,6 +22,7 @@ export default function Analitica({ examen }) {
   const [dificil, setDificil] = useState("");
   const [calificaciones, setCalificaciones] = useState([]);
   const [clasesRespuestas, setClasesRespuestas] = useState([]);
+  const [performances, setPerformances] = useState([]);
   const [selects, setSelects] = useState([]);
   const [preguntas, setPreguntas] = useState([]);
   const [activo, setActivo] = useState(false);
@@ -94,6 +96,20 @@ export default function Analitica({ examen }) {
       const url = "api/pregunta/" + idPregunta + "/clases/respuestas";
       const res = await axios.get(url);
       setClasesRespuestas(res.data);
+    } catch(e){
+      console.log(e);
+    }
+  }
+
+  const getPorcentajesTemas = async () => {
+    try {
+      const url = "api/examen/" + examen.idExamen + "/porcentajes/temas";
+      const res = await axios.get(url);
+      const procesado = res.data.map((el) => {
+        return ({x: el.label, y:el.valor})
+      })
+      console.log(procesado);
+      setPerformances(procesado);
     } catch(e){
       console.log(e);
     }
@@ -208,6 +224,8 @@ export default function Analitica({ examen }) {
               fontSize: 0, fill: "#EBEBEB"
             }
           }}
+          categories={{ x: clasesRespuestas.map(res => 1) }}
+          labels={clasesRespuestas.map(res => 1)}
           colorScale={colors}
           theme={VictoryTheme.material}
         />
@@ -251,6 +269,55 @@ export default function Analitica({ examen }) {
 
 
 
+
+  const GraficaRadar = () => {
+
+    return (
+      <VictoryChart polar
+        theme={VictoryTheme.material}
+        domain={{ y: [ 0, 1 ] }}
+      >
+
+        <VictoryGroup colorScale={["tomato"]}
+          style={{ data: { fillOpacity: 0.3, strokeWidth: 2 } }}
+        >
+            <VictoryArea data={performances}/>
+        </VictoryGroup>
+        {
+          performances.map((perf, i) => {
+            return (
+              <VictoryPolarAxis key={i} dependentAxis
+                style={{
+                  axisLabel: { padding: 10, fill: "#EBEBEB" },
+                  axis: { stroke: "none" },
+                  tickLabels: {fill: "#EBEBEB"},
+                  grid: { stroke: "#EBEBEB", strokeWidth: 0.5, opacity: 0.75 }
+                }}
+                tickLabelComponent={
+                  <VictoryLabel labelPlacement="vertical"/>
+                }
+                labelPlacement="perpendicular"
+                axisValue={i + 1} label={perf.x}
+                tickValues={[0.25, 0.5, 0.75]}
+              />
+            );
+          })
+        }
+        
+        <VictoryPolarAxis
+          labelPlacement="parallel"
+          tickFormat={() => ""}
+          style={{
+            axis: { stroke: "none" },
+            grid: { stroke: "#EBEBEB", opacity: 0.75 }
+          }}
+        />
+
+    </VictoryChart>  
+    )
+  }
+
+
   useEffect(() => {
     getPromedio();
     getDesviacion();
@@ -258,6 +325,7 @@ export default function Analitica({ examen }) {
     getDificil();
     getPreguntas();
     getCalificaciones();
+    getPorcentajesTemas();
   }, []);
 
   return (
@@ -288,13 +356,13 @@ export default function Analitica({ examen }) {
       </div>
       <div className={styles["espaciado"]}>
         <div className={styles["cuadroPaginaGrafico"]}>
-          <h1 className={styles["tituloGrafica"]}>Gráfico de cajas y bigotes</h1>
+          <h1 className={styles["tituloGrafica"]}>Resumen de las calificaciones</h1>
           {calificaciones && calificaciones.length > 0 && 
             GraficaCajaBigotes()
           }
         </div>
         <div className={styles["cuadroPaginaGrafico"]}>
-          <h1 className={styles["tituloPagina"]}>Gráfico de pastel</h1>
+          <h1 className={styles["tituloPagina"]}>Cantidad de respuestas por opción</h1>
 
           <div className={styles["dropdown2"]}>
             {selects === null ? (
@@ -351,13 +419,16 @@ export default function Analitica({ examen }) {
       </div>
       <div className={styles["espaciado"]}>
         <div className={styles["cuadroPaginaGrafico"]}>
-          <h1 className={styles["tituloGrafica"]}>Gráfico de histograma</h1>
+          <h1 className={styles["tituloGrafica"]}>Distribución de las calificaciones</h1>
           {calificaciones && calificaciones.length > 0 && 
             GraficaHistograma()
           }
         </div>
         <div className={styles["cuadroPaginaGrafico"]}>
-          <h1 className={styles["tituloGrafica"]}>Gráfico de radar</h1>
+          <h1 className={styles["tituloGrafica"]}>Desempeño de los alumnos por tema</h1>
+          {performances && performances.length > 0 && 
+            GraficaRadar()
+          }
         </div>
       </div>
     </div>
