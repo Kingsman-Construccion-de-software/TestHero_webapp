@@ -113,10 +113,12 @@
   top: 1.8vw;
   left: 2.8vw;
   width: 6vw !important;
+  color:#ebebeb;
 }
 
 .BackArrow:hover {
   cursor: pointer;
+  color:rgb(207, 207, 207);
 }
 .errorMessage {
   color: #fd4d4d;

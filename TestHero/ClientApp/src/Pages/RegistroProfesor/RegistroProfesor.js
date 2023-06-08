@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./registroProfesor.module.css";
 import logo from "../../assets/logo.png";
-import BackArrow from "../../assets/BackArrow.png";
+import { FaArrowLeft} from "react-icons/fa";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 
 import swal from "sweetalert";
 /**
- * @author Bernardo de la Sierra
- * @version 1.0.0
+ * @author Bernardo de la Sierra y Leonardo García
+ * @version 1.0.1
  * @license Gp
  * @params Sin parametros
  * @description Clase para registrar al profesor
@@ -132,20 +132,19 @@ export default function RegistroProfesor() {
   useEffect(() => {
     getProfesor();
   }, []);
-  // función para hacer el boton de regreso
-  function GoBack() {
-    navigate("/login/profesor");
-  }
+  // // función para hacer el boton de regreso
+  // function GoBack() {
+  //   navigate("/login/profesor");
+  // }
 
   return (
     <div className={styles["login"]}>
       <div className={styles["loginWrapper"]}>
-        <img
-          className={styles["BackArrow"]}
-          src={BackArrow}
-          onClick={GoBack}
-          alt="GoBack"
-        ></img>
+      <FaArrowLeft
+            className={styles["BackArrow"]}
+            size={70}
+            onClick={() => navigate(-1)}
+          />
         <img src={logo} alt="Logo testHero" />
         <form className={styles["loginBox"]} onSubmit={handleRegister}>
           <p className={styles["texto"]}>Nombre(s)</p>
