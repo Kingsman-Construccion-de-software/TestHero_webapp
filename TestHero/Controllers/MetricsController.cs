@@ -57,7 +57,7 @@ namespace TestHero.Controllers
             return new OkObjectResult(result);
         }
 
-        // GET api/examen/id/
+        // GET api/examen/id/masdificil
         [Route("api/examen/{id:int}/masdificil")]
         [HttpGet]
         /// <summary>
@@ -70,6 +70,48 @@ namespace TestHero.Controllers
             var result = await metrica.GetPregMasDificil(id);
             return new OkObjectResult(result);
         }
+
+        // GET api/examen/id/calificaciones
+        [Route("api/examen/{id:int}/calificaciones")]
+        [HttpGet]
+        /// <summary>
+        /// Rutamiento de calificaciones de un examen
+        /// </summary>
+        public async Task<IActionResult> GetCalificaciones(int id)
+        {
+            await Db.Connection.OpenAsync();
+            Metrica metrica = new Metrica(Db);
+            var result = await metrica.GetCalificaciones(id);
+            return new OkObjectResult(result);
+        }
+
+        // GET api/pregunta/id/clases/respuestas
+        [Route("api/pregunta/{id:int}/clases/respuestas")]
+        [HttpGet]
+        /// <summary>
+        /// Rutamiento de calificaciones de un examen
+        /// </summary>
+        public async Task<IActionResult> GetClasesRespuestas(int id)
+        {
+            await Db.Connection.OpenAsync();
+            Metrica metrica = new Metrica(Db);
+            var result = await metrica.GetClasesRespuestas(id);
+            return new OkObjectResult(result);
+        }
+
+        // GET api/examen/id/porcentaje/temas
+        [Route("api/examen/{id:int}/porcentajes/temas")]
+        [HttpGet]
+        /// <summary>
+        /// Rutamiento de porcentajes de los temas
+        /// </summary>
+        public async Task<IActionResult> GetPorcentajesTemas(int id)
+        {
+            await Db.Connection.OpenAsync();
+            Metrica metrica = new Metrica(Db);
+            var result = await metrica.GetPorcentajesTemas(id);
+            return new OkObjectResult(result);
+        }       
 
 
     }

@@ -73,6 +73,42 @@ namespace TestHero
         }
 
         /// <summary>
+        /// Metodo para obtener las calificaciones
+        /// </summary>
+        public async Task<List<Metrica>> GetCalificaciones(int idE)
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"get_calificaciones";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@idE", idE);
+            return await ReadAllNumAsync(await cmd.ExecuteReaderAsync());
+        }
+
+        /// <summary>
+        /// Metodo para obtener el número de respuestas por clase
+        /// </summary>
+        public async Task<List<Metrica>> GetClasesRespuestas(int idP)  
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"get_total_respuestas";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@idP", idP);
+            return await ReadAllTextIntAsync(await cmd.ExecuteReaderAsync());
+        }
+
+        /// <summary>
+        /// Metodo para obtener el porcentaje de desempeño por tema
+        /// </summary>
+        public async Task<List<Metrica>> GetPorcentajesTemas(int idE)
+        {
+            using MySqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"get_porcentaje_tema";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@idE", idE);
+            return await ReadAllTextDoubleAsync(await cmd.ExecuteReaderAsync());
+        }
+
+        /// <summary>
         /// Funcion dedicada a leer una métrica numérica
         /// </summary>
         private async Task<Metrica> ReadNumAsync(MySqlDataReader reader)
@@ -106,7 +142,7 @@ namespace TestHero
                 {
                     var respuesta = new Metrica(Db)
                     {
-                        Valor = reader.GetDouble(0)
+                        Valor = reader.GetInt32(0)
                     };
 
                     respuestas.Add(respuesta);
@@ -138,6 +174,61 @@ namespace TestHero
             return respuesta;
 
         }
+
+        /// <summary>
+        /// Funcion dedicada a leer varias métricas en texto y double
+        /// </summary>
+        private async Task<List<Metrica>> ReadAllTextDoubleAsync(MySqlDataReader reader)
+        {
+            var respuestas = new List<Metrica>();
+
+
+            using (reader)
+            {
+                while (await reader.ReadAsync())
+                {
+                    var respuesta = new Metrica(Db)
+                    {
+                        Label = reader.GetString(0),
+                        Valor = reader.GetDouble(1)
+                    };
+
+                    respuestas.Add(respuesta);
+
+                }
+
+            }
+
+            return respuestas;
+        }
+
+        /// <summary>
+        /// Funcion dedicada a leer varias métricas en texto e int
+        /// </summary>
+        private async Task<List<Metrica>> ReadAllTextIntAsync(MySqlDataReader reader)
+        {
+            var respuestas = new List<Metrica>();
+
+
+            using (reader)
+            {
+                while (await reader.ReadAsync())
+                {
+                    var respuesta = new Metrica(Db)
+                    {
+                        Label = reader.GetString(0),
+                        Valor = reader.GetInt32(1)
+                    };
+
+                    respuestas.Add(respuesta);
+
+                }
+
+            }
+
+            return respuestas;
+        }
+
 
     }
 }

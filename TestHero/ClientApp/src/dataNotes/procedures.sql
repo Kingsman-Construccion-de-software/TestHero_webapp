@@ -550,7 +550,7 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS get_calificaciones;
 CREATE PROCEDURE get_calificaciones(idE INT)
 BEGIN
-	 SELECT calificacion
+	 SELECT calificacion AS calificacion
 	 FROM alumnoexamen
 	 WHERE idExamen = idE;
 END //
@@ -589,7 +589,6 @@ END //
 DELIMITER ;
 
 DELIMITER //
-CALL get_total_respuestas(1);
 DROP PROCEDURE IF EXISTS update_examen;
 CREATE PROCEDURE update_examen(IN id INT, IN nom varchar(45),IN mat varchar(45),IN fecha1  datetime, IN fecha2  datetime )
 BEGIN
