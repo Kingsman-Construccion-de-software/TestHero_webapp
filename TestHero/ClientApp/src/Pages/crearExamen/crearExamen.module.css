@@ -13,7 +13,6 @@
 .CrearExamen h2 {
   margin-top: 10px;
   margin-bottom: 30px;
-  /* margin-top: 0; */
 }
 
 .form-group {
@@ -23,7 +22,6 @@
 .label {
   display: block;
   font-size: 20px;
-  /* margin-bottom: 15px; */
 }
 
 .input[type="text"],
@@ -41,7 +39,6 @@
 .tagDatalist {
   max-height: 8em;
   overflow: hidden;
-  /* position: absolute; */
   border: 0 none;
   color: green;
 }

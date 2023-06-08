@@ -100,7 +100,7 @@ export default function ResumenExamen() {
             },
             {
               title: "Analíticas",
-              component: <Analitica />,
+              component: <Analitica examen={examen} />,
             },
           ]}
         />
