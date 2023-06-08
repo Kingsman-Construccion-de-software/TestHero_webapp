@@ -194,9 +194,18 @@ insert into grupo (nombre, idProfesor) values ('Introducción a Biología', 1);
 insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Rosa', 'Casio', 'rcasio@hotmail.com', '123rosaca', 1);
 insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Joaquin', 'Rodríguez', 'joaquinrdz@gmail.com', 'j04qu1n', 1);
 insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Rafael', 'Urbina', 'rafiqui@gmail.com', 'rafix777', 1);
-insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Daniel', 'González', 'dgonzalez@udem.edu', '07DaniBoi07', 1);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Daniel', 'González', 'danielgonzalezs@udem.edu', '07DaniBoi07', 1);
 insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Nicolás', 'Cajas', 'nickcage@gmail.com', 'zSoyNico03z', 1);
-
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Armando', 'Paredes', 'BobElConstru@gmail.com', '123PuedoRepararlo321', 1);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Sofía', 'de la Garza', 'sofiaGarza@hotmail.com', 'Contraseña777', 1);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Juan', 'Castillo', 'JuanMa@gmail.com', 'LicJohnma23', 1);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Ricardo', 'Hernández', 'TuPapasitorico33@outlook.com', 'papuPro2003', 1);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Andrés', 'Vidrio', 'SoyND2003@hotmail.com', 'soyND#03', 1);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Juan', 'Padrón', 'JuanPadronC@udem.edu', '2%JuPad%2', 1);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Adrian', 'Cavazos', 'ChalkyMuffin696@hotmail.com', 'ChalkyWazHere03', 1);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Lisa', 'Ramirez', 'LizaR@gmail.com', 'LisLis2003', 1);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Azael', 'Treviño', 'AzitaGod@gmail.com', 'Azazazaza07', 1);
+insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Miguel', 'Campos', 'MickeyBoi73@hotmail.com', 'SimPleZon73', 1);
 
 -- Examen (5)
 INSERT INTO Examen (codigo, nombre, materia, fechaInicio, fechaFin, idGrupo) VALUES ('BIOEXA01', 'Examen de Tópicos', 'BiologíaI', '2023-06-01 09:00:00', '2023-06-30 11:00:00', 1);

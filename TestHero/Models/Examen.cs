@@ -120,10 +120,11 @@ namespace TestHero
             cmd.CommandText = @"update_examen";
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@nom", Nombre);
+            cmd.Parameters.AddWithValue("@mat", Materia); 
             cmd.Parameters.AddWithValue("@fecha1", FechaInicio);
             cmd.Parameters.AddWithValue("@fecha2", FechaFin);
-            cmd.Parameters.AddWithValue("@nombre", Nombre);
-            cmd.Parameters.AddWithValue("@materia", Materia);
+           
             await cmd.ExecuteNonQueryAsync();
             IdExamen = id;
         }
