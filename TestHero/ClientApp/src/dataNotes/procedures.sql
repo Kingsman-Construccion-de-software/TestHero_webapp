@@ -504,6 +504,7 @@ BEGIN
 END //
 DELIMITER ;
 
+call get_desv_est(1);
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_tasa_aprob;
 CREATE PROCEDURE get_tasa_aprob(idE INT)
@@ -543,7 +544,8 @@ BEGIN
     LIMIT 1;
 END //
 DELIMITER ;
-
+ 
+ call get_pregunta_mas_dificil(1);
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_calificaciones;
 CREATE PROCEDURE get_calificaciones(idE INT)
@@ -593,6 +595,6 @@ BEGIN
 	UPDATE examen
     SET examen.nom =  nombre, examen.materia = mat, examen.fechaInicio = fecha1  , examen.fechaFin = fecha2
 	WHERE examen.idExamen = id;
-END //
+END// 
 DELIMITER ;
 
