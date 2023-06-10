@@ -32,8 +32,8 @@
 }
 
 .loginWrapper img {
-  width: 100%;
-  max-width: 300px;
+  width: 15vw;
+  /* max-width: 50vw; */
 }
 
 .loginDesc {
@@ -42,7 +42,7 @@
 
 .loginBox {
   padding: 25px;
-  width: 100%;
+  width: 80vw;
   max-width: 500px;
   display: flex;
   flex-direction: column;
@@ -50,7 +50,7 @@
 }
 
 .loginInput {
-  height: 50px;
+  height: 45px;
   border-radius: 10px;
   border: 1px solid black;
   font-size: 18px;
@@ -120,8 +120,10 @@
   cursor: pointer;
   color:rgb(207, 207, 207);
 }
+
 .errorMessage {
+  font-size: 20px;
+  font-weight: bold;
   color: #fd4d4d;
-  font-size: 23px;
-  text-align: center;
+  margin-top: 20px;
 }
