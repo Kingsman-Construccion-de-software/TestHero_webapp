@@ -118,7 +118,8 @@ function EditarExamen() {
     }
   };
   /**Checa que etiqueta fue eliminar y le debes pasar como parametro la etiqueta a eliminar */
-  const handleTagDelete = (tagToDelete) => {
+  const handleTagDelete = async (tagToDelete) => {
+    await tags.forEach((tag) => deleteTag(tagToDelete, parametro));
     setTags(tags.filter((tag) => tag !== tagToDelete));
   };
   // importante
@@ -145,10 +146,10 @@ function EditarExamen() {
     const result = await axios.put(url, data);
 
     await tags.forEach((tag) => postTag(tag, result.data.idExamen));
-    // console.log(poderes);
-    // await poderes.forEach((poder, id) =>
-    //   updatePoder(poder, id, result.data.idExamen)
-    // );
+    console.log(poderes);
+    await poderes.forEach((poder, id) =>
+      updatePoder(poder, id, result.data.idExamen)
+    );
     swal({
       title: "Se ha editado un examen",
       button: "Aceptar",
@@ -171,9 +172,6 @@ function EditarExamen() {
   };
 
   const postTag = async (tag, idExamen) => {
-    console.log(tag);
-    console.log(idExamen);
-    console.log(etiquetas);
     const filtrado = etiquetas.filter((etiqueta) => etiqueta.nombre === tag);
 
     let id = 0;
@@ -194,6 +192,23 @@ function EditarExamen() {
     const url2 = `api/etiqueta/${id}/examen/${idExamen}`;
     try {
       const result = await axios.post(url2);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const deleteTag = async (tagToDelete, idExamen) => {
+    const filtrado = etiquetas.filter(
+      (etiqueta) => etiqueta.nombre === tagToDelete
+    );
+    console.log(idExamen);
+    console.log(tagToDelete);
+    console.log(filtrado);
+
+    const url2 = `api/etiqueta/${filtrado[0].idEtiqueta}/examen/${idExamen}`;
+    console.log(url2);
+    try {
+      const result = await axios.delete(url2);
     } catch (e) {
       console.log(e);
     }
