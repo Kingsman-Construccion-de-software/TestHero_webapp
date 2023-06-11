@@ -636,10 +636,30 @@ BEGIN
 END //
 DELIMITER ;
 
-call delete_etiquetas_examen(6,15);
-select * from examen;
-select * from examenpoder;
-select * from examenetiqueta;
-select * from etiqueta;
-select * from poder;
+DELIMITER //
+DROP PROCEDURE IF EXISTS insert_alumnopoder;
+CREATE PROCEDURE insert_alumnopoder(IN idA text ,IN idP int ,IN can int )
+BEGIN
+	INSERT INTO alumnopoder(idAlumno, idPoder, cantidad) values(idA, idP,can);
+END //
+DELIMITER ;
+
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_alumnopoder;
+
+CREATE PROCEDURE get_alumnopoder(IN idP INT, IN idA INT)
+BEGIN
+    SELECT alumno.idAlumno, alumno.nombres, alumno.apellidos, alumnopoder.idPoder, poder.nombre
+    FROM alumno
+    INNER JOIN alumnopoder ON alumno.idAlumno = alumnopoder.idAlumno
+    INNER JOIN poder ON poder.idPoder = alumnopoder.idPoder
+    WHERE alumnopoder.idPoder = idP AND alumnopoder.idAlumno = idA;
+END //
+DELIMITER ;
+
+call insert_alumnopoder(8,1,2);
+call get_alumnopoder(1,8);
 select * from alumno;
+select * from alumnoexamen;
+select * from alumnopoder;
