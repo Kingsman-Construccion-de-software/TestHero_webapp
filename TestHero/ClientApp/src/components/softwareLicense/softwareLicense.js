@@ -44,7 +44,7 @@ export default function SoftwareLicense() {
             onClick={handleClose}
             className={styles["botonCancelar2"]}
           >
-            Cancelar
+            Aceptar
           </Button>
         </Modal.Footer>
       </Modal>
