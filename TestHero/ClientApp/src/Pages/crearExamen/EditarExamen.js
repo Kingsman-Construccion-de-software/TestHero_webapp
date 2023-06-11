@@ -96,6 +96,7 @@ function EditarExamen() {
     getExamenes();
     getEtiqueta();
     getPoder();
+    getTags();
   }, []);
 
   /**Checa que tecla fue usada */
@@ -143,6 +144,7 @@ function EditarExamen() {
 
     const result = await axios.put(url, data);
 
+    await tags.forEach((tag) => postTag(tag, result.data.idExamen));
     // console.log(poderes);
     // await poderes.forEach((poder, id) =>
     //   updatePoder(poder, id, result.data.idExamen)
@@ -171,6 +173,7 @@ function EditarExamen() {
   const postTag = async (tag, idExamen) => {
     console.log(tag);
     console.log(idExamen);
+    console.log(etiquetas);
     const filtrado = etiquetas.filter((etiqueta) => etiqueta.nombre === tag);
 
     let id = 0;
@@ -181,8 +184,10 @@ function EditarExamen() {
       const data = {
         Nombre: tag,
       };
-      const result = await axios.post(url, data);
-      id = result.data.idEtiqueta;
+      try {
+        const result = await axios.post(url, data);
+        id = result.data.idEtiqueta;
+      } catch (e) {}
     } else {
       id = filtrado[0].idEtiqueta;
     }
@@ -192,6 +197,12 @@ function EditarExamen() {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const getTags = async () => {
+    const url = "api/etiqueta";
+    const result = await axios.get(url);
+    setEtiquetas([...result.data]);
   };
 
   /**
