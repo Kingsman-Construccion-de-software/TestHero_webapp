@@ -146,7 +146,7 @@ function EditarExamen() {
     const result = await axios.put(url, data);
 
     await tags.forEach((tag) => postTag(tag, result.data.idExamen));
-    console.log(poderes);
+
     await poderes.forEach((poder, id) =>
       updatePoder(poder, id, result.data.idExamen)
     );
@@ -173,7 +173,8 @@ function EditarExamen() {
 
   const postTag = async (tag, idExamen) => {
     const filtrado = etiquetas.filter((etiqueta) => etiqueta.nombre === tag);
-
+    console.log(tag);
+    console.log(idExamen);
     let id = 0;
 
     if (filtrado.length === 0) {

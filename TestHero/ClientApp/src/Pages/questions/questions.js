@@ -62,7 +62,6 @@ export default function Questions() {
       const URIetiqueta = "api/etiqueta/examen/" + searchParams.get("examen");
       const res = await axios.get(URIetiqueta);
       setEtiquetas(res.data);
-      console.log(res.data);
     } catch (error) {
       console.log(error);
     }
