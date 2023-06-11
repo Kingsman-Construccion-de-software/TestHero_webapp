@@ -296,15 +296,6 @@ END //
 DELIMITER ;
 
 DELIMITER //
-DROP PROCEDURE IF EXISTS insert_etiqueta;
-CREATE PROCEDURE insert_etiqueta(IN nom VARCHAR(45))
-BEGIN
-	INSERT INTO etiqueta(nombre)
-    VALUES(nom);
-END //
-DELIMITER ;
-
-DELIMITER //
 DROP PROCEDURE IF EXISTS insert_etiquetas_examen;
 CREATE PROCEDURE insert_etiquetas_examen(IN idEx INT, IN idEt INT)
 BEGIN
@@ -474,6 +465,7 @@ BEGIN
 END //
 DELIMITER ;
 
+
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_poderExamen;
 CREATE PROCEDURE  get_poderExamen(IN idE  int)
@@ -588,15 +580,7 @@ BEGIN
 END //
 DELIMITER ;
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS update_examen;
-CREATE PROCEDURE update_examen(IN id INT, IN nom varchar(45),IN mat varchar(45),IN fecha1  datetime, IN fecha2  datetime )
-BEGIN
-	UPDATE examen
-    SET examen.nombre =  nombre, examen.materia = mat, examen.fechaInicio = fecha1  , examen.fechaFin = fecha2
-	WHERE examen.idExamen = id;
-END// 
-DELIMITER ;
+
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS registra_profesor;
@@ -614,3 +598,45 @@ BEGIN
     FROM profesor;
 END //
 DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS update_examen;
+CREATE PROCEDURE update_examen(IN id INT, IN nom varchar(45),IN mat varchar(45),IN fecha1  datetime, IN fecha2  datetime )
+BEGIN
+	UPDATE examen
+    SET nombre = nom, materia = mat, fechaInicio = fecha1, fechaFin = fecha2
+	WHERE idExamen = id;
+END//
+DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS insert_etiqueta;
+CREATE PROCEDURE insert_etiqueta(IN nom VARCHAR(45))
+BEGIN
+	INSERT INTO etiqueta(nombre)
+    VALUES(nom);
+END //
+DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS delete_poder;
+CREATE PROCEDURE  delete_poder(IN idE int, IN idP  int)
+BEGIN
+	DELETE FROM ExamenPoder WHERE ExamenPoder.idExamen = idE and ExamenPoder.idPoder = idP;
+END //
+DELIMITER ;
+
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS delete_etiqueta;
+CREATE PROCEDURE delete_etiqueta(IN id INT)
+BEGIN
+	DELETE  from etiqueta
+    where idEtiqueta = id;
+END //
+DELIMITER ;
+
+call update_examen(6,"Papalona","Prueba","2222-02-22T14:02:00","2224-02-22T14:02:00");
+select * from examen;
+select * from examenpoder;
+select * from etiqueta;

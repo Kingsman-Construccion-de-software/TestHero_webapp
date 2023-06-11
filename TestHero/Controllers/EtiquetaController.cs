@@ -43,6 +43,22 @@ namespace TestHero.Controllers
             return new OkObjectResult(result);
         }
 
+        // DELETE api/<Pregunta>/id
+        [Route("api/etiqueta/{id:int}")]
+        [HttpDelete]
+        /// <summary>
+        /// Rutamiento de delete por idPregunta
+        /// </summary>
+        public async Task<IActionResult> Delete(int id)
+        {
+            await Db.Connection.OpenAsync();
+            Etiqueta pregunta = new Etiqueta(Db);
+            var result = await pregunta.GetEtiquetasExamen(id);
+            if (result.Count == 0)
+                return new NotFoundResult();
+            await pregunta.DeleteEtiqueta(id);
+            return new OkResult();
+        }
 
         // GET: api/etiqueta/id
         [Route("api/etiqueta/{id:int}")]

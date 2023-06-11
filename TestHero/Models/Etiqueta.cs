@@ -106,6 +106,16 @@ namespace TestHero
             await cmd.ExecuteNonQueryAsync();
             using MySqlCommand cmdInt = Db.Connection.CreateCommand();
         }
+
+        public async Task DeleteEtiqueta(int id)
+        {
+            using var cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"delete_etiqueta";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id", id);
+            await cmd.ExecuteNonQueryAsync();
+        }
+
         /// <summary>
         /// Nos dice las etiquetas de cierto examen dado el id del profesor
         /// </summary>

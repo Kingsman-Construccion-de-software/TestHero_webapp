@@ -43,6 +43,19 @@ public class ExamenPoder
         cmd.Parameters.AddWithValue("@idE", id);
         return await ReadAllAsync(await cmd.ExecuteReaderAsync());
     }
+
+    /// <summary>
+    /// Elimina cierta pregunra dado su idPregunta
+    /// </summary>
+    public async Task DeletePoder(int idE, int idP)
+    {
+        using var cmd = Db.Connection.CreateCommand();
+        cmd.CommandText = @"delete_poder";
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@idE", idExamen);
+        cmd.Parameters.AddWithValue("@idP", idPoder);
+        await cmd.ExecuteNonQueryAsync();
+    }
     private async Task<List<ExamenPoder>> ReadAllAsync(MySqlDataReader reader)
     {
         var examenes = new List<ExamenPoder>();

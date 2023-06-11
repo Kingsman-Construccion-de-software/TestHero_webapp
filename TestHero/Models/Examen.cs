@@ -124,7 +124,7 @@ namespace TestHero
             cmd.Parameters.AddWithValue("@mat", Materia); 
             cmd.Parameters.AddWithValue("@fecha1", FechaInicio);
             cmd.Parameters.AddWithValue("@fecha2", FechaFin);
-           
+          
             await cmd.ExecuteNonQueryAsync();
             IdExamen = id;
         }
