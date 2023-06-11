@@ -504,7 +504,7 @@ BEGIN
 END //
 DELIMITER ;
 
-call get_desv_est(1);
+
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_tasa_aprob;
 CREATE PROCEDURE get_tasa_aprob(idE INT)
@@ -545,7 +545,7 @@ BEGIN
 END //
 DELIMITER ;
  
- call get_pregunta_mas_dificil(1);
+
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_calificaciones;
 CREATE PROCEDURE get_calificaciones(idE INT)
@@ -598,3 +598,19 @@ BEGIN
 END// 
 DELIMITER ;
 
+DELIMITER //
+DROP PROCEDURE IF EXISTS registra_profesor;
+CREATE PROCEDURE registra_profesor(IN nom  VARCHAR(45),IN ape  VARCHAR(45),IN corr VARCHAR(45) ,IN pass VARCHAR(45))
+BEGIN
+	INSERT INTO profesor(nombres,apellidos,correo,password) values(nom,ape,corr,pass);
+END //
+DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS dame_profesor;
+CREATE PROCEDURE  dame_profesor()
+BEGIN
+	SELECT nombres, apellidos, correo 
+    FROM profesor;
+END //
+DELIMITER ;

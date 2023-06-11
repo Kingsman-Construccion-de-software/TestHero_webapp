@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./registroAlumnos.module.css";
 import logo from "../../assets/logo.png";
-import { FaArrowLeft} from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -130,19 +130,15 @@ export default function RegistroAlumnos() {
   useEffect(() => {
     getAlumno();
   }, []);
-  // // función para hacer el boton de regreso
-  // function GoBack() {
-  //   navigate("/login/alumno");
-  // }
 
   return (
     <div className={styles["login"]}>
       <div className={styles["loginWrapper"]}>
-      <FaArrowLeft
-            className={styles["BackArrow"]}
-            size={70}
-            onClick={() => navigate(-1)}
-          />
+        <FaArrowLeft
+          className={styles["BackArrow"]}
+          size={70}
+          onClick={() => navigate(-1)}
+        />
         <img src={logo} alt="Logo testHero" />
         <form className={styles["loginBox"]} onSubmit={handleRegister}>
           <p className={styles["texto"]}>Nombre(s)</p>

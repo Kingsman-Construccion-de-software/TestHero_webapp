@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./registroProfesor.module.css";
 import logo from "../../assets/logo.png";
-import { FaArrowLeft} from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
@@ -115,7 +115,7 @@ export default function RegistroProfesor() {
   };
   const getProfesor = async (e) => {
     try {
-      const url = "api/profesor ";
+      const url = "api/profesor";
       const result = await axios.get(url);
       setProfesor(result.data);
     } catch (error) {
@@ -140,11 +140,11 @@ export default function RegistroProfesor() {
   return (
     <div className={styles["login"]}>
       <div className={styles["loginWrapper"]}>
-      <FaArrowLeft
-            className={styles["BackArrow"]}
-            size={70}
-            onClick={() => navigate(-1)}
-          />
+        <FaArrowLeft
+          className={styles["BackArrow"]}
+          size={70}
+          onClick={() => navigate(-1)}
+        />
         <img src={logo} alt="Logo testHero" />
         <form className={styles["loginBox"]} onSubmit={handleRegister}>
           <p className={styles["texto"]}>Nombre(s)</p>
