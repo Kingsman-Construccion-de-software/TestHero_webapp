@@ -27,6 +27,23 @@ namespace TestHero.Controllers
             return new OkObjectResult(result);
         }
 
+        // DELETE api/<Pregunta>/id
+        [Route("api/examen/{idE:int}/poder/{idP:int}")]
+        [HttpDelete]
+        /// <summary>
+        /// Rutamiento de delete por idPregunta
+        /// </summary>
+        public async Task<IActionResult> Delete(int idE, int idP)
+        {
+            await Db.Connection.OpenAsync();
+            ExamenPoder pregunta = new ExamenPoder(Db);
+            var result = await pregunta.GetPoderExamenes(idE);
+            if (result.Count == 0)
+                return new NotFoundResult();
+            await pregunta.DeletePoder(idE, idP);
+            return new OkResult();
+        }
+
         // POST "api/examen/{idE:int}/poder/{idP:int}"
         [Route("api/examen/{idE:int}/poder/{idP:int}")]
         [HttpPost]
