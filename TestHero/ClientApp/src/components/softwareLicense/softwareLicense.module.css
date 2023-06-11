@@ -1,0 +1,41 @@
+.modal{
+    margin-top: 8vw;
+}
+.modalTitulo{
+    text-align: center !important;
+    
+}
+.modaldetalles {
+    background-color: #1d1d1d;
+    border: none;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    color: #ebebeb;
+}
+
+.modal-footer {
+    align-items: center;
+    justify-content: space-around;
+}
+
+.modal-dialog {
+    margin-top: 200vw;
+}
+
+.crudIcon path {
+    stroke: #ebebeb;
+}
+
+.crudIcon:hover path {
+    cursor: pointer;
+    stroke: rgb(207, 207, 207);
+}
+
+.positionLicense {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding-left: 2vw;
+    padding-bottom: 1vw;
+}
