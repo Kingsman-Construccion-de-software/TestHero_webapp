@@ -52,8 +52,8 @@ public class ExamenPoder
         using var cmd = Db.Connection.CreateCommand();
         cmd.CommandText = @"delete_poder";
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("@idE", idExamen);
-        cmd.Parameters.AddWithValue("@idP", idPoder);
+        cmd.Parameters.AddWithValue("@idE", idE);
+        cmd.Parameters.AddWithValue("@idP", idP);
         await cmd.ExecuteNonQueryAsync();
     }
     private async Task<List<ExamenPoder>> ReadAllAsync(MySqlDataReader reader)

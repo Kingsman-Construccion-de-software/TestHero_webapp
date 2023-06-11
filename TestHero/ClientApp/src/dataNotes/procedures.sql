@@ -628,15 +628,18 @@ DELIMITER ;
 
 
 DELIMITER //
-DROP PROCEDURE IF EXISTS delete_etiqueta;
-CREATE PROCEDURE delete_etiqueta(IN id INT)
+DROP PROCEDURE IF EXISTS delete_etiquetas_examen;
+CREATE PROCEDURE delete_etiquetas_examen(IN idEx INT, IN idEt INT)
 BEGIN
-	DELETE  from etiqueta
-    where idEtiqueta = id;
+	Delete from  ExamenEtiqueta
+   where idEtiqueta = idEt and idExamen = idEx;
 END //
 DELIMITER ;
 
-call update_examen(6,"Papalona","Prueba","2222-02-22T14:02:00","2224-02-22T14:02:00");
+call delete_etiquetas_examen(6,15);
 select * from examen;
 select * from examenpoder;
+select * from examenetiqueta;
 select * from etiqueta;
+select * from poder;
+select * from alumno;
