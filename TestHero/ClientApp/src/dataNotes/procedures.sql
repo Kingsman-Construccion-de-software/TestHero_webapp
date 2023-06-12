@@ -647,7 +647,6 @@ DELIMITER ;
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_alumnopoder;
-
 CREATE PROCEDURE get_alumnopoder(IN idP INT, IN idA INT)
 BEGIN
     SELECT alumno.idAlumno, alumno.nombres, alumno.apellidos, alumnopoder.idPoder, poder.nombre
@@ -658,8 +657,38 @@ BEGIN
 END //
 DELIMITER ;
 
-call insert_alumnopoder(8,1,2);
-call get_alumnopoder(1,8);
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_ticket;
+CREATE PROCEDURE  get_ticket(IN idA INT)
+BEGIN
+	SELECT tickets
+    FROM alumno where idAlumno = idA;
+END //
+DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS update_alumno;
+CREATE PROCEDURE update_alumno(can INT, idA INT)
+BEGIN
+	UPDATE alumno
+    SET alumno.tickets = can
+	WHERE alumno.idAlumno = idA;
+END;
+// DELIMITER ;
+
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS update_alumnopoder;
+CREATE PROCEDURE update_alumnopoder( idA INT,idP INT, can INT)
+BEGIN
+	UPDATE alumnopoder
+    SET alumnopoder.cantidad = can
+	WHERE alumnopoder.idAlumno = idA and alumnopoder.idPoder= idP; 
+END;
+// DELIMITER ;
+
+call get_ticket(16);
+call  update_alumno(3,16);
+call  update_alumnopoder(16,1,3);
 select * from alumno;
-select * from alumnoexamen;
 select * from alumnopoder;
