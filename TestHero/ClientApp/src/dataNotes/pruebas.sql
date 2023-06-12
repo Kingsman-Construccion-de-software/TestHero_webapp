@@ -27,7 +27,7 @@ insert into alumno (nombres, apellidos, correo, password, idGrupo) values ('Migu
 INSERT INTO Examen (codigo, nombre, materia, fechaInicio, fechaFin, idGrupo) VALUES ('BIOEXA01', 'Examen de Tópicos', 'BiologíaI', '2023-06-01 09:00:00', '2023-06-30 11:00:00', 1);
 INSERT INTO Examen (codigo, nombre, materia, fechaInicio, fechaFin, idGrupo) VALUES ('BIOEXA02', 'Examen de Tópicos (Segundo Periodo)', 'BiologíaII', '2023-06-01 09:00:00', '2023-06-30 11:00:00', 1);
 INSERT INTO Examen (codigo, nombre, materia, fechaInicio, fechaFin, idGrupo) VALUES ('BIOEXA03', 'Examen Mediotermino', 'BiologíaIII', '2023-06-01 09:00:00', '2023-06-30 11:00:00', 1);
-INSERT INTO Examen (codigo, nombre, materia, fechaInicio, fechaFin, idGrupo) VALUES ('BIOEXA04', 'Examen de Tópicos (Tercer Periodo)', 'BiologíaIIIV', '2023-06-01 09:00:00', '2023-06-30 11:00:00', 1);
+INSERT INTO Examen (codigo, nombre, materia, fechaInicio, fechaFin, idGrupo) VALUES ('BIOEXA04', 'Examen de Tópicos (Tercer Periodo)', 'BiologíaIV', '2023-06-01 09:00:00', '2023-06-30 11:00:00', 1);
 INSERT INTO Examen (codigo, nombre, materia, fechaInicio, fechaFin, idGrupo) VALUES ('BIOEXA05', 'Examen Final', 'BiologíaV', '2023-06-01 09:00:00', '2023-06-30 11:00:00', 1);
 
 -- Preguntas (1.1)
