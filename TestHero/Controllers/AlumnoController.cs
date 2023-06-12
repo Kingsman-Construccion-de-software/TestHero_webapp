@@ -177,5 +177,34 @@ namespace TestHero.Controllers
             return new OkObjectResult(result);
         }
 
+
+        [Route("api/alumno/{id:int}/poderes")]
+        [HttpGet]
+        /// <summary>
+        /// Rutamiento para obtener los poderes de un alumno
+        /// </summary>
+        public async Task<IActionResult> GetPoderes(int id)
+        {
+            await Db.Connection.OpenAsync();
+            AlumnoPoder alumnopoder = new AlumnoPoder(Db);
+            var result = await alumnopoder.GetPoderesAlumno(id);
+            return new OkObjectResult(result);
+        }
+
+
+        [Route("api/alumno/{id:int}/poderes")]
+        [HttpPut]
+        /// <summary>
+        /// Rutamiento para actualizar los poderes de un alumno
+        /// </summary>
+        public async Task<IActionResult> PutPoderes(int id, [FromBody] AlumnoPoder body)
+        {
+            await Db.Connection.OpenAsync();
+            body.Db = Db;
+            await body.UpdatePoderes(id);
+            body.IdAlumno = id;
+            return new OkObjectResult(body);
+        }
+
     }
 }
