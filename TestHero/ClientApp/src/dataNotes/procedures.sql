@@ -656,9 +656,6 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL get_alumnopoder(16);
-CALL get_poderExamen(2);
-
 DELIMITER //
 DROP PROCEDURE IF EXISTS get_ticket;
 CREATE PROCEDURE  get_ticket(IN idA INT)
@@ -684,7 +681,7 @@ DROP PROCEDURE IF EXISTS update_alumnopoder;
 CREATE PROCEDURE update_alumnopoder( idA INT,idP INT, can INT)
 BEGIN
 	UPDATE alumnopoder
-    SET alumnopoder.cantidad = can
+    SET alumnopoder.cantidad = alumnopoder.cantidad + can
 	WHERE alumnopoder.idAlumno = idA and alumnopoder.idPoder= idP; 
 END;
 // DELIMITER ;
