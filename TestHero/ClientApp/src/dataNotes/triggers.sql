@@ -32,3 +32,37 @@ END
 //
 DELIMITER ;
 
+/*DELIMITER //
+DROP TRIGGER IF EXISTS after_create_alumno;
+CREATE TRIGGER after_create_alumno
+AFTER INSERT 
+ON alumno FOR EACH ROW 
+BEGIN
+	
+END */
+//
+
+DELIMITER //
+DROP TRIGGER IF EXISTS alumno_insert_trigger;
+CREATE TRIGGER alumno_insert_trigger AFTER INSERT ON alumno
+FOR EACH ROW
+BEGIN
+    DECLARE power_count INT;
+    DECLARE power_id INT;
+
+    -- Obtiene la cantidad de poderes existentes
+    SELECT COUNT(*) INTO power_count FROM poder;
+
+    -- Itera sobre cada poder y crea una entrada en alumnopoder con cantidad 0 para el nuevo alumno
+    SET power_id = 1;
+    WHILE power_id <= power_count DO
+        INSERT INTO alumnopoder (idAlumno, idPoder, cantidad) VALUES (NEW.idAlumno, power_id, 0);
+        SET power_id = power_id + 1;
+    END WHILE;
+  
+END //
+
+DELIMITER ;
+
+
+select * from profesor;

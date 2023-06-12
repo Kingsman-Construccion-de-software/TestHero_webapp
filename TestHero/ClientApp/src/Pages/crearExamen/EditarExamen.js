@@ -58,7 +58,6 @@ function EditarExamen() {
       setFecha2(datePart);
       setHora2(timePart);
       setExamenes(result.data[0]);
-      console.log(result.data[0].codigo);
     } catch (error) {
       console.log(error);
     }
@@ -79,13 +78,9 @@ function EditarExamen() {
     const url = "api/examenpoder/" + parametro;
     try {
       const result = await axios.get(url);
-      console.log(result.data);
-
       const poderesSeleccionados = nombresPoderes.map(() => 0);
-
-      // Recorrer los datos devueltos por la API
       result.data.forEach((data) => {
-        const poderIndex = data.idPoder - 1; // Restar 1 al ID para obtener el índice del poder
+        const poderIndex = data.idPoder - 1; //
         if (poderIndex >= 0 && poderIndex < nombresPoderes.length) {
           poderesSeleccionados[poderIndex] = 1;
         }
@@ -101,6 +96,7 @@ function EditarExamen() {
     getExamenes();
     getEtiqueta();
     getPoder();
+    getTags();
   }, []);
 
   /**Checa que tecla fue usada */
@@ -122,10 +118,11 @@ function EditarExamen() {
     }
   };
   /**Checa que etiqueta fue eliminar y le debes pasar como parametro la etiqueta a eliminar */
-  const handleTagDelete = (tagToDelete) => {
+  const handleTagDelete = async (tagToDelete) => {
+    await tags.forEach((tag) => deleteTag(tagToDelete, parametro));
     setTags(tags.filter((tag) => tag !== tagToDelete));
   };
-
+  // importante
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -149,7 +146,10 @@ function EditarExamen() {
     const result = await axios.put(url, data);
 
     await tags.forEach((tag) => postTag(tag, result.data.idExamen));
-    await poderes.forEach((poder, id) => sendPoder(id, result.data.idExamen));
+
+    await poderes.forEach((poder, id) =>
+      updatePoder(poder, id, result.data.idExamen)
+    );
     swal({
       title: "Se ha editado un examen",
       button: "Aceptar",
@@ -158,14 +158,23 @@ function EditarExamen() {
     goToExamenes();
   };
 
-  const sendPoder = async (idPoder, idExamen) => {
-    const url = `api/examen/${idExamen}/poder/${idPoder}`;
-    await axios.post(url);
+  const updatePoder = async (poder, idPoder, idExamen) => {
+    const url = `api/examen/${idExamen}/poder/${idPoder + 1}`;
+    if (poder === 1) {
+      try {
+        await axios.post(url); // Agregar poder
+      } catch (e) {}
+    } else {
+      try {
+        await axios.delete(url); // Elimina poder
+      } catch (e) {}
+    }
   };
 
   const postTag = async (tag, idExamen) => {
     const filtrado = etiquetas.filter((etiqueta) => etiqueta.nombre === tag);
-
+    console.log(tag);
+    console.log(idExamen);
     let id = 0;
 
     if (filtrado.length === 0) {
@@ -174,13 +183,42 @@ function EditarExamen() {
       const data = {
         Nombre: tag,
       };
-      const result = await axios.post(url, data);
-      id = result.data.idEtiqueta;
+      try {
+        const result = await axios.post(url, data);
+        id = result.data.idEtiqueta;
+      } catch (e) {}
     } else {
       id = filtrado[0].idEtiqueta;
     }
-    const url = `api/etiqueta/${id}/examen/${idExamen}`;
-    const result = await axios.post(url);
+    const url2 = `api/etiqueta/${id}/examen/${idExamen}`;
+    try {
+      const result = await axios.post(url2);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const deleteTag = async (tagToDelete, idExamen) => {
+    const filtrado = etiquetas.filter(
+      (etiqueta) => etiqueta.nombre === tagToDelete
+    );
+    console.log(idExamen);
+    console.log(tagToDelete);
+    console.log(filtrado);
+
+    const url2 = `api/etiqueta/${filtrado[0].idEtiqueta}/examen/${idExamen}`;
+    console.log(url2);
+    try {
+      const result = await axios.delete(url2);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getTags = async () => {
+    const url = "api/etiqueta";
+    const result = await axios.get(url);
+    setEtiquetas([...result.data]);
   };
 
   /**

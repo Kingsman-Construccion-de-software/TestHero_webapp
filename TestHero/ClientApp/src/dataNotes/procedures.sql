@@ -628,15 +628,67 @@ DELIMITER ;
 
 
 DELIMITER //
-DROP PROCEDURE IF EXISTS delete_etiqueta;
-CREATE PROCEDURE delete_etiqueta(IN id INT)
+DROP PROCEDURE IF EXISTS delete_etiquetas_examen;
+CREATE PROCEDURE delete_etiquetas_examen(IN idEx INT, IN idEt INT)
 BEGIN
-	DELETE  from etiqueta
-    where idEtiqueta = id;
+	Delete from  ExamenEtiqueta
+   where idEtiqueta = idEt and idExamen = idEx;
 END //
 DELIMITER ;
 
-call update_examen(6,"Papalona","Prueba","2222-02-22T14:02:00","2224-02-22T14:02:00");
-select * from examen;
-select * from examenpoder;
-select * from etiqueta;
+DELIMITER //
+DROP PROCEDURE IF EXISTS insert_alumnopoder;
+CREATE PROCEDURE insert_alumnopoder(IN idA text ,IN idP int ,IN can int )
+BEGIN
+	INSERT INTO alumnopoder(idAlumno, idPoder, cantidad) values(idA, idP,can);
+END //
+DELIMITER ;
+
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_alumnopoder;
+CREATE PROCEDURE get_alumnopoder(IN idP INT, IN idA INT)
+BEGIN
+    SELECT alumno.idAlumno, alumno.nombres, alumno.apellidos, alumnopoder.idPoder, poder.nombre
+    FROM alumno
+    INNER JOIN alumnopoder ON alumno.idAlumno = alumnopoder.idAlumno
+    INNER JOIN poder ON poder.idPoder = alumnopoder.idPoder
+    WHERE alumnopoder.idPoder = idP AND alumnopoder.idAlumno = idA;
+END //
+DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS get_ticket;
+CREATE PROCEDURE  get_ticket(IN idA INT)
+BEGIN
+	SELECT tickets
+    FROM alumno where idAlumno = idA;
+END //
+DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS update_alumno;
+CREATE PROCEDURE update_alumno(can INT, idA INT)
+BEGIN
+	UPDATE alumno
+    SET alumno.tickets = can
+	WHERE alumno.idAlumno = idA;
+END;
+// DELIMITER ;
+
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS update_alumnopoder;
+CREATE PROCEDURE update_alumnopoder( idA INT,idP INT, can INT)
+BEGIN
+	UPDATE alumnopoder
+    SET alumnopoder.cantidad = can
+	WHERE alumnopoder.idAlumno = idA and alumnopoder.idPoder= idP; 
+END;
+// DELIMITER ;
+
+call get_ticket(16);
+call  update_alumno(3,16);
+call  update_alumnopoder(16,1,3);
+select * from alumno;
+select * from alumnopoder;

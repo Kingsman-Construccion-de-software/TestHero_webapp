@@ -13,6 +13,7 @@ import MultipleViewCard from "components/multiple-view-card/MultipleViewCard";
 import Questions from "Pages/questions/questions";
 import Results from "Pages/results/Results";
 import Analitica from "Pages/analitica/Analitica";
+import swal from "sweetalert";
 /**
  * @author Bernardo de la Sierra y Julio Meza
  * @version 2.1.1
@@ -52,6 +53,11 @@ export default function ResumenExamen() {
     } catch (e) {
       alert(e);
     }
+    swal({
+      title: "Se ha eliminado una examen",
+      button: "Aceptar",
+      icon: "error",
+    });
   };
 
   const EditExam = () => {
