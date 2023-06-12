@@ -21,7 +21,7 @@ export default function SoftwareLicense() {
         <GrLicense size={50} className={styles["crudIcon"]} />
       </div>
       <Modal show={show} onHide={handleClose} className={styles["modal"]}>
-        <Modal.Header closeButton className={styles["modaldetalles"]}>
+        <Modal.Header  className={styles["modaldetalles"]}>
           <Modal.Title className={`${styles.modalTitulo}`}>
             Licencia de nuestro Software    
           </Modal.Title>
@@ -36,7 +36,8 @@ export default function SoftwareLicense() {
           que ha realizado y no ofrecer ninguna garantía sobre el software. No
           puede impedir que los usuarios instalen o ejecuten versiones
           modificadas del software en sus dispositivos. Para más información
-          sobre la GPL, consulte https://www.gnu.org/licenses/gpl-3.0.en.html
+          sobre la GPL, consulte 
+          https://www.gnu.org/licenses/gpl-3.0.en.html
         </Modal.Body>
         <Modal.Footer className={styles["modaldetalles"]}>
           <Button
