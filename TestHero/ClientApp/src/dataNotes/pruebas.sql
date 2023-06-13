@@ -417,3 +417,6 @@ insert into examenpoder(idExamen, idPoder) values (4, 1);
 insert into examenpoder(idExamen, idPoder) values (4, 2);
 insert into examenpoder(idExamen, idPoder) values (4, 3);
 -- no hay poderes para el último examen
+
+SELECT * FROM alumnopoder;
+DELETE FROM alumno;

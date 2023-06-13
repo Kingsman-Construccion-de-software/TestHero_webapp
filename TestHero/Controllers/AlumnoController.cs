@@ -128,7 +128,7 @@ namespace TestHero.Controllers
         /// <summary>
         /// Rutamiento de get profesor por idProfesor
         /// </summary>
-        public async Task<IActionResult> GetAlumnos()
+        public async Task<IActionResult> GetAlumnosRegistro()
 
         {
             await Db.Connection.OpenAsync();
@@ -142,12 +142,69 @@ namespace TestHero.Controllers
         /// <summary>
         /// Rutamiento de registor alumno
         /// </summary>
-        public async Task<IActionResult> Post([FromBody] Alumno body)
+        public async Task<IActionResult> PostAlumnosRegistro([FromBody] Alumno body)
         {
             await Db.Connection.OpenAsync();
             body.Db = Db;
             await body.InsertAlumno();
             return new OkObjectResult(body);
         }
+
+
+        [Route("api/alumno/{id:int}/tickets")]
+        [HttpPut]
+        /// <summary>
+        /// Rutamiento de actualizar tickets
+        /// </summary>
+        public async Task<IActionResult> PutTickets(int id, [FromBody] Ticket body)
+        {
+            await Db.Connection.OpenAsync();
+            body.Db = Db;
+            await body.UpdateTickets(id);
+            return new OkObjectResult(body);
+        }
+
+        [Route("api/alumno/{id:int}/tickets")]
+        [HttpGet]
+        /// <summary>
+        /// Rutamiento de obtener tickets
+        /// </summary>
+        public async Task<IActionResult> GetTickets(int id)
+        {
+            await Db.Connection.OpenAsync();
+            Ticket ticket = new Ticket(Db);
+            var result = await ticket.GetTickets(id);
+            return new OkObjectResult(result);
+        }
+
+
+        [Route("api/alumno/{id:int}/poderes")]
+        [HttpGet]
+        /// <summary>
+        /// Rutamiento para obtener los poderes de un alumno
+        /// </summary>
+        public async Task<IActionResult> GetPoderes(int id)
+        {
+            await Db.Connection.OpenAsync();
+            AlumnoPoder alumnopoder = new AlumnoPoder(Db);
+            var result = await alumnopoder.GetPoderesAlumno(id);
+            return new OkObjectResult(result);
+        }
+
+
+        [Route("api/alumno/{id:int}/poderes")]
+        [HttpPut]
+        /// <summary>
+        /// Rutamiento para actualizar los poderes de un alumno
+        /// </summary>
+        public async Task<IActionResult> PutPoderes(int id, [FromBody] AlumnoPoder body)
+        {
+            await Db.Connection.OpenAsync();
+            body.Db = Db;
+            await body.UpdatePoderes(id);
+            body.IdAlumno = id;
+            return new OkObjectResult(body);
+        }
+
     }
 }

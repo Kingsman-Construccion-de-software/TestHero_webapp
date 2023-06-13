@@ -64,5 +64,13 @@ END //
 
 DELIMITER ;
 
+SELECT * FROM alumno;
+SELECT * FROM alumnoexamen;
+SELECT * FROM alumnopregunta;
 
-select * from profesor;
+DELETE FROM alumnoexamen;
+DELETE FROM alumnopregunta;
+
+SELECT * FROM examenpoder;
+SELECT * FROM poder;
+SELECT * FROM alumnopoder;
