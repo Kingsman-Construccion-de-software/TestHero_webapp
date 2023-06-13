@@ -204,12 +204,14 @@ export default function Pregunta({
                           <input
                             type="radio"
                             checked
+                            maxLength={50}
                             name={`opcion`}
                             value={`opcion${index}`}
                           />
                         ) : (
                           <input
                             disabled
+                            maxLength={50}
                             type="radio"
                             name={`opcion`}
                             value={`opcion${index}`}
@@ -280,6 +282,7 @@ export default function Pregunta({
             className={styles["inputpregunta"]}
             value={fpregunta}
             required
+            maxLength={50}
             onChange={(e) => setFpregunta(e.target.value)}
             type="text"
           />
@@ -296,6 +299,7 @@ export default function Pregunta({
                         value={index}
                         name="opciones"
                         required
+                        maxLength={50}
                         checked={selectedValue === index}
                         onChange={handleOptionChange}
                       />
@@ -305,7 +309,7 @@ export default function Pregunta({
                         placeholder={`Opcion ${index + 1}`}
                         className={styles["opciones"]}
                         value={opciones[index]}
-                        maxLength="60"
+                        maxLength={50}
                         onChange={(e) => setOpciones[index](e.target.value)}
                         type="text"
                       />

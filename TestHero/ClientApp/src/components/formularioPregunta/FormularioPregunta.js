@@ -119,6 +119,7 @@ export default function FormularioPregunta({
             placeholder="Escribe la pregunta"
             value={fpregunta}
             required
+            maxLength={50}
             onChange={(e) => setFpregunta(e.target.value)}
             type="text"
           />
@@ -131,6 +132,7 @@ export default function FormularioPregunta({
                 type="radio"
                 value="option0"
                 required
+                maxLength={50}
                 checked={selectedValue === "option0"}
                 onChange={handleOptionChange}
               />
@@ -138,6 +140,7 @@ export default function FormularioPregunta({
                 className={styles["opciones"]}
                 placeholder="Opcion 1"
                 value={opcion}
+                maxLength={50}
                 required
                 onChange={(e) => setOpcion(e.target.value)}
                 type="text"
@@ -148,6 +151,7 @@ export default function FormularioPregunta({
                 type="radio"
                 value="option1"
                 required
+                maxLength={50}
                 checked={selectedValue === "option1"}
                 onChange={handleOptionChange}
               />
@@ -156,6 +160,7 @@ export default function FormularioPregunta({
                 placeholder="Opcion 2"
                 value={opcion2}
                 required
+                maxLength={50}
                 onChange={(e) => setOpcion2(e.target.value)}
                 type="text"
               />
@@ -165,6 +170,7 @@ export default function FormularioPregunta({
                 type="radio"
                 value="option2"
                 required
+                maxLength={50}
                 checked={selectedValue === "option2"}
                 onChange={handleOptionChange}
               />
@@ -173,6 +179,7 @@ export default function FormularioPregunta({
                 placeholder="Opcion 3"
                 value={opcion3}
                 required
+                maxLength={50}
                 onChange={(e) => setOpcion3(e.target.value)}
                 type="text"
               />
@@ -182,6 +189,7 @@ export default function FormularioPregunta({
                 type="radio"
                 value="option3"
                 required
+                maxLength={50}
                 checked={selectedValue === "option3"}
                 onChange={handleOptionChange}
               />
@@ -190,6 +198,7 @@ export default function FormularioPregunta({
                 placeholder="Opcion 4"
                 value={opcion4}
                 required
+                maxLength={50}
                 onChange={(e) => setOpcion4(e.target.value)}
                 type="text"
               />
