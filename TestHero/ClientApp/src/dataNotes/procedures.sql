@@ -686,4 +686,6 @@ BEGIN
 END;
 // DELIMITER ;
 
+
 SELECT * FROM alumno;
+
