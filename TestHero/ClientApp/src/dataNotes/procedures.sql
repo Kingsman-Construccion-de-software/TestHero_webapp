@@ -692,3 +692,4 @@ call  update_alumno(3,16);
 call  update_alumnopoder(16,1,3);
 select * from alumno;
 select * from alumnopoder;
+select * from examen;

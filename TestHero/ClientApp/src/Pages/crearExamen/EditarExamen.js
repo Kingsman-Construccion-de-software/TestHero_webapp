@@ -202,9 +202,6 @@ function EditarExamen() {
     const filtrado = etiquetas.filter(
       (etiqueta) => etiqueta.nombre === tagToDelete
     );
-    console.log(idExamen);
-    console.log(tagToDelete);
-    console.log(filtrado);
 
     const url2 = `api/etiqueta/${filtrado[0].idEtiqueta}/examen/${idExamen}`;
     console.log(url2);
